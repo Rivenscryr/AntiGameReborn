@@ -9,3 +9,52 @@
 
     border: 1px solid #000000;
 }
+
+#messages .agoSpyActivity {
+	float: left;
+	width: 50px;
+}
+
+#messages .agoSpyLoot {
+	float: left;
+	width: 70px;
+}
+
+#messages .agoSpyFleet {
+	width: 50px;
+}
+
+#messages div .msg_head {
+	padding-bottom: 5px;
+    margin-bottom: 0;
+}
+
+div.agoButtons {
+    margin-left: 3px;
+    margin-top: 45px;
+}
+
+.anti_msg_buttons td {
+    white-space: nowrap;
+}
+
+.anti_msg_buttons input {
+    background: url("images/formular_buttons.gif") no-repeat -66px -44px;
+    background-size: 132px 88px;
+    border: 0 none;
+    cursor: pointer !important;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    height: 22px;
+    width: 32px;
+    padding-bottom: 0
+}
+
+.anti_msg_buttons input:hover {
+    background-position: -66px -66px
+}
+
+.ctn_with_trash {
+    margin: 15px 0 0 0 !important;
+}
