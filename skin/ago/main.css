@@ -1,0 +1,1137 @@
+.ago_color_white {
+    color: #ffffff !important
+}
+
+.ago_color_brighter {
+    color: #efebe2
+}
+
+.ago_color_bright {
+    color: #cfcbc2 !important
+}
+
+.ago_color_light {
+    color: #a1a1a1
+}
+
+.ago_color_normal {
+    color: #848484
+}
+
+.ago_color_menu {
+    color: #767f88
+}
+
+.ago_color_menuinactive {
+    color: #343739
+}
+
+.ago_color_blue {
+    color: #6f9fc8 !important
+}
+
+.ago_color_bluegrey {
+    color: #8c9eaa !important
+}
+
+.ago_color_bluenote {
+    color: #0066bb !important
+}
+
+.ago_color_green {
+    color: green !important
+}
+
+.ago_color_lightgreen {
+    color: #00b000 !important
+}
+
+.ago_color_limegreen {
+    color: #99cc00 !important
+}
+
+.ago_color_yellow {
+    color: #ffff00 !important
+}
+
+.ago_color_orange {
+    color: #ff9600 !important
+}
+
+.ago_color_lightorange {
+    color: #ffb500 !important
+}
+
+.ago_color_limeorange {
+    color: #fd8a1c !important
+}
+
+.ago_color_darkorange {
+    color: #ff4b00 !important
+}
+
+.ago_color_darkerorange {
+    color: #a26d00 !important
+}
+
+.ago_color_red {
+    color: red !important
+}
+
+.ago_color_palered {
+    color: #d43635 !important
+}
+
+.ago_color_stationed {
+    color: #6f9fc8 !important
+}
+
+.ago_color_reserved {
+    color: #0066bb !important
+}
+
+.ago_color_neutral {
+    color: #d29d00 !important
+}
+
+.ago_color_hostile {
+    color: #f20102 !important
+}
+
+.ago_color_own {
+    color: #99cc00 !important
+}
+
+.ago_color_reverse {
+    color: #6c802d !important
+}
+
+.ago_color_friend {
+    color: teal !important
+}
+
+.ago_color_enemy {
+    color: #ff33ff !important
+}
+
+.ago_selected, .ago_highlight {
+    border-radius: 3px
+}
+
+#rechts .ago_selected, #rechts .ago_highlight, #galaxytable .ago_selected, #galaxytable .ago_highlight {
+    border-radius: 5px
+}
+
+#inhalt .ago_selected, #jumpgate .ago_selected {
+    background-color: #182028
+}
+
+.ago_selected_button {
+    box-shadow: 0 0 3px 2px #69affc, 0 0 1px 1px #69affc inset
+}
+
+.ago_hover:hover {
+    border-radius: 3px;
+    background-color: #212a33
+}
+
+.ago_action {
+    cursor: pointer;
+    border-radius: 3px
+}
+
+.ago_action:hover {
+    color: #cfcbc2;
+    background-color: #32495a !important
+}
+
+.ago_text_background {
+    background-color: rgba(0, 0, 0, .65)
+}
+
+.ago_text_background_dark {
+    background-color: rgba(12, 16, 20, .9)
+}
+
+span.anti_shortcut {
+    color: #3344cc;
+    font-size: 11px;
+    font-weight: 700
+}
+
+.ago_display_arrow {
+    background: url("http://gf1.geo.gfsrv.net/cdn0b/d55059f8c9bab5ebf9e8a3563f26d1.gif") no-repeat 0 0;
+    display: inline-block;
+    height: 22px;
+    width: 22px;
+    cursor: pointer
+}
+
+.ui-dialog .ui-dialog-titlebar .ago_display_arrow {
+    position: absolute;
+    right: 36px;
+    top: 50%;
+    margin: -10px 0 0
+}
+
+.ui-dialog[ago_display_status="2"] .ago_display_arrow {
+    background-position: 0 -22px
+}
+
+.ago_icon_reserved {
+    display: inline-block;
+    background: url("images/icon_reserved.gif") no-repeat 0 0;
+    width: 16px;
+    height: 16px
+}
+
+.ago_icon_reserved_red {
+    background: url("images/icon_reserved_red.gif") no-repeat 0 0
+}
+
+.ago_icon_reserved_red, .ago_icon_close {
+    display: inline-block;
+    width: 16px;
+    height: 16px
+}
+
+.ago_icon_close {
+    background: url("http://gf1.geo.gfsrv.net/cdn34/aaf1c61682bcced5096fa5f23fd802.png") no-repeat -207px 0
+}
+
+.ago_box_icon22 {
+    display: inline-block;
+    background: url("http://gf1.geo.gfsrv.net/cdn04/68d38fdc7e46e0e812048fa6d2c0d9.png") no-repeat 0 0;
+    background-size: 286px 66px;
+    width: 22px;
+    height: 22px
+}
+
+.ago_box_icon22.galaxy {
+    background-position: -110px 0
+}
+
+.ago_box_icon22.galaxy.highlighted {
+    background-position: -110px -22px
+}
+
+#mmonetbar {
+    z-index: auto !important
+}
+
+#mmoContent {
+    z-index: 3000 !important
+}
+
+#star, #star1, #star2, #changelog_link {
+    display: none
+}
+
+#bar a.ago_backup_auto, #bar a:link.ago_backup_auto {
+    color: orange
+}
+
+.ago_clock {
+    color: #848484;
+    font-size: 11px;
+    font-weight: 700;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 21px
+}
+
+.ago_clock span {
+    display: inline-block;
+    width: 144px
+}
+
+.adviceWrapper {
+    margin-top: 0 !important
+}
+
+#ago_menubutton_coords {
+    float: right;
+    padding: 0 10px 0 0;
+    font-weight: 400
+}
+
+#ago_menubutton_logo {
+    display: block;
+    height: 27px;
+    width: 38px;
+    text-align: left;
+    background: url("images/menu_logo.png") no-repeat 0 -29px
+}
+
+#ago_menubutton_logo.ago_menubutton_logo_inactive {
+    background-position: 0 -145px
+}
+
+#ago_menubutton_logo.ago_menubutton_logo_coords {
+    background-position: 0 -29px
+}
+
+#ago_menubutton_logo.ago_menubutton_logo_autocopy {
+    background-position: 0 -58px
+}
+
+#links .leftmenu li.ago_menubutton_info {
+    display: none;
+    background: 0 0;
+    background-color: #0d1014;
+    border: 1px solid #000000;
+    border-radius: 3px;
+    width: 168px;
+    height: auto;
+    font-size: 11px;
+    text-align: center
+}
+
+.ago_panel_add {
+    cursor: -moz-zoom-in;
+    cursor: -webkit-zoom-in
+}
+
+.ago_panel_remove {
+    cursor: -moz-zoom-out;
+    cursor: -webkit-zoom-out
+}
+
+.ago_panel_view {
+    cursor: help
+}
+
+.ago_panel_view:hover {
+    background-color: #212a33;
+    border-radius: 3px
+}
+
+.ago_panel_arrow {
+    background: url("images/panel_arrow.gif") no-repeat 0 0;
+    display: inline-block;
+    height: 24px;
+    width: 25px
+}
+
+#ago_panel_button {
+    display: inline-block;
+    width: 300px;
+    height: 80px;
+    cursor: pointer;
+    position: absolute;
+    top: -32px;
+    left: -200px;
+    z-index: 2
+}
+
+#ago_panel_button .ago_panel_arrow {
+    display: none;
+    position: relative;
+    left: 200px;
+    top: 54px;
+    background-position: -25px 0
+}
+
+#ago_panel_button.ago_panel_slide .ago_panel_arrow, #ago_panel_button.ago_visible_hide .ago_panel_arrow {
+    display: inline-block
+}
+
+#ago_panel_button[ago_hover_status="1"] .ago_panel_arrow {
+    background-position: 0 0
+}
+
+#ago_panel_button[ago_display_status="2"] .ago_panel_arrow {
+    display: none
+}
+
+#ago_panel {
+    font-size: 11px;
+    margin: 0;
+    padding: 0 0 25px;
+    position: absolute;
+    top: 20px;
+    z-index: 200
+}
+
+.ago_panel_wrapper {
+    border: 2px solid #000000;
+    border-radius: 5px
+}
+
+.ago_visible_hide + #ago_panel {
+    display: none
+}
+
+.ago_visible_weak + #ago_panel {
+    opacity: .2
+}
+
+.ago_visible_middle + #ago_panel {
+    opacity: .5
+}
+
+.ago_visible_strong + #ago_panel {
+    opacity: .7
+}
+
+.ago_visible_show + #ago_panel {
+    opacity: 1
+}
+
+#ago_panel_button[ago_display_status="1"] + #ago_panel, #ago_panel_button[ago_display_status="2"] + #ago_panel {
+    display: block !important;
+    opacity: 1
+}
+
+.ago_panel_settings, .ago_panel_overview, .ago_panel_content, .ago_panel_links {
+    padding: 2px;
+    margin: 0 0 10px;
+    border-radius: 5px
+}
+
+.ago_panel_overview {
+    background: linear-gradient(to bottom, #192026 0, #0d1014 30px, #0d1014 90%, #192026 100%)
+}
+
+.ago_panel_content, .ago_panel_links {
+    background: linear-gradient(to bottom, #192026 0, #0d1014 30px, #0d1014 100%)
+}
+
+.ago_panel_settings td, .ago_panel_overview td {
+    padding: 0 2px;
+    margin: 0
+}
+
+.ago_panel_content li, .ago_panel_links li {
+    padding: 0 2px
+}
+
+.ago_panel_wrapper {
+    background: #0d1014
+}
+
+.ago_panel_tab {
+    background: #161a1f
+}
+
+#ago_panel, .ago_panel_content_value, #ago_panel a {
+    color: #848484;
+    text-decoration: none
+}
+
+.ago_panel_tab, .ago_panel_settings_header, .ago_panel_content_header, .ago_panel_links_header {
+    color: #6f9fc8
+}
+
+#ago_panel a.btn_blue {
+    color: #cfcbc2
+}
+
+.ago_panel_tab, .ago_panel_settings tr[ago-data], .ago_panel_overview tr, .ago_panel_content li[ago-data], .ago_panel_links li:not(.ago_panel_links_header) {
+    cursor: pointer;
+    border-radius: 3px
+}
+
+.ago_panel_tab_open .ago_panel_tab, .ago_panel_tab:hover, .ago_panel_settings tr[ago-data]:hover, .ago_panel_overview tr:hover, .ago_panel_content li[ago-data]:hover, .ago_panel_links li:hover:not(.ago_panel_links_header) {
+    color: #cfcbc2;
+    background: #32495a
+}
+
+.ago_panel_tab:hover, #ago_panel a.btn_blue:hover {
+    color: #efebe2
+}
+
+#ago_panel .ago_panel_arrow {
+    display: none;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    background-position: -25px 0
+}
+
+#ago_panel .ago_panel_arrow:last-child {
+    top: auto;
+    bottom: 27px
+}
+
+#ago_panel_button.ago_panel_slide + #ago_panel .ago_panel_arrow:last-child {
+    display: inline-block
+}
+
+#ago_panel_button.ago_panel_slide[ago_hover_status="1"] + #ago_panel .ago_panel_arrow {
+    background-position: 0 0
+}
+
+#ago_panel_button.ago_panel_slide[ago_display_status="2"] + #ago_panel .ago_panel_arrow {
+    display: inline-block;
+    background-position: -25px -24px
+}
+
+#ago_panel_button.ago_panel_slide[ago_display_status="2"][ago_hover_status="1"] + #ago_panel .ago_panel_arrow {
+    background-position: 0 -24px
+}
+
+.ago_panel_tab {
+    font-weight: 700;
+    text-align: center;
+    height: 22px;
+    line-height: 22px;
+    margin-bottom: 2px;
+    border: 1px solid #000000;
+    border-radius: 5px
+}
+
+.ago_panel_tab_header, .ago_panel_tab_content, .ago_panel_tab_footer {
+    display: none;
+    margin: 0 2px
+}
+
+.ago_panel_tab_open .ago_panel_tab_header, .ago_panel_tab_open .ago_panel_tab_content, .ago_panel_tab_open .ago_panel_tab_footer {
+    display: block
+}
+
+#ago_panel_Settings .ago_panel_tab_header {
+    min-height: 88px
+}
+
+.ago_panel_slide + #ago_panel #ago_panel_I60, .ago_visible_hide + #ago_panel #ago_panel_I60 {
+    margin-bottom: 26px
+}
+
+.ago_panel_tab_info {
+    position: absolute;
+    right: 10px;
+    font-weight: 400
+}
+
+#ago_panel_Settings .ago_panel_settings {
+    margin: 0
+}
+
+.ago_panel_settings td {
+    height: 19px;
+    line-height: 19px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis
+}
+
+.ago_panel_settings_select td {
+    border-bottom: 4px solid #0d1014
+}
+
+.ago_panel_settings_indent td:first-child {
+    padding-left: 10px
+}
+
+.ago_panel_settings input {
+    padding: 0;
+    margin: 0;
+    float: right
+}
+
+.ago_panel_settings select {
+    padding: 0 0 0 7px
+}
+
+.ago_panel_settings select, .ago_panel_settings select option {
+    font-size: 11px !important;
+    height: 19px;
+    min-height: 19px;
+    line-height: 19px !important;
+    vertical-align: inherit;
+    margin: 0;
+    font: inherit !important
+}
+
+.ago_panel_settings select {
+    display: block;
+    visibility: visible !important;
+    width: 100%;
+    border: none !important;
+    border-radius: 3px
+}
+
+.ago_panel_settings select option {
+    padding: 0 0 0 10px
+}
+
+.ago_panel_fleets {
+    text-align: right
+}
+
+.ago_panel_fleets span {
+    font-weight: 700;
+    display: inline-block;
+    padding-left: 5px;
+    min-width: 8px
+}
+
+.ago_panel_overview tr {
+    position: relative
+}
+
+.ago_panel_overview td {
+    height: 18px;
+    line-height: 18px;
+    overflow: hidden;
+    white-space: nowrap
+}
+
+.ago_panel_overview_coords_small {
+    font-size: 10px;
+    letter-spacing: -1px
+}
+
+.ago_panel_overview_name {
+    text-overflow: ellipsis
+}
+
+.ago_panel_overview_name img {
+    padding: 0 2px 0 0;
+    position: relative;
+    left: -2px;
+    top: 1px
+}
+
+.ago_panel_overview_count {
+    text-align: right
+}
+
+.ago_panel_overview_count img {
+    float: left;
+    padding-top: 3px
+}
+
+td.ago_panel_overview_status {
+    padding-left: 26px;
+    position: relative
+}
+
+.ago_panel_overview_status img {
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    margin-top: 2px;
+    right: 22px
+}
+
+.ago_panel_overview_status span {
+    width: 3px;
+    height: 10px;
+    display: inline-block;
+    margin-left: 2px
+}
+
+#ago_panel textarea {
+    height: 18px;
+    min-height: 18px;
+    max-height: 100px;
+    min-width: 94%;
+    max-width: 94%
+}
+
+.ago_panel_content {
+    position: relative
+}
+
+.ago_panel_content li {
+    height: 15px;
+    line-height: 15px;
+    min-height: 10px;
+    margin: 0 0 0 5px
+}
+
+.ago_panel_content li.ago_panel_content_action {
+    height: 17px;
+    line-height: 17px;
+    margin: 3px 0 -7px
+}
+
+.ago_panel_content li.ago_panel_content_header {
+    height: 19px;
+    line-height: 19px;
+    margin: 0 0 2px
+}
+
+.ago_panel_content li.ago_panel_content_header:not(:first-child) {
+    margin-top: 10px
+}
+
+.ago_panel_content_disabled {
+    opacity: .25
+}
+
+.ago_panel_content span {
+    height: inherit;
+    line-height: inherit
+}
+
+.ago_panel_content_unavailable {
+    font-style: italic;
+    color: #ff4b00 !important
+}
+
+.ago_panel_content_action {
+    text-align: center
+}
+
+.ago_panel_content_action span {
+    display: inline-block;
+    width: 40px;
+    min-width: 40px;
+    text-align: center;
+    vertical-align: top
+}
+
+.ago_panel_content_action a {
+    margin: 0 5px
+}
+
+.ago_panel_content_action a:first-child:not(.icon) {
+    margin: 0;
+    position: absolute;
+    left: 3px
+}
+
+.ago_panel_content_action a.icon_delete {
+    margin: 0;
+    position: absolute;
+    right: 3px
+}
+
+.ago_panel_content_action:not(.ago_panel_content_reserved) a.ago_icon_reserved, .ago_panel_content_action:not(.ago_panel_content_reserved) a.ago_icon_reserved_red, .ago_panel_content_action.ago_panel_content_reserved a.icon_skip_back, .ago_panel_content_action.ago_panel_content_reserved a.icon_skip {
+    display: none
+}
+
+.ago_panel_content_fleets {
+    text-align: right
+}
+
+.ago_panel_content_fleets span {
+    font-weight: 700;
+    display: inline-block;
+    padding-left: 5px;
+    min-width: 8px
+}
+
+.ago_panel_content_value {
+    position: absolute;
+    right: 4px
+}
+
+.ago_panel_content a.btn_blue {
+    height: 14px;
+    font-size: 10px;
+    padding: 0 6px;
+    margin: 3px 0;
+    text-transform: uppercase
+}
+
+.ago_panel_links li {
+    height: 15px;
+    line-height: 15px;
+    min-height: 10px;
+    margin: 0 0 0 5px
+}
+
+.ago_panel_links li.ago_panel_links_header {
+    height: 19px;
+    line-height: 19px;
+    margin: 0 0 2px
+}
+
+.ago_panel_links a, #ago_box {
+    display: block
+}
+
+#ago_box {
+    padding: 0;
+    width: 170px;
+    height: auto;
+    margin: 0 0 25px;
+    float: left;
+    background: #0d1014;
+    border: 1px solid #000000;
+    border-radius: 5px
+}
+
+#ago_box_header {
+    position: relative;
+    text-align: center;
+    padding-top: 4px;
+    height: 22px;
+    background: url("http://gf2.geo.gfsrv.net/cdn72/d99a48dc0f072590fbf110ad2a3ef5.png") no-repeat -162px -214px;
+    background-size: 580px 316px
+}
+
+#ago_box_title {
+    font-weight: 700;
+    font-size: 11px;
+    color: #a1a1a1
+}
+
+#ago_box_header .ago_box_icon22 {
+    position: absolute;
+    top: 2px;
+    left: 2px
+}
+
+#ago_box_header .ago_icon_close {
+    position: absolute;
+    top: 4px;
+    right: 4px
+}
+
+#ago_box_content div, #ago_box_content a {
+    height: 20px;
+    line-height: 20px
+}
+
+#ago_box_content a {
+    display: inline-block;
+    text-align: left;
+    font-size: 10px;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 0 0 3px;
+    min-width: 58px;
+    max-width: 58px;
+    border: none;
+    border-radius: 3px
+}
+
+#ago_box_content a:hover:first-child {
+    background-color: #212a33
+}
+
+#ago_box_content a:nth-child(2) {
+    min-width: 80px;
+    max-width: 80px
+}
+
+#ago_box_content a:hover:nth-child(2) {
+    background-color: #212d02
+}
+
+#ago_box_content a:nth-child(3) {
+    position: relative;
+    padding: 0;
+    min-width: 24px;
+    max-width: 24px
+}
+
+#ago_box_content a:hover:nth-child(3) {
+    background-color: #382202
+}
+
+#ago_box_content img {
+    position: relative;
+    top: 3px;
+    left: 5px
+}
+
+#ago_box_content .ago_box_homeplanet a {
+    color: #6f9fc8
+}
+
+#phalanxWrap.ago_phalanx_improve a {
+    text-decoration: none !important
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet, #phalanxWrap.ago_phalanx_improve .partnerInfo {
+    width: 765px;
+    height: auto;
+    min-height: 40px;
+    margin: 0;
+    border-bottom: 2px solid #1c2639;
+    background-color: #13181d
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet ul, #phalanxWrap.ago_phalanx_improve .partnerInfo ul {
+    display: inline-block;
+    width: 100%;
+    text-align: left
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet ul {
+    background-color: #0d1014
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet li, #phalanxWrap.ago_phalanx_improve .partnerInfo li {
+    display: inline-block;
+    position: static;
+    width: 72px;
+    padding: 4px 2px;
+    line-height: 18px;
+    text-align: center;
+    white-space: nowrap
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet .ago_phalanx_activity, #phalanxWrap.ago_phalanx_improve .partnerInfo .ago_phalanx_activity {
+    width: 12px;
+    font-weight: 700;
+    color: #7c8e9a
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet .countDown, #phalanxWrap.ago_phalanx_improve .partnerInfo .countDown {
+    width: 90px
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet .arrivalTime, #phalanxWrap.ago_phalanx_improve .partnerInfo .arrivalTime {
+    width: 62px
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet .descFleet {
+    display: none
+}
+
+#phalanxWrap.ago_phalanx_improve .partnerInfo .descFleet {
+    width: 62px
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet .missionFleet, #phalanxWrap.ago_phalanx_improve .partnerInfo .missionFleet {
+    width: 22px
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet .missionFleet span, #phalanxWrap.ago_phalanx_improve .partnerInfo .missionFleet span {
+    display: none
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet .missionFleet img, #phalanxWrap.ago_phalanx_improve .partnerInfo .missionFleet img {
+    padding: 0;
+    vertical-align: top
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet .originFleet, #phalanxWrap.ago_phalanx_improve .partnerInfo .originFleet {
+    width: 110px
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet .detailsFleet, #phalanxWrap.ago_phalanx_improve .partnerInfo .detailsFleet {
+    width: 96px;
+    text-align: right
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet .allianceAttack .detailsFleet > span {
+    position: relative;
+    margin-right: 20px
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet .destFleet, #phalanxWrap.ago_phalanx_improve .partnerInfo .destFleet {
+    width: 110px
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet li.sendProbe, #phalanxWrap.ago_phalanx_improve .eventFleet li.sendMail, #phalanxWrap.ago_phalanx_improve .partnerInfo li.sendProbe, #phalanxWrap.ago_phalanx_improve .partnerInfo li.sendMail {
+    width: 18px;
+    padding: 0
+}
+
+#phalanxWrap.ago_phalanx_improve .toggleAlliance {
+    width: 14px
+}
+
+#phalanxWrap.ago_phalanx_improve .eventFleet a.toggleInfos {
+    left: 722px !important;
+    top: 3px
+}
+
+.ago_phalanx_left {
+    overflow: hidden;
+    display: inline-block;
+    width: 154px;
+    vertical-align: top
+}
+
+.ago_phalanx_fleet {
+    width: 490px
+}
+
+.ago_phalanx_fleet, .ago_phalanx_right {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: top
+}
+
+.ago_phalanx_right {
+    width: 100px
+}
+
+.ago_phalanx_fleet table {
+    width: 100%;
+    padding: 5px 0;
+    margin: 0;
+    border-collapse: collapse
+}
+
+.ui-dialog[ago_display_status="1"] .ago_phalanx_fleet tr:not(:first-child) {
+    display: none
+}
+
+.ago_phalanx_fleet td {
+    min-width: 130px;
+    font-size: 9px;
+    color: #767f88;
+    line-height: 11px;
+    text-align: right;
+    padding: 3px 6px 0;
+    border-left: 1px solid #1c2639;
+    border-right: 1px solid #1c2639
+}
+
+.ago_phalanx_fleet tr:first-child td {
+    padding: 3px 6px;
+    background-color: #182028;
+    border-top: 1px solid #1c2639;
+    border-bottom: 1px solid #1c2639
+}
+
+.ago_phalanx_fleet tr:last-child td {
+    padding-bottom: 8px
+}
+
+.ago_phalanx_label {
+    float: left;
+    white-space: nowrap;
+    padding-right: 3px
+}
+
+#jumpgate .send_most a {
+    background: url("images/select_most.jpg") no-repeat left top;
+    display: block;
+    height: 32px;
+    width: 32px
+}
+
+#jumpgate .send_most a:hover {
+    background-position: 0 -32px
+}
+
+#jumpgate a:hover {
+    text-decoration: none !important
+}
+
+#jumpgate .ship_txt_row a > p:hover {
+    background-color: #212a33
+}
+
+#ago_jumpgate_target {
+    border-collapse: collapse;
+    margin: 0 0 10px;
+    float: right;
+    position: relative;
+    right: 10px;
+    top: 0
+}
+
+#ago_jumpgate_target tr.ago_hover {
+    cursor: pointer
+}
+
+#ago_jumpgate_target td {
+    height: 22px;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 3px
+}
+
+#ago_jumpgate_target .ago_jumpgate_target_shortkey {
+    text-align: right;
+    color: #0066bb
+}
+
+#ago_jumpgate_target .ago_jumpgate_cooldown {
+    display: inline-block;
+    float: right
+}
+
+.ago_jumpgate_target_name {
+    text-overflow: ellipsis
+}
+
+.ago_jumpgate_target_ships {
+    color: #848484;
+    cursor: help;
+    text-align: right
+}
+
+.ago_jumpgate_target_ships:hover {
+    background-color: #212a33;
+    border-radius: 3px
+}
+
+.ago_jumpgate_cooldown {
+    font-size: 9px;
+    line-height: 10px;
+    padding: 0 1px 1px;
+    color: #fd8a1c;
+    border: 0 solid #fd8a1c
+}
+
+.ago_jumpgate_cooldown:not(:empty) {
+    background-color: #000000;
+    border-radius: 3px;
+    border-width: 1px
+}
+
+.ago_jumpgate_cooldown_seconds {
+    color: #99cc00;
+    border-color: #99cc00
+}
+
+.ago_jumpgate_settings {
+    float: left;
+    margin: 8px
+}
+
+.ago_jumpgate_settings_name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis
+}
+
+.ago_jumpgate_settings_status {
+    text-align: right
+}
+
+.ago_jumpgate_settings tr {
+    cursor: pointer
+}
+
+.ago_jumpgate_settings tr:hover {
+    background-color: #212a33
+}
+
+.ago_jumpgate_improve .openStandardMoonMenu {
+    top: 80px;
+    left: 215px
+}
+
+.t_ContentContainer .galaxyTooltip .ListLinks a {
+    height: 12px;
+    line-height: 12px;
+    display: inline-block;
+    width: 100%;
+    padding: 3px;
+    border-radius: 3px
+}
+
+.t_ContentContainer .galaxyTooltip .ListLinks .rank a {
+    width: 40px
+}
+
+.t_ContentContainer .galaxyTooltip .ListLinks a.ago_selected {
+    box-shadow: 0 0 2px 1px #ff9600;
+    background-color: #212a33
+}
+
+.t_ContentContainer .galaxyTooltip .ListLinks a:hover {
+    background-color: #32495a;
+    text-decoration: none
+}
+
+#ordre_table .ago-infocompte:hover {
+    cursor: pointer;
+    background-color: #212a33
+}

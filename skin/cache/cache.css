@@ -1,0 +1,15 @@
+/* ==================================================== */
+/*	Ogame images								*/
+
+/*background: url("http://gf1.geo.gfsrv.net/cdn09/3f1cb3e1709fa2fa1c06b70a3e64a9.jpg") no-repeat scroll 50% 0 #000000;*/
+body {
+    background: url("background/3f1cb3e1709fa2fa1c06b70a3e64a9.jpg") no-repeat scroll 50% 0 #000000 !important;
+    /*	background-color: #03060b; */
+}
+
+/*url("/cdn/img/background/toolbar_oben_4_new.jpg")*/
+#info {
+    background: url("background/9c2d6e61df84c10082e6ca567971f6.jpg") no-repeat !important;
+}
+
+

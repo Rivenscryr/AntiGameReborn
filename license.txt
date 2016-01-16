@@ -1,0 +1,8 @@
+Copyright (c) 2013 - AntiGameOrigin by Francolino
+
+http://antigame.de/ ( fallback http://francolino.de/ )
+	
+1. AntiGameOrigin is not open source. Code changes are prohibited and it is strictly forbidden to distribute AntiGameOrigin or modified versions.
+2. AntiGameOrigin is for private use only.
+3. You use AntiGameOrigin "as it is" on your own risk and please respect "fair play".
+4. AntiGameOrigin might stop working if you use forbidden OGame tools. List of allowed tools: http://board.origin.ogame.de/board3-news/board58-ogame-news/104-tolerated-addons-tools-scripts-skins/

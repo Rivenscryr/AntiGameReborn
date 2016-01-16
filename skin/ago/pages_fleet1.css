@@ -1,0 +1,986 @@
+#speedLinks .selected[data-value="1"], #speedLinks :hover[data-value="1"] {
+    color: #ff3300 !important
+}
+
+#speedLinks .selected[data-value="2"], #speedLinks :hover[data-value="2"] {
+    color: #ff6600 !important
+}
+
+#speedLinks .selected[data-value="3"], #speedLinks :hover[data-value="3"] {
+    color: #ff9900 !important
+}
+
+#speedLinks .selected[data-value="4"], #speedLinks :hover[data-value="4"] {
+    color: #ffcc00 !important
+}
+
+#speedLinks .selected[data-value="5"], #speedLinks :hover[data-value="5"] {
+    color: #ffff00 !important
+}
+
+#speedLinks .selected[data-value="6"], #speedLinks :hover[data-value="6"] {
+    color: #ccff00 !important
+}
+
+#speedLinks .selected[data-value="7"], #speedLinks :hover[data-value="7"] {
+    color: #99ff00 !important
+}
+
+#speedLinks .selected[data-value="8"], #speedLinks :hover[data-value="8"] {
+    color: #66ff00 !important
+}
+
+#speedLinks .selected[data-value="9"], #speedLinks :hover[data-value="9"] {
+    color: #33ff00 !important
+}
+
+#speedLinks .selected[data-value="10"], #speedLinks :hover[data-value="10"] {
+    color: #00ff00 !important
+}
+
+#box #inhalt .c-left, #box #inhalt .c-right {
+    display: none
+}
+
+#box #inhalt #planet, #box #inhalt #planet.shortHeader {
+    background-image: url("http://gf1.geo.gfsrv.net/cdn99/5368907a3fd41c0a3a5bbf077fb24b.gif");
+    height: auto !important;
+    overflow: hidden;
+    border-bottom: 2px solid #000000
+}
+
+#box #inhalt #planet > h2 {
+    float: right;
+    width: 430px;
+    font-size: 13px;
+    margin-left: 20px;
+    padding-top: 1px
+}
+
+#box #inhalt #planet .toggleHeader {
+    display: none !important
+}
+
+.ago_movement {
+    display: inline-block;
+    width: 185px;
+    height: 15px;
+    line-height: 15px;
+    padding: 2px 4px;
+    margin: 2px 0 2px 9px;
+    font-size: 11px;
+    text-decoration: none;
+    border-radius: 3px;
+    background-color: #141e26
+}
+
+.ago_movement:hover {
+    background-color: #32495a
+}
+
+.ago_movement span {
+    float: right
+}
+
+#ago_summary {
+    float: none;
+    height: auto;
+    overflow: hidden;
+    width: 646px;
+    margin: 0 auto;
+    padding: 2px 0;
+    position: relative
+}
+
+#fleet1 #buttonz #ago_summary {
+    width: 637px;
+    left: -7px;
+    margin-top: 5px;
+    margin-bottom: -6px
+}
+
+#planet #ago_summary table {
+    width: 647px
+}
+
+#buttonz #ago_summary table {
+    width: 637px
+}
+
+#ago_summary td, #ago_summary span, #fleet1 #ago_summary .ago_info div {
+    color: #6f9fc8;
+    font-size: 11px
+}
+
+#ago_summary td:not(:first-child) {
+    background-color: #151f29
+}
+
+#ago_summary td:first-child, #ago_summary td#ago_routine {
+    background-color: #0d1014
+}
+
+#ago_summary[ago_display_status="1"] tr:last-of-type td:last-child {
+    border-radius: 0 0 5px 0
+}
+
+#fleet1 #buttonz #ago_summary input[type="text"], #ago_summary input[type="text"] {
+    font-weight: 700;
+    width: 18px;
+    height: 15px;
+    line-height: 15px;
+    position: static;
+    text-align: center
+}
+
+#ago_summary .ago_display_arrow {
+    float: right;
+    margin: 0 1px 0 0
+}
+
+#ago_summary[ago_display_status="2"] .ago_display_arrow {
+    background-position: 0 -22px
+}
+
+#ago_summary[ago_display_status="1"] #ago_calc {
+    display: none
+}
+
+.ago_info {
+    padding: 0 7px;
+    vertical-align: top
+}
+
+.ago_info div {
+    height: 17px;
+    line-height: 17px
+}
+
+.ago_info span {
+    float: right
+}
+
+td.ago_coords, td#ago_details {
+    height: 22px;
+    line-height: 22px;
+    padding: 7px 7px 4px
+}
+
+td#ago_details {
+    border-radius: 10px 0 0 0
+}
+
+#ago_routine {
+    padding: 0;
+    vertical-align: bottom;
+    text-align: right
+}
+
+#ago_routine div {
+    display: inline-block;
+    padding: 8px 8px 10px;
+    border-radius: 5px 5px 0 0
+}
+
+#ago_routine div.selected {
+    background: linear-gradient(to bottom, #757f89 0, #151f29 100%) 0% 0%
+}
+
+#ago_routine div:hover {
+    background-color: #202c3a
+}
+
+#ago_routine div.ago_routine_space {
+    margin-left: 18px
+}
+
+#ago_routine a {
+    background: url("http://gf2.geo.gfsrv.net/cdn14/f45a18b5e55d2d38e7bdc3151b1fee.jpg") no-repeat -38px -76px;
+    background-size: 418px 152px;
+    display: inline-block;
+    position: relative;
+    height: 38px;
+    width: 38px;
+    border-radius: 5px
+}
+
+#ago_routine_2.off {
+    background-position: -190px -76px
+}
+
+#ago_routine_2.on {
+    background-position: -190px 0
+}
+
+.selected #ago_routine_2.on {
+    background-position: -190px -38px
+}
+
+#ago_routine_7.off {
+    background-position: 0 -76px
+}
+
+#ago_routine_7.on {
+    background-position: 0 0
+}
+
+.selected #ago_routine_7.on {
+    background-position: 0 -38px
+}
+
+#ago_routine_5.off {
+    background-position: -38px -76px
+}
+
+#ago_routine_5.on {
+    background-position: -38px 0
+}
+
+.selected #ago_routine_5.on {
+    background-position: -38px -38px
+}
+
+#ago_routine_4.off {
+    background-position: -152px -76px
+}
+
+#ago_routine_4.on {
+    background-position: -152px 0
+}
+
+.selected #ago_routine_4.on {
+    background-position: -152px -38px
+}
+
+#ago_routine_3.off {
+    background-position: -304px -76px
+}
+
+#ago_routine_3.on {
+    background-position: -304px 0
+}
+
+.selected #ago_routine_3.on {
+    background-position: -304px -38px
+}
+
+a#ago_routine_6 {
+    background: url("images/mission_fleetsave.png") no-repeat 0 -76px;
+    background-size: 38px 152px
+}
+
+a#ago_routine_6.on {
+    background-position: 0 0
+}
+
+.selected a#ago_routine_6.on {
+    background-position: 0 -38px
+}
+
+a#ago_routine_10 {
+    background: url("images/mission_last.png") no-repeat 0 -76px;
+    background-size: 38px 152px
+}
+
+a#ago_routine_10.on {
+    background-position: 0 0
+}
+
+.selected a#ago_routine_10.on {
+    background-position: 0 -38px
+}
+
+.ago_routine_status_1 .selected a {
+    box-shadow: 0 0 1px 2px #d43635 inset
+}
+
+.ago_routine_status_2 .selected a {
+    box-shadow: 0 0 1px 2px #ff9600 inset
+}
+
+.ago_routine_status_3 .selected a {
+    box-shadow: 0 0 1px 2px #99cc00 inset
+}
+
+.ago_routine_status_1.ago_selected .selected a {
+    box-shadow: 0 0 3px 2px #d43635, 0 0 1px 2px #d43635 inset
+}
+
+.ago_routine_status_2.ago_selected .selected a {
+    box-shadow: 0 0 3px 2px #ff9600, 0 0 1px 2px #ff9600 inset
+}
+
+.ago_routine_status_3.ago_selected .selected a {
+    box-shadow: 0 0 3px 2px #99cc00, 0 0 1px 2px #99cc00 inset
+}
+
+.ago_routine_check {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    position: relative;
+    top: -10px;
+    right: -8px
+}
+
+.ago_routine_check_2 {
+    background: url("images/checked2.png") no-repeat 0 0
+}
+
+.ago_routine_check_3 {
+    background: url("images/checked.png") no-repeat 0 0
+}
+
+.ago_routine_last {
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    position: absolute;
+    bottom: -3px;
+    right: -2px
+}
+
+#fleet1 #buttonz #ago_summary .ago_coords input[type="text"]#ago_system, #ago_summary .ago_coords input[type="text"]#ago_system {
+    width: 26px;
+    margin: 0 5px
+}
+
+#ago_type {
+    line-height: 22px;
+    width: auto;
+    float: right;
+    vertical-align: bottom
+}
+
+#ago_type, #ago_type span {
+    display: inline-block;
+    height: 22px
+}
+
+#ago_type span {
+    width: 27px;
+    margin-left: 5px;
+    background: url("http://gf2.geo.gfsrv.net/cdn40/b63220183e356430158dc998a2bb99.gif") no-repeat 0 0;
+    background-size: 81px 44px
+}
+
+#ago_type .planet {
+    background-position: 0 0
+}
+
+#ago_type .planet:hover, #ago_type .planet.selected {
+    background-position: 0 -22px
+}
+
+#ago_type .moon {
+    background-position: -27px 0
+}
+
+#ago_type .moon:hover, #ago_type .moon.selected {
+    background-position: -27px -22px
+}
+
+#ago_type .debris {
+    background-position: -54px 0
+}
+
+#ago_type .debris:hover, #ago_type .debris.selected {
+    background-position: -54px -22px
+}
+
+#ago_type .ago_calc_selected {
+    box-shadow: 0 0 2px 1px #ff9600;
+    border-radius: 3px
+}
+
+#ago_calc td {
+    padding: 1px 7px;
+    height: 17px;
+    line-height: 17px
+}
+
+#fleet1 #buttonz #ago_summary #ago_calc input[type="text"], #ago_summary #ago_calc input[type="text"] {
+    width: 122px;
+    text-align: right
+}
+
+#ago_calc tr:nth-of-type(1) td, #ago_calc tr:nth-of-type(2) td {
+    height: 24px;
+    line-height: 24px
+}
+
+#ago_calc tr:nth-of-type(1) td {
+    padding-top: 5px
+}
+
+.ago_routine_10 #ago_calc tr:nth-of-type(1) td:last-child {
+    padding-top: 0
+}
+
+#ago_calc tr:last-child td {
+    padding-bottom: 7px
+}
+
+#ago_calc tr:last-child td:last-child {
+    border-radius: 0 0 5px 0
+}
+
+#ago_calc_available_total, #ago_calc_available_metal, #ago_calc_available_crystal, #ago_calc_available_deuterium {
+    float: right
+}
+
+.ago_calc_resource_all {
+    background: url("images/select_all.png") no-repeat left top
+}
+
+.ago_calc_resource_most {
+    background: url("images/select_most.jpg") no-repeat left top
+}
+
+.ago_calc_resource_none {
+    background: url("images/icon-none.jpg") no-repeat left top
+}
+
+.ago_calc_resource_all, .ago_calc_resource_most, .ago_calc_resource_none {
+    display: inline-block;
+    height: 22px;
+    width: 22px;
+    margin: 0 5px 0 0;
+    background-size: 22px 44px
+}
+
+.ago_calc_resource_all:hover, .ago_calc_resource_most:hover, .ago_calc_resource_none:hover {
+    background-position: 0 -22px
+}
+
+#ago_calc_plunder {
+    float: right
+}
+
+#ago_calc_plunder span {
+    display: inline-block;
+    min-width: 33px;
+    height: 17px;
+    line-height: 17px;
+    padding: 0 2px;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 3px
+}
+
+#ago_calc_plunder span.selected {
+    border-color: #ff9600
+}
+
+#ago_calc_plunder span:hover {
+    border-color: darkgrey;
+    background-color: #32495a
+}
+
+.ago_calc_available a {
+    display: inline-block;
+    width: 100%;
+    border-radius: 3px
+}
+
+.ago_calc_available a:hover {
+    background-color: #32495a
+}
+
+.ago_calc_available span[id] {
+    padding-right: 2px
+}
+
+.ago_calc_available_icon {
+    display: inline-block;
+    height: 24px;
+    width: 36px;
+    background: url("http://gf3.geo.gfsrv.net/cdnbb/a9fe14ed992de9b7f40d22213a475e.png") no-repeat 0 0;
+    background-size: 300px 144px
+}
+
+.ago_calc_available_icon.metal {
+    background-position: 0 -120px
+}
+
+.ago_calc_available_icon.crystal {
+    background-position: -36px -120px
+}
+
+.ago_calc_available_icon.deuterium {
+    background-position: -72px -120px
+}
+
+#speedLinks {
+    margin: 0
+}
+
+#speedLinks span {
+    display: inline-block;
+    min-width: 16px;
+    height: 17px;
+    line-height: 17px;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 3px
+}
+
+#speedLinks span.selected {
+    border-color: #ff9600
+}
+
+#speedLinks span:hover {
+    border-color: darkgrey;
+    background-color: #32495a
+}
+
+#ago_calc .ago_calc_spacer {
+    height: 14px;
+    line-height: 14px
+}
+
+.ago_calc_ships a {
+    display: inline-block;
+    width: 100%;
+    height: 18px;
+    line-height: 18px;
+    border-radius: 3px
+}
+
+.ago_calc_ships a:hover {
+    background-color: #32495a
+}
+
+.ago_calc_ships span[id] {
+    padding-right: 2px;
+    float: right
+}
+
+#ago_calc .btn_blue {
+    color: #efebe2 !important;
+    width: auto;
+    min-width: 28px;
+    height: 14px;
+    line-height: 14px;
+    font-size: 11px;
+    padding: 0 3px;
+    margin: 0;
+    text-transform: uppercase
+}
+
+#ago_calc .ago_calc_selected .btn_blue {
+    box-shadow: 0 0 2px 1px #ff9600;
+    border-radius: 3px
+}
+
+#ago_calc .ago_calc_consumption td, #ago_calc .ago_calc_duration td {
+    padding-right: 9px
+}
+
+.ago_calc_consumption span, .ago_calc_duration span {
+    float: right
+}
+
+.ago_target_reset.btn_blue {
+    color: #efebe2 !important;
+    width: auto;
+    min-width: 60px;
+    max-width: 130px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 11px;
+    padding: 0 8px;
+    margin: 0 0 0 28px
+}
+
+.ago_target_reset .ago_calc_selected .btn_blue {
+    box-shadow: 0 0 2px 1px #ff9600;
+    border-radius: 3px
+}
+
+.ago_target {
+    display: inline-block;
+    width: 380px;
+    font-size: 11px;
+    text-decoration: none;
+    padding: 4px;
+    height: 14px;
+    line-height: 14px;
+    border: none;
+    border-radius: 3px
+}
+
+.ago_routine_5 .ago_target, .ago_routine_6 .ago_target {
+    width: 190px
+}
+
+.ago_target .ago_hover:hover {
+    background-color: #32495a
+}
+
+.ago_target span {
+    display: inline-block;
+    height: 14px;
+    line-height: 14px;
+    padding: 0 3px;
+    vertical-align: top;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden
+}
+
+.ago_target span.ago_target_coords {
+    text-align: left;
+    min-width: 58px;
+    max-width: 58px
+}
+
+.ago_target span.ago_target_icon {
+    min-width: 16px;
+    max-width: 16px
+}
+
+#fleet1 #allornone .ago_target_icon img {
+    vertical-align: top
+}
+
+.ago_target span.ago_target_speed {
+    min-width: 36px;
+    max-width: 36px;
+    font-size: 10px;
+    padding-right: 10px
+}
+
+.ago_target span.ago_target_name {
+    text-align: left;
+    min-width: 16px;
+    max-width: 16px
+}
+
+.ago_target span.ago_target_ships {
+    min-width: 72px;
+    max-width: 72px
+}
+
+.ago_target span.ago_target_res {
+    min-width: 94px;
+    max-width: 94px
+}
+
+.ago_target .ago_routine_check {
+    top: -2px;
+    right: -6px
+}
+
+.ago_last {
+    vertical-align: top
+}
+
+#ago_shortcuts {
+    color: #6f9fc8;
+    width: 639px;
+    height: auto;
+    text-align: left;
+    padding: 0;
+    margin: 10px 0 5px 15px;
+    position: relative;
+    z-index: 2
+}
+
+.ago_shortcuts_header {
+    position: absolute;
+    width: 100%;
+    height: 24px;
+    cursor: pointer
+}
+
+.ago_shortcuts_header .ago_display_arrow {
+    float: right;
+    position: relative;
+    top: 2px;
+    right: 2px
+}
+
+.ago_shortcuts_content .ago_shortcuts_target span.ago_shortcuts_description, .ago_shortcuts_content .ago_shortcuts_own span.ago_shortcuts_description {
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    display: block
+}
+
+.ago_shortcuts_content .ago_shortcuts_target span.ago_shortcuts_description {
+    margin: 0 0 4px
+}
+
+#ago_shortcuts[ago_display_status="2"] .ago_display_arrow {
+    background-position: 0 -22px
+}
+
+#ago_shortcuts[ago_display_status="1"] .ago_shortcuts_content td > :not(:first-child) {
+    display: none
+}
+
+.ago_shortcuts_content td {
+    padding: 0 8px 4px;
+    vertical-align: top;
+    border: 1px solid #050505;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, #192026 0, #0d1014 13%, #0d1014 100%)
+}
+
+#ago_shortcuts[ago_display_status="1"] .ago_shortcuts_content td {
+    background: linear-gradient(to bottom, #192026 0, #0d1014 80%)
+}
+
+.ago_shortcuts_content td.ago_shortcuts_spacer {
+    border: none;
+    background: none !important
+}
+
+.ago_shortcuts_content a {
+    display: inline-block;
+    font-size: 11px;
+    border: none;
+    border-radius: 3px
+}
+
+.ago_shortcuts_content .ago_shortcuts_target a {
+    width: 230px;
+    height: 14px;
+    line-height: 14px;
+    padding: 4px
+}
+
+.ago_shortcuts_content .ago_shortcuts_own a {
+    width: auto;
+    height: 22px;
+    line-height: 22px;
+    padding: 0 0 0 4px
+}
+
+#fleet1 #buttonz .ago_shortcuts_content a:link, #fleet1 #buttonz .ago_shortcuts_content a:visited, #fleet1 #buttonz .ago_shortcuts_content a:hover, #fleet1 #buttonz .ago_shortcuts_content a:active {
+    color: #8c9eaa;
+    text-decoration: none
+}
+
+.ago_shortcuts_content span {
+    display: inline-block;
+    padding: 0 3px;
+    vertical-align: top;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden
+}
+
+.ago_shortcuts_content .ago_shortcuts_target span {
+    height: 14px;
+    line-height: 14px
+}
+
+.ago_shortcuts_content .ago_shortcuts_own span {
+    height: 18px;
+    line-height: 18px;
+    padding: 2px 3px
+}
+
+.ago_shortcuts_coords {
+    margin-left: 5px;
+    min-width: 60px;
+    max-width: 60px
+}
+
+.ago_shortcuts_icon {
+    min-width: 20px;
+    max-width: 20px
+}
+
+.ago_shortcuts_speed {
+    min-width: 26px;
+    max-width: 26px;
+    font-size: 10px
+}
+
+.ago_shortcuts_name, .ago_shortcuts_moon {
+    min-width: 110px;
+    max-width: 110px
+}
+
+.ago_shortcuts_moon img {
+    float: left;
+    padding-right: 8px
+}
+
+.ago_shortcuts_debris {
+    min-width: 34px;
+    text-align: center !important
+}
+
+.ago_shortcuts_content .ago_shortcuts_target span.ago_shortcuts_space {
+    height: 22px;
+    line-height: 22px
+}
+
+#fleet1 #inhalt #buttonz #battleships, #fleet1 #inhalt #buttonz #spacer, #fleet1 #inhalt #buttonz #civilships {
+    height: 236px
+}
+
+#fleet1 #inhalt .allornonewrap {
+    padding-bottom: 5px;
+    background: linear-gradient(to bottom, #192026 0, #0d1014 13%, #0d1014 100%);
+    border: 1px solid #050505;
+    border-radius: 5px
+}
+
+#fleet1 #inhalt .allornonewrap .secondcol {
+    width: 106px;
+    padding: 5px
+}
+
+#fleet1 #inhalt .send_most a {
+    background: url("images/select_most.jpg") no-repeat left top;
+    display: block;
+    float: left;
+    height: 32px;
+    width: 32px;
+    margin-left: 5px
+}
+
+#fleet1 #inhalt .send_most a:hover {
+    background-position: 0 -32px
+}
+
+#fleet1 #inhalt .allornonewrap .firstcol {
+    width: 180px;
+    padding-left: 30px
+}
+
+#fleet1 #inhalt #buttonz {
+    height: auto
+}
+
+#fleet1 #inhalt #allornone .info {
+    display: none
+}
+
+#fleet1 #buttonz .header {
+    position: relative
+}
+
+#ago_info_combat, #ago_info_civil {
+    color: #6f9fc8;
+    position: absolute;
+    top: 8px
+}
+
+#ago_info_combat {
+    right: 320px
+}
+
+#ago_info_civil {
+    right: 30px
+}
+
+#fleet1 #inhalt #buttonz input[type="text"] {
+    height: 15px;
+    line-height: 15px;
+    font-weight: 700
+}
+
+#fleet1 #inhalt #buttonz ul.ago_cargos {
+    color: #6f9fc8;
+    position: static;
+    list-style-type: none;
+    float: right;
+    width: 125px;
+    height: auto;
+    padding: 0 25px 0 0
+}
+
+#fleet1 #inhalt #buttonz .ago_cargos li {
+    height: 16px;
+    line-height: 16px;
+    float: none;
+    margin: 0;
+    position: static;
+    width: auto;
+    padding: 0 3px;
+    border-radius: 3px;
+    cursor: pointer
+}
+
+#fleet1 #inhalt #buttonz .ago_cargos span {
+    float: right;
+    display: inline-block;
+    min-width: 60px;
+    text-align: right
+}
+
+#fleet1 #inhalt #buttonz .ago_cargos li:hover[ago-data] {
+    background-color: #2e3842
+}
+
+#fleet1 #inhalt #warning .ago_cargos {
+    width: 240px;
+    margin: 0 auto
+}
+
+#fleet1 #inhalt #warning .ago_cargos span {
+    float: right
+}
+
+#fleet1 a#continue.on[ago-status="0"] {
+    background-position: 0 -278px
+}
+
+#fleet1 a#continue.on[ago-status="1"] {
+    background-position: -102px -278px
+}
+
+.ago_continue td {
+    font-size: 10px;
+    padding: 0 2px 0 0;
+    text-align: center;
+    width: 20px
+}
+
+.ago_continue td:first-child {
+    width: 54px
+}
+
+.ago_items_text {
+    position: absolute;
+    top: 4px;
+    right: 2px;
+    max-width: 70px;
+    height: auto;
+    padding: 2px 3px;
+    text-align: right;
+    overflow: hidden
+}
+
+.ago_items_textName {
+    font-size: 10px;
+    width: 70px
+}
+
+.ago_items_textInfo {
+    font-size: 11px;
+    top: 32px !important
+}
+
+.ago_items_textCount {
+    font-size: 11px;
+    top: 48px !important
+}
+
+.off .ago_items_text {
+    color: #6e6e6e
+}
+
+.on .ago_items_text {
+    color: #efebe2
+}
+
+.disabled .ago_items_text {
+    color: #d43635
+}

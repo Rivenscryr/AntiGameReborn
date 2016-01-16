@@ -1,0 +1,121 @@
+#rechts div.smallplanet {
+    border-radius: 5px
+}
+
+#rechts div.smallplanet a.planetlink:link, #rechts div.smallplanet a.planetlink:visited {
+    padding-top: 0
+}
+
+.ago_planets_arrow_planet, .ago_planets_arrow_moon {
+    display: inline-block;
+    height: 23px;
+    width: 23px;
+    cursor: pointer;
+    position: absolute;
+    top: 3px
+}
+
+.ago_planets_arrow_planet {
+    left: 0;
+    background: url("images/planets_arrow_planet.gif") no-repeat 0 -22px
+}
+
+.ago_planets_arrow_moon {
+    right: 0;
+    background: url("images/planets_arrow_moon.gif") no-repeat 0 -22px
+}
+
+.ago_planets_arrow_planet:hover, .ago_planets_arrow_moon:hover {
+    background-position: 0 0
+}
+
+.ago_planets_construction, .ago_planets_construction_moon {
+    font-size: 9px;
+    line-height: 9px;
+    color: #848484;
+    position: absolute;
+    white-space: nowrap
+}
+
+.ago_planets_cooldown {
+    font-size: 9px;
+    line-height: 10px;
+    padding: 0 1px 1px;
+    color: #fd8a1c;
+    border: 0 solid #fd8a1c
+}
+
+.ago_planets_cooldown:not(:empty) {
+    background-color: #000000;
+    border-radius: 3px;
+    border-width: 1px
+}
+
+.ago_planets_cooldown_seconds {
+    color: #99cc00;
+    border-color: #99cc00
+}
+
+#myPlanets .ago_planets_cooldown {
+    position: absolute;
+    left: 2px;
+    top: -9px
+}
+
+#myWorlds .ago_planets_cooldown {
+    position: absolute;
+    left: -2px;
+    top: -10px
+}
+
+.ago_planets_shortcut {
+    font-size: 10px;
+    color: #a1a1a1;
+    position: absolute;
+    top: 22px;
+    right: -4px
+}
+
+#myWorlds .ago_planets_shortcut {
+    font-size: 11px;
+    top: 68px;
+    right: 0
+}
+
+#rechts #myPlanets .smallplanet .active span.planet-name {
+    font-size: 12px;
+    font-weight: 400
+}
+
+#rechts #myPlanets .smallplanet .active span.planet-koords {
+    font-size: 10px;
+    font-weight: 400
+}
+
+#rechts .smallplanet a.planetlink.active .planetPic {
+    box-shadow: 0 0 6px 1px #99cc00, 0 0 3px 4px #99cc00 inset
+}
+
+.ago_planets_construction_moon {
+    left: 36px;
+    top: 38px
+}
+
+#rechts #myWorlds .ago_planets_construction {
+    display: block;
+    width: 100%;
+    top: -1px
+}
+
+#rechts #myPlanets .ago_planets_construction {
+    left: 32px;
+    top: -1px
+}
+
+#rechts.ago_planets_shrink {
+    margin-top: -56px
+}
+
+#rechts.ago_planets_shrink #countColonies {
+    display: none
+}

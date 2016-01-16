@@ -1,0 +1,11 @@
+html {
+    overflow-y: scroll;
+}
+
+body[id^="tpl"] {
+    margin-top: 0 !important;
+}
+
+body[id^="tpl"] #headerContainer {
+    padding-top: 32px !important;
+}

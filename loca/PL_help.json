@@ -1,0 +1,13 @@
+﻿{
+    "a10": "Wybierz j\u0119zyk dla menu Antigame Origin.\r\n[OPTION]-[] Wybiera j\u0119zyk serwera.",
+    "a31": "Teraz zawsze pokazuje warto\u015b\u0107 czasu dopasowan\u0105 do strefy lokalnej\r\n[LIST] The letter 'L' is added infront of the local clock.",
+    "a32": "Oryginalny czas serwera jest wy\u015bwietlany w dodatkowym zegarze poni\u017cej zmienionego zegara.",
+    "a34": "Wy\u015bwietla czas, kiedy strona zosta\u0142a od\u015bwie\u017cona po raz ostatni.\r\n[LIST] R\u00f3\u017cnica wskazuje na dok\u0142adno\u015b\u0107 zegara lokalnego.",
+    "a51": "Przejd\u017a do Strony g\u0142\u00f3wnej AntiGameOrigin, aby przeczyta\u0107 informacje o wymaganiach, funkcje, zmianach i innych.",
+    "a54": "Przejd\u017a do Forum AntigameOrigin aby zg\u0142asza\u0107 problemy \/ b\u0142\u0119dy, aby uzyska\u0107 pomoc lub znale\u017a\u0107 rozwi\u0105zania i przedstawi\u0107 opinie i sugestie.\r\n[LIST] Ojczyste wpisy j\u0119zykowe s\u0105 mile widziane, prosz\u0119 doda\u0107 angielskie t\u0142umaczenie Google.",
+    "g32": "Wybierz cel przed skokiem, w przeciwnym razie komunikat b\u0142\u0119du 'Nie wa\u017cny cel' jest wy\u015bwietlany.",
+    "g34": "Po skoku aktualna pozycja b\u0119dzie nadal na tym samym Ksi\u0119\u017cyca.",
+    "u31": "Aktywuje skr\u00f3ty klawiaturowe na niekt\u00f3rych stronach OGame. Szczeg\u00f3\u0142y - patrz lista skr\u00f3t\u00f3w w odpowiedniej sekcji.",
+    "u32": "Aktywacja klawiszy funkcyjnych, aby wybra\u0107 dowoln\u0105 planet\u0119 (F1 - F12) lub ksi\u0119\u017cyc (Shift F1 - F12).\r\n[LIST] Numer klucza zostanie dodany do listy planet.\r\n[LIST] It's working on all OGame pages except the [PAGE]Jump gate[], where they select the target moon.",
+    "u41": "Po wpisaniu dowolnej liczby w nast\u0119pnym polu, okienko pojawi si\u0119 poni\u017cej pola, kt\u00f3re sk\u0142ada si\u0119 z u\u017cywanych wcze\u015bniej numer\u00f3w. To niepotrzebne i denerwuj\u0105ce okienko mo\u017ce zosta\u0107 zablokowane."
+}

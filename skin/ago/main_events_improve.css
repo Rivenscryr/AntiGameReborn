@@ -1,0 +1,183 @@
+#eventboxContent.ago_eventlist_hide {
+    position: absolute
+}
+
+#eventboxContent.ago_eventlist_hide, #eventboxContent.ago_eventlist_hide #eventListWrap, #eventboxContent.ago_eventlist_hide > img {
+    display: none
+}
+
+#eventHeader .ago_eventlist_reload {
+    position: absolute;
+    left: 14px;
+    margin: 4px 0
+}
+
+#eventboxContent .eventFleet[style*="none"] + .ago_eventlist, #eventboxContent .partnerInfo[style*="none"] + .ago_eventlist, #eventboxContent .ago_eventlist + .ago_eventlist {
+    display: none
+}
+
+#eventboxContent[ago_display_status="1"] .ago_eventlist, #eventboxContent .ago_eventlist:first-child {
+    display: none
+}
+
+#eventboxContent[ago_display_status="2"] .ago_eventlist > td > div {
+    height: 17px
+}
+
+#eventboxContent #eventHeader {
+    cursor: pointer
+}
+
+#eventboxContent #eventHeader .ago_display_arrow {
+    float: right;
+    position: absolute;
+    right: 10px;
+    margin: 4px 0
+}
+
+#eventboxContent[ago_display_status="3"] #eventHeader .ago_display_arrow {
+    background-position: 0 -22px
+}
+
+#eventboxContent table#eventContent {
+    border-spacing: 0;
+    color: #8c9eaa
+}
+
+#eventboxContent #eventContent .originFleet, #eventboxContent #eventContent .destFleet {
+    max-width: 105px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+#eventboxContent #eventContent .allianceAttack .originFleet {
+    font-weight: 700
+}
+
+#eventboxContent #eventContent .originFleet span, #eventboxContent #eventContent .destFleet span {
+    width: 105px
+}
+
+#eventboxContent table#eventContent .odd, #eventboxContent table#eventContent .part-even, #eventboxContent table#eventContent tr {
+    background-color: inherit
+}
+
+#eventboxContent table#eventContent > tbody {
+    background-color: #13181d
+}
+
+#eventboxContent table#eventContent tr.eventFleet:not(.partnerInfo), #eventboxContent table#eventContent tr.allianceAttack {
+    background-color: #0d1014
+}
+
+#eventboxContent table#eventContent tr.ago_eventlist_pair {
+    background-color: #23282d !important
+}
+
+#eventboxContent[ago_display_status="1"] table#eventContent td, #eventboxContent table#eventContent tr.ago_eventlist > td {
+    border-bottom: 1px solid #1c2639
+}
+
+#eventboxContent table#eventContent .eventFleet > td, #eventboxContent table#eventContent .allianceAttack > td, #eventboxContent table#eventContent .partnerInfo > td {
+    padding: 2px
+}
+
+#eventboxContent table#eventContent td.countDown {
+    min-width: 94px;
+    max-width: 110px
+}
+
+#eventboxContent table#eventContent .missionFleet {
+    text-align: center
+}
+
+#eventboxContent table#eventContent td.ago_eventlist_activity {
+    min-width: 14px
+}
+
+#eventboxContent .icon_movement, #eventboxContent .icon_movement_reserve {
+    display: table-cell
+}
+
+#eventboxContent table#eventContent a {
+    text-decoration: none
+}
+
+.ago_eventlist {
+    font-size: 11px
+}
+
+.ago_eventlist_left {
+    overflow: hidden;
+    display: inline-block;
+    width: 130px;
+    max-width: 130px;
+    vertical-align: top
+}
+
+.ago_eventlist_fleet {
+    overflow: hidden;
+    display: inline-block;
+    width: 420px;
+    max-width: 420px;
+    margin: 0 2px
+}
+
+.ago_eventlist_right {
+    overflow: hidden;
+    display: inline-block;
+    width: 90px;
+    max-width: 90px;
+    vertical-align: top
+}
+
+.ago_eventlist_date {
+    float: right
+}
+
+.ago_eventlist_player {
+    display: block;
+    margin-bottom: 4px
+}
+
+.ago_eventlist_left .ago_eventlist_player {
+    font-size: 12px;
+    font-weight: 700
+}
+
+.ago_eventlist_fleet table {
+    width: 100%;
+    padding: 5px 0;
+    margin: 0;
+    border-collapse: collapse
+}
+
+.ago_eventlist_fleet td {
+    min-width: 120px;
+    max-width: 130px;
+    font-size: 9px;
+    color: #767f88;
+    line-height: 11px;
+    text-align: right;
+    padding: 2px 4px 0;
+    border-left: 1px solid #1c2639;
+    border-right: 1px solid #1c2639
+}
+
+.ago_eventlist_fleet tr:first-child td {
+    padding: 2px 4px;
+    background-color: #182028;
+    border-top: 1px solid #1c2639;
+    border-bottom: 1px solid #1c2639
+}
+
+.ago_eventlist_fleet tr:last-child td {
+    padding-bottom: 4px
+}
+
+.ago_eventlist_fleet .ago_eventlist_label {
+    float: left;
+    white-space: nowrap;
+    padding-right: 3px
+}

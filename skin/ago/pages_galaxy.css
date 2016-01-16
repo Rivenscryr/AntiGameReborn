@@ -1,0 +1,180 @@
+#galaxy #inhalt #galaxyLoading {
+    opacity: .3;
+    top: 30px
+}
+
+#galaxy #inhalt #galaxytable td.ago_galaxy_espionage {
+    background-color: rgba(71, 101, 134, .85);
+    border-radius: 3px
+}
+
+#galaxy #inhalt #galaxytable td.microplanet[onclick], #galaxy #inhalt #galaxytable td.moon[onclick], #galaxy #inhalt #galaxytable th[ago-data] {
+    cursor: pointer
+}
+
+#galaxy #inhalt #galaxytable td.moon:not([onclick]) a {
+    cursor: default
+}
+
+#galaxy #inhalt #galaxytable td.planetname a, #galaxy #inhalt #galaxytable td.planetname a:active {
+    text-decoration: none;
+    color: #cfcbc2
+}
+
+.ago_galaxy_debris {
+    color: #cfcbc2
+}
+
+.ago_galaxy_rank {
+    font-size: 10px;
+    color: #cfcbc2
+}
+
+.ago_galaxy_debris {
+    font-size: 11px;
+    position: absolute;
+    top: 2px;
+    min-width: 40px;
+    text-align: center
+}
+
+.ago_shrink_1 .ago_galaxy_debris {
+    font-size: 10px
+}
+
+.ago_shrink_2 .ago_galaxy_debris, .ago_shrink_3 .ago_galaxy_debris {
+    font-size: 9px
+}
+
+.ago_galaxy_rank {
+    text-decoration: none;
+    float: right;
+    padding-right: 2px
+}
+
+#galaxy #box #message_alert_box, #galaxy #box #message_alert_box_default {
+    background: url("images/briefcase.png") no-repeat 0 0
+}
+
+#galaxy #box #message_alert_box_default.emptyMessage {
+    background: url("images/briefcase_empty.png") no-repeat 0 0
+}
+
+#galaxy.no-touch #box a#message_alert_box.emptyMessage:hover, #galaxy.no-touch #box a#message_alert_box_default:hover, #galaxy.no-touch #box a#message_alert_box:hover {
+    background: url("images/briefcase_hover.png") no-repeat 0 0
+}
+
+#galaxy.ago_improve #galaxytable tr.row td.moon img[width="32"], #galaxy .ago_shrink #galaxytable tr.row td.moon img[width="32"] {
+    width: 26px;
+    height: 26px;
+    padding-top: 2px
+}
+
+#galaxy .ago_shrink_2 #galaxytable tr.row td.moon img[width="32"] {
+    width: 24px;
+    height: 24px
+}
+
+#galaxy .ago_shrink_3 #galaxytable tr.row td.moon img[width="32"] {
+    width: 22px;
+    height: 22px
+}
+
+#galaxy.ago_improve #galaxytable tr.row td.debris img[width="32"], #galaxy .ago_shrink #galaxytable tr.row td.debris img[width="32"] {
+    width: 30px;
+    height: 30px
+}
+
+#galaxy .ago_shrink_1 #galaxytable tr.row td.debris img[width="32"] {
+    width: 28px;
+    height: 28px
+}
+
+#galaxy .ago_shrink_2 #galaxytable tr.row td.debris img[width="32"] {
+    width: 26px;
+    height: 26px
+}
+
+#galaxy .ago_shrink_3 #galaxytable tr.row td.debris img[width="32"] {
+    width: 24px;
+    height: 24px
+}
+
+#galaxy.ago_improve div.activity.showMinutes, #galaxy .ago_shrink div.activity.showMinutes {
+    font-size: 10px;
+    padding: 0 1px 1px;
+    width: auto;
+    height: auto
+}
+
+#galaxy .ago_shrink_2 div.activity.showMinutes, #galaxy .ago_shrink_3 div.activity.showMinutes {
+    font-size: 9px
+}
+
+#galaxy.ago_improve #galaxytable tr.row {
+    background-image: url("images/galaxy_row_empty.png")
+}
+
+#galaxy.ago_improve #galaxytable tr.ago_galaxy_row {
+    background-image: url("images/galaxy_row.png")
+}
+
+#galaxy.ago_improve #galaxytable td.ago_galaxy_debris_shadow {
+    background: url("images/galaxy_debris_shadow.gif") no-repeat 12px 3px
+}
+
+#galaxy.ago_improve #galaxytable tr.row td.spacer01 {
+    width: 1px
+}
+
+#galaxy.ago_improve #galaxytable tr.row td.position {
+    width: 22px;
+    padding-right: 5px
+}
+
+#galaxy.ago_improve #galaxytable tr.row td.planetname, #galaxy.ago_improve #galaxytable tr.row td.planetname1 {
+    width: 128px
+}
+
+#galaxy.ago_improve #galaxytable tr.row td.debris {
+    width: 40px;
+    padding-left: 4px
+}
+
+#galaxy.ago_improve #galaxytable tr.row td.playername .status {
+    float: right
+}
+
+#galaxy.ago_improve #galaxytable tr.row td.spacer03 {
+    width: 31px;
+    text-align: right
+}
+
+#galaxy.ago_improve #galaxytable tr.row td.allytag {
+    width: 101px;
+    padding-left: 5px
+}
+
+#galaxy .ago_shrink_1 #galaxytable tr.row {
+    background-position: 0 -1px
+}
+
+#galaxy .ago_shrink_2 #galaxytable tr.row {
+    background-position: 0 -2px
+}
+
+#galaxy .ago_shrink_3 #galaxytable tr.row {
+    background-position: 0 -3px
+}
+
+#galaxy .ago_shrink_1 #galaxytable tr.row td, #galaxy .ago_shrink_1 #galaxytable td.moon a, #galaxy .ago_shrink_1 #galaxytable td.debris a {
+    height: 30px
+}
+
+#galaxy .ago_shrink_2 #galaxytable tr.row td, #galaxy .ago_shrink_2 #galaxytable td.moon a, #galaxy .ago_shrink_2 #galaxytable td.debris a {
+    height: 28px
+}
+
+#galaxy .ago_shrink_3 #galaxytable tr.row td, #galaxy .ago_shrink_3 #galaxytable td.moon a, #galaxy .ago_shrink_3 #galaxytable td.debris a {
+    height: 26px
+}

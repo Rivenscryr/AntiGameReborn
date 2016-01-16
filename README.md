@@ -1,2 +1,0 @@
-# AntiGameOrigin-Whole-SourceCode
-SourceCode

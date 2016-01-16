@@ -1,0 +1,59 @@
+.ago_improve .items.groupitems + div {
+    color: #a19491;
+    line-height: 28px;
+    text-align: center
+}
+
+.ago_improve #wrapTL {
+    height: 192px
+}
+
+.ago_improve .planetImg {
+    width: 100px
+}
+
+.ago_improve .planetImg img {
+    width: 100px;
+    height: 100px
+}
+
+.ago_improve #tab-left {
+    height: 104px;
+    margin: -13px -4px 0 0
+}
+
+.ago_improve .planetHead {
+    width: 102px
+}
+
+.ago_improve .planetData {
+    text-align: center
+}
+
+.ago_improve .planetData div {
+    padding: 0
+}
+
+.ago_improve .planetname, .ago_improve .planet {
+    width: 106px
+}
+
+.ago_improve .planetData ul {
+    width: 102px;
+    text-align: center
+}
+
+.ago_improve .planetData li {
+    width: 91px;
+    font: 100 9px Verdana, Arial, SunSans-Regular, Sans-Serif;
+    float: none;
+    text-align: center
+}
+
+.ago_improve div.row {
+    width: 106px
+}
+
+.ago_improve div.values {
+    width: 102px
+}

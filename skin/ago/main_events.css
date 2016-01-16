@@ -1,0 +1,13 @@
+#eventboxContent.ago_eventlist_hide {
+    position: absolute
+}
+
+#eventboxContent.ago_eventlist_hide, #eventboxContent.ago_eventlist_hide #eventListWrap, #eventboxContent.ago_eventlist_hide > img {
+    display: none
+}
+
+#eventHeader .ago_eventlist_reload {
+    position: absolute;
+    left: 14px;
+    margin: 4px 0
+}

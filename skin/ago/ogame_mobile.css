@@ -1,0 +1,12 @@
+
+#fleet1 #buttonz .ago_fleet_infos ul li {
+    height: 16px !important;
+}
+
+#fleet2 .ago_fleet_improve #speedLinks {
+    width: auto;
+}
+
+#fleet2 .ago_fleet_improve .briefing {
+    min-height: 210px;
+}

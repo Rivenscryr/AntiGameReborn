@@ -1,0 +1,75 @@
+#inhalt .fleetStatus .icon_recall {
+    margin: 0 0 -4px
+}
+
+#inhalt .fleetStatus .fleetSlots, #inhalt .fleetStatus .expSlots, #inhalt .fleetStatus .ago_movement_recall {
+    margin-left: 0;
+    position: absolute
+}
+
+#inhalt .fleetStatus .fleetSlots {
+    left: 125px
+}
+
+#inhalt .fleetStatus .ago_movement_recall {
+    left: 270px
+}
+
+#inhalt .fleetStatus .expSlots {
+    left: 475px
+}
+
+#inhalt .fleetStatus .ago_movement_recall a.ago_movement_recall_active:hover span {
+    color: green !important
+}
+
+.fleetDetails .ago_movement_reversalTime {
+    position: absolute;
+    top: 46px;
+    left: 560px;
+    color: #ffff00
+}
+
+.fleetDetails .ago_movement_targetName {
+    position: absolute;
+    top: 45px;
+    left: 7px;
+    color: green
+}
+
+.fleetDetails[ago-movement-last="1"] {
+    box-shadow: inset 0 22px 0 rgba(153, 204, 0, .11)
+}
+
+.fleetDetails[ago-movement-last="3"] {
+    box-shadow: inset 0 22px 0 rgba(255, 150, 0, .11)
+}
+
+.ago_improve .detailsOpened .starStreak {
+    background: 0 0
+}
+
+.ago_improve .ago_movement_details {
+    position: absolute;
+    left: 60px;
+    width: 290px;
+    white-space: normal;
+    padding: 0 7px;
+    font-size: 9px;
+    text-align: left;
+    line-height: 11px
+}
+
+.ago_improve .detailsOpened .fleetDetailButton {
+    display: inline;
+    visibility: visible;
+    position: absolute;
+    left: 295px;
+    line-height: normal;
+    top: 2px
+}
+
+.ago_improve .detailsOpened .fleetDetailButton .fleet_icon_forward_end {
+    display: none;
+    visibility: hidden
+}
