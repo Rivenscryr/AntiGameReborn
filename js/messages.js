@@ -260,13 +260,13 @@ AGO.Messages = {
             '   <thead>' +
             '       <tr class="header">' +
             '           <th></th>' +
-            '           <th id="spyHeadCoord" data-sort="coord">coordinates</th>' +         // TODO: add lang var
-            '           <th id="spyHeadAge" data-sort="age">age</th>' +                 // TODO: add lang var
-            '           <th id="spyHeadPlayer" data-sort="playerName">player (<span style="color:#99CC00;font-weight:normal;">activity</span>)</th>' +   // TODO: add lang var
-            '           <th id="spyHeadLoot" data-sort="loot">loot</th>' +
-            '           <th id="spyHeadFleet" data-sort="fleet">fleet</th>' +
-            '           <th id="spyHeadDef" data-sort="defense">DEF</th>' +
-            '           <th>actions</th>' +             // TODO: add lang var
+                        <th id="spyHeadCoord" data-sort="coord">' + AGO.Label.get("Coord") + '</th>' +         // TODO: add lang var; there is in EN_menu.json but i can't import it
+            '           <th id="spyHeadAge" data-sort="age">' + AGO.Label.get('Age') + '</th>' +                 // TODO: add lang var (not existing currently)
+            '           <th id="spyHeadPlayer" data-sort="playerName">' + AGO.Label.get('I70') + ' (<span style="color:#99CC00;font-weight:normal;">' + AGO.Label.get('Activity') + '</span>)</th>' +   // TODO: add lang var; there is in EN_menu.json but i can't import it
+            '           <th id="spyHeadLoot" data-sort="loot">' + AGO.Label.get('M24') + '</th>' +
+            '           <th id="spyHeadFleet" data-sort="fleet">' + AGO.Label.get('T40') + '</th>' +
+            '           <th id="spyHeadDef" data-sort="defense">' + AGO.Label.get('Defense') + '</th>' + // TODO: add lang var (not existing currently)
+            '           <th>' + AGO.Label.get('Actions') + '</th>' +            // TODO: add lang var (not existing currently)
             '       </tr>' +
             '   </thead>' +
             '   <tbody>' +
