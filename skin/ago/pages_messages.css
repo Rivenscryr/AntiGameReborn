@@ -78,7 +78,7 @@ div#agoSpyReportOverview table{
     box-sizing: border-box; 
 }
 
-div#agoSpyReportOverview table thead tr.header {
+div#agoSpyReportOverview table thead tr.spyHeader {
     cursor: default;
     background-color: #23282d;
     background-image: none;
@@ -92,7 +92,7 @@ div#agoSpyReportOverview th:first-child {
 }
 
 div#agoSpyReportOverview th {
-    padding: 4px 2px !important;
+    padding: 8px 5px 8px 5px !important;
     font-weight: 700;
     border-bottom: 1px solid #000000;
     border-right: 1px solid #000000;

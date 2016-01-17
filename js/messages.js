@@ -103,9 +103,9 @@ AGO.Messages = {
         tabContent.insertBefore(divButtons, tabContent.firstChild);
         
         var divContent = DOM.parse('<table class="anti_msg_buttons" style="table-layout: fixed;"><tr>' +
-                                        '<td style="width: 35px;"><input class="anti_msg_buttons" value="S" type="button" style="color: #ff9600;" name="delEspAction"></td>' +
+                                        '<td style="width: 35px;"><input class="anti_msg_buttons tooltipRight" title="' + AGO.Label.get('M80').replace('$subject', '\'' + AGO.Label.get('M86') + '\'') + '" value="S" type="button" style="color: #ff9600;" name="delEspAction"></td>' +
                                         '<td style="width: 45px;"><input class="anti_msg_buttons" value="< S" type="button" style="color: #660011;" name="delEspLoot"></td>' +
-                                        '<td style="width: 35px;"><input class="anti_msg_buttons" value="X" type="button" style="color: #660011;" name="delShown"></td>' +
+                                        '<td style="width: 35px;"><input class="anti_msg_buttons tooltipRight" title="Delete all shown messages" value="X" type="button" style="color: #660011;" name="delShown"></td>' +
                                    '</tr></table>');
                                    
         divButtons.appendChild(divContent);
@@ -244,8 +244,8 @@ AGO.Messages = {
     
     sortSpyReports: function (by) {
         by = by || 'loot';
-        /* PAGE.spyReportsKeys.sort(function(a,b){return PAGE.spyReports[b][by] - PAGE.spyReports[a][by]});
-        console.log(PAGE.spyReports);
+        PAGE.spyReportsKeys.sort(function(a,b){return PAGE.spyReports[b][by] - PAGE.spyReports[a][by]});
+        /* console.log(PAGE.spyReports);
         console.log(PAGE.spyReportsKeys);
         PAGE.showSpyReportOverview(); */
     },
@@ -258,7 +258,7 @@ AGO.Messages = {
 
         var table = DOM.parse('<table>' +
             '   <thead>' +
-            '       <tr class="header">' +
+            '       <tr class="spyHeader">' +
             '           <th></th>' +
                         <th id="spyHeadCoord" data-sort="coord">' + AGO.Label.get("Coord") + '</th>' +         // TODO: add lang var; there is in EN_menu.json but i can't import it
             '           <th id="spyHeadAge" data-sort="age">' + AGO.Label.get('Age') + '</th>' +                 // TODO: add lang var (not existing currently)
@@ -274,15 +274,14 @@ AGO.Messages = {
             '</table>');
         tableWrap.appendChild(table);
         
-        DOM.addEvents('#agoSpyReportOverview .header', tableWrap, { click: function (e) { 
+        DOM.addEvents('#agoSpyReportOverview .spyHeader', tableWrap, { click: function (e) { 
                                                                                 if (!e || !e.target || !e.target.id) return; 
-                                                                                PAGE.sortSpyReports(e.target.dataset.sort);
+                                                                                //PAGE.sortSpyReports(e.target.dataset.sort);
                                                                             } });
 
         var tableBody = DOM.query('tbody', table);
         OBJ.iterate(PAGE.spyReports, function (id) {
             var p = PAGE.spyReports[PAGE.spyReportsKeys[id]];
-            console.log(id%2);
 
             var player = '' + (p.honorRank !== '' ? '<span class="honorRank ' + p.honorRank + '">&nbsp;</span>' : '') + '<span class="status_abbr_' + p.status + '">' + (p.playerName || '') + '</span>';
 

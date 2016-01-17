@@ -411,7 +411,7 @@
     "M74": "Fix colour of Combat reports",
     "M80": "Delete shown or marked messages with subject $subject",
     "M81": "Mark shown or marked messages as read",
-    "M82": "Delete shown or marked Spy reports with plunder &lt; $plunder and debris &lt; $debris",
+    "M82": "Delete shown or marked Spy reports with plunder &lt; $plunder and fleet &lt; $debris",
     "M83": "Delete shown or marked Combat reports with lost below",
     "M84": "Delete shown or marked Expedition combats and results",
     "M85": "Delete shown or marked Player messages",
