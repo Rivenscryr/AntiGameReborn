@@ -420,13 +420,9 @@ AGO.Ogame = {
         var c;
         if (OBJ.is(a) && OBJ.is(b)) {
             if (c = Math.abs(a.galaxy - b.galaxy)) {
-                if (AGO.Uni.donutGalaxy)
-                    c > Math.floor(AGO.Uni.galaxies / 2) ? c = Math.abs(c - AGO.Uni.galaxies) : '';
                 return 2E4 * c;
             }
             if (c = Math.abs(a.system - b.system)) {
-                if (AGO.Uni.donutSystem)
-                    c > Math.floor(AGO.Uni.systems / 2) ? c = Math.abs(c - AGO.Uni.systems) : '';
                 return 95 * c + 2700;
             }
             if (c = Math.abs(a.position - b.position)) {
