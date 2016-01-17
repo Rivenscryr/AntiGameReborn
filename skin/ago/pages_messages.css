@@ -21,7 +21,12 @@
 }
 
 #messages .agoSpyFleet {
-	width: 50px;
+    float: left;
+	width: 80px;
+}
+
+#messages .agoSpyDefense {
+	width: 70px;
 }
 
 #messages div .msg_head {
@@ -57,4 +62,89 @@ div.agoButtons {
 
 .ctn_with_trash {
     margin: 15px 0 0 0 !important;
+}
+
+div#agoSpyReportOverview {
+    text-align: center;
+    margin: 0 auto 10px;
+    padding: 10px 0;
+    width: 630px;
+    overflow: auto
+}
+
+div#agoSpyReportOverview table{
+    border: 1px solid #000000;
+    width: 98% !important;
+    box-sizing: border-box; 
+}
+
+div#agoSpyReportOverview table thead tr.header {
+    cursor: default;
+    background-color: #23282d;
+    background-image: none;
+}
+
+div#agoSpyReportOverview th:first-child {
+    box-shadow:
+        inset 0px 11px 8px -10px #00050a,
+        inset 0px -11px 8px -10px #00050a,
+        inset 11px 0px 8px -10px #00050a; 
+}
+
+div#agoSpyReportOverview th {
+    padding: 4px 2px !important;
+    font-weight: 700;
+    border-bottom: 1px solid #000000;
+    border-right: 1px solid #000000;
+    text-align: center !important;
+    box-shadow:
+        inset 0px 11px 8px -10px #00050a,
+        inset 0px -11px 8px -10px #00050a;
+}
+
+div#agoSpyReportOverview th:last-child {
+    box-shadow:
+        inset 0px 11px 8px -10px #00050a,
+        inset 0px -11px 8px -10px #00050a,
+        inset -11px 0px 8px -10px #00050a; 
+}
+
+div#agoSpyReportOverview .row {
+    cursor: default;
+    background-color: #14191f
+}
+
+div#agoSpyReportOverview .row.even {
+    background-color: #0f141a;
+}
+
+div#agoSpyReportOverview .row:hover td:first-child {
+    box-shadow: 
+        inset 0px 6px 5px -5px #1278cb,
+        inset 0px -6px 5px -5px #1278cb,
+        inset 6px 0px 5px -5px #1278cb;
+}
+
+div#agoSpyReportOverview .row:hover td {
+    box-shadow: 
+        inset 0px 6px 5px -5px #1278cb,
+        inset 0px -6px 5px -5px #1278cb;
+}
+
+div#agoSpyReportOverview .row:hover td:last-child {
+    box-shadow: 
+        inset 0px 6px 5px -5px #1278cb,
+        inset 0px -6px 5px -5px #1278cb,
+        inset -6px 0px 5px -5px #1278cb;
+}
+
+div#agoSpyReportOverview td {
+    padding: 8px 5px 8px 5px !important;
+    border-right: 1px solid #000000;
+    vertical-align: middle !important;
+
+}
+
+div#agoSpyReportOverview TR TH:last-child, div#agoSpyReportOverview TR TD:last-child {
+    border-right: 0
 }
