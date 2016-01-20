@@ -58,7 +58,7 @@ AGB.App = {
         return a ? (b = {
             href: a,
             host: c
-        }, a.match(/http:\/\/.+\.ogame.gameforge.com\/game\/index\.php\?+.*page=*/i) ? b.mode = 3 : OBJ.iterate(AGB.App.Extern, function (a) {
+        }, a.match(/http||https:\/\/.+\.ogame.gameforge.com\/game\/index\.php\?+.*page=*/i) ? b.mode = 3 : OBJ.iterate(AGB.App.Extern, function (a) {
                                                                                                                     if (c === a || -1 < c.indexOf("." + a)) {
                                                                                                                         b.mode = AGB.App.Extern[a]
                                                                                                                     }

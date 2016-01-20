@@ -11,7 +11,8 @@
 		"storage",
 		"cookies",
 		"tabs",
-		"http://*/*"
+		"http://*/*",
+		"https://*/*"
 	],
 	"web_accessible_resources": [
 		"js/*.js",
@@ -24,7 +25,7 @@
 	"content_scripts": [
 	
 		{
-			"matches"		: [ "http://*.ogame.gameforge.com/game/index.php*" ],
+			"matches"		: [ "http://*.ogame.gameforge.com/game/index.php*", "https://*.ogame.gameforge.com/game/index.php*" ],
 			"js"			: [ "js/basics.js", "js/common.js", "js/overlays.js", "js/main.js", "js/init.js" ],
 			"run_at"		: "document_start"
 		},
@@ -36,7 +37,7 @@
 		},
 		
 		{
-			"matches"		: [ "http://*.ogame.gameforge.com/*" ],
+			"matches"		: [ "http://*.ogame.gameforge.com/*", "https://*.ogame.gameforge.com/*" ],
 			"include_globs"	: [ "http://board.??.ogame.gameforge.com/*" ],
 			"css"			: [ "skin/board.css" ],
 			"run_at"		: "document_start"

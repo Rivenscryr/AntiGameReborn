@@ -40,7 +40,7 @@ AGB.Manager = {
     }, message: function (a, c, b, d) {
         var f;
         (f = AGB.App.getPlayer(a)
-        ) && chrome.tabs.query({url: "http://*.ogame.gameforge.com/*"}, function (a) {
+        ) && chrome.tabs.query({url: "*://*.ogame.gameforge.com/*"}, function (a) {
                                    var e;
                                    for (e = 0; e < a.length; e++) {
                                        a[e] && a[e].id && chrome.tabs.sendMessage(a[e].id, {
