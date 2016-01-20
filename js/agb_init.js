@@ -795,6 +795,8 @@ AGB.Uni = {
         newbieProtectionLimit: 0,
         newbieProtectionHigh: 0,
         topScore: 0,
+        donutGalaxy: 0,
+        donutSystem: 0,
         name: ""
     },
     Init: function (a, b) {

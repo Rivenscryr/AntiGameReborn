@@ -81,7 +81,7 @@ AGO.Init = {
                     }, function (a) {
                         AGO.Observer.Head(function () {
                                               a && AGO.App.mode && 1 === AGO.Init.status && (AGO.Init.status = 2, AGO.App.reload = AGO.App.reload || a.reload, AGO.App.Page = a.Page, AGO.Background.Data =
-                                                                                                                                                                                      a.Background || {}, AGO.Label.Init(a.Label), 3 <= AGO.App.mode && a.keyPlayer === AGO.App.keyPlayer && (OBJ.copy(a.App, AGO.App), a.Uni['donutGalaxy'] = parseInt(DOM.query('[name="ogame-donut-galaxy"]', document).getAttribute('content')), a.Uni['donutSystem'] = parseInt(DOM.query('[name="ogame-donut-system"]', document).getAttribute('content')), OBJ.copy(a.Uni, AGO.Uni), AGO.Data.Init(), AGO.Option.Init(a.Option), AGO.Item.Init(a.Item), AGO.Panel.Init(a.Panel), AGO.DataBase.Init(a.DataBase), AGO.Box.Init(a.Box), AGO.Token.Init(a.Token), AGO.Units.Init(a.Units), AGO.Fleet.Init(a.Fleet), AGO.App.reload && AGO.App.Save(), AGO.App.upgradeAvailable = NMR.parseVersion(AGO.App.versionAGO) < NMR.parseVersion(AGO.App.versionUpdate)
+                                                                                                                                                                                      a.Background || {}, AGO.Label.Init(a.Label), 3 <= AGO.App.mode && a.keyPlayer === AGO.App.keyPlayer && (OBJ.copy(a.App, AGO.App), OBJ.copy(a.Uni, AGO.Uni), AGO.Data.Init(), AGO.Option.Init(a.Option), AGO.Item.Init(a.Item), AGO.Panel.Init(a.Panel), AGO.DataBase.Init(a.DataBase), AGO.Box.Init(a.Box), AGO.Token.Init(a.Token), AGO.Units.Init(a.Units), AGO.Fleet.Init(a.Fleet), AGO.App.reload && AGO.App.Save(), AGO.App.upgradeAvailable = NMR.parseVersion(AGO.App.versionAGO) < NMR.parseVersion(AGO.App.versionUpdate)
                                               ), a = null, AGO.Observer.Body(AGO.Init.Read,
                                                                              AGO.isChrome && 3 <= AGO.App.mode
                                               )
@@ -680,7 +680,9 @@ AGO.Uni = {
     repairFactor: .7,
     newbieProtectionLimit: 0,
     newbieProtectionHigh: 0,
-    topScore: 0
+    topScore: 0,
+    donutGalaxy: 0,
+    donutSystem: 0
 };
 AGO.Acc = {name: "", coords: "", type: 0, playerId: "", planetId: "", session: "", timestamp: 0};
 AGO.Data = {

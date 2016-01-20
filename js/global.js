@@ -93,7 +93,7 @@ window.addEventListener("ago_global", function (b) {
                         }, !1
 );
 var AGO = {
-    Data: {}, message: function (b, a, c) {
+    Data: {}, Uni: {}, message: function (b, a, c) {
         window.dispatchEvent(new window.CustomEvent("ago_global_send", {
                                                         detail: JSON.stringify({
                                                                                    page: b || "",
@@ -154,7 +154,8 @@ var AGO = {
                 type: h,
                 shipCount: l,
                 token: window.miniFleetToken
-            }, 6===+a,z=AGO.Data.galaxy+(9-b),p=Math.abs(AGO.Data.galaxy-b),b=Math.min(z,p),c.speed=6<=b?1:5<=b?2:4<=b?4:3<=b?6:2<=b?9:10, $.ajax(window.miniFleetLink, {
+            }, 6 === +a && (b = Math.abs(AGO.Data.galaxy - b), AGO.Uni.donutGalaxy ? (b > (AGO.Uni.galaxies/2) ? b = Math.abs(b - AGO.Uni.galaxies) : '') : '', c.speed = 6 <= b ? 1 : 5 <= b ? 2 : 4 <= b ? 4 : 3 <= b ? 6 : 2 <= b ? 9 : 10
+            ), $.ajax(window.miniFleetLink, {
                           data: c,
                           dataType: "json",
                           type: "POST",
@@ -186,7 +187,19 @@ var AGO = {
                                                 }
                                     )
                                 }
-        )
+        );
+        
+        var serverURL = window.location.origin;
+        serverURL += "/api/serverData.xml";
+        $.ajax({
+            type: "GET",
+            url: serverURL,
+            dataType: "xml",
+            success: function (data) {
+                AGO.Uni.galaxies = $('serverData', data).find('galaxies').text();
+                AGO.Uni.donutGalaxy = $('serverData', data).find('donutGalaxy').text();
+            }
+        });
     }, Tooltip: function () {
         function b(a, b) {
             return b ? -1 < (" " + (a || ""
