@@ -32,8 +32,12 @@ AGO.Messages = {
 
                     if (tab && PAGE.messageTabEvents[tab.id]) {
                         DOM.query('.tab_inner', mutation.target).classList.add('ago_improved');
+                        PAGE.allMessages = {};
+                        var content = document.getElementById(tab.getAttribute('aria-controls'));
+                        DOM.iterate(DOM.queryAll('.msg', content), function (message) { PAGE.allMessages[message.dataset.msgId] = message; });
+                        PAGE.addButtons(PAGE.messageTabEvents[tab.id], content);
                         if (typeof PAGE[PAGE.messageTabEvents[tab.id]] === 'function') {
-                            PAGE[PAGE.messageTabEvents[tab.id]].call(tab);
+                            PAGE[PAGE.messageTabEvents[tab.id]].call(tab, content);
                         }
                         break;
                     }
@@ -41,21 +45,50 @@ AGO.Messages = {
             }
         });
     },
+    
+    addButtons: function (tabName, tabContent) {
+        tabContent = DOM.query('.tab_ctn', tabContent) || tabContent;
+        var divButtons = DOM.appendDIV(null, 'agoButtons');
+        tabContent.insertBefore(divButtons, DOM.query('.tab_inner', tabContent));
+        var divContent =    '<table class="anti_msg_buttons" style="table-layout: fixed;"><tr>';
+        
+        if (tabName === 'onViewFleetsEsp') {
+            divContent +=       '<td style="width: 35px;"><input class="anti_msg_buttons tooltipRight" title="' + AGO.Label.get('M80').replace('$subject', '\'' + AGO.Label.get('M86') + '\'') + '" value="S" type="button" style="color: #ff9600;" name="delEspAction"></td>' +
+                                '<td style="width: 45px;"><input class="anti_msg_buttons" value="< S" type="button" style="color: #660011;" name="delEspLoot"></td>';
+        } 
+        
+        if (tabName) {
+            divContent +=       '<td style="width: 35px;"><input class="anti_msg_buttons tooltipRight" title="Delete all shown messages" value="X" type="button" style="color: #660011;" name="delShown"></td>';
+        }
+        divContent +=       '</tr></table>';
 
-    onViewFleetsEsp: function () {
-        var content = document.getElementById(this.getAttribute('aria-controls'));
-        DOM.iterate(DOM.queryAll('.msg', content), function (message) {
-            PAGE.allMessages[message.dataset.msgId] = message;
+        divButtons.appendChild(DOM.parse(divContent));
+                                   
+        DOM.iterate(DOM.queryAll('.anti_msg_buttons tr td input', tabContent), function addListenerBtns(e) {
+            e.addEventListener('click', PAGE.runBtnFunction, false);
+        });
+    },
+    
+    runBtnFunction: function (e) {
+        OBJ.iterate(PAGE.allMessages, function doAction (msgID) {
+            if ( (e.target.name === 'delEspAction' && DOM.query('.espionageDefText', PAGE.allMessages[msgID])) || 
+                 (e.target.name === 'delEspLoot' && DOM.query('.compacting', PAGE.allMessages[msgID]) && PAGE.allMessages[msgID].dataset.lucrative === '0') ||
+                 (e.target.name === 'delShown')
+                ) { DOM.click('.js_actionKill', PAGE.allMessages[msgID]); }
+        });
+    },
+
+    onViewFleetsEsp: function (tabContent) {
+        DOM.iterate(DOM.queryAll('.msg', tabContent), function (message) {
             DOM.addEventsAll('.msg_head, .msg_content', message, { click: function () { PAGE.toggleFoldMessage(message); } });
             PAGE.toggleFoldMessage(message);
         });
         
-        PAGE.parseMessagesEsp(this, content);
+        PAGE.parseMessagesEsp(this, tabContent);
         PAGE.getSpyReportMap();
-        PAGE.reviseContent(this, content);
-        PAGE.shrinkSpyReports(this, content);
-        PAGE.addEspButtons(this, content);
-        PAGE.showSpyReportOverview(this, content);
+        PAGE.reviseContent(this, tabContent);
+        PAGE.shrinkSpyReports(this, tabContent);
+        PAGE.showSpyReportOverview(this, tabContent);
     },
     
     reviseContent: function (tab, tabContent) {
@@ -86,38 +119,11 @@ AGO.Messages = {
             });
         }
     },
-        
-    addEspButtons: function (tab, tabContent) {
-        var runBtnFunction = function (e) {
-            OBJ.iterate(PAGE.allMessages, function doAction (msgId) {
-                if ( (e.target.name === 'delEspAction' && DOM.query('.espionageDefText', PAGE.allMessages[msgId])) || 
-                     (e.target.name === 'delEspLoot' && DOM.query('.compacting', PAGE.allMessages[msgId]) && PAGE.allMessages[msgId].dataset.lucrative === '0') ||
-                     (e.target.name === 'delShown')
-                    ) {
-                    DOM.click('.js_actionKill', PAGE.allMessages[msgId]);
-                }
-            });
-        };
-        
-        var divButtons = DOM.appendDIV(null, 'agoButtons');
-        tabContent.insertBefore(divButtons, tabContent.firstChild);
-        
-        var divContent = DOM.parse('<table class="anti_msg_buttons" style="table-layout: fixed;"><tr>' +
-                                        '<td style="width: 35px;"><input class="anti_msg_buttons tooltipRight" title="' + AGO.Label.get('M80').replace('$subject', '\'' + AGO.Label.get('M86') + '\'') + '" value="S" type="button" style="color: #ff9600;" name="delEspAction"></td>' +
-                                        '<td style="width: 45px;"><input class="anti_msg_buttons" value="< S" type="button" style="color: #660011;" name="delEspLoot"></td>' +
-                                        '<td style="width: 35px;"><input class="anti_msg_buttons tooltipRight" title="Delete all shown messages" value="X" type="button" style="color: #660011;" name="delShown"></td>' +
-                                   '</tr></table>');
-                                   
-        divButtons.appendChild(divContent);
-        DOM.iterate(DOM.queryAll('.anti_msg_buttons tr td input', tabContent), function addListenerBtns(e) {
-            e.addEventListener('click', runBtnFunction, false);
-        });
-    },
     
     toggleFoldMessage: function (message) {
         if (!message.classList.contains('ago_folded')) {
-            var arrayHideElements = ['msg_content', 'msg_sender', 'msg_sender_label', 'msg_actions'];
-            if (DOM.query('.espionageDefText', message)) arrayHideElements.splice(arrayHideElements.indexOf('msg_content'), 1);
+            var arrayHideElements = ['msg_sender', 'msg_sender_label', 'msg_actions'];
+            if (!DOM.query('.espionageDefText', message)) arrayHideElements.push('msg_content');
             for (var i = 0; i < arrayHideElements.length; i++)
                 DOM.setStyleDisplay('.' + arrayHideElements[i], message, 'none');
             message.classList.add('ago_folded');
@@ -252,11 +258,13 @@ AGO.Messages = {
 
     showSpyReportOverview: function (tab, tabContent) {
         var contentWrap = DOM.query('.content', document);
+        if (a = DOM.query('#agoSpyReportOverview', contentWrap)) contentWrap.removeChild(a);
         var tableWrap = DOM.appendDIV(null, '');
         tableWrap.id = 'agoSpyReportOverview';
         contentWrap.insertBefore(tableWrap, contentWrap.firstChild);
 
-        var table = DOM.parse('<table>' +
+        var table = DOM.parse('' +
+            '<table>' +
             '   <thead>' +
             '       <tr class="spyHeader">' +
             '           <th></th>' +
@@ -308,13 +316,9 @@ AGO.Messages = {
         });
     },
 
-    onViewFleetsCombat: function () {
-        var content = document.getElementById(this.getAttribute('aria-controls'));
-        DOM.iterate(DOM.queryAll('.msg', content), function (message) {
-            var apiKey = DOM.getAttribute('.msg_actions .icon_apikey', message, 'title', '');
-            if (apiKey && (apiKey.substring(0, 3) === 'cr-')) {
-                PAGE.combatReports[message.dataset.msgId] = message;
-            }
-        });
+    onViewFleetsCombat: function (tabContent) {
+        // ...
     }
+    
+    
 };

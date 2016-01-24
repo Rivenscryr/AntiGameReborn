@@ -188,7 +188,6 @@ var AGO = {
                                     )
                                 }
         );
-        
         var serverURL = window.location.origin;
         serverURL += "/api/serverData.xml";
         $.ajax({

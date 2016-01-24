@@ -37,6 +37,7 @@
 div.agoButtons {
     margin-left: 3px;
     margin-top: 45px;
+    margin-bottom: 10px;
 }
 
 .anti_msg_buttons td {
@@ -61,7 +62,7 @@ div.agoButtons {
 }
 
 .ctn_with_trash {
-    margin: 15px 0 0 0 !important;
+    margin: 5px 0 0 0 !important;
 }
 
 div#agoSpyReportOverview {
