@@ -70,11 +70,12 @@ AGO.Messages = {
     },
     
     runBtnFunction: function (e) {
+        var delay = 200;
         OBJ.iterate(PAGE.allMessages, function doAction (msgID) {
             if ( (e.target.name === 'delEspAction' && DOM.query('.espionageDefText', PAGE.allMessages[msgID])) || 
                  (e.target.name === 'delEspLoot' && DOM.query('.compacting', PAGE.allMessages[msgID]) && PAGE.allMessages[msgID].dataset.lucrative === '0') ||
                  (e.target.name === 'delShown')
-                ) { DOM.click('.js_actionKill', PAGE.allMessages[msgID]); }
+                ) { setTimeout(DOM.click('.js_actionKill', PAGE.allMessages[msgID]), delay); delay += 200; }
         });
     },
 
