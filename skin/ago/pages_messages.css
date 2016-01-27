@@ -67,15 +67,35 @@ div.agoButtons {
 
 div#agoSpyReportOverview {
     text-align: center;
-    margin: 0 auto 10px;
+    margin: 40px auto -20px;
     padding: 10px 0;
-    width: 630px;
+    width: 626px;
     overflow: auto
+}
+
+.spyTableIcon {
+    font-weight: 700;
+    display: block;
+    float: left;
+    width: 16px;
+    line-height: 16px;
+    text-align: center;
+    margin-right: 5px;
+    background: url("images/icon_blank.png") center center no-repeat
+}
+
+a.spyTableIcon, a.spyTableIcon:hover {
+    text-decoration: none !important;
+    color: #ffffff !important
+}
+
+div#agoSpyReportOverview a:hover {
+    text-decoration: none;
 }
 
 div#agoSpyReportOverview table{
     border: 1px solid #000000;
-    width: 98% !important;
+    width: 100% !important;
     box-sizing: border-box; 
 }
 
@@ -140,10 +160,18 @@ div#agoSpyReportOverview .row:hover td:last-child {
 }
 
 div#agoSpyReportOverview td {
-    padding: 8px 5px 8px 5px !important;
+    padding: 5px 2px 5px 2px !important;
     border-right: 1px solid #000000;
     vertical-align: middle !important;
+}
 
+div#agoSpyReportOverview td.select {
+    width: 18px;
+}
+
+div#agoSpyReportOverview td.select.checked {
+    text-align: center;
+    background: url("images/checked.png") center center no-repeat;
 }
 
 div#agoSpyReportOverview TR TH:last-child, div#agoSpyReportOverview TR TD:last-child {

@@ -36,9 +36,12 @@ AGO.Messages = {
                         var content = document.getElementById(tab.getAttribute('aria-controls'));
                         DOM.iterate(DOM.queryAll('.msg', content), function (message) { PAGE.allMessages[message.dataset.msgId] = message; });
                         PAGE.addButtons(PAGE.messageTabEvents[tab.id], content);
+                        
                         if (typeof PAGE[PAGE.messageTabEvents[tab.id]] === 'function') {
                             PAGE[PAGE.messageTabEvents[tab.id]].call(tab, content);
                         }
+                        
+                        PAGE.reviseContent();
                         break;
                     }
                 }
@@ -54,7 +57,8 @@ AGO.Messages = {
         
         if (tabName === 'onViewFleetsEsp') {
             divContent +=       '<td style="width: 35px;"><input class="anti_msg_buttons tooltipRight" title="' + AGO.Label.get('M80').replace('$subject', '\'' + AGO.Label.get('M86') + '\'') + '" value="S" type="button" style="color: #ff9600;" name="delEspAction"></td>' +
-                                '<td style="width: 45px;"><input class="anti_msg_buttons" value="< S" type="button" style="color: #660011;" name="delEspLoot"></td>';
+                                '<td style="width: 35px;"><input class="anti_msg_buttons" value="< S" type="button" style="color: #660011;" name="delEspLoot"></td>' +
+                                '<td style="width: 10px;">&nbsp;</td>';
         } 
         
         if (tabName) {
@@ -70,12 +74,12 @@ AGO.Messages = {
     },
     
     runBtnFunction: function (e) {
-        var delay = 200;
+        var delay = 100;
         OBJ.iterate(PAGE.allMessages, function doAction (msgID) {
             if ( (e.target.name === 'delEspAction' && DOM.query('.espionageDefText', PAGE.allMessages[msgID])) || 
                  (e.target.name === 'delEspLoot' && DOM.query('.compacting', PAGE.allMessages[msgID]) && PAGE.allMessages[msgID].dataset.lucrative === '0') ||
                  (e.target.name === 'delShown')
-                ) { setTimeout(DOM.click('.js_actionKill', PAGE.allMessages[msgID]), delay); delay += 200; }
+                ) { setTimeout(DOM.click('.js_actionKill', PAGE.allMessages[msgID]), delay); delay += 400; }
         });
     },
 
@@ -87,7 +91,7 @@ AGO.Messages = {
         
         PAGE.parseMessagesEsp(this, tabContent);
         PAGE.getSpyReportMap();
-        PAGE.reviseContent(this, tabContent);
+        PAGE.sortSpyReports();
         PAGE.shrinkSpyReports(this, tabContent);
         PAGE.showSpyReportOverview(this, tabContent);
     },
@@ -143,7 +147,8 @@ AGO.Messages = {
             DOM.query('.txt_link', c).innerHTML += ' (' + message.dataset.playerName + ')';
             DOM.updateStyle('.msg_content', message, 'display', '');
         } else if (DOM.query('.compacting', message)) {
-            var p = message.dataset;
+            var p = {};
+            OBJ.copy(message.dataset, p);
             var activityColor = DOM.getAttribute('.msg_content font', message, 'color', '');
             
             DOM.updateStyle('.msg_title', message, 'width', '450px');
@@ -155,7 +160,7 @@ AGO.Messages = {
             
             var fleetWeight = 'normal';
             var fleetColor = '';
-            if (p.fleet !== '') {
+            if (p.fleet !== '-1') {
                 p.fleet = NMR.parseIntAbs(p.fleet);
                 if(p.fleet >= (1E3 * AGO.Option.get('M37'))) {
                     fleetColor = '#ff9600';
@@ -167,7 +172,7 @@ AGO.Messages = {
             }
             
             var defenseColor = '';
-            if (p.defense !== '') {
+            if (p.defense !== '-1') {
                 p.defense = NMR.parseIntAbs(p.defense);
             } else {
                 p.defense = 'NO DATA';
@@ -198,36 +203,44 @@ AGO.Messages = {
                                                                                                         PAGE.compactMessage(message);
                                                                                                       });
             } else if (DOM.query('.compacting', message)) {
+                message.id = message.dataset.msgId;
+                
                 var p = {};
                 p.playerName = STR.trim(DOM.query('[class^="status_abbr_"]', message).lastChild.data);
                 p.status = DOM.query('[class^="status_abbr_"]', message).className.match(/status_abbr_(.+)/)[1];
                 p.honorRank = (a = DOM.query('.honorRank', message)) ? a.classList[1] : '';
                 p.activity = DOM.getText('.msg_content font', message, 2) || '-';
                 p.coords = DOM.getText('.msg_head > .msg_title > .txt_link', message).split('[')[1].split(']')[0];
+                p.galaxy = p.coords.split(':')[0];
+                p.system = p.coords.split(':')[1];
+                p.position = p.coords.split(':')[2];
                 p.isMoon = DOM.query('.msg_head .msg_title .moon', message) ? 1 : 0;
                 p.activityColor = DOM.getAttribute('.msg_content font', message, 'color', '');
                 
-                p.loot = DOM.getAttribute('.tooltipRight', message, 'title', '').match(/: ([^<]+)*/)[1];
-                // Thanks to vulca for code
-                if (p.loot.match(/^[0-9]{1,3}\.[0-9]{3}$/))
-                    p.loot = p.loot.replace('.', '');
-                else if(p.loot.match(/^([0-9]{1,3}(\.|,))?[0-9]{1,3}(Md|Bn|Mrd)/))
-                    p.loot = p.loot.replace(/,/g,'.').replace(/Md|Bn|Mrd/g,'')*1000000000;
-                else if(p.loot.match(/^([0-9]{1,3}(\.|,))?[0-9]{1,3}(M|m)/))
-                    p.loot = p.loot.replace(/,/g,'.').replace(/(M|m)/g,'')*1000000;
+                p.loot = NMR.parseIntRess(DOM.getAttribute('.tooltipRight', message, 'title', ''));
+                p.metal = NMR.parseIntRess(DOM.queryAll('.resspan', message)[0].textContent);
+                p.crystal = NMR.parseIntRess(DOM.queryAll('.resspan', message)[1].textContent);
+                p.deut = NMR.parseIntRess(DOM.queryAll('.resspan', message)[2].textContent);
+                p.plunder = DOM.queryAll('.compacting', message)[2].textContent.match(/: ([0-9]+)%/)[1]/100;
                 p.loot >= (1E3 * AGO.Option.get('M36')) ? p.lucrative = '1' : p.lucrative = '0';
                 
                 p.fleet = DOM.getAttribute('.tooltipLeft', message, 'title', '');
-                p.defense = DOM.queryAll('.compacting', message)[3];
-                p.defense = DOM.getAttribute('.tooltipRight', p.defense, 'title', '');
+                p.defense = DOM.getAttribute('.tooltipRight', DOM.queryAll('.compacting', message)[3], 'title', '');
                 
                 if (p.fleet !== '') {
                     p.fleet = NMR.parseIntAbs(p.fleet);
                     if(p.fleet >= (1E3 * AGO.Option.get('M37'))) {
                         p.lucrative = 1;
                     }
-                }
+                } else
+                    p.fleet = -1;
                 
+                if (p.defense !== '')
+                    p.defense = NMR.parseIntAbs(p.defense);
+                else
+                    p.defense = -1;
+                
+                console.log(this);
                 p.date = AGO.Time.convertLocal(DOM.getText('.msg_head .msg_date', message));
                 p.age = AGO.Time.ogameTime - AGO.Time.parse(DOM.getText('.msg_head .msg_date', message)).getTime();
                     
@@ -239,6 +252,7 @@ AGO.Messages = {
     
     getSpyReportMap: function () {
         var i = 0;
+        PAGE.spyReports = {};
         OBJ.iterate(PAGE.allMessages, function (msgId) {
             if (DOM.query('.compacting', PAGE.allMessages[msgId])) {
                 PAGE.spyReports[i] = PAGE.allMessages[msgId].dataset;
@@ -246,19 +260,17 @@ AGO.Messages = {
             }
         });
         PAGE.spyReportsKeys = Object.keys(PAGE.spyReports);
-        PAGE.sortSpyReports();
     },
     
     sortSpyReports: function (by) {
         by = by || 'loot';
         PAGE.spyReportsKeys.sort(function(a,b){return PAGE.spyReports[b][by] - PAGE.spyReports[a][by]});
-        /* console.log(PAGE.spyReports);
+        console.log(PAGE.spyReports);
         console.log(PAGE.spyReportsKeys);
-        PAGE.showSpyReportOverview(); */
     },
 
     showSpyReportOverview: function (tab, tabContent) {
-        var contentWrap = DOM.query('.content', document);
+        var contentWrap = DOM.query('.tab_ctn', tabContent) || tabContent;
         if (a = DOM.query('#agoSpyReportOverview', contentWrap)) contentWrap.removeChild(a);
         var tableWrap = DOM.appendDIV(null, '');
         tableWrap.id = 'agoSpyReportOverview';
@@ -285,34 +297,56 @@ AGO.Messages = {
         
         DOM.addEvents('#agoSpyReportOverview .spyHeader', tableWrap, { click: function (e) { 
                                                                                 if (!e || !e.target || !e.target.id) return; 
-                                                                                //PAGE.sortSpyReports(e.target.dataset.sort);
+                                                                                PAGE.sortSpyReports(e.target.dataset.sort);
+                                                                                PAGE.showSpyReportOverview(tab, tabContent);
                                                                             } });
 
         var tableBody = DOM.query('tbody', table);
         OBJ.iterate(PAGE.spyReports, function (id) {
-            var p = PAGE.spyReports[PAGE.spyReportsKeys[id]];
+            var p = {}; OBJ.copy(PAGE.spyReports[PAGE.spyReportsKeys[id]], p);
+            var message = document.getElementById(p.msgId);
 
             var player = '' + (p.honorRank !== '' ? '<span class="honorRank ' + p.honorRank + '">&nbsp;</span>' : '') + '<span class="status_abbr_' + p.status + '">' + (p.playerName || '') + '</span>';
 
             var row = DOM.appendTR(tableBody);
             row.classList.add('row');
             if (id%2 === 1) row.classList.add('even');
-            var rowSelect = DOM.appendTD(row);
-            var rowCoords = DOM.appendTD(row);
-            rowCoords.innerHTML = p.coords + (p.isMoon === '1' ? ' <figure class="planetIcon moon tooltip js_hideTipOnMobile" title=""></figure>' : '');
-            var rowAge = DOM.appendTD(row);
-            rowAge.appendChild(DOM.parse('<span class="tooltipRight" title="' + p.date + '">' + AGO.Time.formatTime(p.age / 1000, true) + '</span>'));
-            rowAge.style.textAlign = 'left';
-            var rowPlayer = DOM.appendTD(row);
-            rowPlayer.innerHTML = player + (parseInt(p.activity) > 0 ? ' (<span style="color: ' + p.activityColor + ';">' + p.activity + '</span>)' : '');
-            rowPlayer.style.textAlign = 'left';
-            var rowLoot = DOM.appendTD(row, null, AGO.Option.is('M53') ? STR.shortNumber(p.loot, 1) : STR.formatNumber(p.loot));
-            rowLoot.style.textAlign = 'right';
-            var rowDebris = DOM.appendTD(row);
-            rowDebris.style.textAlign = 'right';
-            var rowDefense = DOM.appendTD(row);
+            
+            var cellSelect = DOM.appendTD(row);
+            cellSelect.classList.add('select');
+            
+            var cellCoords = DOM.appendTD(row);
+                var linkCoords = document.createElement('a');
+                linkCoords.classList.add('txt_link');
+                linkCoords.href = '#' + p.msgId;
+                linkCoords.innerHTML = p.coords + (p.isMoon === '1' ? ' <figure class="planetIcon moon tooltip js_hideTipOnMobile" title=""></figure>' : '');
+            cellCoords.appendChild(linkCoords);
+            
+            var cellAge = DOM.appendTD(row);
+            cellAge.style.textAlign = 'left';
+                var spanAge = document.createElement('span');
+                spanAge.classList.add('tooltipRight');
+                spanAge.title = p.date;
+                spanAge.innerHTML = AGO.Time.formatTime(p.age / 1000, true);
+            cellAge.appendChild(spanAge);
+            
+            var cellPlayer = DOM.appendTD(row);
+            cellPlayer.style.textAlign = 'left';
+            cellPlayer.innerHTML = player + (parseInt(p.activity) > 0 ? ' (<span style="color: ' + p.activityColor + ';">' + p.activity + '</span>)' : '');
+            
+            var cellLoot = DOM.appendTD(row);
+            cellLoot.style.textAlign = 'right';
+                var spanLoot = DOM.appendSPAN(cellLoot);
+                spanLoot.classList.add('tooltipCustom');
+                spanLoot.title = STR.formatNumber(p.metal * p.plunder) + '<br />' + STR.formatNumber(p.crystal * p.plunder) + '<br />' + STR.formatNumber(p.deut * p.plunder);
+                spanLoot.textContent = AGO.Option.is('M53') ? STR.shortNumber(p.loot, 1) : STR.formatNumber(p.loot);
+            
+            var rowFleet = DOM.appendTD(row, null, p.fleet !== '-1' ? (AGO.Option.is('M53') ? STR.shortNumber(p.fleet, 1) : STR.formatNumber(p.fleet)) : 'no data');
+            rowFleet.style.textAlign = 'right';
+            var rowDefense = DOM.appendTD(row, null, p.defense !== '-1' ? (AGO.Option.is('M53') ? STR.shortNumber(p.defense, 1) : STR.formatNumber(p.defense)) : 'no data');
             rowDefense.style.textAlign = 'right';
             var rowActions = DOM.appendTD(row);
+            rowActions.innerHTML = '<a href="/game/index.php?page=fleet1&amp;galaxy=' + p.galaxy + '&amp;system=' + p.system + '&amp;position=' + p.position + '&amp;type=1&amp;mission=1" class="spyTableIcon">A</a>';
             tableBody.appendChild(row);
         });
     },

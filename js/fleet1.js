@@ -221,6 +221,11 @@ AGO.Fleet1 = {
         PAGE.enabled && PAGE.Show()
     },
     Ready: function () {
+        var a; (AGO.Option.get("E14") && (a = AGO.Fleet.Get("Current", "Routine"))) ? ((5 == a || 6 == a) ? (AGO.Fleet.Set("Current", "Routine", 0), AGO.Init.Messages("Planets", "Action", {
+                                                                                                                                                                        scroll: "down",
+                                                                                                                                                                        type: AGO.Acc.type
+                                                                                                                                                                      })) : 0) : 0;
+
         var a, e;
         a = PAGE.Para;
         PAGE.enabled && (a.sendingEnabled = +AGO.Global.message({

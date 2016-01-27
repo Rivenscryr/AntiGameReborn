@@ -833,6 +833,15 @@ var DOM = {
         a = STR.check(a).toLowerCase();
         return (-1 < a.indexOf("k") ? 1E3 : 1
                ) * parseInt(a.replace(/[^\d]/g, ""), 10)
+    }, parseIntRess: function (a) {
+        a = STR.trim(a.match(/: ([^<]+)*/)[1]);
+        if (a.match(/^[0-9]{1,3}\.[0-9]{3}$/))
+            a = a.replace('.', '');
+        else if(a.match(/^([0-9]{1,3}(\.|,))?[0-9]{1,3}(Md|Bn|Mrd)/))
+            a = a.replace(/,/g,'.').replace(/Md|Bn|Mrd/g,'')*1000000000;
+        else if(a.match(/^([0-9]{1,3}(\.|,))?[0-9]{1,3}(M|m)/))
+            a = a.replace(/,/g,'.').replace(/(M|m)/g,'')*1000000;
+        return parseInt(a);
     }
 }, STR = {
     check: function (a) {

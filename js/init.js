@@ -569,7 +569,7 @@ AGO.App = {
         AGO.App.beta = -1 <
                        AGO.App.name.indexOf("Alpha") ? 3 : -1 < AGO.App.name.indexOf("Beta") ? 1 : 0;
         AGO.Uni.domain = document.location.hostname.toLowerCase();
-        AGO.Uni.url = "http://" + AGO.Uni.domain;
+        AGO.Uni.url = document.location.protocol + "//" + AGO.Uni.domain;
         a = AGO.Uni.domain.split(".");
         document.location.href.match(/http||https:\/\/.+\.ogame.gameforge.com\/game\/index\.php\?+.*page=*/i) ? (AGO.App.page = STR.getParameter("page", document.location.href).toLowerCase(), AGO.App.page = 0 === AGO.App.page.indexOf("fleet") && STR.getParameter("cp", document.location.href) ? "fleet1" : AGO.App.page, AGO.Uni.path = document.location.href.split("?")[0] +
                                                                                                                                                                                                                                                                                                                                         "?page=", b = (a[0] || ""
