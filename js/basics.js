@@ -16,6 +16,15 @@ var DOM = {
             }
         }
         return null
+    }, isDescendant: function (parent, child) {
+        var node = child.parentNode;
+        while (node != null) {
+            if (node == parent) {
+                return true;
+            }
+            node = node.parentNode;
+        }
+        return false;
     }, iterate: function (a,
                           b
     ) {
@@ -783,6 +792,19 @@ var DOM = {
         }
     }, iterateArray: function (a, b) {
         Array.isArray(a) && a.forEach(b)
+    }, deleteWhere: function (obj, key, value) {
+        if (obj && "object" === typeof obj) {
+            for (var i in obj) {
+                obj.hasOwnProperty(i) && obj[i][key] === value && delete obj[i]
+            }
+        }
+    }, isEmpty: function (object) {
+        for(var key in object) {
+            if(object.hasOwnProperty(key)){
+                return false;
+            }
+        }
+        return true;
     }
 }, VAL = {
     choose: function (a) {
@@ -834,13 +856,14 @@ var DOM = {
         return (-1 < a.indexOf("k") ? 1E3 : 1
                ) * parseInt(a.replace(/[^\d]/g, ""), 10)
     }, parseIntRess: function (a) {
+        var r;
         a = STR.trim(a.match(/: ([^<]+)*/)[1]);
         if (a.match(/^[0-9]{1,3}\.[0-9]{3}$/))
             a = a.replace('.', '');
-        else if(a.match(/^([0-9]{1,3}(\.|,))?[0-9]{1,3}(Md|Bn|Mrd)/))
-            a = a.replace(/,/g,'.').replace(/Md|Bn|Mrd/g,'')*1000000000;
-        else if(a.match(/^([0-9]{1,3}(\.|,))?[0-9]{1,3}(M|m)/))
-            a = a.replace(/,/g,'.').replace(/(M|m)/g,'')*1000000;
+        else if((r = new RegExp('^([0-9]{1,3}(\.|,))?[0-9]{1,3}(' + AGO.Label.is("KU0B") + ')')) && a.match(r))
+            a = a.replace(/,/g,'.').replace(AGO.Label.is("KU0B"),'')*1000000000;
+        else if((r = new RegExp('^([0-9]{1,3}(\.|,))?[0-9]{1,3}(' + AGO.Label.is("KU0M") + ')')) && a.match(r))
+            a = a.replace(/,/g,'.').replace(AGO.Label.is("KU0M"),'')*1000000;
         return parseInt(a);
     }
 }, STR = {
@@ -905,5 +928,12 @@ var DOM = {
             }
         }
         return b
+    }, getMatches: function (string, regex, index) {
+        index || (index = 1); // default to the first capturing group
+        var matches = [];
+        var match;
+        while (match = regex.exec(string))
+            matches.push(match[index]);
+        return matches;
     }
 };

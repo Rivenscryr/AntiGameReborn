@@ -65,6 +65,10 @@ div.agoButtons {
     margin: 5px 0 0 0 !important;
 }
 
+li.msg.highlighted {
+    box-shadow: #23d2b7 0px 0px 10px 3px;
+}
+
 div#agoSpyReportOverview {
     text-align: center;
     margin: 40px auto -20px;
@@ -80,13 +84,17 @@ div#agoSpyReportOverview {
     width: 16px;
     line-height: 16px;
     text-align: center;
-    margin-right: 5px;
+    margin-right: 2px;
     background: url("images/icon_blank.png") center center no-repeat
 }
 
 a.spyTableIcon, a.spyTableIcon:hover {
     text-decoration: none !important;
     color: #ffffff !important
+}
+
+a.attacking, a.attacking:hover {
+    color: #ff0000 !important
 }
 
 div#agoSpyReportOverview a:hover {
