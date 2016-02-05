@@ -114,18 +114,19 @@ AGO.Main = {
         AGO.Init.Messages("Main", "Display");
         AGO.Init.Messages("Panel", "Display")
     }, updateTitle: function () {
-        if ((AGO.Main.modeTitle > 0) && DOM.getProperty("eventboxBlank", "id", "offsetHeight", 2)) {
-            document.title = AGO.App.title;
-            AGO.Main.modeTitle--;
-        } else {
-            var missionCounter = DOM.getText("tempcounter", "id");
-            var missionType = DOM.getText("#eventboxFilled .next_event + .next_event .undermark");
-            if (missionCounter && missionType) {
-                document.title = AGO.App.title + " - " + missionCounter + " - " + missionType;
-            } else {
+        if (AGO.Option.is('O04')) 
+            if ((AGO.Main.modeTitle > 0) && DOM.getProperty("eventboxBlank", "id", "offsetHeight", 2)) {
                 document.title = AGO.App.title;
+                AGO.Main.modeTitle--;
+            } else {
+                var missionCounter = DOM.getText("tempcounter", "id");
+                var missionType = DOM.getText("#eventboxFilled .next_event + .next_event .undermark");
+                if (missionCounter && missionType) {
+                    document.title = AGO.App.title + " - " + missionCounter + " - " + missionType;
+                } else {
+                    document.title = AGO.App.title;
+                }
             }
-        }
     }, Check: function () {
     }, addVersionCheck: function (a) {
         var b, d, c, e;
@@ -192,7 +193,7 @@ AGO.Main = {
                     b.textContent : "";
                 b = DOM.appendDIV(null, {id: "oGameVersionCheck"});
                 d = DOM.appendDIV(b, null, {
-                                      background: 'url("http://gf1.geo.gfsrv.net/cdn63/10e31cd5234445e4084558ea3506ea.gif") no-repeat scroll 0px 0px transparent',
+                                      background: 'url("' + document.location.protocol + '//gf1.geo.gfsrv.net/cdn63/10e31cd5234445e4084558ea3506ea.gif") no-repeat scroll 0px 0px transparent',
                                       height: "28px",
                                       marginTop: "8px",
                                       position: "relative",
@@ -206,7 +207,7 @@ AGO.Main = {
                               }
                 ).textContent = c;
                 d = DOM.appendDIV(b, null, {
-                                      background: 'url("http://gf1.geo.gfsrv.net/cdn9e/4f73643e86a952be4aed7fdd61805a.gif") repeat-y scroll 5px 0px transparent',
+                                      background: 'url("' + document.location.protocol + '//gf1.geo.gfsrv.net/cdn9e/4f73643e86a952be4aed7fdd61805a.gif") repeat-y scroll 5px 0px transparent',
                                       color: "rgb(132, 132, 132)",
                                       margin: "0px",
                                       padding: "17px 0px 10px",
@@ -228,7 +229,7 @@ AGO.Main = {
                     }
                 }
                 DOM.appendDIV(b, null, {
-                                  background: 'url("http://gf1.geo.gfsrv.net/cdn30/aa3e8edec0a2681915b3c9c6795e6f.gif") no-repeat scroll 2px 0px transparent',
+                                  background: 'url("' + document.location.protocol + '//gf1.geo.gfsrv.net/cdn30/aa3e8edec0a2681915b3c9c6795e6f.gif") no-repeat scroll 2px 0px transparent',
                                   height: "17px"
                               }
                 );
