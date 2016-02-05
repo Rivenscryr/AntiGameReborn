@@ -1,7 +1,7 @@
 {
 	"name"					: "AntiGameOriginv6",
 	"short_name"			: "AGOv6",
-	"version"				: "6.0.0.1",
+	"version"				: "6.0.0.2",
 	"description"			: "AntiGameOrigin - the other OGame experience for all communities.",
 	"default_locale"		: "en",
 	"homepage_url"			: "http://antigame.de",	
