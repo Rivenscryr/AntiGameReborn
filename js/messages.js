@@ -296,6 +296,7 @@ AGO.Messages = {
         }
         
         AGO.Messages.spyTableData.sortSequence = by;
+        AGO.Messages.getSpyReportMap();
         AGO.Messages.spyReportsKeys = Object.keys(AGO.Messages.spyReports);
         
         AGO.Messages.spyReportsKeys.sort(function(a,b) {
