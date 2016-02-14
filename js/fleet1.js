@@ -1066,6 +1066,7 @@ AGO.Fleet1 = {
         }
     },
     onKeydown: function (a) {
+        if (document.activeElement.tagName in {'TEXTAREA':1, 'INPUT':1}) return;
         if (13 ===
             a.keyCode) {
             return DOM.hasClass("continue", "id", "on") ? DOM.click("#continue.on") : (DOM.click("#ago_routine_" + PAGE.Para.calculator), 2 <= PAGE.getRoutine(PAGE.Para.calculator) && 2 <= PAGE.getRoutine(PAGE.Para.calculator, "status") && DOM.click("#continue.on")

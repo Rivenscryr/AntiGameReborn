@@ -5,6 +5,7 @@ AGO.Galaxy = {
         AGO.Option.is("G40") && !AGO.App.OgameMobile && (AGO.Galaxy.enabled = !0, AGO.Galaxy.improve = AGO.Option.is("G41"), AGO.Galaxy.shrink = AGO.Option.get("G42", 2), AGO.Galaxy.status = 5, AGO.Galaxy.Show(), document.getElementById("galaxytable") && AGO.Galaxy.Content()
         )
     }, onKeydown: function (a) {
+        if (document.activeElement.tagName in {'TEXTAREA':1, 'INPUT':1}) return;
         // Enter key pressed
         if (a.keyCode === 13 && !a.cached) {
             AGO.Galaxy.direction = 0;

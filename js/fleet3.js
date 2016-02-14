@@ -416,6 +416,7 @@ AGO.Fleet3 = {
         )
     },
     onKeydown: function (a) {
+        if (document.activeElement.classList.contains('chat_box_textarea')) return;
         if (13 === a.keyCode) {
             if (document.activeElement && "A" !== document.activeElement.nodeName && "INPUT" !== document.activeElement.nodeName) {
                 return DOM.hasClass("start",

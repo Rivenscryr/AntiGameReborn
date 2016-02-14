@@ -551,6 +551,7 @@ AGO.Fleet2 = {
         }
     },
     onKeydown: function (a) {
+        if (document.activeElement.classList.contains('chat_box_textarea')) return;
         return 13 === a.keyCode ? (DOM.hasClass("continue", "id", "on") && DOM.click("#continue.on"), !1
         ) : !0
     },

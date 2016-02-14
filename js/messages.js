@@ -141,7 +141,6 @@ AGO.Messages = {
     },
     
     addActButtons: function (tab, tabContent) {
-        console.log(AGO);
         OBJ.iterate(AGO.Messages.allMessages, function (id) {
             var message = AGO.Messages.allMessages[id];
             var txtLink = DOM.query('.msg_actions .txt_link', message);
@@ -495,6 +494,8 @@ AGO.Messages = {
     },
     
     onKeydown: function (b) {
+        if (document.activeElement.tagName in {'TEXTAREA':1, 'INPUT':1}) return;
+        
         var currentTab = DOM.query('#messages .tabs_wrap .tabs_btn .list_item[aria-selected=true]');
         currentTab = DOM.query('#' + currentTab.getAttribute('aria-controls') + ' .subtabs .list_item[aria-selected=true]');
         currentTab = DOM.query('#' + currentTab.getAttribute('aria-controls'));
@@ -508,7 +509,5 @@ AGO.Messages = {
                 paginator[1].click();
                 break;
         }
-        
-        return false;
     }
 };
