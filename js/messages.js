@@ -104,13 +104,14 @@ AGO.Messages = {
     onViewFleetsEsp: function (tabContent) {
         DOM.iterate(DOM.queryAll('.msg', tabContent), function (message) {
             DOM.addEventsAll('.msg_head', message, { click: function (e) { AGO.Messages.toggleFoldMessage(message, e); } });
-            AGO.Messages.toggleFoldMessage(message);
+            AGO.Option.is('M14') ? AGO.Messages.toggleFoldMessage(message) : 0;
         });
         
         AGO.Messages.parseMessagesEsp(this, tabContent);
         AGO.Messages.getSpyReportMap();
         AGO.Messages.sortSpyReports(AGO.Messages.spyTableData.sortSequence);
         AGO.Messages.shrinkSpyReports(this, tabContent);
+        AGO.Messages.addActButtons(this, tabContent);
         if (!OBJ.isEmpty(AGO.Messages.spyReports)) AGO.Messages.showSpyReportOverview(this, tabContent);
     },
     
@@ -126,8 +127,7 @@ AGO.Messages = {
 
     shrinkSpyReports: function (tab, tabContent) {
         // shrink spy reports
-        var shrinkFactor = AGO.Option.get("M12", 2);
-        if (shrinkFactor > 0) {
+        if (AGO.Option.is("M12")) {
             OBJ.iterate(AGO.Messages.allMessages, function (msgId) {
                 // TODO: tried to use css, but firefox completely ignores it!?
                 var message = AGO.Messages.allMessages[msgId];
@@ -135,22 +135,40 @@ AGO.Messages = {
                     DOM.iterate(DOM.queryAll('.msg_content br'), function (br) {
                         br.parentElement.removeChild(br);
                     });
-                    DOM.iterate(DOM.queryAll('.msg_content div'), function (div) {
-                        div.style.marginTop = (1 - shrinkFactor / 4) + 'rem';
-                    });
                 }
             });
         }
     },
     
+    addActButtons: function (tab, tabContent) {
+        console.log(AGO);
+        OBJ.iterate(AGO.Messages.allMessages, function (id) {
+            var message = AGO.Messages.allMessages[id];
+            var txtLink = DOM.query('.msg_actions .txt_link', message);
+            var divActBtns = document.createElement('div');
+            divActBtns.classList.add('ago_act_buttons');
+            DOM.query('.msg_actions', message).insertBefore(divActBtns, txtLink);
+            
+            var trashBtn = document.createElement('a');
+            trashBtn.classList.add('icon_nf_link', 'fleft');
+            trashBtn.href = 'https://trashsim.universeview.be/?SR_KEY=' + message.dataset.apiKey;
+            trashBtn.target = '_blank';
+                var trashIcon = document.createElement('span');
+                trashIcon.classList.add('icon_nf', 'icon_trashsim', 'tooltip', 'js_hideTipOnMobile');
+                trashIcon.title = 'TrashSim';
+                trashBtn.appendChild(trashIcon);
+            divActBtns.appendChild(trashBtn);
+        });
+    },
+    
     toggleFoldMessage: function (message, e) {
         if (!message.classList.contains('ago_folded')) {
-            var arrayHideElements = ['msg_sender', 'msg_sender_label', 'msg_actions'];
+            var arrayHideElements = ['msg_actions'];
             if (!DOM.query('.espionageDefText', message)) arrayHideElements.push('msg_content');
             for (var i = 0; i < arrayHideElements.length; i++)
                 DOM.setStyleDisplay('.' + arrayHideElements[i], message, 'none');
             message.classList.add('ago_folded');
-        } else if (!e.target.classList.contains('js_actionKill')) {
+        } else if (!e || !e.target.classList.contains('js_actionKill')) {
             var arrayShowElements = ['msg_content', 'msg_actions'];
             for (var i = 0; i < arrayShowElements.length; i++)
                 DOM.updateStyle('.' + arrayShowElements[i], message, 'display', '');
@@ -158,7 +176,7 @@ AGO.Messages = {
         }
     },
 
-    compactMessage: function (message) {
+    reviseMessage: function (message) {
         var c;
         
         if (c = DOM.query('.espionageDefText', message)) {
@@ -167,10 +185,12 @@ AGO.Messages = {
         } else if (DOM.query('.compacting', message)) {
             var p = {};
             OBJ.copy(message.dataset, p);
-            var activityColor = DOM.getAttribute('.msg_content font', message, 'color', '');
-            
             DOM.updateStyle('.msg_title', message, 'width', '450px');
+            DOM.setStyleDisplay('.msg_sender', message, 'none');
+            DOM.setStyleDisplay('.msg_sender_label', message, 'none');
             DOM.query('.msg_title', message).innerHTML += ' (' + AGO.Label.get('I70') + ': ' + (p.honorRank !== '' ? '<span class="honorRank ' + p.honorRank + '">&nbsp;</span>' : '') + '<span class="status_abbr_' + p.status + '">' + (p.playerName || '') + '</span>)';
+
+            var activityColor = DOM.getAttribute('.msg_content font', message, 'color', '');
             
             var lootWeight = 'normal';
             var lootColor = '';
@@ -202,6 +222,9 @@ AGO.Messages = {
             DOM.appendSPAN(DOM.query('.msg_head', message), { "class":"agoSpyLoot", "style":"color:"+lootColor+"; font-weight:"+lootWeight+"" }, 'L: ' + STR.shortNumber(p.loot) + '');
             DOM.appendSPAN(DOM.query('.msg_head', message), { "class":"agoSpyFleet", "style":"color:"+fleetColor+"; font-weight:"+fleetWeight+"" }, 'F: ' + STR.shortNumber(p.fleet) + '');
             DOM.appendSPAN(DOM.query('.msg_head', message), { "class":"agoSpyDefense", "style":"color:"+defenseColor+";" }, 'D: ' + STR.shortNumber(p.defense) + '');
+            
+            // #TODO: not finished
+            if (AGO.Option.is('M30') && AGO.Option.is('M14') && p.lucrative === '1') AGO.Messages.toggleFoldMessage(message);
         }
     },
 
@@ -218,12 +241,13 @@ AGO.Messages = {
 
                 AGB.message("DataBase", "GetPlanet", { keyUni: AGO.App.keyUni, coords: b.coords },    function (a) { 
                                                                                                         message.dataset.playerName = a.playerName;
-                                                                                                        AGO.Messages.compactMessage(message);
+                                                                                                        AGO.Messages.reviseMessage(message);
                                                                                                       });
             } else if (DOM.query('.compacting', message)) {
                 message.id = 'm' + message.dataset.msgId;
                 
                 var p = {};
+                p.apiKey = DOM.getAttribute('.icon_apikey', message, 'title', '').match(/sr-([-a-zA-Z0-9]+)/)[0];                
                 p.playerName = STR.trim(DOM.query('[class^="status_abbr_"]', message).lastChild.data);
                 p.status = DOM.query('[class^="status_abbr_"]', message).className.match(/status_abbr_(.+)/)[1];
                 p.honorRank = (a = DOM.query('.honorRank', message)) ? a.classList[1] : '';
@@ -263,7 +287,7 @@ AGO.Messages = {
                 p.age = AGO.Time.ogameTime - AGO.Time.parse(DOM.getText('.msg_head .msg_date', message)).getTime();
                     
                 OBJ.copy(p, message.dataset);
-                AGO.Messages.compactMessage(message);
+                AGO.Option.is('M20') ? AGO.Messages.reviseMessage(message) : 0;
             }
         });
     },
@@ -358,7 +382,6 @@ AGO.Messages = {
         OBJ.iterate(AGO.Messages.spyReports, function (id) {
             var p = {}; OBJ.copy(AGO.Messages.spyReports[AGO.Messages.spyReportsKeys[id]], p);
             var message = document.getElementById('m' + p.msgId);
-            console.log(message);
 
             var player = '' + (p.honorRank !== '' ? '<span class="honorRank ' + p.honorRank + '">&nbsp;</span>' : '') + '<span class="status_abbr_' + p.status + '">' + (p.playerName || '') + '</span>';
 
@@ -415,11 +438,12 @@ AGO.Messages = {
                 var aDelete = DOM.appendA(cellActions);
                 aDelete.classList.add('spyTableIcon');
                 DOM.query('#m' + p.msgId) ? aDelete.classList.add('icon', 'icon_delete') : aDelete.appendChild(document.createTextNode('-'));
-                aDelete.addEventListener('click', function () { DOM.click('.js_actionKill', message); }, false);
+                aDelete.addEventListener('click', function () { DOM.query('.js_actionKill', message) ? DOM.click('.js_actionKill', message) : !0; }, false);
                 DOM.query('.js_actionKill', message).onclick = function deleteMessage (e) { 
                     DOM.query('#spyTable tbody').removeChild(DOM.query('#t_' + p.msgId));
                     OBJ.deleteWhere(AGO.Messages.spyReports, 'msgId', p.msgId);
-                    OBJ.deleteWhere(AGO.Messages.allMessages, 'id', p.msgId);
+                    OBJ.deleteWhere(AGO.Messages.allMessages, 'id', 'm' + p.msgId);
+                    AGO.Messages.refreshSummary();
                     OBJ.iterate(DOM.queryAll('#spyTable .row'), function (id) {
                         var row = DOM.queryAll('#spyTable .row')[id];
                         row.classList.remove('even');
@@ -445,6 +469,25 @@ AGO.Messages = {
                 
             tableBody.appendChild(row);
         });
+        
+        var summaryDiv = DOM.appendDIV(tableWrap);
+        summaryDiv.classList.add('summary');
+        summaryDiv.innerHTML = 'count: <span id="summaryCount"></span> | loot: <span id="summaryLoot"></span> | fleet: <span id="summaryFleet"></span>';
+        AGO.Messages.refreshSummary();
+    },
+    
+    refreshSummary: function () {
+        var c, sumLoot = 0,
+            sumFleet = 0;
+            
+        OBJ.iterate(AGO.Messages.spyReports, function (id) {
+            sumLoot += parseInt(AGO.Messages.spyReports[id].loot);
+            sumFleet += parseInt(((c = AGO.Messages.spyReports[id].fleet) > -1 ? c : 0));
+        });        
+        
+        DOM.query('#summaryCount').textContent = Object.keys(AGO.Messages.spyReports).length;
+        DOM.query('#summaryLoot').textContent = AGO.Option.is('M53') ? STR.shortNumber(sumLoot, 1) : STR.formatNumber(sumLoot);
+        DOM.query('#summaryFleet').textContent = AGO.Option.is('M53') ? STR.shortNumber(sumFleet, 1) : STR.formatNumber(sumFleet);
     },
 
     onViewFleetsCombat: function (tabContent) {
@@ -452,8 +495,20 @@ AGO.Messages = {
     },
     
     onKeydown: function (b) {
-        // ...
+        var currentTab = DOM.query('#messages .tabs_wrap .tabs_btn .list_item[aria-selected=true]');
+        currentTab = DOM.query('#' + currentTab.getAttribute('aria-controls') + ' .subtabs .list_item[aria-selected=true]');
+        currentTab = DOM.query('#' + currentTab.getAttribute('aria-controls'));
+        var paginator = DOM.queryAll('.paginator', currentTab);
+
+        switch (b.keyCode) {
+            case 39:
+                paginator[2].click();
+                break;
+            case 37:
+                paginator[1].click();
+                break;
+        }
+        
+        return false;
     }
-    
-    
 };

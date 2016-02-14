@@ -34,6 +34,23 @@
     margin-bottom: 0;
 }
 
+#messages .ago_act_buttons .icon_nf_link:first-child {
+    margin-left: 5px
+}
+
+#messages .icon_trashsim  {
+    background: url("images/icon_warsaalk.png");
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 26px;
+    width: 26px;
+    background-position: 0 -52px;
+}
+
+#messages .icon_trashsim:hover {
+    background-position: 0 -78px;
+}
+
 div.agoButtons {
     margin-left: 3px;
     margin-top: 45px;
@@ -184,4 +201,15 @@ div#agoSpyReportOverview td.select.checked {
 
 div#agoSpyReportOverview TR TH:last-child, div#agoSpyReportOverview TR TD:last-child {
     border-right: 0
+}
+
+div#agoSpyReportOverview .summary {
+    background-color: #23282d;
+    border: 1px solid #000000;
+    box-shadow: 0 0 3px 1px #00050a inset;
+    color: #848484;
+    margin: 2px 0;
+    padding: 3px 7px;
+    line-height: 22px;
+    font-weight: bold;
 }
