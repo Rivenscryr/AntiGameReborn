@@ -141,6 +141,18 @@ AGO.Messages = {
     },
     
     addActButtons: function (tab, tabContent) {
+        var playerTechs =   {0:
+                                [{research:{
+                                        109: {level: AGO.Units.Data['109']},
+                                        110: {level: AGO.Units.Data['110']},
+                                        111: {level: AGO.Units.Data['111']},
+                                        115: {level: AGO.Units.Data['115']},
+                                        117: {level: AGO.Units.Data['117']},
+                                        118: {level: AGO.Units.Data['118']}
+                                }}]
+                            };
+        
+        var prefillTechs = window.btoa(JSON.stringify(playerTechs));
         OBJ.iterate(AGO.Messages.allMessages, function (id) {
             var message = AGO.Messages.allMessages[id];
             var txtLink = DOM.query('.msg_actions .txt_link', message);
@@ -150,7 +162,7 @@ AGO.Messages = {
             
             var trashBtn = document.createElement('a');
             trashBtn.classList.add('icon_nf_link', 'fleft');
-            trashBtn.href = 'https://trashsim.universeview.be/?SR_KEY=' + message.dataset.apiKey;
+            trashBtn.href = 'https://trashsim.universeview.be/?SR_KEY=' + message.dataset.apiKey + '#prefill=' + prefillTechs;
             trashBtn.target = '_blank';
                 var trashIcon = document.createElement('span');
                 trashIcon.classList.add('icon_nf', 'icon_trashsim', 'tooltip', 'js_hideTipOnMobile');
