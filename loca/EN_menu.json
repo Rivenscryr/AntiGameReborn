@@ -397,7 +397,7 @@
     "M22": "Debris",
     "M24": "Loot",
     "M28": "Show as much plunder waves",
-    "M30": "Always show reports above limits",
+    "M30": "Do not fold reports above limits",
     "M31": "Hide all",
     "M32": "Hide &lt; Limit, Buildings, Research",
     "M33": "Hide &lt; Limit, Buildings",
