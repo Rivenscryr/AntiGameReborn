@@ -163,7 +163,7 @@ AGO.Messages = {
             
             var trashBtn = document.createElement('a');
             trashBtn.classList.add('icon_nf_link', 'fleft');
-            trashBtn.href = 'https://trashsim.universeview.be/?SR_KEY=' + message.dataset.apiKey + '#prefill=' + prefillTechs;
+            trashBtn.href = 'https://trashsim.universeview.be/?SR_KEY=' + message.dataset.apiKey + '&utm_source=ogame&utm_medium=ago&utm_content=espionage%20message&utm_campaign=simulate' + '#prefill=' + prefillTechs;
             trashBtn.target = '_blank';
                 var trashIcon = document.createElement('span');
                 trashIcon.classList.add('icon_nf', 'icon_trashsim', 'tooltip', 'js_hideTipOnMobile');
