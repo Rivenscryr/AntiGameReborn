@@ -112,7 +112,7 @@ AGO.Messages = {
         AGO.Messages.sortSpyReports(AGO.Messages.spyTableData.sortSequence);
         AGO.Messages.shrinkSpyReports(this, tabContent);
         AGO.Messages.addActButtons(this, tabContent);
-        if (!OBJ.isEmpty(AGO.Messages.spyReports)) AGO.Messages.showSpyReportOverview(this, tabContent);
+        if (!OBJ.isEmpty(AGO.Messages.spyReports) && AGO.Option.is('M51')) AGO.Messages.showSpyReportOverview(this, tabContent);
     },
     
     reviseContent: function (tab, tabContent) {
@@ -141,6 +141,7 @@ AGO.Messages = {
     },
     
     addActButtons: function (tab, tabContent) {
+        console.log(AGO);
         var playerTechs =   {0:
                                 [{research:{
                                         109: {level: AGO.Units.Data['109']},

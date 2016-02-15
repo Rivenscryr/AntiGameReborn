@@ -1,7 +1,14 @@
 if (!AGO) {
     var AGO = {};
 }
-AGO.versionOGameMax = "6.1.0";
+
+AGO.versionOGameMax = "6.0.20";
+var oReq = new XMLHttpRequest();
+oReq.addEventListener("load", function (data) { 
+    AGO.versionOGameMax = JSON.parse(data.target.responseText).versionOGameMax;
+});
+oReq.open("GET", "https://antigame.de/_internal/ogame_version.txt?" + (new Date()).getTime());
+oReq.send();
 -1 < window.navigator.userAgent.indexOf("Firefox") ? (AGO.isFirefox = !0, AGO.isPhone = -1 < window.navigator.userAgent.indexOf("Mobile"), AGO.isTablet = -1 < window.navigator.userAgent.indexOf("Tablet"), AGO.isMobile = AGO.isPhone || AGO.isTablet
 ) : -1 < window.navigator.userAgent.indexOf("Chrome") && (AGO.isChrome = !0
 );
