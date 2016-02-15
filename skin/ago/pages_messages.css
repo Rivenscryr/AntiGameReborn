@@ -102,11 +102,24 @@ div#agoSpyReportOverview {
     line-height: 16px;
     text-align: center;
     margin-right: 2px;
+}
+
+.spyTabletwoOtherIcons {
     background: url("images/icon_blank.png") center center no-repeat
 }
 
-a.spyTableIcon, a.spyTableIcon:hover {
+.spyTabletwoOtherIcons:hover {
+	background: url("images/icon_hover.png") center center no-repeat
+	
+}
+
+a.spyTableIcon {
     text-decoration: none !important;
+    color: #ffffff !important
+}
+
+a.spyTableIcon:hover {
+    text-decoration: underline !important;
     color: #ffffff !important
 }
 
