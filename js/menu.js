@@ -520,7 +520,7 @@ AGO.Menu = {
         );
         a = DOM.appendDIV(AGO.Menu.menuNode, {id: "ago_menu_header"});
         b = DOM.appendDIV(a, "ago_menu_header_title");
-        b.textContent = AGO.Label.get("AM0") + " - " + AGO.App.versionAGO + (AGO.App.beta ? " - Updated to V6" : ""
+        b.textContent = AGO.Label.get("AM0") + " - " + AGO.App.versionAGO + (AGO.App.beta ? " - This version is only for AGO testers!" : ""
         );
         DOM.appendSPAN(b, "ago_color_limeorange", "by Shole");
         b = DOM.appendDIV(a, "ago_menu_header_button");
