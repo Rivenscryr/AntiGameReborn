@@ -258,11 +258,18 @@
 }
 
 #fleet3 #inhalt #sendfleet #resources .res_wrap {
-    position: relative;
+   position: relative;
     width: 142px;
-    height: 38px;
-    margin: 5px 0 10px
+    height: 51px;
+    margin: -10px 0px 12px;
 }
+
+.resbuttons {
+	position: relative;
+    left: 23px;
+}
+
+
 
 #fleet3 #inhalt #sendfleet #resources .res_wrap.ago_fleet_preferResource {
     border-color: #a26d00
@@ -298,17 +305,26 @@
 
 .ago_fleet_allResource {
     background: url("http://gf3.geo.gfsrv.net/cdnea/fa0c8ee62604e3af52e6ef297faf3c.gif") no-repeat 1px 1px;
-    background-size: 14px 14px
+    background-size: 14px 14px;
+	position: relative;
+    left: 55px;
+    top: -4px;
 }
 
 .ago_fleet_mostResource {
     background: url("images/select_most.jpg") no-repeat left top;
-    background-size: 16px 32px
+    background-size: 16px 32px;
+	position: relative;
+    left: 55px;
+    top: -4px;
 }
 
 .ago_fleet_noneResource {
     background: url("images/icon-none.jpg") no-repeat left top;
-    background-size: 16px 32px
+    background-size: 16px 32px;
+	position: relative;
+    left: 55px;
+    top: -4px;
 }
 
 .ago_fleet_remaining_resource {
