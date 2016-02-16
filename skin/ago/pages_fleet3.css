@@ -1,3 +1,7 @@
+#fleet3 #sendfleet .res {
+margin: 0px 0px 11px 50px !important;
+}
+
 #speedLinks .selected[data-value="1"], #speedLinks :hover[data-value="1"] {
     color: #ff3300 !important
 }
@@ -264,7 +268,7 @@
     margin: -10px 0px 12px;
 }
 
-.resbuttons {
+#fleet3 .resbuttons {
 	position: relative;
     left: 23px;
 }
@@ -308,7 +312,7 @@
     background-size: 14px 14px;
 	position: relative;
     left: 55px;
-    top: -4px;
+    top: -13px;
 }
 
 .ago_fleet_mostResource {
@@ -316,7 +320,7 @@
     background-size: 16px 32px;
 	position: relative;
     left: 55px;
-    top: -4px;
+    top: -13px;
 }
 
 .ago_fleet_noneResource {
@@ -324,7 +328,7 @@
     background-size: 16px 32px;
 	position: relative;
     left: 55px;
-    top: -4px;
+    top: -13px;
 }
 
 .ago_fleet_remaining_resource {
