@@ -74,7 +74,7 @@ AGO.Messages = {
         
         if (tabName === 'onViewFleetsEsp') {
             divContent +=       '<td style="width: 35px;"><input class="anti_msg_buttons tooltipCustom" title="' + AGO.Label.get('M80').replace('$subject', '\'' + AGO.Label.get('M86') + '\'') + '" value="S" type="button" style="color: #ff9600;" name="delEspAction"></td>' +
-                                '<td style="width: 35px;"><input class="anti_msg_buttons tooltipCustom" title="' + AGO.Label.get('M82').replace('$plunder', '\'' + AGO.Option.get('M36') + '\'').replace('$debris', '\'' + AGO.Option.get('M37') + '\'') + '" value="< S" type="button" style="color: #660011;" name="delEspLoot"></td>' +
+                                '<td style="width: 35px;"><input class="anti_msg_buttons tooltipCustom" title="' + AGO.Label.get('M82').replace('$plunder', '\'' + AGO.Option.get('M36')*1E3 + '\'').replace('$debris', '\'' + AGO.Option.get('M37')*1E3 + '\'') + '" value="< S" type="button" style="color: #660011;" name="delEspLoot"></td>' +
                                 '<td style="width: 10px;">&nbsp;</td>';
         } 
         
