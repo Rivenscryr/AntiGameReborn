@@ -119,7 +119,7 @@ a.spyTableIcon {
 }
 
 a.spyTableIcon:hover {
-    text-decoration: underline !important;
+    text-decoration: none !important;
     color: #ffffff !important
 }
 
