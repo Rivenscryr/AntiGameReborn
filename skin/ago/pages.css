@@ -1,7 +1,6 @@
 .ago_improve #planetdata {
-    margin-top: 11px;
-    height: 213px;
-    margin-right: 7px;
+    margin: 7px 7px 0 0;
+    height: 217px
 }
 
 .ago_improve #planetdata .overlay {
@@ -17,7 +16,7 @@
 }
 
 .ago_improve div#planetDetails {
-    height: 202px
+    height: 194px
 }
 
 .ago_overview_storagetime {
