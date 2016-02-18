@@ -141,7 +141,6 @@ AGO.Messages = {
     },
     
     addActButtons: function (tab, tabContent) {
-        console.log(AGO);
         var playerTechs =   {0:
                                 [{research:{
                                         109: {level: AGO.Units.Data['109']},
@@ -156,20 +155,22 @@ AGO.Messages = {
         var prefillTechs = window.btoa(JSON.stringify(playerTechs));
         OBJ.iterate(AGO.Messages.allMessages, function (id) {
             var message = AGO.Messages.allMessages[id];
-            var txtLink = DOM.query('.msg_actions .txt_link', message);
-            var divActBtns = document.createElement('div');
-            divActBtns.classList.add('ago_act_buttons');
-            DOM.query('.msg_actions', message).insertBefore(divActBtns, txtLink);
-            
-            var trashBtn = document.createElement('a');
-            trashBtn.classList.add('icon_nf_link', 'fleft');
-            trashBtn.href = 'https://trashsim.universeview.be/?SR_KEY=' + message.dataset.apiKey + '&utm_source=ogame&utm_medium=ago&utm_content=espionage%20message&utm_campaign=simulate' + '#prefill=' + prefillTechs;
-            trashBtn.target = '_blank';
-                var trashIcon = document.createElement('span');
-                trashIcon.classList.add('icon_nf', 'icon_trashsim', 'tooltip', 'js_hideTipOnMobile');
-                trashIcon.title = 'TrashSim';
-                trashBtn.appendChild(trashIcon);
-            divActBtns.appendChild(trashBtn);
+            if (DOM.query('.compacting', message)) {
+                var txtLink = DOM.query('.msg_actions .txt_link', message);
+                var divActBtns = document.createElement('div');
+                divActBtns.classList.add('ago_act_buttons');
+                DOM.query('.msg_actions', message).insertBefore(divActBtns, txtLink);
+                
+                var trashBtn = document.createElement('a');
+                trashBtn.classList.add('icon_nf_link', 'fleft');
+                trashBtn.href = 'https://trashsim.universeview.be/?SR_KEY=' + message.dataset.apiKey + '&utm_source=ogame&utm_medium=ago&utm_content=espionage%20message&utm_campaign=simulate' + '#prefill=' + prefillTechs;
+                trashBtn.target = '_blank';
+                    var trashIcon = document.createElement('span');
+                    trashIcon.classList.add('icon_nf', 'icon_trashsim', 'tooltip', 'js_hideTipOnMobile');
+                    trashIcon.title = 'TrashSim';
+                    trashBtn.appendChild(trashIcon);
+                divActBtns.appendChild(trashBtn);
+            }
         });
     },
     

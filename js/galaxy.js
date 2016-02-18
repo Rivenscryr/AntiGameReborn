@@ -65,7 +65,7 @@ AGO.Galaxy = {
 
         return true;
     }, onSwipe: function (a) {
-        AGO.App.OgameMobile || ("left" === a && DOM.click("#galaxyHeader .prev:eq(2)"), "right" === a && DOM.click("#galaxyHeader .next:eq(2)")
+        AGO.App.OgameMobile || ("left" === a && DOM.click(".galaxy_icons.solarsystem.tooltip + .prev"), "right" === a && DOM.click("#system_input + .next")
         )
     }, Show: function () {
         var a;
