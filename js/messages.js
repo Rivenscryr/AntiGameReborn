@@ -103,7 +103,7 @@ AGO.Messages = {
 
     onViewFleetsEsp: function (tabContent) {
         DOM.iterate(DOM.queryAll('.msg', tabContent), function (message) {
-            DOM.addEventsAll('.msg_head', message, { click: function (e) { AGO.Messages.toggleFoldMessage(message, e); } });
+            DOM.addEventsAll('.msg_head', message, { click: function (e) { if (e.target.tagName === 'A' || e.target.classList.contains('js_actionKill')) return; AGO.Messages.toggleFoldMessage(message, e); } });
             AGO.Option.is('M14') ? AGO.Messages.toggleFoldMessage(message) : 0;
         });
         

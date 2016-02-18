@@ -21,6 +21,10 @@
     line-height: 13px;
 }
 
+.ago_improve div#planetOptions {
+    margin: -1px 1px 2px 3px;
+}
+
 .ago_overview_storagetime {
     font-size: 10px;
     color: green;
