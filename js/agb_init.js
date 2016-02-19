@@ -21,7 +21,7 @@ AGB.App = {
         galaxy: {page: "Galaxy", js: ["jquery", "messages", "galaxy"], css: "pages_galaxy"},
         empire: {page: "Empire", js: ["jquery", "empire"], css: "pages_empire"},
         alliance: {page: "Alliance", js: ["pages"], css: "pages"},
-        messages: {page: "Messages", js: ["messages"], css: "pages_messages"},
+        messages: {page: "Messages", js: ["jquery", "messages"], css: "pages_messages"},
         websim: {page: "Websim", js: ["simulators"], css: ""},
         osimulate: {page: "Osimulate", js: ["simulators"], css: ""}
     },

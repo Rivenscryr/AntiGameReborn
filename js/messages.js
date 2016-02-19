@@ -37,6 +37,7 @@ AGO.Messages = {
     },
 
     Ready: function () {
+        $ = "jQuery" in window ? window.jQuery : null;
         DOM.addObserver(DOM.query('#messages .js_tabs'), { childList: true, subtree: true }, function (mutations) {
             for (var i = 0; i < mutations.length; i++) {
                 var mutation = mutations[i];
@@ -111,8 +112,8 @@ AGO.Messages = {
         AGO.Messages.getSpyReportMap();
         AGO.Messages.sortSpyReports(AGO.Messages.spyTableData.sortSequence);
         AGO.Messages.shrinkSpyReports(this, tabContent);
-        AGO.Messages.addActButtons(this, tabContent);
         if (!OBJ.isEmpty(AGO.Messages.spyReports) && AGO.Option.is('M51')) AGO.Messages.showSpyReportOverview(this, tabContent);
+        AGO.Messages.addActButtons(this, tabContent);
     },
     
     reviseContent: function (tab, tabContent) {
@@ -143,12 +144,16 @@ AGO.Messages = {
     addActButtons: function (tab, tabContent) {
         var playerTechs =   {0:
                                 [{research:{
-                                        109: {level: AGO.Units.Data['109']},
-                                        110: {level: AGO.Units.Data['110']},
-                                        111: {level: AGO.Units.Data['111']},
-                                        115: {level: AGO.Units.Data['115']},
-                                        117: {level: AGO.Units.Data['117']},
-                                        118: {level: AGO.Units.Data['118']}
+                                    109: {level: AGO.Units.Data['109']},
+                                    110: {level: AGO.Units.Data['110']},
+                                    111: {level: AGO.Units.Data['111']},
+                                    115: {level: AGO.Units.Data['115']},
+                                    117: {level: AGO.Units.Data['117']},
+                                    118: {level: AGO.Units.Data['118']}
+                                }, planet:{
+                                    galaxy: AGO.Acc.galaxy,
+                                    system: AGO.Acc.system,
+                                    position: AGO.Acc.position
                                 }}]
                             };
         
@@ -364,6 +369,7 @@ AGO.Messages = {
         var tableWrap = DOM.appendDIV(null, '');
         tableWrap.id = 'agoSpyReportOverview';
         contentWrap.insertBefore(tableWrap, contentWrap.firstChild);
+        //$('#agoButtons').clone(true, true).insertBefore('#agoSpyReportOverview');
 
         var table = DOM.parse('' +
             '<table id="spyTable">' +
