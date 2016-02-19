@@ -528,7 +528,8 @@ AGO.Menu = {
         a = DOM.appendTABLE(b, null, null, [434, 220]);
         a = DOM.appendTR(a);
         b = DOM.appendTD(a);
-        DOM.setText(b, null, c, 9);
+		c ='<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="VNF9PGAMGSMFL"><input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online."><img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></form>';          
+	    DOM.setText(b, null, c, 9);
         AGO.Menu.appendButton(b, "AM2", "AM2", {message: {page: "Menu", role: "Hide"}});
         b = DOM.appendTD(a);
         AGO.Menu.appendButton(b, "AM3", "AM3", {message: {page: "Menu", role: "Hide", data: "save"}});
