@@ -104,7 +104,7 @@ a.ago_menu_button {
 
 .ago_menu_header_button form {
     display: inline-block;
-    margin: 0 45px
+    margin: -18px 28px 12px 6px;
 }
 
 #ago_menu .ago_menu_header_button a.ago_menu_button {
