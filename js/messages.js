@@ -382,7 +382,7 @@ AGO.Messages = {
             '           <th id="spyHeadLoot" data-sort="loot">' + AGO.Label.get('loot') + '</th>' +
             '           <th id="spyHeadFleet" data-sort="fleet">' + AGO.Label.get('fleet') + '</th>' +
             '           <th id="spyHeadDef" data-sort="defense">' + AGO.Label.get('DEF') + '</th>' + // TODO: add lang var (not existing currently)
-            '           <th style="width: 66px;">' + AGO.Label.get('actions') + '</th>' +            // TODO: add lang var (not existing currently)
+            '           <th style="width: 84px;">' + AGO.Label.get('actions') + '</th>' +            // TODO: add lang var (not existing currently)
             '       </tr>' +
             '   </thead>' +
             '   <tbody>' +
@@ -479,7 +479,16 @@ AGO.Messages = {
 				aGalaxy.classList.add('spyTabletwoOtherIcons');
                 aGalaxy.href = '/game/index.php?page=galaxy&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position;
                 aGalaxy.textContent = 'G';
-            
+            	
+            	//TO DO
+            	var aSpy = DOM.appendA(cellActions);
+				aSpy.classList.add('spyTableIcon');
+				aSpy.classList.add('spyTabletwoOtherIcons');
+				aSpy.addEventListener('click', function() {
+    });
+            			aSpy.textContent = 'S';
+            			
+            			
                 var aAttack = DOM.appendA(cellActions);
                 aAttack.classList.add('spyTableIcon');
 				aAttack.classList.add('spyTabletwoOtherIcons');
