@@ -267,15 +267,17 @@ AGO.Messages = {
                 c;
             
             if (c = DOM.query('.espionageDefText', message)) {
+                message.id = 'm' + message.dataset.msgId;
                 var b = {};
                 b.txtLink = DOM.query('.txt_link', c);
                 b.planetName = DOM.getText(b.txtLink);
                 b.coords = b.planetName.split('[')[1].split(']')[0];
 
-                AGB.message("DataBase", "GetPlanet", { keyUni: AGO.App.keyUni, coords: b.coords },    function (a) { 
-                                                                                                        message.dataset.playerName = a.playerName;
-                                                                                                        AGO.Messages.reviseMessage(message);
-                                                                                                      });
+                AGB.message("DataBase", "GetPlanet", { keyUni: AGO.App.keyUni, coords: b.coords }, 
+                function (a) { 
+                    message.dataset.playerName = a.playerName;
+                    AGO.Messages.reviseMessage(message);
+                });
             } else if (DOM.query('.compacting', message)) {
                 message.id = 'm' + message.dataset.msgId;
                 
@@ -497,11 +499,9 @@ AGO.Messages = {
             	
             	//TO DO
             	var aSpy = DOM.appendA(cellActions);
-				aSpy.classList.add('spyTableIcon');
-				aSpy.classList.add('spyTabletwoOtherIcons');
-				aSpy.addEventListener('click', function() {
-    });
-            			aSpy.textContent = 'S';
+				aSpy.classList.add('spyTableIcon', 'icon', 'icon_eye');
+                aSpy.setAttribute('onclick', 'sendShipsWithPopup(6,' + p.galaxy + ',' + p.system + ',' + p.position + ',' + (p.isMoon === '1' ? '3' : '1') + ',0);return false');
+                aSpy.href = '#';
             			
             			
                 var aAttack = DOM.appendA(cellActions);
