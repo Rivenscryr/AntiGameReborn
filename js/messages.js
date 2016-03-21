@@ -99,6 +99,7 @@ AGO.Messages = {
                  (e.target.name === 'delShown')
                 ) { deleteIDs.push(msgID) }
         });
+        
         if (deleteIDs.length)
             $.ajax(document.location.protocol + '//' + AGO.Uni.domain + '/game/index.php?page=messages', {
                 data: {
@@ -110,7 +111,7 @@ AGO.Messages = {
                 type: "POST"             
             }).done(function(data, textStatus){
                 for (var msgID in data)
-                    $('#m' + msgID).remove(), $('#t_' + msgID).remove();
+                    $('[data-msg-id=' + msgID + ']').remove(), $('#t_' + msgID).remove();
             }).fail(function (jqXHR, textStatus){
             });
             
