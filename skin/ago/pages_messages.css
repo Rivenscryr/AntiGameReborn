@@ -139,6 +139,7 @@ div#agoSpyReportOverview table thead tr.spyHeader {
     cursor: default;
     background-color: #23282d;
     background-image: none;
+    box-shadow: 0 0 3px 1px #00050a inset
 }
 
 div#agoSpyReportOverview th:first-child {

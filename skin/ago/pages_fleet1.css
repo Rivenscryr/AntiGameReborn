@@ -43,7 +43,7 @@
 }
 
 #box #inhalt #planet, #box #inhalt #planet.shortHeader {
-    background-image: url("http://gf1.geo.gfsrv.net/cdn99/5368907a3fd41c0a3a5bbf077fb24b.gif");
+    background-image: url("https://gf1.geo.gfsrv.net/cdn99/5368907a3fd41c0a3a5bbf077fb24b.gif");
     height: auto !important;
     overflow: hidden;
     border-bottom: 2px solid #000000
@@ -195,7 +195,7 @@ td#ago_details {
 }
 
 #ago_routine a {
-    background: url("http://gf2.geo.gfsrv.net/cdn14/f45a18b5e55d2d38e7bdc3151b1fee.jpg") no-repeat -38px -76px;
+    background: url("https://gf2.geo.gfsrv.net/cdn14/f45a18b5e55d2d38e7bdc3151b1fee.jpg") no-repeat -38px -76px;
     background-size: 418px 152px;
     display: inline-block;
     position: relative;
@@ -360,7 +360,7 @@ a#ago_routine_10.on {
 #ago_type span {
     width: 27px;
     margin-left: 5px;
-    background: url("http://gf2.geo.gfsrv.net/cdn40/b63220183e356430158dc998a2bb99.gif") no-repeat 0 0;
+    background: url("https://gf2.geo.gfsrv.net/cdn40/b63220183e356430158dc998a2bb99.gif") no-repeat 0 0;
     background-size: 81px 44px
 }
 
@@ -495,7 +495,7 @@ a#ago_routine_10.on {
     display: inline-block;
     height: 24px;
     width: 36px;
-    background: url("http://gf3.geo.gfsrv.net/cdnbb/a9fe14ed992de9b7f40d22213a475e.png") no-repeat 0 0;
+    background: url("https://gf3.geo.gfsrv.net/cdnbb/a9fe14ed992de9b7f40d22213a475e.png") no-repeat 0 0;
     background-size: 300px 144px
 }
 

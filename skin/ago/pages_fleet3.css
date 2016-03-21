@@ -72,7 +72,7 @@ margin: 0px 0px 11px 50px !important;
 }
 
 #box #inhalt #planet.shortHeader .toggleHeader {
-    background: url("http://gf1.geo.gfsrv.net/cdn0b/d55059f8c9bab5ebf9e8a3563f26d1.gif") no-repeat 0 0;
+    background: url("https://gf1.geo.gfsrv.net/cdn0b/d55059f8c9bab5ebf9e8a3563f26d1.gif") no-repeat 0 0;
     right: 3px;
     top: 1px
 }
@@ -308,7 +308,7 @@ margin: 0px 0px 11px 50px !important;
 }
 
 .ago_fleet_allResource {
-    background: url("http://gf3.geo.gfsrv.net/cdnea/fa0c8ee62604e3af52e6ef297faf3c.gif") no-repeat 1px 1px;
+    background: url("https://gf3.geo.gfsrv.net/cdnea/fa0c8ee62604e3af52e6ef297faf3c.gif") no-repeat 1px 1px;
     background-size: 14px 14px;
 	position: relative;
     left: 55px;

@@ -2,13 +2,7 @@ if (!AGO) {
     var AGO = {};
 }
 
-AGO.versionOGameMax = "6.0.20";
-var oReq = new XMLHttpRequest();
-oReq.addEventListener("load", function (data) { 
-    AGO.versionOGameMax = JSON.parse(data.target.responseText).versionOGameMax;
-});
-oReq.open("GET", "https://antigame.de/_internal/ogame_version.txt?" + (new Date()).getTime());
-oReq.send();
+AGO.versionOGameMax = "6.1.5";
 -1 < window.navigator.userAgent.indexOf("Firefox") ? (AGO.isFirefox = !0, AGO.isPhone = -1 < window.navigator.userAgent.indexOf("Mobile"), AGO.isTablet = -1 < window.navigator.userAgent.indexOf("Tablet"), AGO.isMobile = AGO.isPhone || AGO.isTablet
 ) : -1 < window.navigator.userAgent.indexOf("Chrome") && (AGO.isChrome = !0
 );
@@ -96,7 +90,7 @@ AGO.Init = {
                                           }
                         )
                     }, AGO.context
-        )
+        );
     }, Read: function () {
         2 === AGO.Init.status && (AGO[AGO.App.Page] ? (AGO.Init.status = 4, PAGE = AGO.Page = AGO[AGO.App.Page], AGO.App.Ogame && (AGO.Styles.Load(), AGO.Planets.Read(), AGO.Planets.status && (AGO.App.mode = 5, AGO.App.OgameMain = !0, AGO.Time.Read(), AGO.Units.Read(), AGO.Main.Read(), "function" === typeof PAGE.Read && PAGE.Read()
         )
@@ -589,6 +583,12 @@ AGO.App = {
         )
     },
     Init: function () {
+        /* var oReq = new XMLHttpRequest();
+        oReq.addEventListener("load", function (data) { 
+            AGO.App.versionOGameMax = JSON.parse(data.target.responseText).versionOGameMax;
+        });
+        oReq.open("GET", "https://antigame.de/_internal/ogame_version.txt?" + (new Date()).getTime());
+        oReq.send();*/
         var a, b, c;
         a = document.head.getElementsByTagName("meta");
         for (c = 0; c < a.length; c++) {

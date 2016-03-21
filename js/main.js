@@ -127,7 +127,7 @@ AGO.Main = {
                     document.title = AGO.App.title;
                 }
             }
-    }, Check: function () {
+    }, Check: function () { 
     }, addVersionCheck: function (a) {
         var b, d, c, e;
         c = NMR.parseVersion(AGO.App.versionOGameMax) >= NMR.parseVersion(AGO.App.versionOGame);
@@ -275,10 +275,10 @@ AGO.Planets = {
                     for (b = a.firstChild; b; b = b.nextSibling) {
                         if (1 === b.nodeType) {
                             if (f = b.className || "", -1 < f.indexOf("planetlink")) {
-                                for (f = b.title || "", c.name = (f.split("[", 1)[0].split("<B>",
+                                for (f = b.title || "", c.name = (f.split("[", 1)[0].split("<b>",
                                                                                            2
                                 )[1] || ""
-                                ).trim(), c.temp = NMR.parseInt((f.match(/<br>.*<br>[^\d\-]*([\d\-]+)/i) || []
+                                ).trim(), c.temp = NMR.parseInt((f.match(/<br\/>.*<br>[^\d\-]*([\d\-]+)/i) || []
                                                                 )[1]
                                 ), d = b.firstChild; d; d = d.nextSibling) {
                                     1 === d.nodeType && (f = d.className || "", -1 < f.indexOf("planetPic") ? c.img = d.src : -1 < f.indexOf("planet-koords") && (c.coords = (d.textContent || ""

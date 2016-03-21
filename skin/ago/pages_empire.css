@@ -1,3 +1,7 @@
+.ago_improve .overview_equipment .anythingSlider {
+    padding: 0;
+}
+
 .ago_improve .items.groupitems + div {
     color: #a19491;
     line-height: 28px;

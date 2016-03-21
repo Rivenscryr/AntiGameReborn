@@ -92,13 +92,28 @@ AGO.Messages = {
     },
     
     runBtnFunction: function (e) {
-        var delay = 100;
+        var deleteIDs = [];
         OBJ.iterate(AGO.Messages.allMessages, function doAction (msgID) {
             if ( (e.target.name === 'delEspAction' && DOM.query('.espionageDefText', AGO.Messages.allMessages[msgID])) || 
                  (e.target.name === 'delEspLoot' && DOM.query('.compacting', AGO.Messages.allMessages[msgID]) && AGO.Messages.allMessages[msgID].dataset.lucrative === '0') ||
                  (e.target.name === 'delShown')
-                ) { setTimeout(DOM.click('.js_actionKill', AGO.Messages.allMessages[msgID]), delay); delay += 400; }
+                ) { deleteIDs.push(msgID) }
         });
+        if (deleteIDs.length)
+            $.ajax(document.location.protocol + '//' + AGO.Uni.domain + '/game/index.php?page=messages', {
+                data: {
+                    messageId: JSON.stringify(deleteIDs),
+                    action :"103", 
+                    ajax :"1"
+                },
+                dataType: "json",
+                type: "POST"             
+            }).done(function(data, textStatus){
+                for (var msgID in data)
+                    $('#m' + msgID).remove(), $('#t_' + msgID).remove();
+            }).fail(function (jqXHR, textStatus){
+            });
+            
         document.location.href = '#agoSpyReportOverview'; 
     },
 
@@ -278,7 +293,7 @@ AGO.Messages = {
                 p.activityColor = DOM.getAttribute('.msg_content font', message, 'color', '');
                 
                 p.loot = NMR.parseIntRess(DOM.getAttribute('.tooltipRight', message, 'title', ''));
-                var a; (a = STR.getMatches(DOM.getAttribute('.tooltipRight', message, 'title', ''), /(?:[:]) ([0-9]+)/g)) ? (p.sc = a[1], p.lc = a[2]) : 0;
+                var a, b = AGO.Option.get('FA3')/100; (a = STR.getMatches(DOM.getAttribute('.tooltipRight', message, 'title', ''), /(?:[:]) ([0-9]+)/g)) ? (p.sc = NMR.parseInt(a[1] * (1 + b)), p.lc = NMR.parseInt(a[2] * (1 + b))) : 0;
                 p.metal = NMR.parseIntRess(DOM.queryAll('.resspan', message)[0].textContent);
                 p.crystal = NMR.parseIntRess(DOM.queryAll('.resspan', message)[1].textContent);
                 p.deut = NMR.parseIntRess(DOM.queryAll('.resspan', message)[2].textContent);
@@ -305,7 +320,7 @@ AGO.Messages = {
                 p.age = AGO.Time.ogameTime - AGO.Time.parse(DOM.getText('.msg_head .msg_date', message)).getTime();
                     
                 OBJ.copy(p, message.dataset);
-                AGO.Option.is('M20') ? AGO.Messages.reviseMessage(message) : 0;
+                if(AGO.Option.is('M20')) AGO.Messages.reviseMessage(message);
             }
         });
     },
@@ -483,7 +498,7 @@ AGO.Messages = {
                 var aAttack = DOM.appendA(cellActions);
                 aAttack.classList.add('spyTableIcon');
 				aAttack.classList.add('spyTabletwoOtherIcons');
-                aAttack.href = '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&mission=1' + (AGO.Option.is('FA2') ? '&am202=' + p.sc : '&am203=' + p.lc);
+                aAttack.href = '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3' + (AGO.Option.is('FA2') ? '&am202=' + p.sc : '&am203=' + p.lc);
                 aAttack.textContent = 'A';
                 AGO.Option.is('M16') ? aAttack.target = 'ago_fleet_attacks' : 0;
                 DOM.query('.icon_attack img', message) ? aAttack.classList.add('attacking') : 0;

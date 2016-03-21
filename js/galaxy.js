@@ -120,6 +120,7 @@ AGO.Galaxy = {
             }
             AGO.Galaxy.showRows(a.querySelectorAll(".row"));
             AGO.Galaxy.showHighlight(a.querySelectorAll(".row"));
+            DOM.updateAttribute(a, null, "ago-loaded", 1, 8);
             AGO.Galaxy.updateDataBase()
         }
     }, showRows: function (a) {
