@@ -19,7 +19,8 @@ AGO.Main = {
         OBJ.iterate(a, function (b) {
                         AGO.Option.set(b, a[b])
                     }
-        )
+        );
+        document.getElementById("officers").classList.contains("all") ? AGO.Option.set("comstaff", 1) : AGO.Option.set("comstaff", 0);
     }, Run: function () {
         var a, b, d, c;
         if (a = document.getElementById("menuTableTools")) {

@@ -114,7 +114,7 @@ AGO.Styles = {
     classFleet: " ago_color_hostile ago_color_neutral ago_color_own ago_color_reverse ago_color_friend ago_color_enemy".split(" "),
     Start: function () {
         function a(a) {
-            return a ? '@import url("' + AGO.App.pathSkin + "ago/" + a + '.css");' : ""
+            return a ? '@import url("' + AGO.App.pathSkin + "ago/" + a + '.css' + (AGO.App.beta ? '?' + (new Date()).getTime() : '') + '");' : ""
         }
 
         var b, c, d = [];
@@ -499,18 +499,20 @@ AGO.Ogame = {
         return (c = "1" === a || "2" === a ? 10 : "3" === a ? 20 : 0
                ) && 0 <= b ? Math.floor(c * b * Math.pow(1.1, b)) : 0
     }, getProductionEnergy: function (a, b) {
-        var c;
-        c = "4" === a ? 20 * b * Math.pow(1.1, b) : "12" === a ? 30 * b * Math.pow(1.05 + .01 * AGO.Units.get("113"), b) : "212" === a ? Math.floor((AGO.Planets.Get("active", "temp") + 40 + 140
+        var c, d;
+        c = "4" === a ? 20 * b * Math.pow(1.1, b) : "12" === a ? 30 * b * Math.pow(1.05 + .01 * AGO.Units.get("113"), b) : "212" === a ? Math.round(Math.floor((AGO.Planets.Get("active", "temp") + 40 + 140
                                                                                                                                                     ) / 6
-        ) * b : 0;
-        return AGO.Option.is("engineer") ? Math.floor(1.1 * c) : Math.floor(c)
+        ) * b) : 0;
+        AGO.Option.is("comstaff") ? d = 1.12 : AGO.Option.is("engineer") ? d = 1.1 : d = 1;
+        return Math.round(d * c)
     }, getProductionResources: function (a,
                                          b
     ) {
-        var c;
+        var c, d;
         c = "1" === a ? 30 * b * Math.pow(1.1, b) : "2" === a ? 20 * b * Math.pow(1.1, b) : "3" === a ? 10 * b * Math.pow(1.1, b) * (1.28 - .004 * AGO.Planets.Get("active", "temp")
         ) : 0;
-        return AGO.Option.is("geologist") ? Math.floor(1.1 * c) * AGO.Uni.speed : Math.floor(c) * AGO.Uni.speed
+        AGO.Option.is("comstaff") ? d = 1.12 : AGO.Option.is("geologist") ? d = 1.1 : d = 1;
+        return Math.floor(d * c) * AGO.Uni.speed
     }, getStandardUnitsCache: null,
     getStandardUnits: function (a, b) {
         if (!AGO.Task.getStandardUnitsCache) {
