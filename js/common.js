@@ -246,7 +246,7 @@ AGO.Item = {
         drive: "115",
         speed: 5E3,
         capacity: 5E3,
-        consumption: 20
+        consumption: 10
     },
     203: {
         metal: 6E3, crystal: 6E3, deuterium: 0, retreat: 3E3, drive: "115", speed: 7500, capacity: 25E3,
@@ -457,17 +457,14 @@ AGO.Ogame = {
         var a = 5070900 <= NMR.parseVersion(AGO.App.versionOGame);
         OBJ.iterate(AGO.Item.Ship, function (b) {
                         var c,
-                            d, e;
-                        "202" === b && 5 <= AGO.Units.get("117") ? (c = 1E4, d = "117"
-                        ) : "209" === b && 15 <= AGO.Units.get("118") ? a && (c = 6E3, d = "118"
-                        ) : "209" === b && 17 <= AGO.Units.get("117") ? a && (c = 4E3, d = "117"
-                        ) : "211" === b && 8 <= AGO.Units.get("118") ? (c = 5E3, d = "118"
-                        ) : (c = AGO.Item[b].speed, d = AGO.Item[b].drive
+                            d, e, f;
+                        "202" === b && 5 <= AGO.Units.get("117") ? (c = 1E4, d = "117", f = 20
+                        ) : "209" === b && 15 <= AGO.Units.get("118") ? a && (c = 6E3, d = "118", f = 900
+                        ) : "209" === b && 17 <= AGO.Units.get("117") ? a && (c = 4E3, d = "117", f = 600
+                        ) : "211" === b && 8 <= AGO.Units.get("118") ? (c = 5E3, d = "118", f = 1000
+                        ) : (c = AGO.Item[b].speed, d = AGO.Item[b].drive, f = AGO.Item[b].consumption
                             );
-                        d && (e = "115" === d ? .1 : "117" === d ? .2 : .3, AGO.Item[b].speed = Math.floor(c * (10 + AGO.Units.get(d) * e * 10
-                                                                                                           ) / 10
-                        )
-                        )
+                        d && (e = "115" === d ? .1 : "117" === d ? .2 : .3, AGO.Item[b].speed = Math.floor(c * (10 + AGO.Units.get(d) * e * 10) / 10)) && (AGO.Item[b].consumption = f)
                     }
         )
     }, getDebris: function (a, b) {
