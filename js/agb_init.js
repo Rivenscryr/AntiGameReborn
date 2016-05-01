@@ -142,13 +142,13 @@ AGB.App = {
         var b, c;
         if (c = AGB.App.getPlayer(a, "copy")) {
             b = new XMLHttpRequest,
-                b.open("POST", "http://antigame.de/antigame/ago_appdata.php", !0), b.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), b.onerror = b.onload = function () {
+                b.open("POST", "https://antigame.de/antigame/ago_appdata.php", !0), b.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), b.onerror = b.onload = function () {
                 var c, g, e;
                 g = AGB.App.getPlayer(a);
                 c = AGB.App.Data[g];
                 g && c && (c.storage = AGB.Storage.status, e = OBJ.parse(200 === +b.status ? b.responseText : ""), e.versionFinal && (c.versionLoca = e.versionLoca, c.versionLocaMenu = e.versionLocaMenu, c.versionUpdate = 1 < AGB.Config.beta ? "" : 1 === AGB.Config.beta ? e.versionPreview : e.versionFinal, AGB.App.Save({player: g})
                 ), AGB.Core.Log("Update   - App      : " +
-                                c.versionUpdate + "http://antigame.de/antigame/ago_appdata.php" + (e.versionFinal ? "" : " - failed !"
+                                c.versionUpdate + "https://antigame.de/antigame/ago_appdata.php" + (e.versionFinal ? "" : " - failed !"
                                 ), !0
                 )
                 )
@@ -300,7 +300,7 @@ AGB.Data = {
             var c, d;
             d = "com=" + a.abbrCom + "&uni=" + a.abbrUni + "&user_id=" + a.accountId + "&ident=" + a.ident + "&type=Sync&action=put&domain=antigame.de&string=" + encodeURIComponent(JSON.stringify(a.data)) + "&header=" + encodeURIComponent(JSON.stringify(a.data.Sync_Data));
             c = new XMLHttpRequest;
-            c.open("POST", "http://antigame.de/antigame/usave/ago_sync.php", !0);
+            c.open("POST", "https://antigame.de/antigame/usave/ago_sync.php", !0);
             c.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             c.onerror = c.onload = function () {
                 b && (a.status =
@@ -427,7 +427,7 @@ AGB.Data = {
         g = AGB.App.getPlayer(a, "copy");
         AGB.Data.isStatus(g) && (1 === a.tab ? "restore" === a.action ? d(OBJ.parse(a.value), a.universal) : c(OBJ.parse(a.value).Sync_Data, a.universal) : 2 === a.tab ? (f = "com=" + a.abbrCom + "&uni=" + a.abbrUni + "&user_id=" + a.accountId + "&ident=" + a.ident + "&type=Sync&action=" +
                                                                                                                                                                                ("restore" === a.action ? "get" : "header"
-                                                                                                                                                                               ) + "&domain=antigame.de", e = new XMLHttpRequest, e.open("POST", "http://antigame.de/antigame/usave/ago_sync.php", !0), e.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), e.onerror = e.onload = function () {
+                                                                                                                                                                               ) + "&domain=antigame.de", e = new XMLHttpRequest, e.open("POST", "https://antigame.de/antigame/usave/ago_sync.php", !0), e.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), e.onerror = e.onload = function () {
             var b;
             b = 200 === +e.status && e.responseText ? OBJ.parse(e.responseText) : {error: !0};
             "restore" === a.action ? d(b) : c(b)
