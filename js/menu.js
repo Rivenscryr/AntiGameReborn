@@ -18,7 +18,7 @@ AGO.Label.updateLoca = function () {
     a = NMR.parseVersion(AGO.Label.get("A02")) < NMR.parseVersion(AGO.App.versionLoca) || AGO.Label.get("A03") !== AGO.Uni.lang;
     b = NMR.parseVersion(AGO.Label.get("A07")) < NMR.parseVersion(AGO.App.versionLocaMenu) || AGO.Label.get("A08") !== AGO.Menu.lang;
     AGO.Init.status && AGO.App.beta && (a || b
-    ) && (AGO.Notify.set("D02", 3), c = new XMLHttpRequest, c.open("POST", "http://antigame.de/antigame/ago_apploca.php", !0), c.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), c.onerror =
+    ) && (AGO.Notify.set("D02", 3), c = new XMLHttpRequest, c.open("POST", "https://antigame.de/antigame/ago_apploca.php", !0), c.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), c.onerror =
                                                                                                                                                                                                         c.onload = function () {
                                                                                                                                                                                                             var a, b = -1;
                                                                                                                                                                                                             AGO.Init.status && (200 === +c.status && c.responseText && (b = 4, a = STR.check(c.responseText).split("{{{{X}}}}"), 1 <= a.length && (a[0] && AGO.Data.setStorage(AGO.App.keyPlayer + "_Label_Game", STR.trim(a[0]).substring(a.indexOf("{"))), a[1] && AGO.Data.setStorage(AGO.App.keyPlayer + "_Label_Menu", STR.trim(a[1]).substring(a.indexOf("{"))), a[2] && AGO.Data.setStorage(AGO.App.keyPlayer + "_Label_Help", STR.trim(a[2]).substring(a.indexOf("{")))
@@ -157,7 +157,7 @@ AGO.Menu = {
         return !0
     },
     Init: function () {
-        2 > AGO.Menu.status && (AGO.Menu.status = 2, AGO.Menu.updatePath = AGO.isChrome ? AGO.App.beta ? "http://antigame.de/antigame/scripts/antigameorigin_beta.crx" : "https://chrome.google.com/webstore/detail/antigameorigin/ldbahlcmhmlpomdepooifmhnalokdhgm" : AGO.App.beta ? "http://antigame.de/antigame/scripts/antigameorigin_beta.xpi" : "http://antigame.de/antigame/scripts/antigameorigin.xpi", AGO.Styles.setFile("menu"),
+        2 > AGO.Menu.status && (AGO.Menu.status = 2, AGO.Menu.updatePath = AGO.isChrome ? AGO.App.beta ? "https://antigame.de/antigame/scripts/antigameorigin_beta.crx" : "https://chrome.google.com/webstore/detail/antigameorigin/ldbahlcmhmlpomdepooifmhnalokdhgm" : AGO.App.beta ? "https://antigame.de/antigame/scripts/antigameorigin_beta.xpi" : "https://antigame.de/antigame/scripts/antigameorigin.xpi", AGO.Styles.setFile("menu"),
             AGO.Para.Init(function () {
                               AGO.Menu.lang = AGO.Para.get("A10") || AGO.Uni.lang;
                               AGO.Label.InitMenu();
@@ -528,7 +528,7 @@ AGO.Menu = {
         a = DOM.appendTABLE(b, null, null, [434, 220]);
         a = DOM.appendTR(a);
         b = DOM.appendTD(a);
-		c ='<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="ZFKCSNHL69CKE"><table><tr><td><input type="hidden" name="on0" value="Donate different amounts:">Donate different amounts:</td></tr><tr><td><select name="os0"><option value="Amount 1">Amount 1 €1.00 EUR</option><option value="Amount 2">Amount 2 €3.00 EUR</option><option value="Amount 3">Amount 3 €5.00 EUR</option><option value="Amount 4">Amount 4 €10.00 EUR</option><option value="Amount 5">Amount 5 €15.00 EUR</option><option value="Amount 6">Amount 6 €20.00 EUR</option></select> </td></tr></table><input type="hidden" name="currency_code" value="EUR"><input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"><img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></form>';
+		c ='<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="ZFKCSNHL69CKE"><table><tr><td><input type="hidden" name="on0" value="Donate different amounts:">Donate different amounts:</td></tr><tr><td><select name="os0"><option value="Amount 1">Amount 1 €1.00 EUR</option><option value="Amount 2">Amount 2 €3.00 EUR</option><option selected value="Amount 3">Amount 3 €5.00 EUR</option><option value="Amount 4">Amount 4 €10.00 EUR</option><option value="Amount 5">Amount 5 €15.00 EUR</option><option value="Amount 6">Amount 6 €20.00 EUR</option></select> </td></tr></table><input type="hidden" name="currency_code" value="EUR"><input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" style="margin: 0px 0px 0px 32px"><img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></form>';
 		DOM.setText(b, null, c, 9);
         AGO.Menu.appendButton(b, "AM2", "AM2", {message: {page: "Menu", role: "Hide"}});
         b = DOM.appendTD(a);
@@ -887,7 +887,7 @@ AGO.Menu.Show = function (a) {
     var t, m;
     if (t = document.getElementById("contentWrapper")) {
         AGO.Menu.status = 5, AGO.Menu.appendHeader(),
-            AGO.Menu.appendTab("General"), AGO.Notify.Problem[17] && (AGO.Menu.appendSection("S80"), b("S81", "", "A51", 0, "", "", "http://antigame.de/home.php?lang=" + AGO.Menu.lang.toLowerCase()), e(12), AGO.Menu.appendRowContent(AGO.Label.get("S82"), null, 0, "", "#008000"), e(6), AGO.Menu.appendRowContent(AGO.Label.get("S83"), null, 0, "", "#008000"), e(6), AGO.Menu.appendRowContent(AGO.Label.get("S84"), null, 0, "", "#008000"), e(6), AGO.Menu.appendRowContent(AGO.Label.get("S85"), null, 0, "", "#008000")
+            AGO.Menu.appendTab("General"), AGO.Notify.Problem[17] && (AGO.Menu.appendSection("S80"), b("S81", "", "A51", 0, "", "", "https://antigame.de/home.php?lang=" + AGO.Menu.lang.toLowerCase()), e(12), AGO.Menu.appendRowContent(AGO.Label.get("S82"), null, 0, "", "#008000"), e(6), AGO.Menu.appendRowContent(AGO.Label.get("S83"), null, 0, "", "#008000"), e(6), AGO.Menu.appendRowContent(AGO.Label.get("S84"), null, 0, "", "#008000"), e(6), AGO.Menu.appendRowContent(AGO.Label.get("S85"), null, 0, "", "#008000")
         ), 5 <= AGO.Notify.problem && (AGO.Menu.appendSection("S40"),
         AGO.Notify.Problem[15] && (e(12), b("S55", "", "S40", 0, "", "#FF4B00", "http://board.origin.ogame.gameforge.com/index.php?page=Thread&threadID=6239")
         ), AGO.Notify.Problem[17] && (e(12), c("S57", "", "", 0, "", "#FF4B00")
@@ -896,8 +896,8 @@ AGO.Menu.Show = function (a) {
         ), AGO.Notify.Problem[12] && (e(12), c("S52", "", "", 2, "", "#FF4B00")
         ), AGO.Notify.Problem[13] && (e(12),
             b("S53", "", "S40", 0, "", "#FF4B00", "http://board.origin.ogame.gameforge.com/index.php?page=Thread&threadID=5547")
-        ), AGO.Notify.Problem[5] && (e(12), b("S45", "", "A51", 0, "", "#FF9600", "http://antigame.de/home.php?lang=" + AGO.Menu.lang.toLowerCase()), d("S45", "S41", "", 2)
-        ), AGO.Notify.Problem[6] && (e(12), b("S46", "", "A51", 0, "", "#FF9600", "http://antigame.de/home.php?lang=" + AGO.Menu.lang.toLowerCase()), d("S46", "S41", "", 2)
+        ), AGO.Notify.Problem[5] && (e(12), b("S45", "", "A51", 0, "", "#FF9600", "https://antigame.de/home.php?lang=" + AGO.Menu.lang.toLowerCase()), d("S45", "S41", "", 2)
+        ), AGO.Notify.Problem[6] && (e(12), b("S46", "", "A51", 0, "", "#FF9600", "https://antigame.de/home.php?lang=" + AGO.Menu.lang.toLowerCase()), d("S46", "S41", "", 2)
         ), AGO.Notify.Problem[8] && (e(12), b("S48", "", "S40", 0, "", "#FF9600", "http://board.origin.ogame.gameforge.com/index.php?page=Thread&threadID=5168"),
             d("S48", "S41", "", 2)
         )
@@ -906,10 +906,10 @@ AGO.Menu.Show = function (a) {
                                                        role: "Label",
                                                        action: "change"
                                                    }
-        ), b("A11", "", "A83", 0, "", "", {action: "disable"}), AGO.Menu.appendSection("A30"), d("A31"), d("A32", "", "", 2), d("A34"), AGO.Menu.appendSection("A50"), b("A53", "", "", 0, "ago_menu_action", "", AGO.isFirefox ? AGO.Menu.updatePath : {action: "install"}, "_self"), d("S44", "S41", "", 2, "ago_menu_action"), b("A52", "", "", 0, "ago_menu_action", "", "http://antigame.de/home.php?page=changelog" +
+        ), b("A11", "", "A83", 0, "", "", {action: "disable"}), AGO.Menu.appendSection("A30"), d("A31"), d("A32", "", "", 2), d("A34"), AGO.Menu.appendSection("A50"), b("A53", "", "", 0, "ago_menu_action", "", AGO.isFirefox ? AGO.Menu.updatePath : {action: "install"}, "_self"), d("S44", "S41", "", 2, "ago_menu_action"), b("A52", "", "", 0, "ago_menu_action", "", "https://antigame.de/home.php?page=changelog" +
                                                                                                                                                                                                                                                                                                                                                                              (AGO.App.beta ? "&beta" : ""
                                                                                                                                                                                                                                                                                                                                                                              )
-        ), b("A51", "", "A51", 0, "", "", "http://antigame.de/home.php?lang=" + AGO.Menu.lang.toLowerCase()), b("A55", "", "A55", 0, "", "", "http://board.origin.ogame.de/board203/"), b("A54", "", "A54", 0, "", "", "http://board.origin.ogame.de/board176/"), b("A56", "", "A57", 0, "", "", "http://antigame.de/antigame/translations/?lang=" + AGO.Menu.lang.toLowerCase()), b("S50", "", "S40", 0, "", "", "http://board.origin.ogame.de/board183/"), AGO.Menu.appendTab("Data"), AGO.Menu.appendSection("D00", "A80"), b("D01", "", "D0B",
+        ), b("A51", "", "A51", 0, "", "", "https://antigame.de/home.php?lang=" + AGO.Menu.lang.toLowerCase()), b("A55", "", "A55", 0, "", "", "http://board.origin.ogame.de/board203/"), b("A54", "", "A54", 0, "", "", "http://board.origin.ogame.de/board176/"), b("A56", "", "A57", 0, "", "", "https://antigame.de/antigame/translations/?lang=" + AGO.Menu.lang.toLowerCase()), b("S50", "", "S40", 0, "", "", "http://board.origin.ogame.de/board183/"), AGO.Menu.appendTab("Data"), AGO.Menu.appendSection("D00", "A80"), b("D01", "", "D0B",
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  0, "", "", {action: "update"}
         ), e(12), g("D10", "", {
                         X0: " - ",

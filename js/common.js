@@ -114,7 +114,7 @@ AGO.Styles = {
     classFleet: " ago_color_hostile ago_color_neutral ago_color_own ago_color_reverse ago_color_friend ago_color_enemy".split(" "),
     Start: function () {
         function a(a) {
-            return a ? '@import url("' + AGO.App.pathSkin + "ago/" + a + '.css' + (AGO.App.beta ? '?' + (new Date()).getTime() : '') + '");' : ""
+            return a ? '@import url("' + AGO.App.pathSkin + "ago/" + a + '.css");' : ""
         }
 
         var b, c, d = [];
@@ -246,7 +246,7 @@ AGO.Item = {
         drive: "115",
         speed: 5E3,
         capacity: 5E3,
-        consumption: 10
+        consumption: 20
     },
     203: {
         metal: 6E3, crystal: 6E3, deuterium: 0, retreat: 3E3, drive: "115", speed: 7500, capacity: 25E3,
@@ -457,14 +457,17 @@ AGO.Ogame = {
         var a = 5070900 <= NMR.parseVersion(AGO.App.versionOGame);
         OBJ.iterate(AGO.Item.Ship, function (b) {
                         var c,
-                            d, e, f;
-                        "202" === b && 5 <= AGO.Units.get("117") ? (c = 1E4, d = "117", f = 20
-                        ) : "209" === b && 15 <= AGO.Units.get("118") ? a && (c = 6E3, d = "118", f = 900
-                        ) : "209" === b && 17 <= AGO.Units.get("117") ? a && (c = 4E3, d = "117", f = 600
-                        ) : "211" === b && 8 <= AGO.Units.get("118") ? (c = 5E3, d = "118", f = 1000
-                        ) : (c = AGO.Item[b].speed, d = AGO.Item[b].drive, f = AGO.Item[b].consumption
+                            d, e;
+                        "202" === b && 5 <= AGO.Units.get("117") ? (c = 1E4, d = "117"
+                        ) : "209" === b && 15 <= AGO.Units.get("118") ? a && (c = 6E3, d = "118"
+                        ) : "209" === b && 17 <= AGO.Units.get("117") ? a && (c = 4E3, d = "117"
+                        ) : "211" === b && 8 <= AGO.Units.get("118") ? (c = 5E3, d = "118"
+                        ) : (c = AGO.Item[b].speed, d = AGO.Item[b].drive
                             );
-                        d && (e = "115" === d ? .1 : "117" === d ? .2 : .3, AGO.Item[b].speed = Math.floor(c * (10 + AGO.Units.get(d) * e * 10) / 10)) && (AGO.Item[b].consumption = f)
+                        d && (e = "115" === d ? .1 : "117" === d ? .2 : .3, AGO.Item[b].speed = Math.floor(c * (10 + AGO.Units.get(d) * e * 10
+                                                                                                           ) / 10
+                        )
+                        )
                     }
         )
     }, getDebris: function (a, b) {
@@ -496,20 +499,18 @@ AGO.Ogame = {
         return (c = "1" === a || "2" === a ? 10 : "3" === a ? 20 : 0
                ) && 0 <= b ? Math.floor(c * b * Math.pow(1.1, b)) : 0
     }, getProductionEnergy: function (a, b) {
-        var c, d;
-        c = "4" === a ? 20 * b * Math.pow(1.1, b) : "12" === a ? 30 * b * Math.pow(1.05 + .01 * AGO.Units.get("113"), b) : "212" === a ? Math.round(Math.floor((AGO.Planets.Get("active", "temp") + 40 + 140
+        var c;
+        c = "4" === a ? 20 * b * Math.pow(1.1, b) : "12" === a ? 30 * b * Math.pow(1.05 + .01 * AGO.Units.get("113"), b) : "212" === a ? Math.floor((AGO.Planets.Get("active", "temp") + 40 + 140
                                                                                                                                                     ) / 6
-        ) * b) : 0;
-        AGO.Option.is("comstaff") ? d = 1.12 : AGO.Option.is("engineer") ? d = 1.1 : d = 1;
-        return Math.round(d * c)
+        ) * b : 0;
+        return AGO.Option.is("engineer") ? Math.floor(1.1 * c) : Math.floor(c)
     }, getProductionResources: function (a,
                                          b
     ) {
-        var c, d;
+        var c;
         c = "1" === a ? 30 * b * Math.pow(1.1, b) : "2" === a ? 20 * b * Math.pow(1.1, b) : "3" === a ? 10 * b * Math.pow(1.1, b) * (1.28 - .004 * AGO.Planets.Get("active", "temp")
         ) : 0;
-        AGO.Option.is("comstaff") ? d = 1.12 : AGO.Option.is("geologist") ? d = 1.1 : d = 1;
-        return Math.floor(d * c) * AGO.Uni.speed
+        return AGO.Option.is("geologist") ? Math.floor(1.1 * c) * AGO.Uni.speed : Math.floor(c) * AGO.Uni.speed
     }, getStandardUnitsCache: null,
     getStandardUnits: function (a, b) {
         if (!AGO.Task.getStandardUnitsCache) {

@@ -6,12 +6,12 @@
                    em:type="2"
                    em:id="antigameorigin@antigame.de"
                    em:name="AntiGameOrigin v6"
-                   em:version="6.0.1"
+                   em:version="6.1.1"
                    em:unpack="false"
                    em:bootstrap="true"
                    em:creator="Shole"
                    em:description="AntiGameOrigin - the other OGame experience for all communities."
-                   em:homepageURL="http://antigame.de/"
+                   em:homepageURL="https://antigame.de/"
                    em:updateURL="https://antigame.de/antigame/ago_firefox.rdf">
     <em:targetApplication RDF:resource="rdf:#$5DUhp3"/>
     <em:targetApplication RDF:resource="rdf:#$aDUhp3"/>

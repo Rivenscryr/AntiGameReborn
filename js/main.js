@@ -19,8 +19,7 @@ AGO.Main = {
         OBJ.iterate(a, function (b) {
                         AGO.Option.set(b, a[b])
                     }
-        );
-        document.getElementById("officers").classList.contains("all") ? AGO.Option.set("comstaff", 1) : AGO.Option.set("comstaff", 0);
+        )
     }, Run: function () {
         var a, b, d, c;
         if (a = document.getElementById("menuTableTools")) {
@@ -157,7 +156,7 @@ AGO.Main = {
         a = document.createElement("span");
         DOM.appendSPAN(a, "", "AntiGameOrigin");
         DOM.appendSPAN(a, "", AGO.App.versionOGameMax);
-        DOM.appendSPAN(a, "", "http://antigame.de/home.php?page=home");
+        DOM.appendSPAN(a, "", "https://antigame.de/home.php?page=home");
         DOM.appendSPAN(a,
                        "", c
         );

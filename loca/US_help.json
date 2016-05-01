@@ -102,7 +102,7 @@
     "t102": "[HINT]\r\nThe parameter [ALLIANCE] and [ALLIANCETAG] are not available for now.",
     "u11": "Customize the OGame background and decrease its loading time. \r\n[OPTION]-[] still load the images from the OGame server. \r\n[OPTION]OGame[] load the normal background images from AGO. \r\n[OPTION]Middle[] load slightly darkened background images from AGO. \r\n[OPTION]Dark[] load strongly darkened background images from AGO. \r\n[OPTION]Colour[] Use a background colour instead of the background images.",
     "u19": "Select the colour of the background if you have chosen to use a background colour instead of the images.",
-    "u22": "Add the full path to the folder with the CSS-file and images. Please only use your own webserver or a trusted one.\r\n[LIST] This example paints the background red: http:\/\/antigame.de\/antigame\/skin\/test.css",
+    "u22": "Add the full path to the folder with the CSS-file and images. Please only use your own webserver or a trusted one.\r\n[LIST] This example paints the background red: https:\/\/antigame.de\/antigame\/skin\/test.css",
     "u301": "[SHORTCUT]\u2191[] Increase the amount in the input field by 1\r\n[SHORTCUT]\u2193[] Decrease the amount in the input field by 1\r\n[LIST] Holding a modifier key will change the amount to SHIFT 10, CTRL 100 and SHIFT+CTRL 1000",
     "u31": "Activates keyboard shortcuts on some OGame pages. For details see the Shortcut-list in the corresponding sections.",
     "u32": "Activates the function keys to select any [PLANET] (F1 - F12) or [MOON] (Shift + F1 - F12). \r\n[LIST] The key number is added to the planet list and follows its order. \r\n[LIST] It's working on all OGame pages except the [PAGE]Jump gate[], where they select the target moon.",

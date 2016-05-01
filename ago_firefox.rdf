@@ -16,6 +16,6 @@
                    em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
                    em:minVersion="24.0"
                    em:maxVersion="45.*"
-                   em:updateLink="http://antigame.de/antigame/scripts/antigameorigin.xpi"
+                   em:updateLink="https://antigame.de/antigame/scripts/antigameorigin.xpi"
                    em:updateHash="sha1:b60fedfa15b58c9886610706e23f42873afd91b2" />
 </RDF:RDF>

@@ -1,6 +1,6 @@
-Copyright (c) 2013 - AntiGameOrigin by Francolino
+Copyright (c) 2013 - AntiGameOrigin by Shole / Francolino
 
-http://antigame.de/ ( fallback http://francolino.de/ )
+https://antigame.de/
 	
 1. AntiGameOrigin is not open source. Code changes are prohibited and it is strictly forbidden to distribute AntiGameOrigin or modified versions.
 2. AntiGameOrigin is for private use only.
