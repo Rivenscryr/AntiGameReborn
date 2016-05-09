@@ -430,3 +430,11 @@
 #netz #alliance #inhalt #eins .contentz .members td {
     padding: 3px 5px
 }
+
+.ago_improve #description #wreckfields .btn {
+    margin: 3px 3px
+}
+
+.ago_improve #description #wreckfields .btn > input {
+    font-size: 11px
+}
