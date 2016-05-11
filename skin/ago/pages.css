@@ -434,6 +434,7 @@
 .ago_improve #description #wreckfields .btn {
     margin: 3px 3px;
     padding: 0 12px;
+    z-index: 9999
 }
 
 .ago_improve #description #wreckfields .btn > input {
