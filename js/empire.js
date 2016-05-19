@@ -59,9 +59,9 @@ AGO.Empire = {
                                               AGO.Task.updateResources(h);
                                               AGO.Empire.improve && DOM.setText(".items.groupitems + div", this, h.resources, 3);
                                               for (g in m) {
-                                                  if (a = $(this).find("div." + g).get(0)) {
+                                                  if (a = $(this).find("div." + g).eq(0).clone().children().remove().end().get(0)) {
                                                       if (g in AGO.Item.Ship || g in AGO.Item.Defense) {
-                                                          h[g] = DOM.getText(a, null, 3), g in AGO.Item.Ship && AGO.Item[g].capacity && h[g] && (h.capacity += h[g] * AGO.Item[g].capacity
+                                                          h[g] = DOM.getText(a, null, 3), console.log(h[g]), g in AGO.Item.Ship && AGO.Item[g].capacity && h[g] && (h.capacity += h[g] * AGO.Item[g].capacity
                                                           );
                                                       } else if (g in AGO.Item.Mining || g in AGO.Item.Station || g in AGO.Item.Research) {
                                                           (e =

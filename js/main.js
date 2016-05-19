@@ -1568,7 +1568,7 @@ AGO.Events = {
                                     }
                                 } else {
                                     HTML.hasClass(c, "sendMail") &&
-                                    (b.nick = DOM.getAttribute(DOM.getChildnodeByName(a, "A"), null, "data-player-name", 7)
+                                    (b.nick = DOM.getAttribute(DOM.getChildnodeByName(a, "A"), null, "title", 7)
                                     )
                                 }
                             }

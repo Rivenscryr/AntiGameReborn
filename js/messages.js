@@ -274,7 +274,7 @@ AGO.Messages = {
                 b.planetName = DOM.getText(b.txtLink);
                 b.coords = b.planetName.split('[')[1].split(']')[0];
 
-                AGB.message("DataBase", "GetPlanet", { keyUni: AGO.App.keyUni, coords: b.coords }, 
+                AGB.message("DataBase", "GetPlayer", { keyUni: AGO.App.keyUni, coords: b.coords }, 
                 function (a) { 
                     message.dataset.playerName = a.playerName;
                     AGO.Messages.reviseMessage(message);
