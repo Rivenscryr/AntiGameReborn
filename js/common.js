@@ -212,7 +212,7 @@ AGO.Item = {
     31: {metal: 200, crystal: 400, deuterium: 200, factor: 2},
     33: {metal: 0, crystal: 5E4, deuterium: 1E5, factor: 2},
     34: {metal: 2E4, crystal: 4E4, deuterium: 0, factor: 2},
-    36: {metal: 200, crystal: 50, deuterium: 0, factor: 5},
+    36: {metal: 200, crystal: 0, deuterium: 50, factor: 5},
     41: {metal: 2E4, crystal: 4E4, deuterium: 2E4, factor: 2},
     42: {metal: 2E4, crystal: 4E4, deuterium: 2E4, factor: 2},
     43: {metal: 2E6, crystal: 4E6, deuterium: 2E6, factor: 2},
