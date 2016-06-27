@@ -19,7 +19,8 @@ AGO.Main = {
         OBJ.iterate(a, function (b) {
                         AGO.Option.set(b, a[b])
                     }
-        )
+        );
+        document.getElementById("officers").classList.contains("all") ? AGO.Option.set("comstaff", 1) : AGO.Option.set("comstaff", 0);
     }, Run: function () {
         var a, b, d, c;
         if (a = document.getElementById("menuTableTools")) {
@@ -1734,5 +1735,15 @@ AGO.Events = {
             }
         }
         return c
+    }
+};
+AGO.Chat = {
+    Run: function () {
+        var a;
+        AGO.Option.is("O60") && (AGO.Chat.hidePopups = AGO.Option.is("O61"));
+        (a = document.getElementById("chatBar")) && AGO.Chat.Content();
+    },
+    Content: function () {
+        console.log("jQuery");
     }
 };

@@ -132,6 +132,20 @@ AGO.Messages = {
         AGO.Messages.addActButtons(this, tabContent);
     },
     
+    onViewFavorites: function (tabContent) {
+        DOM.iterate(DOM.queryAll('.msg', tabContent), function (message) {
+            DOM.addEventsAll('.msg_head', message, { click: function (e) { if (e.target.tagName === 'A' || e.target.classList.contains('js_actionKill')) return; AGO.Messages.toggleFoldMessage(message, e); } });
+            AGO.Option.is('M14') ? AGO.Messages.toggleFoldMessage(message) : 0;
+        });
+        
+        AGO.Messages.parseMessagesEsp(this, tabContent);
+        AGO.Messages.getSpyReportMap();
+        AGO.Messages.sortSpyReports(AGO.Messages.spyTableData.sortSequence);
+        AGO.Messages.shrinkSpyReports(this, tabContent);
+        if (!OBJ.isEmpty(AGO.Messages.spyReports) && AGO.Option.is('M51')) AGO.Messages.showSpyReportOverview(this, tabContent);
+        AGO.Messages.addActButtons(this, tabContent);
+    },
+    
     reviseContent: function (tab, tabContent) {
         OBJ.iterate(AGO.Messages.allMessages, function (msgId) {
             if (AGO.Option.is('A31')) {
@@ -148,7 +162,7 @@ AGO.Messages = {
             OBJ.iterate(AGO.Messages.allMessages, function (msgId) {
                 // TODO: tried to use css, but firefox completely ignores it!?
                 var message = AGO.Messages.allMessages[msgId];
-                if (DOM.query('.compacting', message)) {
+                if (DOM.query('.compacting', message) || DOM.query('.espionageDefText', message)) {
                     DOM.iterate(DOM.queryAll('.msg_content br'), function (br) {
                         br.parentElement.removeChild(br);
                     });
@@ -213,10 +227,7 @@ AGO.Messages = {
     reviseMessage: function (message) {
         var c;
         
-        if (c = DOM.query('.espionageDefText', message)) {
-            DOM.query('.txt_link', c).innerHTML += ' (' + message.dataset.playerName + ')';
-            DOM.updateStyle('.msg_content', message, 'display', '');
-        } else if (DOM.query('.compacting', message)) {
+        if (DOM.query('.compacting', message)) {
             var p = {};
             OBJ.copy(message.dataset, p);
             DOM.updateStyle('.msg_title', message, 'width', '450px');
@@ -267,19 +278,7 @@ AGO.Messages = {
             var message = AGO.Messages.allMessages[msgId],
                 c;
             
-            if (c = DOM.query('.espionageDefText', message)) {
-                message.id = 'm' + message.dataset.msgId;
-                var b = {};
-                b.txtLink = DOM.query('.txt_link', c);
-                b.planetName = DOM.getText(b.txtLink);
-                b.coords = b.planetName.split('[')[1].split(']')[0];
-
-                AGB.message("DataBase", "GetPlayer", { keyUni: AGO.App.keyUni, coords: b.coords }, 
-                function (a) { 
-                    message.dataset.playerName = a.playerName;
-                    AGO.Messages.reviseMessage(message);
-                });
-            } else if (DOM.query('.compacting', message)) {
+            if (DOM.query('.compacting', message)) {
                 message.id = 'm' + message.dataset.msgId;
                 
                 var p = {};
@@ -288,7 +287,7 @@ AGO.Messages = {
                 p.status = DOM.query('[class^="status_abbr_"]', message).className.match(/status_abbr_(.+)/)[1];
                 p.honorRank = (a = DOM.query('.honorRank', message)) ? a.classList[1] : '';
                 p.activity = DOM.getText('.msg_content font', message, 2) || '-';
-                p.coords = DOM.getText('.msg_head > .msg_title > .txt_link', message).split('[')[1].split(']')[0];
+                p.coords = (a = DOM.getText('.msg_head > .msg_title > .txt_link', message)) ? a.split('[')[1].split(']')[0] : "::";
                 p.galaxy = p.coords.split(':')[0];
                 p.system = p.coords.split(':')[1];
                 p.position = p.coords.split(':')[2];
