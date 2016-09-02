@@ -788,6 +788,7 @@ AGB.Uni = {
         acs: 1,
         defToTF: 0,
         debrisFactor: .3,
+		debrisFactorDef: .3,
         repairFactor: .7,
         newbieProtectionLimit: 0,
         newbieProtectionHigh: 0,

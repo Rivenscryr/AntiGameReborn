@@ -178,3 +178,7 @@
 #galaxy .ago_shrink_3 #galaxytable tr.row td, #galaxy .ago_shrink_3 #galaxytable td.moon a, #galaxy .ago_shrink_3 #galaxytable td.debris a {
     height: 26px
 }
+
+#galaxy.ago_improve #galaxytable tbody td {
+	background-color: inherit;
+}

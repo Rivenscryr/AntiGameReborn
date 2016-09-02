@@ -354,7 +354,7 @@ AGO.Item = {
     502: {metal: 8E3, crystal: 0, deuterium: 2E3, retreat: 0},
     503: {metal: 12500, crystal: 2500, deuterium: 1E4, retreat: 0},
     Mining: {1: 1, 2: 1, 3: 1, 4: 1, 12: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 212: 1},
-    Station: {14: 1, 15: 1, 21: 1, 31: 1, 33: 1, 34: 1, 41: 1, 42: 1, 43: 1, 44: 1},
+    Station: {14: 1, 15: 1, 21: 1, 31: 1, 33: 1, 34: 1, 36: 1, 41: 1, 42: 1, 43: 1, 44: 1},
     Ship: {
         202: 1,
         203: 1,
@@ -469,13 +469,15 @@ AGO.Ogame = {
                     }
         )
     }, getDebris: function (a, b) {
-        var c, d, e;
+        var c, d, e, f, g;
+		var h = {}
+		OBJ.copy(a, h);
         c = {metal: 0, crystal: 0};
-        if (OBJ.is(a)) {
-            for (e in b = b && AGO.Uni.defToTF, d = AGO.Uni.debrisFactor || .3, a) {
-                a[e] && (AGO.Item.Ship[e] ||
-                         b && 1 === AGO.Item.Defense[e]
-                ) && (c.metal += a[e] * Math.floor(AGO.Item[e].metal * d), c.crystal += a[e] * Math.floor(AGO.Item[e].crystal * d)
+        if (OBJ.is(h)) {
+            for (e in b = b && AGO.Uni.defToTF, d = AGO.Uni.debrisFactor || .3, f = AGO.Uni.debrisFactorDef || .3, g = AGO.Uni.repairFactor || .7, h) {
+                h[e] && (AGO.Item.Ship[e] ||
+                         (b && 1 === AGO.Item.Defense[e] && (d = f) && (h[e] = h[e] * (1-g)))
+                ) && (c.metal += h[e] * Math.floor(AGO.Item[e].metal * d), c.crystal += h[e] * Math.floor(AGO.Item[e].crystal * d)
                 );
             }
         }

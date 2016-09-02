@@ -196,8 +196,12 @@ div#agoSpyReportOverview .row:hover td:last-child {
         inset -6px 0px 5px -5px #1278cb;
 }
 
+div#agoSpyReportOverview .row:hover td.spyTableDetails {
+    box-shadow: none;
+}
+
 div#agoSpyReportOverview td {
-    padding: 5px 2px 5px 2px !important;
+    padding: 5px 2px 5px 2px;
     border-right: 1px solid #000000;
     vertical-align: middle !important;
 }
@@ -215,6 +219,10 @@ div#agoSpyReportOverview TR TH:last-child, div#agoSpyReportOverview TR TD:last-c
     border-right: 0
 }
 
+div#agoSpyReportOverview .dock {
+    color: #ff0000;
+}
+
 div#agoSpyReportOverview .summary {
     background-color: #23282d;
     border: 1px solid #000000;
@@ -224,4 +232,26 @@ div#agoSpyReportOverview .summary {
     padding: 3px 7px;
     line-height: 22px;
     font-weight: bold;
+}
+
+div#agoSpyReportOverview td.spyTableDetails {
+    padding: 10px 5px;
+    border: solid #000000;
+    border-width: 1px 0;
+}
+
+div#agoSpyReportOverview .detailsContent {
+    margin: 10px auto;
+}
+
+div#agoSpyReportOverview .detailsTitle {
+    font-weight: bold;
+    background-color: #23282d;
+    border: 1px black solid;
+    line-height: 24px;
+    color: #6f9fc8;
+}
+
+div#agoSpyReportOverview .spyTableDetails .txt_link:hover {
+    text-decoration: underline;
 }

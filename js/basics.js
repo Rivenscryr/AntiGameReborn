@@ -699,6 +699,7 @@ var DOM = {
             ) + (b || "a"
                ) + ".gif"
     }, hasClass: function (a, b) {
+		a = a.replace(/\s+/g, " ");
         return b ? -1 < (" " + (a || ""
         ).toLowerCase() + " "
         ).indexOf(" " + b.toLowerCase().trim() + " ") : !1
@@ -857,7 +858,7 @@ var DOM = {
                ) * parseInt(a.replace(/[^\d]/g, ""), 10)
     }, parseIntRess: function (a) {
         var r;
-        a = STR.trim(a.match(/: ([^<]+)*/)[1]);
+        a = STR.trim((a.match(/: ([^<]+)*/) ? a.match(/: ([^<]+)*/)[1] : a));
         if (a.match(/^[0-9]{1,3}\.[0-9]{3}$/))
             a = a.replace('.', '');
         else if((r = new RegExp('^([0-9]{1,3}(\.|,))?[0-9]{1,3}(' + AGO.Label.is("KU0B") + ')')) && a.match(r))
@@ -896,7 +897,7 @@ var DOM = {
             return (0 > a ? "-" : ""
                    ) + d.join(AGO.Label.is("KU0S")) + c
         }
-        return ""
+        return 0
     }, shortNumber: function (a, b) {
         var c, d;
         c = 2 === b ? 1 : 1 === b ? 10 : 100;
