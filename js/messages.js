@@ -629,10 +629,6 @@ AGO.Messages = {
 						.append($('<span>', {'style': 'float: left; width: 30%; color: green;'}).text(AGO.Label.get('K092') + ': ' + AGO.Messages.formatNumber(totalDebris.crystal)))
 						.append($('<span>', {'style': 'float: none; width: 19%; color: green;'}).text(AGO.Messages.formatNumber(totalDebris.recs) + ' ' + AGO.Label.get('K209')));
 			}
-			
-            $('<div>', {'class': 'detailsTitle'}).appendTo('.spyTableDetails').text(data.label_research);
-            $('<div>', {'class': 'detailsContent', 'style': 'width: 90%;'}).appendTo('.spyTableDetails');
-            
         }); 
     },
     

@@ -32,6 +32,7 @@
 
 .ago_galaxy_debris {
     font-size: 11px;
+	line-height: 13px;
     position: absolute;
     top: 2px;
     min-width: 40px;
@@ -49,7 +50,7 @@
 .ago_galaxy_rank {
     text-decoration: none;
     float: right;
-    padding-right: 2px
+    padding-right: 2px;
 }
 
 #galaxy #box #message_alert_box, #galaxy #box #message_alert_box_default {
@@ -111,25 +112,14 @@
     font-size: 9px
 }
 
-#galaxy.ago_improve #galaxytable tr.row {
-    background-image: url("images/galaxy_row_empty.png")
-}
 
-#galaxy.ago_improve #galaxytable tr.ago_galaxy_row {
-    background-image: url("images/galaxy_row.png")
-}
-
-#galaxy.ago_improve #galaxytable td.ago_galaxy_debris_shadow {
-    background: url("images/galaxy_debris_shadow.gif") no-repeat 12px 3px
-}
 
 #galaxy.ago_improve #galaxytable tr.row td.spacer01 {
     width: 1px
 }
 
 #galaxy.ago_improve #galaxytable tr.row td.position {
-    width: 22px;
-    padding-right: 5px
+    padding-right: 6px;
 }
 
 #galaxy.ago_improve #galaxytable tr.row td.planetname, #galaxy.ago_improve #galaxytable tr.row td.planetname1 {
@@ -142,7 +132,8 @@
 }
 
 #galaxy.ago_improve #galaxytable tr.row td.playername .status {
-    float: right
+    float: right;
+	margin-right: 10px;
 }
 
 #galaxy.ago_improve #galaxytable tr.row td.spacer03 {
@@ -177,8 +168,4 @@
 
 #galaxy .ago_shrink_3 #galaxytable tr.row td, #galaxy .ago_shrink_3 #galaxytable td.moon a, #galaxy .ago_shrink_3 #galaxytable td.debris a {
     height: 26px
-}
-
-#galaxy.ago_improve #galaxytable tbody td {
-	background-color: inherit;
 }
