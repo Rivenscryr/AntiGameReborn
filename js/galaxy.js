@@ -100,8 +100,7 @@ AGO.Galaxy = {
                 setting: {id: "G52", mode: "toggle"}
             }, DOM.setData('th.first', a, b), DOM.setData("th.text_moon", a, b), (b = 3 === AGO.Galaxy.behave ? "#008000" :
                                                                                              2 === AGO.Galaxy.behave ? "#656977" : ""
-                                                                                        ) && DOM.updateStyle('th.first', a, "color", b), (b = AGO.Option.is("commander") ? b : 2 <= AGO.Galaxy.behave ? "#656977" : ""
-                                                                                                                                                ) && DOM.updateStyle("th.text_moon", a, "color", b)
+                                                                                        ) && DOM.updateStyle('th.first', a, "color", b), DOM.updateStyle("th.text_moon", a, "color", b)
             );
             b = DOM.getText("#slotValue", a, 7).split("/");
             +b[1] && (AGO.Fleet.Set("Current", {
@@ -111,9 +110,9 @@ AGO.Galaxy = {
             ), AGO.Init.Messages("Panel", "updateTab", {tab: "Flights"})
             );
             if (AGO.Galaxy.improve) {
-                for (b = a.querySelectorAll("#galaxyheadbg2 th"), DOM.updateStyle(b[0], null, "width", "60px"), DOM.updateStyle(b[1], null,
-                                                                                                                                "width", "150px"
-                ), DOM.updateStyle(b[4], null, "width", "160px"), DOM.before(b[0], b[1]), b = a.querySelectorAll(".row"), h = 0; h < b.length; h++) {
+                for (b = a.querySelectorAll("#galaxyheadbg2 th"), DOM.removeClass(b[0], null, "first"), DOM.addClass(b[1], null, "first"), DOM.updateStyle(b[0], null, "width", "55px"), DOM.updateStyle(b[1], null,
+                                                                                                                                "width", "145px"
+                ), DOM.updateStyle(b[3], null, "width", "15px"), DOM.updateStyle(b[3], null, "text-align", "left"),  DOM.updateStyle(b[4], null, "width", "160px"), DOM.before(b[0], b[1]), b = a.querySelectorAll(".row"), h = 0; h < b.length; h++) {
                     d = b[h], DOM.hasChildren(d) && (DOM.before(d.children[1], d.children[2]), DOM.before(d.children[5], d.children[4])
                     );
                 }
@@ -144,10 +143,11 @@ AGO.Galaxy = {
                                     )
                                 }
             );
-            b && (f = b.querySelector(".allytagwrapper"), 
+            b && (f = b.querySelector(".allytagwrapper"),
 			q = DOM.getAttribute(f, null, "rel"), 
 			c.allianceId = STR.check(NMR.parseIntFormat(q)), 
 			f && c.allianceId && (c.allianceTag = DOM.getTextChild(f, null, 7), 
+			c.allianceTag.length > 8 ? DOM.setText(f.childNodes[0], null, c.allianceTag.slice(0, -3) + "...") : !1,
 			c.allianceOwn = HTML.hasClass(f.className, "status_abbr_ally_own") ? 41 : 0, 
 			c.allianceColor = AGO.Token.getClass(AGO.Galaxy.getToken("Alliance", c.allianceId) || c.allianceOwn), 
 			c.allianceColor && DOM.addClass(b, null, c.allianceColor), 
@@ -194,12 +194,13 @@ AGO.Galaxy = {
                                                                                  }
             ), l = ("ago_galaxy_rank " +
                     c.playerColor
-            ).trim(), l = DOM.appendSPAN(k, l, 1E4 <= c.playerRank ? "10 k" : c.playerRank), DOM.prependChild(d, k)
+            ).trim(), l = DOM.appendSPAN(k, l, 1E4 <= c.playerRank ? "10 k" : c.playerRank), DOM.appendChild(d, k)
             ), t || (DOM.setAttribute(f, null, "rel", q + String.fromCharCode(65 + c.position)), DOM.setAttribute(n, null, "id", q + String.fromCharCode(65 + c.position))
             )
             )
             )
             );
+			console.log(AGO.Galaxy.behave);
             q = 2 !== AGO.Galaxy.behave && !c.allianceOwn && !c.playerBuddy && VAL.check(c.playerStatus, 21, 22, 23, 26, 27, 28);
             h && (c.planetId = DOM.getAttribute(h, null, "data-planet-id", 7), c.planetId && (n = h.querySelector(".htmlTooltip"), k = h.querySelector(".htmlTooltip .ListLinks"),
             n && k && (c.planetName = DOM.getText("h1 span", n, 7), h.querySelector(".activity") && (c.planetActivity = DOM.getText(k.firstElementChild, null, 2) || 1
@@ -209,7 +210,7 @@ AGO.Galaxy = {
                 id: c.planetId,
                 name: c.playerName,
                 coords: c.coords + ":1"
-            }, DOM.setData(k, null, l), q && (3 === AGO.Galaxy.behave && DOM.extendClass(h, null, "ago_galaxy_espionage"), DOM.setAttribute(h, null, "onclick", "sendShips(6," + c.coords.replace(/:/g, ",") + ",1,0,0,this); return false;")
+            }, DOM.setData(k, null, l), q && (3 === AGO.Galaxy.behave && DOM.extendClass(h, null, "ago_galaxy_espionage")
             )
             )
             )
@@ -222,7 +223,7 @@ AGO.Galaxy = {
                 id: c.planetId,
                 name: c.playerName,
                 coords: c.coords + ":3"
-            }, DOM.setData(k, null, l), q && 3 === AGO.Galaxy.behave && DOM.extendClass(e, null, "ago_galaxy_espionage"), AGO.Option.is("commander") && (f = e.querySelector("a[onclick]"), q && (n = DOM.getAttribute(f, null, "onclick", 7).split(");").join(",0,this);"), DOM.setAttribute(e,
+            }, DOM.setData(k, null, l), console.log(q), q && 3 === AGO.Galaxy.behave && DOM.extendClass(e, null, "ago_galaxy_espionage"), (f = e.querySelector("a[onclick]"), q && (n = DOM.getAttribute(f, null, "onclick", 7).split(");").join(",0,this);"), DOM.setAttribute(e,
                                                                                                                                                                                                                                                                                               null, "onclick", n
             )
             ), DOM.removeAttribute(f, null, "onclick")
@@ -232,7 +233,6 @@ AGO.Galaxy = {
             );
             if (g && (l = g.querySelectorAll(".debris-content"), c.debrisMetal = DOM.getText(l[0], null, 2), c.debrisCrystal = DOM.getText(l[1], null, 2), c.debrisResources = c.debrisMetal + c.debrisCrystal, c.debrisResources
                 )) {
-				console.log(c);
                 c.highlightDebris = NMR.isGreater(c.debrisResources, AGO.Token.getLimit(95)) ? 95 : NMR.isGreater(c.debrisResources, AGO.Token.getLimit(94)) ? 94 : 0;
                 if (f = g.querySelector("a.tooltipRel div")) {
                     1 === s ? (n = Math.max(2 + 3 * (c.debrisResources + ""

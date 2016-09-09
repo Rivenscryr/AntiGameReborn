@@ -909,7 +909,7 @@ var DOM = {
         } else if (1E3 <= a) {
             c = Math.ceil(a / 10 / c) + "", d = AGO.Label.is("KU0K");
         } else {
-            return a ? a + "\u2009 " : "0\u2009 ";
+            return a ? a : "0";
         }
         return b ? c.substr(0, c.length - b) + AGO.Label.is("KU0S") + c.substr(c.length - b) + "\u2009" + d : c + "\u2009" + d
     }, getParameter: function (a, b) {

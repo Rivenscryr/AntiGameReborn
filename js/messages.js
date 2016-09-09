@@ -429,6 +429,7 @@ AGO.Messages = {
 
         var tableBody = DOM.query('tbody', table);
         OBJ.iterate(AGO.Messages.spyReports, function (id) {
+			var f;
             var p = {}; OBJ.copy(AGO.Messages.spyReports[AGO.Messages.spyReportsKeys[id]], p);
             var message = document.getElementById('m' + p.msgId);
 
@@ -496,6 +497,7 @@ AGO.Messages = {
                 aDelete.addEventListener('click', function () { DOM.query('.js_actionKill', message) ? DOM.click('.js_actionKill', message) : !0; }, false);
                 DOM.query('.js_actionKill', message).onclick = function deleteMessage (e) { 
                     DOM.query('#spyTable tbody').removeChild(DOM.query('#t_' + p.msgId));
+					if (f = DOM.query('#d_' + p.msgId)) DOM.query('#spyTable tbody').removeChild(f);
                     OBJ.deleteWhere(AGO.Messages.spyReports, 'msgId', p.msgId);
                     OBJ.deleteWhere(AGO.Messages.allMessages, 'id', 'm' + p.msgId);
                     AGO.Messages.refreshSummary();
@@ -548,7 +550,7 @@ AGO.Messages = {
 		}
 		$('#t_' + p.msgId).attr('details', '1');
         
-        $('<tr>').addClass('row').insertAfter('#t_' + p.msgId)
+        $('<tr>', {'id': 'd_' + p.msgId}).addClass('row').insertAfter('#t_' + p.msgId)
             .append($('<td>', {'class': 'spyTableDetails', 'colspan': '7'}));
         AGO.Messages.refreshOddEven();
         $('.spyTableDetails').append($('<img>', {'height': 16, 'width': 16, 'src': 'https://gf3.geo.gfsrv.net/cdne3/3f9884806436537bdec305aa26fc60.gif'}));

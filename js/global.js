@@ -201,6 +201,7 @@ var AGO = {
         });
     }, Tooltip: function () {
         function b(a, b) {
+			a = a.replace(/\s+/g, " ");
             return b ? -1 < (" " + (a || ""
             ).toLowerCase() + " "
             ).indexOf(" " + b.toLowerCase().trim() +
