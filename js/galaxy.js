@@ -222,7 +222,7 @@ AGO.Galaxy = {
                 id: c.planetId,
                 name: c.playerName,
                 coords: c.coords + ":3"
-            }, DOM.setData(k, null, l), console.log(q), q && 3 === AGO.Galaxy.behave && DOM.extendClass(e, null, "ago_galaxy_espionage"), (f = e.querySelector("a[onclick]"), q && (n = DOM.getAttribute(f, null, "onclick", 7).split(");").join(",0,this);"), DOM.setAttribute(e,
+            }, DOM.setData(k, null, l), q && 3 === AGO.Galaxy.behave && DOM.extendClass(e, null, "ago_galaxy_espionage"), (f = e.querySelector("a[onclick]"), q && (n = DOM.getAttribute(f, null, "onclick", 7).split(");").join(",0,this);"), DOM.setAttribute(e,
                                                                                                                                                                                                                                                                                               null, "onclick", n
             )
             ), DOM.removeAttribute(f, null, "onclick")
