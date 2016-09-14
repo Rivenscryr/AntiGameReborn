@@ -200,7 +200,6 @@ AGO.Galaxy = {
             )
             )
             );
-			console.log(AGO.Galaxy.behave);
             q = 2 !== AGO.Galaxy.behave && !c.allianceOwn && !c.playerBuddy && VAL.check(c.playerStatus, 21, 22, 23, 26, 27, 28);
             h && (c.planetId = DOM.getAttribute(h, null, "data-planet-id", 7), c.planetId && (n = h.querySelector(".htmlTooltip"), k = h.querySelector(".htmlTooltip .ListLinks"),
             n && k && (c.planetName = DOM.getText("h1 span", n, 7), h.querySelector(".activity") && (c.planetActivity = DOM.getText(k.firstElementChild, null, 2) || 1

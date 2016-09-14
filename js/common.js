@@ -477,7 +477,7 @@ AGO.Ogame = {
             for (e in b = b && AGO.Uni.defToTF, d = AGO.Uni.debrisFactor || .3, f = AGO.Uni.debrisFactorDef || .3, g = AGO.Uni.repairFactor || .7, h) {
                 h[e] && (AGO.Item.Ship[e] ||
                          (b && 1 === AGO.Item.Defense[e] && (d = f) && (h[e] = h[e] * (1-g)))
-                ) && (c.metal += h[e] * Math.floor(AGO.Item[e].metal * d), c.crystal += h[e] * Math.floor(AGO.Item[e].crystal * d)
+                ) && (c.metal += Math.floor(h[e] * Math.floor(AGO.Item[e].metal * d)), c.crystal += Math.floor(h[e] * Math.floor(AGO.Item[e].crystal * d))
                 );
             }
         }

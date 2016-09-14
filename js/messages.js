@@ -37,7 +37,7 @@ AGO.Messages = {
     },
 
     Ready: function () {
-		console.log(AGO);
+		$ = "jQuery" in window ? window.jQuery : !0;
         DOM.addObserver(DOM.query('#messages .js_tabs'), { childList: true, subtree: true }, function (mutations) {
             for (var i = 0; i < mutations.length; i++) {
                 var mutation = mutations[i];
@@ -301,7 +301,7 @@ AGO.Messages = {
                 p.activityColor = DOM.getAttribute('.msg_content font', message, 'color', '');
                 
                 p.loot = NMR.parseIntRess(DOM.getAttribute('.tooltipRight', message, 'title', ''));
-                var a, b = AGO.Option.get('FA3')/100; (a = STR.getMatches(DOM.getAttribute('.tooltipRight', message, 'title', ''), /(?:[:]) ([0-9]+)/g)) ? (p.sc = NMR.parseInt(a[1] * (1 + b)), p.lc = NMR.parseInt(a[2] * (1 + b))) : 0;
+                var a, b = AGO.Option.get('FA3')/100; (a = STR.getMatches(DOM.getAttribute('.tooltipRight', message, 'title', ''), /(?:[=])([0-9]+)(?:["])/g)) ? (p.sc = NMR.parseInt(a[0] * (1 + b)), p.lc = NMR.parseInt(a[1] * (1 + b))) : 0;
                 p.metal = NMR.parseIntRess(DOM.queryAll('.resspan', message)[0].textContent);
                 p.crystal = NMR.parseIntRess(DOM.queryAll('.resspan', message)[1].textContent);
                 p.deut = NMR.parseIntRess(DOM.queryAll('.resspan', message)[2].textContent);
@@ -540,9 +540,11 @@ AGO.Messages = {
     
     tableAddDetails: function (e, p) {
         var row = $('#t_' + p.msgId);
+		
         if (e.target.tagName == 'A' || getSelection().toString()) return;
         $('.spyTableDetails').parent().remove();
 		if ($('tr[details=1]').attr('id') != 't_' + p.msgId) $('tr[details=1]').removeAttr('details');
+		
 		if (row.attr('details')) {
 			row.removeAttr('details');
 			AGO.Messages.refreshOddEven();
@@ -678,8 +680,7 @@ AGO.Messages = {
                     var itemCount = levelData.find('span.fright').eq(j).text();
                     d.units[level][AGO.Item.getByName(item)] = NMR.parseIntFormat(itemCount);
                 }
-            } 
-            console.log(d);
+            }
             callback(d);
         });
     },
