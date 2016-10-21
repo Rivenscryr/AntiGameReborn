@@ -147,7 +147,7 @@ AGO.Galaxy = {
 			q = DOM.getAttribute(f, null, "rel"), 
 			c.allianceId = STR.check(NMR.parseIntFormat(q)), 
 			f && c.allianceId && (c.allianceTag = DOM.getTextChild(f, null, 7), 
-			c.allianceTag.length > 8 ? DOM.setText(f.childNodes[0], null, c.allianceTag.slice(0, -3) + "...") : !1,
+			c.allianceTag.length > 7 ? DOM.setText(f.childNodes[0], null, c.allianceTag.slice(0, -3) + "...") : !1,
 			c.allianceOwn = HTML.hasClass(f.className, "status_abbr_ally_own") ? 41 : 0, 
 			c.allianceColor = AGO.Token.getClass(AGO.Galaxy.getToken("Alliance", c.allianceId) || c.allianceOwn), 
 			c.allianceColor && DOM.addClass(b, null, c.allianceColor), 

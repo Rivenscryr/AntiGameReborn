@@ -436,7 +436,7 @@ AGO.Phalanx = {
     }, toggleDisplay: function (a) {
         var b;
         a.target && (a = document.getElementById("phalanxWrap")
-        ) && (b = "1" === a.parentNode.parentNode.getAttribute("ago_display_status") ? 2 : 1, a.parentNode.parentNode.setAttribute("ago_display_status", b), AGO.Option.set("E23",
+        ) && (b = "1" === a.parentNode.parentNode.parentNode.getAttribute("ago_display_status") ? 2 : 1, a.parentNode.parentNode.parentNode.setAttribute("ago_display_status", b), AGO.Option.set("E23",
                                                                                                                                                                             b, 2
         )
         )

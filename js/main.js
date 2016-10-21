@@ -288,7 +288,7 @@ AGO.Planets = {
                                     );
                                 }
                             } else if (-1 < f.indexOf("moonlink")) {
-                                for (f = b.title || "", c.moon = STR.check(NMR.parseIntAbs(STR.getParameter("cp", b.href))), e.name = (f.split("[", 1)[0].split("<B>", 2)[1] || ""
+                                for (f = b.title || "", c.moon = STR.check(NMR.parseIntAbs(STR.getParameter("cp", b.href))), e.name = (f.split("[", 1)[0].split("<b>", 2)[1] || ""
                                 ).trim(), d = b.firstChild; d; d = d.nextSibling) {
                                     1 === d.nodeType &&
                                     (f = d.className || "", -1 < f.indexOf("icon-moon") && (e.img = d.src
@@ -1737,13 +1737,72 @@ AGO.Events = {
         return c
     }
 };
-AGO.Chat = {
+/* AGO.Chat = {
+    chatBar: 0,
+    Data: {
+        filteronline: 0,
+        filterchatactive: 0,
+        buddies_expanded: 1,
+        ally_expanded: 1,
+        strangers_expanded: 1
+    },
     Run: function () {
         var a;
-        AGO.Option.is("O60") && (AGO.Chat.hidePopups = AGO.Option.is("O61"));
-        (a = document.getElementById("chatBar")) && AGO.Chat.Content();
+        AGO.Option.is("O60") && (AGO.Chat.popupsDeactivated = AGO.Option.is("O61"));
+        DOM.addObserver(DOM.query("body"), { childList: true }, function (mutations) {
+            for (var i = 0; i < mutations.length; i++) {
+                var mutation = mutations[i];
+                if(mutation.addedNodes.length && "id" in mutation.addedNodes[0] && mutation.addedNodes[0].id === "chatBar") {
+                    AGO.Chat.Content();
+                }
+            }
+        });
     },
     Content: function () {
-        console.log("jQuery");
+        AGO.Chat.chatBar = document.getElementById("chatBar");
+        AGO.Chat.popupsDeactivated && AGO.Chat.removePopups();
+        
+        DOM.appendSCRIPT("window.setTimeout(function () {$('.js_playerlist').off('click','.playerlist_item');}, 1000);");
+        DOM.addObserver(AGO.Chat.chatBar, { childList: true, subtree: true }, function (mutations) {
+            for (var i = 0; i < mutations.length; i++) {
+                var mutation = mutations[i];
+                if (mutation.addedNodes.length && "id" in mutation.addedNodes[0] && mutation.addedNodes[0].id === "mCSB_3") {
+                    AGO.Chat.Ready();
+                }
+            }
+        });
+    },
+    Ready: function () {
+        AGO.Chat.Load();
+        AGO.Chat.popupsDeactivated && AGO.Chat.createLinks();
+        
+        if (AGO.Chat.Data.filteronline) DOM.query("#filteronline").click();
+        if (AGO.Chat.Data.filterchatactive) DOM.query("#filterchatactive").click();
+        if (!AGO.Chat.Data.buddies_expanded) DOM.queryAll(".ui-accordion-header")[0].click();
+        if (!AGO.Chat.Data.ally_expanded) DOM.queryAll(".ui-accordion-header")[1].click();
+        if (!AGO.Chat.Data.strangers_expanded) DOM.queryAll(".ui-accordion-header")[2].click();
+        DOM.iterate(DOM.queryAll("#filteronline, #filterchatactive, .ui-accordion-header"), function (obj) {
+            obj.addEventListener("click", AGO.Chat.Save, false);
+        });
+    },
+    Load: function () {
+        var a; OBJ.hasProperties(a = AGO.Data.getStorage(AGO.App.keyPlayer + "_CHAT_DATA", "JSON")) ? AGO.Chat.Data = a : AGO.Data.setStorage(AGO.App.keyPlayer + "_CHAT_DATA", AGO.Chat.Data);
+    },
+    Save: function () {
+        AGO.Chat.Data.filteronline = DOM.query("#filteronline").checked;
+        AGO.Chat.Data.filterchatactive = DOM.query("#filterchatactive").checked;
+        AGO.Chat.Data.buddies_expanded = ("true" === DOM.queryAll(".ui-accordion-header")[0].getAttribute("aria-expanded"));
+        AGO.Chat.Data.ally_expanded = ("true" === DOM.queryAll(".ui-accordion-header")[1].getAttribute("aria-expanded"));
+        AGO.Chat.Data.strangers_expanded = ("true" === DOM.queryAll(".ui-accordion-header")[2].getAttribute("aria-expanded"));
+        console.log(AGO.Chat.Data);
+        AGO.Data.setStorage(AGO.App.keyPlayer + "_CHAT_DATA", AGO.Chat.Data);
+    },
+    createLinks: function () {
+        DOM.iterate(DOM.queryAll(".playerlist_item", AGO.Chat.chatBar), function (obj) {
+            obj.onclick = function (e) { window.location.href = "index.php?page=chat&playerId=" + obj.dataset.playerid; return; };
+        });
+    },
+    removePopups: function () {
+        DOM.appendSCRIPT("window.setTimeout(function () {window.visibleChats = [];},0);");
     }
-};
+}; */

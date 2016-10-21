@@ -295,10 +295,6 @@
 	width: 172px;
 }
 
-tr.ago_selected_SA {
-	outline: #69AFFC thin solid;
-}
-
 #galaxy.ago_improve #galaxytable {
 	min-height: 604px;
 	height: 604px;

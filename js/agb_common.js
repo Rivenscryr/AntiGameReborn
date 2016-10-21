@@ -374,7 +374,7 @@ AGB.Styles = {
                     }
                 }
                 (k = AGB.Token.getColor(c, "SA")
-                ) && d.push(".ago_selected_SA{box-shadow:0 0 1px 1px " + k + " inset;}")
+                ) && d.push(".ago_selected_SA{outline:" + k + " thin solid;}")
             }
             for (n = 1; 3 >= n; n++) {
                 d.push("." + AGB.Styles.classType[n] + "{color:" + e[n] + "!important;}");
@@ -2377,7 +2377,7 @@ AGB.Tools = {
         c = AGB.App.getPlayer(a, "copy");
         b = a.Task;
         d = "http://www.osimulate.com/?ref=antigame&lang=" + AGB.Com.Get(a.abbrCom, "osimulate") + "&uni=" + a.abbrCom + "_" + a.abbrUni + "&uni_speed=" + AGB.Uni.Get(c, "speedFleet") +
-            "&fleet_debris=" + 100 * AGB.Uni.Get(c, "debrisFactor") + "&defense_debris=" + (AGB.Uni.Get(c, "defToTF") ? 100 * AGB.Uni.Get(c, "debrisFactor") : "0"
+            "&fleet_debris=" + 100 * AGB.Uni.Get(c, "debrisFactor") + "&defense_debris=" + (AGB.Uni.Get(c, "defToTF") ? 100 * AGB.Uni.Get(c, "debrisFactorDef") : "0"
         ) + "&rapidfire=" + (AGB.Uni.Get(c, "rapidFire") ? 1 : 0
             ) + "&start_pos=" + (a.coords || ""
             ) + "&engine0_0=" + AGB.Units.Get(c, "account", "115") + "&engine0_1=" + AGB.Units.Get(c, "account", "117") + "&engine0_2=" + AGB.Units.Get(c, "account", "118");
