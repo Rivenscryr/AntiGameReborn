@@ -62,11 +62,11 @@
     top: -9px
 }
 
-/* #myWorlds .ago_planets_cooldown {
+#myWorlds .ago_planets_cooldown {
     position: absolute;
     left: -2px;
     top: -10px
-} */
+}
 
 .ago_planets_shortcut {
     font-size: 10px;
@@ -76,11 +76,11 @@
     right: -4px
 }
 
-/* #myWorlds .ago_planets_shortcut {
+#myWorlds .ago_planets_shortcut {
     font-size: 11px;
     top: 68px;
     right: 0
-} */
+}
 
 #rechts #myPlanets .smallplanet .active span.planet-name {
     font-size: 12px;
@@ -101,10 +101,10 @@
     top: 38px
 }
 
-/* #rechts #myWorlds .ago_planets_construction {
+#rechts #myWorlds .ago_planets_construction {
     display: block;
     width: 100%
-} */
+}
 
 #rechts.ago_planets_shrink #countColonies {
     display: none
@@ -118,7 +118,7 @@
     box-shadow: 0 0 3px 1px #ff9600, 0 0 1px 1px #ff9600 inset
 }
 
-/* #myWorlds {
+#myWorlds {
     width: 147px
 }
 
@@ -181,7 +181,7 @@
 #rechts #myWorlds .ago_planets_cooldown {
     left: 8px;
     top: 18px
-} */
+}
 
 #rechts #myPlanets .planetPic {
     top: 12px
