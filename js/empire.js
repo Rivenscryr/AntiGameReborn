@@ -59,7 +59,7 @@ AGO.Empire = {
                                               AGO.Task.updateResources(h);
                                               AGO.Empire.improve && DOM.setText(".items.groupitems + div", this, h.resources, 3);
                                               for (g in m) {
-                                                  if (a = $(this).find("div." + g).eq(0).clone().children().remove().end().get(0)) {
+                                                  if (a = $(this).find("div." + g + " img").length ? $(this).find("div." + g).eq(0).clone().children().remove().end().get(0) : $(this).find("div." + g).get(0)) {
                                                       if (g in AGO.Item.Ship || g in AGO.Item.Defense) {
                                                           h[g] = DOM.getText(a, null, 3), g in AGO.Item.Ship && AGO.Item[g].capacity && h[g] && (h.capacity += h[g] * AGO.Item[g].capacity
                                                           );
@@ -71,6 +71,7 @@ AGO.Empire = {
                                                       }
                                                   }
                                               }
+											  
                                               AGO.Empire.Units.length || AGO.Empire.Units.push({
                                                                                                    planet: "account",
                                                                                                    tabs: ["Research"],
@@ -102,7 +103,7 @@ AGO.Empire = {
                                                }
         );
         AGO.Empire.improve && (c = DOM.appendDIV(null, "odd box-end"), d = b.capacity < b.resources ? "disabled" : "", DOM.appendSPAN(c, d, b.capacity, 3), DOM.after(l.querySelector(".deuterium"), c)
-        )
+        );
     }, appendTooltip: function (l, a, c, e) {
         var d, k, f, n, b, m;
         b = c[a];
@@ -180,6 +181,6 @@ AGO.Empire = {
         );
         a += "</div>";
         DOM.setAttribute(l, null, "title", a);
-        DOM.addClass(l, null, "tooltipRight")
+        DOM.addClass(l, null, "tooltipRight");
     }
 };

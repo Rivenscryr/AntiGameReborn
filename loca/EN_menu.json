@@ -428,6 +428,8 @@
     "O53": "Show construction titles",
     "O54": "Show function key number if they are activated",
     "O55": "Use the 'Coloring &amp; highlight scheme for selections'",
+	"O60": "Chat bar",
+	"O61": "Disable chat popups",
     "S21": "Server settings",
     "S24": "Allow position 17 in coordinates (for events)",
     "S25": "RF",

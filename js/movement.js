@@ -13,7 +13,7 @@ AGO.Movement = {
                            }
         );
         PAGE.routine = AGO.Fleet.Get("Current", "Routine");
-        AGO.Fleet.Set("Current", "Routine", "")
+        AGO.Fleet.Set("Current", "Routine", "");
     }, Run: function () {
         AGO.Option.is("E10") && !AGO.App.OgameMobile &&
         (AGO.Movement.enabled = !0, AGO.Movement.improve = AGO.Option.is("E11"), AGO.Movement.Show()

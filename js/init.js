@@ -2,7 +2,7 @@ if (!AGO) {
     var AGO = {};
 }
 
-AGO.versionOGameMax = "6.3.2";
+AGO.versionOGameMax = "99.4.0";
 -1 < window.navigator.userAgent.indexOf("Firefox") ? (AGO.isFirefox = !0, AGO.isPhone = -1 < window.navigator.userAgent.indexOf("Mobile"), AGO.isTablet = -1 < window.navigator.userAgent.indexOf("Tablet"), AGO.isMobile = AGO.isPhone || AGO.isTablet
 ) : -1 < window.navigator.userAgent.indexOf("Chrome") && (AGO.isChrome = !0
 );
@@ -376,8 +376,7 @@ AGO.Observer = {
         function b(a) {
             var b;
             OBJ.iterate(a, function (e) {
-                            "BODY" === a[e].target.nodeName && (b = !0
-                            )
+                            "HTML" === a[e].target.nodeName && a[e].addedNodes.length && "BODY" === a[e].addedNodes[0].nodeName && a[e].addedNodes[0].childNodes.length && (b = !0)
                         }
             );
             b && AGO.Observer.Call(AGO.Observer.head)
@@ -563,7 +562,7 @@ AGO.App = {
         highscorecontent: "Highscore"
     },
     Start: function () {
-        var a, b;
+        var a, b, c;
         AGO.isFirefox ? (AGO.App.pathSkin = "chrome://skin/content/", OBJ.copy(OBJ.parse(API.App()), AGO.App)
         ) : (AGO.App.pathSkin = chrome.extension.getURL("/skin/"), AGO.App.versionAGO = chrome.runtime.getManifest().version, AGO.App.name = STR.check(chrome.runtime.getManifest().name)
         );
@@ -572,7 +571,7 @@ AGO.App = {
         AGO.Uni.domain = document.location.hostname.toLowerCase();
         AGO.Uni.url = document.location.protocol + "//" + AGO.Uni.domain;
         a = AGO.Uni.domain.split(".");
-        document.location.href.match(/http||https:\/\/.+\.ogame.gameforge.com\/game\/index\.php\?+.*page=*/i) ? (AGO.App.page = STR.getParameter("page", document.location.href).toLowerCase(), AGO.App.page = 0 === AGO.App.page.indexOf("fleet") && STR.getParameter("cp", document.location.href) ? "fleet1" : AGO.App.page, AGO.Uni.path = document.location.href.split("?")[0] +
+        document.location.href.match(/http||https:\/\/.+\.ogame.gameforge.com\/game\/index\.php\?+.*page=*/i) ? (AGO.App.page = (c = STR.getParameter("page", document.location.href).toLowerCase()) === "standalone" ? STR.getParameter("component", document.location.href).toLowerCase() : c, AGO.App.page = 0 === AGO.App.page.indexOf("fleet") && STR.getParameter("cp", document.location.href) ? "fleet1" : AGO.App.page, AGO.Uni.path = document.location.href.split("?")[0] +
                                                                                                                                                                                                                                                                                                                                         "?page=", b = (a[0] || ""
         ).split("-"), AGO.Uni.lang = (b[1] || "EN"
         ).toUpperCase(), AGO.Uni.number = NMR.parseIntAbs(b[0]), AGO.Uni.number && (AGO.App.mode = 3, AGO.Uni.abbr = "UNI" + AGO.Uni.number, AGO.App.keyCom = "AGO_" + AGO.Uni.lang, AGO.App.keyUni = AGO.App.keyCom + "_" + AGO.Uni.abbr, OBJ.copy(OBJ.parse(AGO.Data.getStorage(AGO.App.keyUni + "_App")), AGO.App), AGO.App.title = AGO.App.title || AGO.Uni.lang + " " + AGO.Uni.number, !AGO.App.playerId || STR.getParameter("phpsessid", document.location.href.toLowerCase()) ? AGO.App.login = AGO.App.reload = !0 : AGO.App.keyPlayer = AGO.App.keyUni + "_" + AGO.App.playerId

@@ -73,7 +73,7 @@ AGO.Messages = {
     },
     
     addButtons: function (tabName, tabContent) {
-        tabContent = DOM.query('.tab_ctn', tabContent) || tabContent;
+        tabContent = DOM.query('.tab_ctn', tabContent) || tabContent.firstChild;
         var divButtons = DOM.appendDIV(null, 'agoButtons');
         divButtons.id = 'agoButtons';
         tabContent.insertBefore(divButtons, DOM.query('.tab_inner', tabContent));
