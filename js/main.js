@@ -1737,6 +1737,15 @@ AGO.Events = {
         return c
     }
 };
+	
+	// AGO.Detect = {
+		// Run: function(){
+			// if (document.location.href.match(/http:\/\/.+\.ogame\..+\/game\/index\.php\?page=*/i)) this.ogame = true;
+			// else this.ogame = false;
+		// }
+		
+// };
+
 /* AGO.Chat = {
     chatBar: 0,
     Data: {

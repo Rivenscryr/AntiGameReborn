@@ -2,6 +2,7 @@ if (!AGO) {
     var AGO = {};
 }
 
+
 AGO.versionOGameMax = "99.4.0";
 -1 < window.navigator.userAgent.indexOf("Firefox") ? (AGO.isFirefox = !0, AGO.isPhone = -1 < window.navigator.userAgent.indexOf("Mobile"), AGO.isTablet = -1 < window.navigator.userAgent.indexOf("Tablet"), AGO.isMobile = AGO.isPhone || AGO.isTablet
 ) : -1 < window.navigator.userAgent.indexOf("Chrome") && (AGO.isChrome = !0
@@ -571,6 +572,50 @@ AGO.App = {
         AGO.Uni.domain = document.location.hostname.toLowerCase();
         AGO.Uni.url = document.location.protocol + "//" + AGO.Uni.domain;
         a = AGO.Uni.domain.split(".");
+		// if (!(document.location.href.match(/http||https:\/\/.+\.ogame.gameforge.com\/game\/index\.php\?+.*page=*/i))){
+			// alert("It's a local server!");
+		// } else {
+			
+			
+			// function findIP(onNewIP) { //  onNewIp - your listener function for new IPs
+  // var myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection; //compatibility for firefox and chrome
+  // var pc = new myPeerConnection({iceServers: []}),
+    // noop = function() {},
+    // localIPs = {},
+    // ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g,
+    // key;
+
+  // function ipIterate(ip) {
+    // if (!localIPs[ip]) onNewIP(ip);
+    // localIPs[ip] = true;
+  // }
+  // pc.createDataChannel(""); //create a bogus data channel
+  // pc.createOffer(function(sdp) {
+    // sdp.sdp.split('\n').forEach(function(line) {
+      // if (line.indexOf('candidate') < 0) return;
+      // line.match(ipRegex).forEach(ipIterate);
+    // });
+    // pc.setLocalDescription(sdp, noop, noop);
+  // }, noop); // create offer and set local description
+  // pc.onicecandidate = function(ice) { //listen for candidate events
+    // if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) return;
+    // ice.candidate.candidate.match(ipRegex).forEach(ipIterate);
+  // };
+// }
+
+	 
+// function addIP(ip) {
+  // console.log('AntiGameOrigin IP Check: ', ip);
+  // if (ip == '192.168.1.7'){
+	  // this.ogame.false;
+  // }
+// }
+
+// findIP(addIP);
+
+			
+		// }
+		
         document.location.href.match(/http||https:\/\/.+\.ogame.gameforge.com\/game\/index\.php\?+.*page=*/i) ? (AGO.App.page = (c = STR.getParameter("page", document.location.href).toLowerCase()) === "standalone" ? STR.getParameter("component", document.location.href).toLowerCase() : c, AGO.App.page = 0 === AGO.App.page.indexOf("fleet") && STR.getParameter("cp", document.location.href) ? "fleet1" : AGO.App.page, AGO.Uni.path = document.location.href.split("?")[0] +
                                                                                                                                                                                                                                                                                                                                         "?page=", b = (a[0] || ""
         ).split("-"), AGO.Uni.lang = (b[1] || "EN"
