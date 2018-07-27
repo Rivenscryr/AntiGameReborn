@@ -32,6 +32,11 @@ window.addEventListener("ago_global", function (b) {
                                                      a.galaxy, a.system, a.position, a.type, 0, a.message
                                     );
                                     break;
+                                case "sendShipsWithPopup":
+                                    window.sendShipsWithPopup(a.mission,
+                                                     a.galaxy, a.system, a.position, a.type, 0, a.message
+                                    );
+                                    break;
                                 case "reloadEvents":
                                     $.get("/game/index.php?page=eventList&ajax=1", function (a) {
                                               $("#eventboxContent").html(a)
@@ -163,7 +168,33 @@ var AGO = {
                       }
             ), AGO.message("Page", "sendShips", {mission: a, mode: "start", message: m})
             )
-        }
+        };
+		window.sendShipsWithPopup = function (a, b, c, d, h, l, m) {
+			function n(a) {
+				if (typeof(a.newToken) != "undefined") {
+					window.miniFleetToken = a.newToken
+				}
+				console.log(a);
+				window.fadeBox(a.response.message + " " + a.response.coordinates.galaxy + ":" + a.response.coordinates.system + ":" + a.response.coordinates.position, !a.response.success)
+			}
+			m = m || "";
+			c = {
+				mission: a,
+				galaxy: b,
+				system: c,
+				position: d,
+				type: h,
+				shipCount: l,
+				token: window.miniFleetToken
+			};
+			6 === +a && (b = Math.abs(AGO.Data.galaxy - b), AGO.Uni.donutGalaxy ? (b > (AGO.Uni.galaxies/2) ? b = Math.abs(b - AGO.Uni.galaxies) : '') : '', c.speed = 6 <= b ? 1 : 5 <= b ? 2 : 4 <= b ? 4 : 3 <= b ? 6 : 2 <= b ? 9 : 10);
+			$.ajax(miniFleetLink, {
+				data: c,
+				dataType: "json",
+				type: "POST",
+				success: n
+			}), AGO.message("Page", "sendShipsWithPopup", {mission: a, mode: "start", message: m})
+		}
     }, Ready: function () {
         $(document).ready(function () {
                               AGO.message("Init",

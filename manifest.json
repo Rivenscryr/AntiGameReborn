@@ -1,7 +1,7 @@
 {
 	"name"					: "AntiGameOrigin v6",
 	"short_name"			: "AGO v6",
-	"version"				: "6.3.6",
+	"version"				: "6.3.5",
 	"description"			: "AntiGameOrigin - the other OGame experience for all communities.",
 	"default_locale"		: "en",
 	"homepage_url"			: "https://antigame.de",	
@@ -11,8 +11,8 @@
 		"storage",
 		"cookies",
 		"tabs",
-		"http://*/*",
-		"https://*/*"
+		"http://*.ogame.gameforge.com/*",
+		"https://*.ogame.gameforge.com/*"
 	],
 	"web_accessible_resources": [
 		"js/*.js",
@@ -25,7 +25,7 @@
 	"content_scripts": [
 	
 		{
-			"matches"		: [ "http://*.ogame.gameforge.com/game/index.php*", "https://*.ogame.gameforge.com/game/index.php*" ],
+			"matches"		: [ "https://*.ogame.gameforge.com/game/index.php*" ],
 			"js"			: [ "js/basics.js", "js/common.js", "js/overlays.js", "js/main.js", "js/init.js" ],
 			"run_at"		: "document_start"
 		},

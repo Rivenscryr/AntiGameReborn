@@ -224,7 +224,7 @@ AGB.Label = {
                             c.status = 1, l = STR.getAttribute(f, "id"), h = STR.check((f.split(">")[1] ||
                                                                                         ""
                                                                                        ).split("<")[0]
-                            ).trim(), +l && h && ("techs" === g && (c["L" + STR.trimZero(l, 3)] = h
+                            ).trim(), +l && h && ("techs" === g && (c["L" + STR.trimZero(l, Math.max(3, l.toString().length))] = h
                             ), "missions" === g && (c["LM" + STR.trimZero(l, 2)] = h
                             )
                             ), -1 < f.indexOf("<techs>") && (g = "techs"

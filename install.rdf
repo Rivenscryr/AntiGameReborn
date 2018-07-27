@@ -1,41 +1,26 @@
 <?xml version="1.0"?>
-<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
-         xmlns:NC="http://home.netscape.com/NC-rdf#"
-         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-  <RDF:Description RDF:about="urn:mozilla:install-manifest"
-                   em:type="2"
-                   em:id="antigameorigin@antigame.de"
-                   em:name="AntiGameOrigin v6"
-                   em:version="6.3.6"
-                   em:unpack="false"
-                   em:bootstrap="true"
-                   em:creator="Shole"
-                   em:description="AntiGameOrigin - the other OGame experience for all communities."
-                   em:homepageURL="https://antigame.de/"
-                   em:updateURL="https://antigame.de/antigame/ago_firefox.rdf">
-    <em:targetApplication RDF:resource="rdf:#$5DUhp3"/>
-    <em:targetApplication RDF:resource="rdf:#$aDUhp3"/>
-    <em:targetApplication RDF:resource="rdf:#$fDUhp3"/>
-    <em:targetApplication RDF:resource="rdf:#$kDUhp3"/>
-  </RDF:Description>
-  		<!-- Firefox -->
-  <RDF:Description RDF:about="rdf:#$5DUhp3"
-                   em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
-                   em:minVersion="24.0"
-                   em:maxVersion="45.*" />
-		<!-- Firefox Mobile - native user interface (only available) -->
-  <RDF:Description RDF:about="rdf:#$aDUhp3"
-                   em:id="{aa3c5121-dab2-40e2-81ca-7ea25febc110}"
-                   em:minVersion="24.0"
-                   em:maxVersion="45.*" />
-		<!-- Firefox Mobile - XUL user interface -->
-  <RDF:Description RDF:about="rdf:#$fDUhp3"
-                   em:id="{a23983c0-fd0e-11dc-95ff-0800200c9a66}"
-                   em:minVersion="24.0"
-                   em:maxVersion="50.*" />
-	<!-- All Mozilla projects with toolkit -->
-  <RDF:Description RDF:about="rdf:#$kDUhp3"
-                   em:id="toolkit@mozilla.org"
-                   em:minVersion="24.0"
-                   em:maxVersion="50.*" />
-</RDF:RDF>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>riv@umadbro.org</em:id>
+    <em:version>6.3.5</em:version>
+    <em:type>2</em:type>
+   
+    <!-- Angaben zu unterstützten Anwendungsversionen --> 
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>60.*</em:minVersion>
+        <em:maxVersion>61.0.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+   
+    <!-- Sichtbare Daten -->
+    <em:name>AntiGameOrigin v6</em:name>
+    <em:description>AntiGameOrigin - the other OGame experience for all communities.</em:description>
+    <em:creator>Francolino / maintained by RiV-</em:creator>
+    <em:homepageURL>https://antigame.de</em:homepageURL>
+  </Description>      
+</RDF>

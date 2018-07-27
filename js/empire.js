@@ -7,13 +7,15 @@ AGO.Empire = {
         AGO.Empire.improve = AGO.Option.isAnd("G20", "G21");
         $ = "jQuery"in window ? window.jQuery : null;
         AGO.Empire.Show()
-    },Show: function () {
+    }, Show: function () {
         var l, a, c, e, d, k, f, n, b = {}, m = AGO.Item.create(["Ship", "Defense", "Mining", "Station", "Research"]);
-        AGO.Empire.improve && (l = 180 + 106 * $(".planet").size(), DOM.set("mainWrapper", "id", null, {width: l + "px"})
+        AGO.Empire.improve && (l = 180 + 106 * $(".planet").length, DOM.set("mainWrapper", "id", null, {width: l + "px"})
         );
         if (l = document.querySelector(".planet.summary")) {
             b = {
-                metal: DOM.getText("div.metal", l, 2), crystal: DOM.getText("div.crystal", l, 2), deuterium: DOM.getText("div.deuterium", l, 2), capacity: 0
+                metal: DOM.getText("div.metal", l,
+                                   2
+                ), crystal: DOM.getText("div.crystal", l, 2), deuterium: DOM.getText("div.deuterium", l, 2), capacity: 0
             };
             AGO.Task.updateResources(b);
             e = {1: "metal", 2: "crystal", 3: "deuterium"};
@@ -39,7 +41,7 @@ AGO.Empire = {
             }
             a = $("div.header");
             for (f in m) {
-                0 === a.find("li." + f).size() && delete m[f]
+                0 === a.find("li." + f).length && delete m[f]
             }
         }
         $(".planet").not(".summary").each(function () {
@@ -158,9 +160,9 @@ AGO.Empire = {
         );
         0 < m && (a += '<span style="font-size:0.9em;">(small cargo: ' + STR.formatNumber(Math.ceil(m / 5E3)) + " or large cargo: " + STR.formatNumber(Math.ceil(m / 25E3)) + ")</span><br/>"
         );
-        0 < n && n > c.energy && (a += "<br />", b = n - c.energy, a += '<span style="text-decoration:underline;font-weight:bold;">Energy needed:</span> ' + STR.formatNumber(b) + "<br/>"
+        0 < n && n > c.energy && (a += "<br />", b = n - c.energy, a += '<span style="text-decoration:underline;font-weight:bold;">energy needed:</span> ' + STR.formatNumber(b) + "<br/>"
         );
-        0 < d - e.metal || 0 < k - e.crystal || 0 < f - e.deuterium ? (c = 0, a += "<br />", a += '<span style="text-decoration:underline;font-weight:bold;">Ressources needed (account):</span><br/>',
+        0 < d - e.metal || 0 < k - e.crystal || 0 < f - e.deuterium ? (c = 0, a += "<br />", a += '<span style="text-decoration:underline;font-weight:bold;">ressources needed (account):</span><br/>',
             b = d - e.metal, 0 < b && (a += "metal: " + STR.formatNumber(b) + "<br/>", 0 < e.metalProduction && (d = b / e.metalProduction, d > c && (c = d
         )
         )
@@ -171,11 +173,11 @@ AGO.Empire = {
         )
         )
         ), 0 < c && (a += "<br />", a += '<span style="text-decoration:underline;font-weight:bold;">you will have enough ressources<br/>in your account in:</span><br/>',
-            a += '<span style="color:orange;font-weight:bold;font-size:1.2em;">' + AGO.Time.formatTime(Math.floor(3600 * c), !0) + "</span><br/>", b = new Date(1E3 * (AGO.Acc.timestamp + /*Shole */ 000013000000000 + Math.ceil(3600 * c)
+            a += '<span style="color:orange;font-weight:bold;font-size:1.2em;">' + AGO.Time.formatTime(Math.floor(3600 * c), !0) + "</span><br/>", b = new Date(1E3 * (AGO.Acc.timestamp + Math.ceil(3600 * c)
                                                                                                                                                                 )
         ), a += '<span style="color:#CCCCCC;font-size:1.0em;">' + b.toLocaleString() + "</span><br/>"
         )
-        ) : (a += "<br />", a += '<span style="color:lime;font-weight:bold;font-size:1.1em;">There are enough ressources<br/>in your account.</span><br/>'
+        ) : (a += "<br />", a += '<span style="color:lime;font-weight:bold;font-size:1.2em;">there are enough ressources<br/>in your account</span><br/>'
         );
         a += "</div>";
         DOM.setAttribute(l, null, "title", a);

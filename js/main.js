@@ -1737,27 +1737,16 @@ AGO.Events = {
         return c
     }
 };
-	
-	// AGO.Detect = {
-		// Run: function(){
-			// if (document.location.href.match(/http:\/\/.+\.ogame\..+\/game\/index\.php\?page=*/i)) this.ogame = true;
-			// else this.ogame = false;
-		// }
-		
-// };
-
-/* AGO.Chat = {
+AGO.Chat = {
     chatBar: 0,
     Data: {
-        filteronline: 0,
-        filterchatactive: 0,
         buddies_expanded: 1,
         ally_expanded: 1,
         strangers_expanded: 1
     },
     Run: function () {
         var a;
-        AGO.Option.is("O60") && (AGO.Chat.popupsDeactivated = AGO.Option.is("O61"));
+        AGO.Option.is("O60") && (AGO.Chat.popupsDeactivated = AGO.Option.is("O61")) && AGO.Chat.removePopups();
         DOM.addObserver(DOM.query("body"), { childList: true }, function (mutations) {
             for (var i = 0; i < mutations.length; i++) {
                 var mutation = mutations[i];
@@ -1784,13 +1773,13 @@ AGO.Events = {
     Ready: function () {
         AGO.Chat.Load();
         AGO.Chat.popupsDeactivated && AGO.Chat.createLinks();
-        
-        if (AGO.Chat.Data.filteronline) DOM.query("#filteronline").click();
-        if (AGO.Chat.Data.filterchatactive) DOM.query("#filterchatactive").click();
-        if (!AGO.Chat.Data.buddies_expanded) DOM.queryAll(".ui-accordion-header")[0].click();
-        if (!AGO.Chat.Data.ally_expanded) DOM.queryAll(".ui-accordion-header")[1].click();
-        if (!AGO.Chat.Data.strangers_expanded) DOM.queryAll(".ui-accordion-header")[2].click();
-        DOM.iterate(DOM.queryAll("#filteronline, #filterchatactive, .ui-accordion-header"), function (obj) {
+		
+        if (!document.querySelector(".ui-dialog")) {
+			if (!AGO.Chat.Data.buddies_expanded) DOM.queryAll(".ui-accordion-header")[0].click();
+			if (!AGO.Chat.Data.ally_expanded) DOM.queryAll(".ui-accordion-header")[1].click();
+			if (!AGO.Chat.Data.strangers_expanded) DOM.queryAll(".ui-accordion-header")[2].click();
+		}
+        DOM.iterate(DOM.queryAll(".ui-accordion-header"), function (obj) {
             obj.addEventListener("click", AGO.Chat.Save, false);
         });
     },
@@ -1798,8 +1787,6 @@ AGO.Events = {
         var a; OBJ.hasProperties(a = AGO.Data.getStorage(AGO.App.keyPlayer + "_CHAT_DATA", "JSON")) ? AGO.Chat.Data = a : AGO.Data.setStorage(AGO.App.keyPlayer + "_CHAT_DATA", AGO.Chat.Data);
     },
     Save: function () {
-        AGO.Chat.Data.filteronline = DOM.query("#filteronline").checked;
-        AGO.Chat.Data.filterchatactive = DOM.query("#filterchatactive").checked;
         AGO.Chat.Data.buddies_expanded = ("true" === DOM.queryAll(".ui-accordion-header")[0].getAttribute("aria-expanded"));
         AGO.Chat.Data.ally_expanded = ("true" === DOM.queryAll(".ui-accordion-header")[1].getAttribute("aria-expanded"));
         AGO.Chat.Data.strangers_expanded = ("true" === DOM.queryAll(".ui-accordion-header")[2].getAttribute("aria-expanded"));
@@ -1813,5 +1800,8 @@ AGO.Events = {
     },
     removePopups: function () {
         DOM.appendSCRIPT("window.setTimeout(function () {window.visibleChats = [];},0);");
+		DOM.iterate(DOM.queryAll("#chatBar .icon_close"), function (e) {
+			e.click();
+		});
     }
-}; */
+};

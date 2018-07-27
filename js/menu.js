@@ -523,13 +523,11 @@ AGO.Menu = {
         b = DOM.appendDIV(a, "ago_menu_header_title");
         b.textContent = AGO.Label.get("AM0") + " - " + AGO.App.versionAGO + (AGO.App.beta ? " - This version is only for AGO testers!" : ""
         );
-        DOM.appendSPAN(b, "ago_color_limeorange", "by Shole");
+        DOM.appendSPAN(b, "ago_color_limeorange", "by Francolino / maintained by RiV-");
         b = DOM.appendDIV(a, "ago_menu_header_button");
         a = DOM.appendTABLE(b, null, null, [434, 220]);
         a = DOM.appendTR(a);
         b = DOM.appendTD(a);
-		c ='<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank"><input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="ZFKCSNHL69CKE"><table><tr><td><input type="hidden" name="on0" value="Donate different amounts:">Donate different amounts:</td></tr><tr><td><select name="os0"><option value="Amount 1">Amount 1 €1.00 EUR</option><option value="Amount 2">Amount 2 €3.00 EUR</option><option selected value="Amount 3">Amount 3 €5.00 EUR</option><option value="Amount 4">Amount 4 €10.00 EUR</option><option value="Amount 5">Amount 5 €15.00 EUR</option><option value="Amount 6">Amount 6 €20.00 EUR</option></select> </td></tr></table><input type="hidden" name="currency_code" value="EUR"><input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" style="margin: 0px 0px 0px 32px"><img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"></form>';
-		DOM.setText(b, null, c, 9);
         AGO.Menu.appendButton(b, "AM2", "AM2", {message: {page: "Menu", role: "Hide"}});
         b = DOM.appendTD(a);
         AGO.Menu.appendButton(b, "AM3", "AM3", {message: {page: "Menu", role: "Hide", data: "save"}});
@@ -986,7 +984,7 @@ AGO.Menu.Show = function (a) {
                                                                                                                          "I03",
                                                                                                                          "I04"
                                                                                                                      ], "I03"
-        ),d("I05"),AGO.Menu.appendSection("I80"),d("I81"),d("I82", "", "", 2),d("I83"),d("I85"),AGO.Menu.appendSection("O50"),d("O51"),d("O53"),d("O52"),d("O54"),d("O55"),AGO.Menu.appendTab("Buildings"),AGO.Menu.appendSection("A80"),d("B01"),d("B02"),d("B31"),g("B35", "", [
+        ),d("I05"),AGO.Menu.appendSection("I80"),d("I81"),d("I82", "", "", 2),d("I83"),d("I85"),AGO.Menu.appendSection("O50"),d("O51"),d("O53"),d("O52"),d("O54"),d("O55"),AGO.Menu.appendSection("O60"),d("O61"),AGO.Menu.appendTab("Buildings"),AGO.Menu.appendSection("A80"),d("B01"),d("B02"),d("B31"),g("B35", "", [
                                                                                                                                                                                                                                                                           "L091",
                                                                                                                                                                                                                                                                           "L092",
                                                                                                                                                                                                                                                                           "L093"
