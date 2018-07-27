@@ -18,8 +18,8 @@
     </em:targetApplication>
    
     <!-- Sichtbare Daten -->
-    <em:name>AntiGameOrigin v6</em:name>
-    <em:description>AntiGameOrigin - the other OGame experience for all communities.</em:description>
+    <em:name>AGO v6</em:name>
+    <em:description>AGO - the other OGame experience for all communities.</em:description>
     <em:creator>Francolino / maintained by RiV-</em:creator>
     <em:homepageURL>https://antigame.de</em:homepageURL>
   </Description>      
