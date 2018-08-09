@@ -535,7 +535,54 @@ AGO.Trader = {
     Content: function () {
         DOM.disableActiveElement();
         DOM.disableAutocomplete()
-    }
+    },
+	Ready: function () {
+		DOM.addObserver(DOM.query("#inhalt"), { childList: true }, function (mutations) {
+            for (var i = 0; i < mutations.length; i++) {
+                var mutation = mutations[i];
+				if (mutation.target.id && mutation.target.id === "inhalt" && mutation.addedNodes && mutation.addedNodes.length) {
+					OBJ.iterate(mutation.addedNodes, function (node) {
+						if (mutation.addedNodes[node].id === "div_traderImportExport") AGO.Trader.onImportExport();
+					});
+				}
+			}
+		});
+	},
+	onImportExport: function () {		
+		var addObserver, updateState, updateTime;
+		updateTime = function () {
+			var nextItem;
+			var bargainText = DOM.query("#div_traderImportExport .bargain_text").textContent;
+
+			if (nextItem = bargainText.match(/\d+:\d+/)) {
+				nextItem = nextItem[0] + ":00";
+			} else {
+				nextItem = "00:00:00";
+			}
+			
+			var ogameTime = AGO.Time.parseDateTime(AGO.Time.formatTimestamp(AGO.Time.ogameTime/1000));
+			var day = ogameTime.getDate();
+			var month = ogameTime.getMonth()+1;
+			var year = ogameTime.getFullYear();
+			
+			if (nextItem === "00:00:00") day++;
+			
+			var dateString = day + "." + month + "." + year + " " + nextItem;
+			AGO.Option.set("nextItem", AGO.Time.parseDateTime(dateString).getTime());
+		};
+		
+		(addObserver = function () {
+			DOM.addObserver(DOM.query("#div_traderImportExport .bargain_text"), { childList: true, characterData: true }, function () {
+				checkState();
+			});
+		}) ();
+	
+		(checkState = function () {
+			if (DOM.query("#div_traderImportExport .bargain_text").textContent !== "" && DOM.query("#div_traderImportExport .bargain.import_bargain.take").hasClass("hidden")) {
+				updateTime();
+			}
+		}) ();
+	}
 };
 AGO.Alliance = {
     Content: function (a, b, c) {

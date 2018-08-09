@@ -78,7 +78,9 @@ AGO.Main = {
         );
         DOM.updateText("ago_menubutton_coords", "id", b);
         DOM.setStyleColor("ago_menubutton_coords", "id", a);
-        DOM.updateClass("ago_menubutton_logo", "id", "ago_menubutton_logo_" + d)
+        DOM.updateClass("ago_menubutton_logo", "id", "ago_menubutton_logo_" + d);
+		
+		(!AGO.Option.get("nextItem", 0) || AGO.Time.ogameTime > AGO.Option.get("nextItem", 0)) ? (DOM.addClass(".premiumHighligt", null, "selected"), console.log('test')) : 0;
     }, clickButton: function () {
         AGO.App.disabled ? AGO.App.Save({disabled: !1}) :
         20 > AGO.Notify.problem && AGO.Option.Menu()
