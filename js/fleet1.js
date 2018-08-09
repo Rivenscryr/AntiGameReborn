@@ -235,10 +235,12 @@ AGO.Fleet1 = {
         ), PAGE.Action(e)
         );
 		
-		var a; (AGO.Option.is("E14") && (a = AGO.Fleet.Get("Current", "Routine"))) ? ((5 == a || 6 == a) ? (AGO.Fleet.Set("Current", "Routine", 0), AGO.Init.Messages("Planets", "Action", {
-                                                                                                                                                                        scroll: "down",
-                                                                                                                                                                        type: AGO.Acc.type
-                                                                                                                                                                      })) : 0) : 0;
+		var a; (AGO.Option.is("E14") && AGO.Option.is("E10") && (a = AGO.Fleet.Get("Current", "Routine"))) ? ((5 == a || 6 == a) ? (AGO.Fleet.Set("Current", "Routine", 0), setTimeout(function () { 
+			AGO.Init.Messages("Planets", "Action", {
+				scroll: "down",
+                type: AGO.Acc.type
+			}) 
+		}, 100)) : 0) : 0;
     },
     Timer: function () {
         DOM.updateText("ago_info_resources", "id", AGO.Units.Data.resources, 3)
