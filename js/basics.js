@@ -938,3 +938,8 @@ var DOM = {
         return matches;
     }
 };
+
+Node.prototype.hasClass = function (selector) {
+	if (this.classList.contains(selector)) return true;
+	else return false;
+};

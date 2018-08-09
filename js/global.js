@@ -174,7 +174,6 @@ var AGO = {
 				if (typeof(a.newToken) != "undefined") {
 					window.miniFleetToken = a.newToken
 				}
-				console.log(a);
 				window.fadeBox(a.response.message + " " + a.response.coordinates.galaxy + ":" + a.response.coordinates.system + ":" + a.response.coordinates.position, !a.response.success)
 			}
 			m = m || "";
@@ -219,17 +218,6 @@ var AGO = {
                                     )
                                 }
         );
-        var serverURL = window.location.origin;
-        serverURL += "/api/serverData.xml";
-        $.ajax({
-            type: "GET",
-            url: serverURL,
-            dataType: "xml",
-            success: function (data) {
-                AGO.Uni.galaxies = $('serverData', data).find('galaxies').text();
-                AGO.Uni.donutGalaxy = $('serverData', data).find('donutGalaxy').text();
-            }
-        });
     }, Tooltip: function () {
         function b(a, b) {
 			a = a.replace(/\s+/g, " ");

@@ -255,3 +255,7 @@ div#agoSpyReportOverview .detailsTitle {
 div#agoSpyReportOverview .spyTableDetails .txt_link:hover {
     text-decoration: underline;
 }
+
+.msg_ctn3 {
+	width: 198px !important;
+}
