@@ -9,7 +9,7 @@ AGO.Messages = {
         'subtabs-nfCommunication10': 'onViewCommunicationMessages',
         'subtabs-nfCommunication14': 'onViewCommunicationInfo',
         'subtabs-nfCommunication12': 'onViewCommunicationCombat',
-        'subtabs-nfCommunication11': 'onViewCommunicationSpy',
+        'subtabs-nfCommunication11': 'onViewFleetsEsp',
         'subtabs-nfCommunication13': 'onViewCommunicationExpedition',
         'tabs-nfEconomy':            'onViewEconomy',
         'tabs-nfUniverse':           'onViewUniverse',
@@ -395,7 +395,7 @@ AGO.Messages = {
 
     showSpyReportOverview: function (tab, tabContent) {
         var contentWrap = DOM.query('.tab_ctn', tabContent) || tabContent;
-        if (a = DOM.query('#agoSpyReportOverview', contentWrap)) contentWrap.removeChild(a);
+        if ($('#agoSpyReportOverview').length) $('#agoSpyReportOverview').remove();
         var tableWrap = DOM.appendDIV(null, '');
         tableWrap.id = 'agoSpyReportOverview';
         contentWrap.insertBefore(tableWrap, contentWrap.firstChild);
@@ -550,6 +550,7 @@ AGO.Messages = {
 			AGO.Messages.refreshOddEven();
 			return;
 		}
+		
 		$('#t_' + p.msgId).attr('details', '1');
         
         $('<tr>', {'id': 'd_' + p.msgId}).addClass('row').insertAfter('#t_' + p.msgId)
@@ -559,10 +560,11 @@ AGO.Messages = {
         AGO.Messages.parseDetailedReport(p.msgId, function (data) {
             $('.spyTableDetails').empty();
             $('<div>', {'class': 'detailsTitle'}).appendTo('.spyTableDetails').text(AGO.Label.get('I27'));
-            $('<div>', {'class': 'detailsContent', 'style': 'width: 90%;'}).appendTo('.spyTableDetails')
-                .append($('<span>', {'style': 'float: left; width: 33%;'}).text(AGO.Label.get('L091') + ': ' + AGO.Messages.formatNumber(data.metal)))
-                .append($('<span>', {'style': 'float: left; width: 33%;'}).text(AGO.Label.get('L092') + ': ' + AGO.Messages.formatNumber(data.crystal)))
-                .append($('<span>', {'style': 'float: none; width: 33%;'}).text(AGO.Label.get('L093') + ': ' + AGO.Messages.formatNumber(data.deuterium)));
+            $('<div>', {'class': 'detailsContent', 'style': 'width: 90%;'}).appendTo('.spyTableDetails').append(
+				$('<span>', {'style': 'float: left; width: 33%;'}).text(AGO.Label.get('L091') + ': ' + AGO.Messages.formatNumber(data.metal)),
+                $('<span>', {'style': 'float: left; width: 33%;'}).text(AGO.Label.get('L092') + ': ' + AGO.Messages.formatNumber(data.crystal)),
+                $('<span>', {'style': 'float: none; width: 33%;'}).text(AGO.Label.get('L093') + ': ' + AGO.Messages.formatNumber(data.deuterium))
+			);
             
             var totalRes = data.metal + data.crystal + data.deuterium;
             if ((totalRes * p.plunder) > (AGO.Option.get('M36') * 1E3)) {
@@ -573,22 +575,25 @@ AGO.Messages = {
                 for (var f = totalRes * p.plunder, i = 1; f > (AGO.Option.get('M36') * 1E3); (totalRes = totalRes - f, f = totalRes * p.plunder, i++)) {
                     var totalLC = Math.ceil(f / 25000 * percentCargos),
                         totalSC = Math.ceil(f / 5000 * percentCargos);
-                    $('.detailsContent').last()
-                        .append($('<div>', {'style': 'margin: auto; width: 100%; text-align: left;'})
-                            .append($('<span>', {'style': 'float: left; width: 15%;'}).text(AGO.Label.get('M24') + (i == 1 ? '' : ' ' + i)))
-                            .append($('<span>', {'style': 'float: left; width: 25%; color: #ff9600'}).text(AGO.Messages.formatNumber(f)))
-                            .append($('<span>', {'style': 'float: left; width: 10%;'}).text(AGO.Label.get('K203')))
-                            .append($('<span>', {'style': 'float: left; width: 20%;'})
-                                .append($('<a>', {'class': 'txt_link', 'href': '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am203=' + totalLC}).text(AGO.Messages.formatNumber(totalLC))))
-                            .append($('<span>', {'style': 'float: left; width: 10%;'}).text(AGO.Label.get('K202')))
-                            .append($('<span>', {'style': 'float: none; width: 20%;'})
-                                .append($('<a>', {'class': 'txt_link', 'href': '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am202=' + totalSC}).text(AGO.Messages.formatNumber(totalSC))))
-                        );
+                    $('.detailsContent').last().append(
+						$('<div>', {'style': 'margin: auto; width: 100%; text-align: left;'}).append(
+							$('<span>', {'style': 'float: left; width: 15%;'}).text(AGO.Label.get('M24') + (i == 1 ? '' : ' ' + i)),
+							$('<span>', {'style': 'float: left; width: 25%; color: #ff9600'}).text(AGO.Messages.formatNumber(f)),
+							$('<span>', {'style': 'float: left; width: 10%;'}).text(AGO.Label.get('K203')),
+                            $('<span>', {'style': 'float: left; width: 20%;'}).append(
+								$('<a>', {'class': 'txt_link', 'href': '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am203=' + totalLC}).text(AGO.Messages.formatNumber(totalLC))
+							),
+                            $('<span>', {'style': 'float: left; width: 10%;'}).text(AGO.Label.get('K202')),
+                            $('<span>', {'style': 'float: none; width: 20%;'}).append(
+								$('<a>', {'class': 'txt_link', 'href': '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am202=' + totalSC}).text(AGO.Messages.formatNumber(totalSC))
+							)
+                        )
+					);
                 }
             }
             
 			for (var type in data.units) {
-				if ('research' !== type && Object.keys(data.units[type]).length) {
+				if (Object.keys(data.units[type]).length) {
 					var a = {metal: 0, crystal: 0, deuterium: 0};
 					OBJ.iterate(data.units[type], function (id) {
 						a.metal += AGO.Item[id].metal * data.units[type][id];
@@ -597,41 +602,71 @@ AGO.Messages = {
 					});
 					
 					$('<div>', {'class': 'detailsTitle'}).appendTo('.spyTableDetails').text(data['label_' + type]);
-					$('<div>', {'class': 'detailsContent', 'style': 'width: 90%;'}).appendTo('.spyTableDetails')
-						.append($('<div>', {'style': 'margin: auto; width: 100%;'})
-							.append($('<span>', {'style': 'float: left; width: 33%;'}).text(AGO.Label.get('L091') + ': ' + AGO.Messages.formatNumber(a.metal)))
-							.append($('<span>', {'style': 'float: left; width: 33%;'}).text(AGO.Label.get('L092') + ': ' + AGO.Messages.formatNumber(a.crystal)))
-							.append($('<span>', {'style': 'none: left; width: 33%;'}).text(AGO.Label.get('L093') + ': ' + AGO.Messages.formatNumber(a.deuterium))));	
+					$('<div>', {'class': 'detailsContent', 'style': 'width: 90%;'}).appendTo('.spyTableDetails').append(
+						$('<div>', {'style': 'margin: auto; width: 100%;'}).append(
+							$('<span>', {'style': 'float: left; width: 33%;'}).text(AGO.Label.get('L091') + ': ' + AGO.Messages.formatNumber(a.metal)),
+							$('<span>', {'style': 'float: left; width: 33%;'}).text(AGO.Label.get('L092') + ': ' + AGO.Messages.formatNumber(a.crystal)),
+							$('<span>', {'style': 'float: none; width: 33%;'}).text(AGO.Label.get('L093') + ': ' + AGO.Messages.formatNumber(a.deuterium))
+						)
+					);	
 				}
 			}
 			
 			var debris = {};
 			for (var type in data.units) {
-				if ('research' !== type && OBJ.is(data.units[type]) && Object.keys(data.units[type]).length) {
+				if (OBJ.is(data.units[type]) && Object.keys(data.units[type]).length) {
 					data.units[type] && ('defense' !== type || 'defense' === type && AGO.Uni.defToTF) && (debris[type] = AGO.Ogame.getDebris(data.units[type], AGO.Uni.defToTF));
 				}
 			}
-            $('<div>', {'class': 'detailsTitle'}).appendTo('.spyTableDetails').text(AGO.Label.get('M22') + ' - ' + (AGO.Uni.debrisFactor*100) + '%' + (AGO.Uni.defToTF ? ' & ' + (AGO.Uni.debrisFactorDef*100) + '%' : ''));
-            $('<div>', {'class': 'detailsContent', 'style': 'width: 90%;'}).appendTo('.spyTableDetails');
 			
-			var totalDebris = {metal: 0, crystal: 0, recs: 0};
-			for (var type in debris) {
-				for (var res in totalDebris) totalDebris[res] += debris[type][res];
-				$('.detailsContent').last()
-					.append($('<div>', {'style': 'margin: auto; width: 100%; text-align: left;'})
-						.append($('<span>', {'style': 'float: left; width: 21%;'}).text(data['label_' + type]))
-						.append($('<span>', {'style': 'float: left; width: 30%; color: green;'}).text(AGO.Label.get('K091') + ': ' + AGO.Messages.formatNumber(debris[type].metal)))
-						.append($('<span>', {'style': 'float: left; width: 30%; color: green;'}).text(AGO.Label.get('K092') + ': ' + AGO.Messages.formatNumber(debris[type].crystal)))
-						.append($('<span>', {'style': 'float: none; width: 19%; color: green;'}).text(AGO.Messages.formatNumber(debris[type].recs) + ' ' + AGO.Label.get('K209'))));
+			if (!$.isEmptyObject(debris)) {
+				$('<div>', {'class': 'detailsTitle'}).appendTo('.spyTableDetails').text(AGO.Label.get('M22') + ' - ' + (AGO.Uni.debrisFactor*100) + '%' + (AGO.Uni.defToTF ? ' & ' + (AGO.Uni.debrisFactorDef*100) + '%' : ''));
+				$('<div>', {'class': 'detailsContent', 'style': 'width: 90%;'}).appendTo('.spyTableDetails');
+				
+				var totalDebris = {metal: 0, crystal: 0, recs: 0};
+				for (var type in debris) {
+					for (var res in totalDebris) totalDebris[res] += debris[type][res];
+					$('.detailsContent').last().append(
+						$('<div>', {'style': 'margin: auto; width: 100%; text-align: left;'}).append(
+							$('<span>', {'style': 'float: left; width: 21%;'}).text(data['label_' + type]),
+							$('<span>', {'style': 'float: left; width: 30%; color: green;'}).text(AGO.Label.get('K091') + ': ' + AGO.Messages.formatNumber(debris[type].metal)),
+							$('<span>', {'style': 'float: left; width: 30%; color: green;'}).text(AGO.Label.get('K092') + ': ' + AGO.Messages.formatNumber(debris[type].crystal)),
+							$('<span>', {'style': 'float: none; width: 19%; color: green;'}).text(AGO.Messages.formatNumber(debris[type].recs) + ' ' + AGO.Label.get('K209'))
+						)
+					);
+				}
+				
+				if (Object.keys(debris).length > 1) {
+					$('.detailsContent div').last().append(
+						$('<hr>', {'style': 'border-style: dotted;'}),
+						$('<span>', {'style': 'float: left; width: 21%;'}).text(AGO.Label.get('Total')),
+						$('<span>', {'style': 'float: left; width: 30%; color: green;'}).text(AGO.Label.get('K091') + ': ' + AGO.Messages.formatNumber(totalDebris.metal)),
+						$('<span>', {'style': 'float: left; width: 30%; color: green;'}).text(AGO.Label.get('K092') + ': ' + AGO.Messages.formatNumber(totalDebris.crystal)),
+						$('<span>', {'style': 'float: none; width: 19%; color: green;'}).text(AGO.Messages.formatNumber(totalDebris.recs) + ' ' + AGO.Label.get('K209'))
+					);
+				}
 			}
 			
-			if (Object.keys(debris).length > 1) {
-				$('.detailsContent div').last()
-					.append($('<hr>', {'style': 'border-style: dotted;'}))
-						.append($('<span>', {'style': 'float: left; width: 21%;'}).text(AGO.Label.get('Total')))
-						.append($('<span>', {'style': 'float: left; width: 30%; color: green;'}).text(AGO.Label.get('K091') + ': ' + AGO.Messages.formatNumber(totalDebris.metal)))
-						.append($('<span>', {'style': 'float: left; width: 30%; color: green;'}).text(AGO.Label.get('K092') + ': ' + AGO.Messages.formatNumber(totalDebris.crystal)))
-						.append($('<span>', {'style': 'float: none; width: 19%; color: green;'}).text(AGO.Messages.formatNumber(totalDebris.recs) + ' ' + AGO.Label.get('K209')));
+			if (!$.isEmptyObject(data.research)) {
+				$('<div>', {'class': 'detailsTitle'}).appendTo('.spyTableDetails').text(data['label_research']);
+				$('<div>', {'class': 'detailsContent', 'style': 'width: 90%;'}).appendTo('.spyTableDetails').append(
+					$('<div>', {'style': 'margin: auto; width: 100%; float: left;'}).append(
+						$('<span>', {'style': 'float: left; width: 13%; text-align: left;'}).text(AGO.Label.get('M01')),
+						$('<span>', {'style': 'float: left; width: 29%;'}).text(data.research[109]),
+						$('<span>', {'style': 'float: left; width: 29%;'}).text(data.research[110]),
+						$('<span>', {'style': 'float: left; width: 29%;'}).text(data.research[111])
+					),
+					$('<div>', {'style': 'margin: auto; width: 100%; float: left; margin-top: 10px;'}).append(
+						$('<span>', {'style': 'float: left; width: 13%; text-align: left;'}).text(AGO.Label.get('M02')),
+						$('<span>', {'style': 'float: left; width: 29%;'}).text(data.research[115]),
+						$('<span>', {'style': 'float: left; width: 29%;'}).text(data.research[117]),
+						$('<span>', {'style': 'float: left; width: 29%;'}).text(data.research[118])
+					),
+					$('<div>', {'style': 'margin: auto; width: 100%; float: left; margin-top: 10px;'}).append(
+						$('<span>', {'style': 'float: left; width: 13%; text-align: left;'}).text(AGO.Label.get('M03')),
+						$('<span>', {'style': 'float: left; width: 87%;'}).text(data.research[124] + ' (' + (Math.round(data.research[124]/2)+1) + ')')
+					)
+				);
 			}
         }); 
     },
@@ -671,15 +706,18 @@ AGO.Messages = {
             for (var i = 0; i < reportLevels.length; i++) {
 				var level = reportLevels[i].dataset.type;
 				if (!levelsMap[level]) continue;
-				
-                d.units[level] = new Object();
 				d['label_' + level] = reportLevels.eq(i).prev().find('.title_txt').text();
+				
+				var t = new Object();
                 var levelData = $(data).find('ul.detail_list[data-type=' + level + ']');
                 for (var j = 0; j < levelData.find('li.detail_list_el').length; j++) {
                     var item = levelData.find('span.detail_list_txt').eq(j).text();
                     var itemCount = levelData.find('span.fright').eq(j).text();
-                    d.units[level][AGO.Item.getByName(item)] = NMR.parseIntFormat(itemCount);
+                    t[AGO.Item.getByName(item)] = NMR.parseIntFormat(itemCount);
                 }
+				
+				if (level !== 'research') d.units[level] = t;
+				else d[level] = t;
             }
             callback(d);
         });
