@@ -305,7 +305,12 @@ AGO.Messages = {
                 p.metal = NMR.parseIntRess(DOM.queryAll('.resspan', message)[0].textContent);
                 p.crystal = NMR.parseIntRess(DOM.queryAll('.resspan', message)[1].textContent);
                 p.deut = NMR.parseIntRess(DOM.queryAll('.resspan', message)[2].textContent);
-                p.plunder = DOM.queryAll('.compacting', message)[2].textContent.match(/: ([0-9]+)%/)[1]/100;
+				
+				DOM.iterate(DOM.queryAll('.compacting', message), function (row) {
+					if (row.textContent.match(/%/)) p.plunder = row;
+				});
+				p.plunder = p.plunder.textContent.match(/: ([0-9]+)%/)[1]/100;
+				
                 p.loot >= (1E3 * AGO.Option.get('M36')) ? p.lucrative = '1' : p.lucrative = '0';
                 
                 p.fleet = DOM.getAttribute('.tooltipLeft', message, 'title', '');
