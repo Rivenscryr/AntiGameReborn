@@ -688,7 +688,8 @@ AGO.Uni = {
     newbieProtectionHigh: 0,
     topScore: 0,
     donutGalaxy: 0,
-    donutSystem: 0
+    donutSystem: 0,
+	globalDeuteriumSaveFactor: 1
 };
 AGO.Acc = {name: "", coords: "", type: 0, playerId: "", planetId: "", session: "", timestamp: 0};
 AGO.Data = {

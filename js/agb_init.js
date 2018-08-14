@@ -795,6 +795,7 @@ AGB.Uni = {
         topScore: 0,
         donutGalaxy: 0,
         donutSystem: 0,
+		globalDeuteriumSaveFactor: 1,
         name: ""
     },
     Init: function (a, b) {

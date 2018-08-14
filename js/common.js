@@ -442,12 +442,10 @@ AGO.Ogame = {
                                                     )
         ) : 0
     }, getShipConsumption: function (a, b, c) {
-        return a in AGO.Item.Ship && AGO.Item[a].consumption && b && c ? (c = 35E3 / (c * AGO.Uni.speedFleet -
-                                                                                      10
-        ) * Math.sqrt(10 * b / AGO.Ogame.getShipSpeed(a)), AGO.Item[a].consumption * b / 35E3 * (c / 10 + 1
-        ) * (c / 10 + 1
-                                                           )
-        ) : 0
+        return a in AGO.Item.Ship && AGO.Item[a].consumption && b && c ? (c = 35E3 / (c * AGO.Uni.speedFleet - 10
+        ) * Math.sqrt(10 * b / AGO.Ogame.getShipSpeed(a)), (AGO.Item[a].consumption * b / 35E3 * (c / 10 + 1
+        ) * (c / 10 + 1)
+        ) * AGO.Uni.globalDeuteriumSaveFactor) : 0
     }, getShipCapacity: function (a, b) {
         return AGO.Item[a].capacity;
     }, getShipSpeed: function (a) {
