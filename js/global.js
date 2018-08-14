@@ -1,113 +1,113 @@
 window.addEventListener("ago_global", function (b) {
-                            var a;
-                            try {
-                                a = JSON.parse(b.detail || "{}")
-                            } catch (c) {
-                                a = {}
-                            }
-                            switch (a.role) {
-                                case "Interactive":
-                                    AGO.Interactive(a.data);
-                                    break;
-                                case "Ready":
-                                    AGO.Ready();
-                                    break;
-                                case "Data":
-                                    if (a.data) {
-                                        for (var d in a.data) {
-                                            a.data.hasOwnProperty(d) && (AGO.Data[d] = a.data[d]
-                                            );
-                                        }
-                                    }
-                                    break;
-                                case "setProperty":
-                                    a.property && (window[a.property] = a.value
-                                    );
-                                    break;
-                                case "getProperty":
-                                    a.property && AGO.setData(a.property, JSON.stringify(window[a.property]));
-                                    break;
-                                case "sendShips":
-                                    window.sendShips(a.mission,
-                                                     a.galaxy, a.system, a.position, a.type, 0, a.message
-                                    );
-                                    break;
-                                case "sendShipsWithPopup":
-                                    window.sendShipsWithPopup(a.mission,
-                                                     a.galaxy, a.system, a.position, a.type, 0, a.message
-                                    );
-                                    break;
-                                case "reloadEvents":
-                                    $.get("/game/index.php?page=eventList&ajax=1", function (a) {
-                                              $("#eventboxContent").html(a)
-                                          }
-                                    );
-                                    break;
-                                case "hideAll":
-                                    try {
-                                        window.Tipped.hideAll()
-                                    } catch (f) {
-                                    }
-                                    break;
-                                case "Jumpgate":
-                                    AGO.Jumpgate();
-                                    break;
-                                case "setMostShips":
-                                    a.data && window.setMaxIntInput("#jumpgateForm", a.data);
-                                    break;
-                                case "updateVariablesTimes":
-                                    window.updateVariables();
-                                    window.updateTimesFleet2();
-                                    break;
-                                case "setType":
-                                    window.setTType(a.value);
-                                    window.modifyPlanetName();
-                                    window.checkOk();
-                                    break;
-                                case "checkOk":
-                                    window.checkOk();
-                                    break;
-                                case "maximalSpeed":
-                                    b = window.speed;
-                                    a = window.duration;
-                                    d = window.consumption;
-                                    window.speed = 10;
-                                    do {
-                                        if (window.duration = window.getDuration(), window.consumption = window.getConsumption(), 1 < window.speed && (window.consumption > window.tankSpace || window.consumption > window.currentDeuterium
-                                            )) {
-                                            window.speed--;
-                                        } else {
-                                            break;
-                                        }
-                                    } while (1);
-                                    AGO.setData("maximalSpeed", JSON.stringify(window.speed));
-                                    window.speed = b;
-                                    window.duration = a;
-                                    window.consumption = d;
-                                    break;
-                                case "updateTimesFleet3":
-                                    window.updateTimesFleet3();
-                                    break;
-                                case "updateHoldingOrExpTime":
-                                    window.updateHoldingOrExpTime();
-                                    window.updateVariables();
-                                    break;
-                                case "executeAction":
-                                    a.msgIds && window.executeAction(a.msgIds, a.actionMode)
-                            }
-                        }, !1
+        var a;
+        try {
+            a = JSON.parse(b.detail || "{}")
+        } catch (c) {
+            a = {}
+        }
+        switch (a.role) {
+            case "Interactive":
+                AGO.Interactive(a.data);
+                break;
+            case "Ready":
+                AGO.Ready();
+                break;
+            case "Data":
+                if (a.data) {
+                    for (var d in a.data) {
+                        a.data.hasOwnProperty(d) && (AGO.Data[d] = a.data[d]
+                        );
+                    }
+                }
+                break;
+            case "setProperty":
+                a.property && (window[a.property] = a.value
+                );
+                break;
+            case "getProperty":
+                a.property && AGO.setData(a.property, JSON.stringify(window[a.property]));
+                break;
+            case "sendShips":
+                window.sendShips(a.mission,
+                    a.galaxy, a.system, a.position, a.type, 0, a.message
+                );
+                break;
+            case "sendShipsWithPopup":
+                window.sendShipsWithPopup(a.mission,
+                    a.galaxy, a.system, a.position, a.type, 0, a.message
+                );
+                break;
+            case "reloadEvents":
+                $.get("/game/index.php?page=eventList&ajax=1", function (a) {
+                        $("#eventboxContent").html(a)
+                    }
+                );
+                break;
+            case "hideAll":
+                try {
+                    window.Tipped.hideAll()
+                } catch (f) {
+                }
+                break;
+            case "Jumpgate":
+                AGO.Jumpgate();
+                break;
+            case "setMostShips":
+                a.data && window.setMaxIntInput("#jumpgateForm", a.data);
+                break;
+            case "updateVariablesTimes":
+                window.updateVariables();
+                window.updateTimesFleet2();
+                break;
+            case "setType":
+                window.setTType(a.value);
+                window.modifyPlanetName();
+                window.checkOk();
+                break;
+            case "checkOk":
+                window.checkOk();
+                break;
+            case "maximalSpeed":
+                b = window.speed;
+                a = window.duration;
+                d = window.consumption;
+                window.speed = 10;
+                do {
+                    if (window.duration = window.getDuration(), window.consumption = window.getConsumption(), 1 < window.speed && (window.consumption > window.tankSpace || window.consumption > window.currentDeuterium
+                    )) {
+                        window.speed--;
+                    } else {
+                        break;
+                    }
+                } while (1);
+                AGO.setData("maximalSpeed", JSON.stringify(window.speed));
+                window.speed = b;
+                window.duration = a;
+                window.consumption = d;
+                break;
+            case "updateTimesFleet3":
+                window.updateTimesFleet3();
+                break;
+            case "updateHoldingOrExpTime":
+                window.updateHoldingOrExpTime();
+                window.updateVariables();
+                break;
+            case "executeAction":
+                a.msgIds && window.executeAction(a.msgIds, a.actionMode)
+        }
+    }, !1
 );
 var AGO = {
     Data: {}, Uni: {}, message: function (b, a, c) {
         window.dispatchEvent(new window.CustomEvent("ago_global_send", {
-                                                        detail: JSON.stringify({
-                                                                                   page: b || "",
-                                                                                   role: a || "",
-                                                                                   data: c || ""
-                                                                               }
-                                                        )
-                                                    }
-                             )
+                detail: JSON.stringify({
+                        page: b || "",
+                        role: a || "",
+                        data: c || ""
+                    }
+                )
+            }
+            )
         )
     }, setData: function (b, a) {
         var c = document.getElementById("ago_global_data");
@@ -123,7 +123,7 @@ var AGO = {
         AGO.Tooltip();
         AGO.Data.F00 && AGO.Fleet();
         if (a = 1 < AGO.Data.timeStatus ?
-                AGO.Data.timeZoneDelta : 0) {
+            AGO.Data.timeZoneDelta : 0) {
             c = window.getFormatedDate, window.getFormatedDate = function (b, e) {
                 return c(b + a, e)
             };
@@ -133,7 +133,7 @@ var AGO = {
             var k;
             if ("#shipsChosen" === a && AGO.Data.F00 || "#jumpgateForm" === a && AGO.Data.G30) {
                 k = (k = document.querySelector(a + " #ship_" + b)
-                    ) ? +k.value || 0 : 0, 0 < k && k !== c && (c -= k
+                ) ? +k.value || 0 : 0, 0 < k && k !== c && (c -= k
                 );
             }
             d(a, b, c)
@@ -152,6 +152,33 @@ var AGO = {
 
             m = m || "";
             1 === +window.shipsendingDone && (window.shipsendingDone = 0, c = {
+                    mission: a,
+                    galaxy: b,
+                    system: c,
+                    position: d,
+                    type: h,
+                    shipCount: l,
+                    token: window.miniFleetToken
+                }, 6 === +a && (b = Math.abs(AGO.Data.galaxy - b), AGO.Uni.donutGalaxy ? (b > (AGO.Uni.galaxies / 2) ? b = Math.abs(b - AGO.Uni.galaxies) : '') : '', c.speed = 6 <= b ? 1 : 5 <= b ? 2 : 4 <= b ? 4 : 3 <= b ? 6 : 2 <= b ? 9 : 10
+                ), $.ajax(window.miniFleetLink, {
+                        data: c,
+                        dataType: "json",
+                        type: "POST",
+                        success: n
+                    }
+                ), AGO.message("Page", "sendShips", {mission: a, mode: "start", message: m})
+            )
+        };
+        window.sendShipsWithPopup = function (a, b, c, d, h, l, m) {
+            function n(a) {
+                if (typeof(a.newToken) != "undefined") {
+                    window.miniFleetToken = a.newToken
+                }
+                window.fadeBox(a.response.message + " " + a.response.coordinates.galaxy + ":" + a.response.coordinates.system + ":" + a.response.coordinates.position, !a.response.success)
+            }
+
+            m = m || "";
+            c = {
                 mission: a,
                 galaxy: b,
                 system: c,
@@ -159,72 +186,46 @@ var AGO = {
                 type: h,
                 shipCount: l,
                 token: window.miniFleetToken
-            }, 6 === +a && (b = Math.abs(AGO.Data.galaxy - b), AGO.Uni.donutGalaxy ? (b > (AGO.Uni.galaxies/2) ? b = Math.abs(b - AGO.Uni.galaxies) : '') : '', c.speed = 6 <= b ? 1 : 5 <= b ? 2 : 4 <= b ? 4 : 3 <= b ? 6 : 2 <= b ? 9 : 10
-            ), $.ajax(window.miniFleetLink, {
-                          data: c,
-                          dataType: "json",
-                          type: "POST",
-                          success: n
-                      }
-            ), AGO.message("Page", "sendShips", {mission: a, mode: "start", message: m})
-            )
-        };
-		window.sendShipsWithPopup = function (a, b, c, d, h, l, m) {
-			function n(a) {
-				if (typeof(a.newToken) != "undefined") {
-					window.miniFleetToken = a.newToken
-				}
-				window.fadeBox(a.response.message + " " + a.response.coordinates.galaxy + ":" + a.response.coordinates.system + ":" + a.response.coordinates.position, !a.response.success)
-			}
-			m = m || "";
-			c = {
-				mission: a,
-				galaxy: b,
-				system: c,
-				position: d,
-				type: h,
-				shipCount: l,
-				token: window.miniFleetToken
-			};
-			6 === +a && (b = Math.abs(AGO.Data.galaxy - b), AGO.Uni.donutGalaxy ? (b > (AGO.Uni.galaxies/2) ? b = Math.abs(b - AGO.Uni.galaxies) : '') : '', c.speed = 6 <= b ? 1 : 5 <= b ? 2 : 4 <= b ? 4 : 3 <= b ? 6 : 2 <= b ? 9 : 10);
-			$.ajax(miniFleetLink, {
-				data: c,
-				dataType: "json",
-				type: "POST",
-				success: n
-			}), AGO.message("Page", "sendShipsWithPopup", {mission: a, mode: "start", message: m})
-		}
+            };
+            6 === +a && (b = Math.abs(AGO.Data.galaxy - b), AGO.Uni.donutGalaxy ? (b > (AGO.Uni.galaxies / 2) ? b = Math.abs(b - AGO.Uni.galaxies) : '') : '', c.speed = 6 <= b ? 1 : 5 <= b ? 2 : 4 <= b ? 4 : 3 <= b ? 6 : 2 <= b ? 9 : 10);
+            $.ajax(miniFleetLink, {
+                data: c,
+                dataType: "json",
+                type: "POST",
+                success: n
+            }), AGO.message("Page", "sendShipsWithPopup", {mission: a, mode: "start", message: m})
+        }
     }, Ready: function () {
         $(document).ready(function () {
-                              AGO.message("Init",
-                                          "Ready"
-                              );
-                              window.timerHandler && window.timerHandler.appendCallback(function () {
-                                                                                            AGO.message("Init", "Timer")
-                                                                                        }
-                              )
-                          }
+                AGO.message("Init",
+                    "Ready"
+                );
+                window.timerHandler && window.timerHandler.appendCallback(function () {
+                        AGO.message("Init", "Timer")
+                    }
+                )
+            }
         );
         $(document).ajaxSuccess(function (b, a, c) {
-                                    b = decodeURIComponent(c.url || "").replace(/\?/g, "&").split("&page=")[1];
-                                    b = (b || ""
-                                    ).toLowerCase().split("&")[0].split("#")[0];
-                                    AGO.message("Init", "Content", {
-                                                    page: b,
-                                                    url: c.url,
-                                                    para: c.data,
-                                                    response: "fetcheventbox" === b || "minifleet" === b ? a.responseText || "" : ""
-                                                }
-                                    )
-                                }
+                b = decodeURIComponent(c.url || "").replace(/\?/g, "&").split("&page=")[1];
+                b = (b || ""
+                ).toLowerCase().split("&")[0].split("#")[0];
+                AGO.message("Init", "Content", {
+                        page: b,
+                        url: c.url,
+                        para: c.data,
+                        response: "fetcheventbox" === b || "minifleet" === b ? a.responseText || "" : ""
+                    }
+                )
+            }
         );
     }, Tooltip: function () {
         function b(a, b) {
-			a = a.replace(/\s+/g, " ");
+            a = a.replace(/\s+/g, " ");
             return b ? -1 < (" " + (a || ""
-            ).toLowerCase() + " "
+                ).toLowerCase() + " "
             ).indexOf(" " + b.toLowerCase().trim() +
-                      " "
+                " "
             ) : !1
         }
 
@@ -247,49 +248,49 @@ var AGO = {
             m = +AGO.Data.U62 || 0;
             g = AGO.Data.page;
             -1 < e.indexOf("ago_menu_help") ? (k = !0, m = Math.max(m, 5), f.hideOthers = !0, f.maxWidth = Math.max(Math.min(600, window.innerWidth - 30), 0), e.indexOf("ago_menu_help_label" > -1) ?
-                                                                                                                                                               f.hook = {
-                                                                                                                                                                   target: "topleft",
-                                                                                                                                                                   tooltip: "bottomleft"
-                                                                                                                                                               } : (f.hideOn = [
-                {
-                    element: "target",
-                    event: "mouseleave"
-                },
-                {
-                    element: "tooltip",
-                    event: "mouseleave"
-                }
-            ], f.hook = {target: "leftmiddle", tooltip: "rightmiddle"}
-                                                                                                                                                               ), d(c)
+                    f.hook = {
+                        target: "topleft",
+                        tooltip: "bottomleft"
+                    } : (f.hideOn = [
+                            {
+                                element: "target",
+                                event: "mouseleave"
+                            },
+                            {
+                                element: "tooltip",
+                                event: "mouseleave"
+                            }
+                        ], f.hook = {target: "leftmiddle", tooltip: "rightmiddle"}
+                    ), d(c)
             ) : b(e, "planetlink") ? (l = h, AGO.Data.O51 && (f.hook = {target: "leftmiddle", tooltip: "rightmiddle"}
-            )
+                )
             ) : b(e, "moonlink") ? (l = h, AGO.Data.O51 && (f.hook = {target: "rightmiddle", tooltip: "leftmiddle"}
-            )
+                )
             ) : b(e, "constructionIcon") ? AGO.Data.O53 && (l = k
             ) : (k || "galaxy" === g
-                ) && b(e, "tooltipClose") ? ("galaxy" === g ? (m = +AGO.Data.U67 || 0, (b(e, "microplanet") ||
-                                                                                        b(e, "moon") && (AGO.Data.commander || !b(e, "ago_galaxy_espionage")
-                                                                                        )
-                                                                                       ) && $("#galaxytable.ago_galaxy_espionage").length && (l = k
-                                                                                       ), d(c)
-            ) : m = +AGO.Data.U66 || 0, AGO.Data.U65 && (f.hideAfter = Math.max(100 * (+AGO.Data.U65 || 0
-                                                                                ), 300
-            ), f.hideDelay = f.hideAfter, f.hideOthers = !0
-            )
-                ) : k && ("overview" === g ? b(e, "tooltipLeft") && $(c).parent().hasClass("planetMoveStart") ? h = !0 : b(e, "tooltipBottom") && (c = $(c).parent().attr("id"), "moon" === c || "planet_as_moon" === c
-            ) && (l = h
-                                                                                                                         ) : "resources" === g || "station" === g || "research" === g || "shipyard" === g || "defense" ===
-                                                                                                                                                                                                             g ? b(e, "slideIn") ? h = 1 === AGO.Data.B21 || 3 === AGO.Data.B21 : b(e, "tooltip") && "resources" === $(c).parent().attr("id") ? h = !1 : "maxlink" === $(c).attr("id") && (l = h
-            ) : "fleet1" === g ? -1 < ($(c).attr("onclick") || ""
-            ).indexOf("toggleMaxShips") && (h = 1 === AGO.Data.F02 || 3 === AGO.Data.F02
-                                 ) : "fleet2" !== g && "fleet2" !== g && "movement" !== g && ("galaxy" === g ? b(e, "activity ") ? h = !0 : $(c).parent().hasClass("buildingimg") && (h = !1
-            ) : "galaxy" === g ? h = !1 : "messages" === g ? "button" === $(c).attr("type") && (h = !1
-            ) : h = !1
-            ), b(e, "tooltip") && (l = h
-            )
+            ) && b(e, "tooltipClose") ? ("galaxy" === g ? (m = +AGO.Data.U67 || 0, (b(e, "microplanet") ||
+                        b(e, "moon") && (AGO.Data.commander || !b(e, "ago_galaxy_espionage")
+                        )
+                    ) && $("#galaxytable.ago_galaxy_espionage").length && (l = k
+                    ), d(c)
+                ) : m = +AGO.Data.U66 || 0, AGO.Data.U65 && (f.hideAfter = Math.max(100 * (+AGO.Data.U65 || 0
+                    ), 300
+                    ), f.hideDelay = f.hideAfter, f.hideOthers = !0
+                )
+            ) : k && ("overview" === g ? b(e, "tooltipLeft") && $(c).parent().hasClass("planetMoveStart") ? h = !0 : b(e, "tooltipBottom") && (c = $(c).parent().attr("id"), "moon" === c || "planet_as_moon" === c
+                ) && (l = h
+                ) : "resources" === g || "station" === g || "research" === g || "shipyard" === g || "defense" ===
+                g ? b(e, "slideIn") ? h = 1 === AGO.Data.B21 || 3 === AGO.Data.B21 : b(e, "tooltip") && "resources" === $(c).parent().attr("id") ? h = !1 : "maxlink" === $(c).attr("id") && (l = h
+                ) : "fleet1" === g ? -1 < ($(c).attr("onclick") || ""
+                ).indexOf("toggleMaxShips") && (h = 1 === AGO.Data.F02 || 3 === AGO.Data.F02
+                ) : "fleet2" !== g && "fleet2" !== g && "movement" !== g && ("galaxy" === g ? b(e, "activity ") ? h = !0 : $(c).parent().hasClass("buildingimg") && (h = !1
+                    ) : "galaxy" === g ? h = !1 : "messages" === g ? "button" === $(c).attr("type") && (h = !1
+                    ) : h = !1
+                ), b(e, "tooltip") && (l = h
+                )
             );
             l ? f.showOn = !1 : k && (f.showDelay =
-                                      Math.max(100 * m, 100)
+                    Math.max(100 * m, 100)
             );
             return f
         }
@@ -342,7 +343,7 @@ var AGO = {
                 if (a) {
                     try {
                         AGO.setData("type",
-                                    a
+                            a
                         ), AGO.message("Page", "clickType"), a = +AGO.getData("type") || 0
                     } catch (b) {
                     }
@@ -367,14 +368,14 @@ var AGO = {
         } else if ("fleet3" === AGO.Data.page) {
             c = window.updateVariables;
             window.updateVariables =
-            function () {
-                c();
-                AGO.message("Page", "Display")
-            };
+                function () {
+                    c();
+                    AGO.message("Page", "Display")
+                };
             var g = window.checkRessourceByType;
             window.checkRessourceByType = function (a) {
                 window[a + "OnPlanet"] = parseInt(($("#resources_" + a).text() || ""
-                                                  ).replace(/[^\d\-]/g, ""), 10
+                    ).replace(/[^\d\-]/g, ""), 10
                 );
                 g(a)
             }

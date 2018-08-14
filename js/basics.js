@@ -3,10 +3,10 @@ var DOM = {
         return "string" === typeof a ? b ? "object" === typeof b ? b.querySelector(a) : "id" === b ? document.getElementById(a) : document.getElementById(b) ? document.getElementById(b).querySelector(a) : null : document.querySelector(a) : a
     }, queryAll: function (a, b) {
         return "string" === typeof a ? (b || document
-        ).querySelectorAll(a) : a && "object" === typeof a && "length"in a ? a : []
+        ).querySelectorAll(a) : a && "object" === typeof a && "length" in a ? a : []
     }, findParent: function (a, b, c, d) {
         if ((a = DOM.query(a, b)
-            ) && c) {
+        ) && c) {
             for (d = d || 0; a && 0 <= d;) {
                 if (a.id === c) {
                     return a;
@@ -29,7 +29,7 @@ var DOM = {
                           b
     ) {
         var c;
-        if (a && "object" === typeof a && "length"in a) {
+        if (a && "object" === typeof a && "length" in a) {
             for (c = 0; c < a.length; c++) {
                 a[c] && b(a[c])
             }
@@ -45,7 +45,7 @@ var DOM = {
     }, getChildren: function (a, b) {
         return a && a.children ? a.children[b] : null
     }, getSelectedNode: function (a) {
-        return a && a.options && "selectedIndex"in a ? a.options[a.selectedIndex] : null
+        return a && a.options && "selectedIndex" in a ? a.options[a.selectedIndex] : null
     }, getChildnodeByName: function (a, b) {
         if (a && a.children) {
             for (var c = 0; c < a.children.length; c++) {
@@ -125,19 +125,19 @@ var DOM = {
             rtagName = /<([\w:]+)/,
             rhtml = /<|&#?\w+;/,
             wrapMap = {
-                option: [ 1, "<select multiple='multiple'>", "</select>" ],
-                legend: [ 1, "<fieldset>", "</fieldset>" ],
-                area: [ 1, "<map>", "</map>" ],
-                param: [ 1, "<object>", "</object>" ],
-                thead: [ 1, "<table>", "</table>" ],
-                tr: [ 2, "<table><tbody>", "</tbody></table>" ],
-                col: [ 2, "<table><tbody></tbody><colgroup>", "</colgroup></table>" ],
-                td: [ 3, "<table><tbody><tr>", "</tr></tbody></table>" ],
-                _default: [ 0, "", "" ]
+                option: [1, "<select multiple='multiple'>", "</select>"],
+                legend: [1, "<fieldset>", "</fieldset>"],
+                area: [1, "<map>", "</map>"],
+                param: [1, "<object>", "</object>"],
+                thead: [1, "<table>", "</table>"],
+                tr: [2, "<table><tbody>", "</tbody></table>"],
+                col: [2, "<table><tbody></tbody><colgroup>", "</colgroup></table>"],
+                td: [3, "<table><tbody><tr>", "</tr></tbody></table>"],
+                _default: [0, "", ""]
             },
             nodes = [];
         wrapMap.optgroup = wrapMap.option, wrapMap.th = wrapMap.td,
-        wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
+            wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
 
         if (!rhtml.test(html)) {
             // Convert non-html into a text node
@@ -150,7 +150,7 @@ var DOM = {
             var tag = (rtagName.exec(html) || ["", ""])[1].toLowerCase();
             var wrap = wrapMap[tag] || wrapMap._default;
 
-            tmp.innerHTML = wrap[1] + html.replace(rxhtmlTag, "<$1></$2>" ) + wrap[2];
+            tmp.innerHTML = wrap[1] + html.replace(rxhtmlTag, "<$1></$2>") + wrap[2];
 
             // Descend through wrappers to the right content
             var j = wrap[0] + 1;
@@ -198,7 +198,7 @@ var DOM = {
         if (b) {
             if ("string" === typeof b) {
                 a.className =
-                b;
+                    b;
             } else {
                 for (d in b) {
                     b.hasOwnProperty(d) && a.setAttribute(d, b[d]);
@@ -234,7 +234,7 @@ var DOM = {
         if (d) {
             for (b = a.appendChild(document.createElement("colgroup")), e = 0; e < d.length; e++) {
                 b.appendChild(document.createElement("col")).style.width =
-                d[e] + "px";
+                    d[e] + "px";
             }
         }
         return a
@@ -373,7 +373,7 @@ var DOM = {
         }
         for (f in c) {
             c.hasOwnProperty(f) && (b = a.appendChild(document.createElement("option")), b.value = f, b.textContent = AGO.Label.get(c[f]).replace(/&lt;/g, "<"), d === f && (a.selectedIndex = a.options.length - 1
-            )
+                )
             );
         }
         return a
@@ -420,10 +420,10 @@ var DOM = {
     }, getTextChild: function (a, b, c) {
         var d;
         if ((b = DOM.query(a, b)
-            ) && b.childNodes) {
+        ) && b.childNodes) {
             for (a = 0; a < b.childNodes.length && (3 !== +b.childNodes[a].nodeType || !(d = (b.childNodes[a].nodeValue || ""
-            ).trim()
-            )
+                    ).trim()
+                )
             ); a++) {
                 ;
             }
@@ -458,8 +458,8 @@ var DOM = {
         return HTML.getText(a ? a.getAttribute(c) : "", d)
     }, setAttribute: function (a, b, c, d, e) {
         (a = DOM.query(a,
-                       b
-        )
+                b
+            )
         ) && a.setAttribute(c, HTML.setValue(d, e))
     }, removeAttribute: function (a, b, c) {
         (a = DOM.query(a, b)
@@ -478,8 +478,8 @@ var DOM = {
         return DOM.getAttributeParent(a, b, "ago-data", -2, c)
     }, getAttributeParent: function (a, b, c, d, e) {
         if (a = DOM.query(a,
-                          b
-            )) {
+            b
+        )) {
             for (e = e || 0; a && 0 <= e;) {
                 if (a.hasAttribute(c)) {
                     return DOM.getAttribute(a, null, c, d);
@@ -506,7 +506,7 @@ var DOM = {
         b = DOM.queryAll(a, b);
         for (a = 0; a < b.length; a++) {
             DOM.updateProperty(b[a], null,
-                               c, d, e
+                c, d, e
             )
         }
     }, getValue: function (a, b, c) {
@@ -525,50 +525,50 @@ var DOM = {
         return null
     }, hasClass: function (a, b, c) {
         return (a = DOM.query(a, b)
-               ) ? HTML.hasClass(a.className, c) : !1
+        ) ? HTML.hasClass(a.className, c) : !1
     }, updateClass: function (a, b, c) {
         return (a = DOM.query(a, b)
-               ) && a.className !== (c || ""
+        ) && a.className !== (c || ""
         ) ? (a.className =
-             c || "", a
-               ) : null
+                c || "", a
+        ) : null
     }, addClass: function (a, b, c) {
         (b = DOM.query(a, b)
         ) && c && (a = (" " + (b.className || ""
-        ).toLowerCase() + " "
-        ).indexOf(" " + c.toLowerCase().trim() + " "), -1 === a && (b.className = (b.className ? b.className + " " : ""
-                                                                                  ) + c
-        )
+                ).toLowerCase() + " "
+            ).indexOf(" " + c.toLowerCase().trim() + " "), -1 === a && (b.className = (b.className ? b.className + " " : ""
+                ) + c
+            )
         )
     }, extendClass: function (a, b, c) {
         (a = DOM.query(a, b)
         ) && c && (a.className = ((a.className || ""
-                                  ) + " " + c
-        ).trim()
+                ) + " " + c
+            ).trim()
         )
     }, removeClass: function (a, b, c) {
         var d;
         (b = DOM.query(a, b)
         ) && c && (d = (" " + (b.className || ""
-        ).toLowerCase() + " "
-        ).indexOf(" " + c.toLowerCase().trim() + " "), -1 < d && (a = 0 < d ? b.className.slice(0, d).trim() : "", c = b.className.slice(d +
-                                                                                                                                         c.length
-        ).trim(), b.className = a + (a && c ? " " : ""
-        ) + c
-        )
+                ).toLowerCase() + " "
+            ).indexOf(" " + c.toLowerCase().trim() + " "), -1 < d && (a = 0 < d ? b.className.slice(0, d).trim() : "", c = b.className.slice(d +
+                    c.length
+                ).trim(), b.className = a + (a && c ? " " : ""
+                ) + c
+            )
         )
     }, removeClassGroup: function (a, b, c) {
         (a = DOM.query(a, b)
         ) && c && (c = (a.className || ""
-        ).replace(new RegExp("(^|\\s)" + c + "(\\w|_)*", "g"), " ").trim(), c !== a.className && (a.className = c
-        )
+            ).replace(new RegExp("(^|\\s)" + c + "(\\w|_)*", "g"), " ").trim(), c !== a.className && (a.className = c
+            )
         )
     }, setClassGroup: function (a, b, c, d) {
         (a = DOM.query(a, b)
         ) && c && (c = (a.className || ""
-                       ).replace(new RegExp("(^|\\s)" + c + "(\\w|_)*", "g"), " ").trim() + (d ? " " + d : ""
-                       ), c !== a.className && (a.className = c
-        )
+            ).replace(new RegExp("(^|\\s)" + c + "(\\w|_)*", "g"), " ").trim() + (d ? " " + d : ""
+            ), c !== a.className && (a.className = c
+            )
         )
     }, setStyleColor: function (a, b, c) {
         if (a = DOM.query(a, b)) {
@@ -582,9 +582,9 @@ var DOM = {
         }
     }, updateStyle: function (a, b, c, d) {
         return (a = DOM.query(a, b)
-               ) && a.style[c] !== (d || ""
+        ) && a.style[c] !== (d || ""
         ) ? (a.style[c] = d || "", a
-               ) : null
+        ) : null
     }, addObserver: function (a, b, c) {
         var d;
         a && c && (d = new window.MutationObserver(c)
@@ -600,10 +600,10 @@ var DOM = {
     }, trigger: function (a, b, c) {
         (b = DOM.query(a, b)
         ) && c && ("click" === c || "mouseup" === c || "mousedown" === c || "mouseover" ===
-                                                                            c || "mouseout" === c ? (a = document.createEvent("MouseEvents"), a.initMouseEvent(c, !0, !0, window, 0, 0, 0, 0, 0, !1, !1, !1, !1, 0, null), b.dispatchEvent(a)
-                   ) : "change" === c || "focus" === c || "blur" === c ? (a = document.createEvent("HTMLEvents"), a.initEvent(c, !0, !1), b.dispatchEvent(a)
-        ) : "keyup" === c && (a = document.createEvent("KeyboardEvent"), "initKeyboardEvent"in a ? a.initKeyboardEvent("keyup", !0, !0, window, !1, !1, !1, !1, 0, 0) : a.initKeyEvent("keyup", !0, !0, window, !1, !1, !1, !1, 0, 0), b.dispatchEvent(a)
-        )
+            c || "mouseout" === c ? (a = document.createEvent("MouseEvents"), a.initMouseEvent(c, !0, !0, window, 0, 0, 0, 0, 0, !1, !1, !1, !1, 0, null), b.dispatchEvent(a)
+            ) : "change" === c || "focus" === c || "blur" === c ? (a = document.createEvent("HTMLEvents"), a.initEvent(c, !0, !1), b.dispatchEvent(a)
+            ) : "keyup" === c && (a = document.createEvent("KeyboardEvent"), "initKeyboardEvent" in a ? a.initKeyboardEvent("keyup", !0, !0, window, !1, !1, !1, !1, 0, 0) : a.initKeyEvent("keyup", !0, !0, window, !1, !1, !1, !1, 0, 0), b.dispatchEvent(a)
+            )
         )
     }, addEvents: function (a, b, c) {
         var d;
@@ -626,8 +626,8 @@ var DOM = {
         c && c.focus()
     }, disableAutocomplete: function () {
         AGO.Option.is("U41") && window.setTimeout(function () {
-                                                      DOM.setAll("form", null, {autocomplete: "off"})
-                                                  }, 0
+                DOM.setAll("form", null, {autocomplete: "off"})
+            }, 0
         )
     }, disableActiveElement: function (a) {
         if (AGO.Init.mobile && document.activeElement) {
@@ -651,9 +651,9 @@ var DOM = {
         var c, d;
         return a && b && (!AGO.isFirefox || AGO.Option.is("U41")
         ) ? (c = a.shiftKey && a.ctrlKey ? 1E3 : a.ctrlKey ? 100 : a.shiftKey ? 10 : 1, d = DOM.getValue(b,
-                                                                                                         null, 2
-        ), d = 38 === a.keyCode ? d + c : d - c, DOM.setValue(b, null, Math.max(d, 0)), DOM.trigger(b, null, "keyup"), !1
-               ) : !0
+                null, 2
+            ), d = 38 === a.keyCode ? d + c : d - c, DOM.setValue(b, null, Math.max(d, 0)), DOM.trigger(b, null, "keyup"), !1
+        ) : !0
     }
 }, HTML = {
     getText: function (a, b) {
@@ -681,7 +681,7 @@ var DOM = {
         }
     }, setText: function (a, b, c) {
         b && (a = 2 === b ? STR.formatNumber(a) : 4 === b ? STR.formatNumber(a, !0) : 5 === b ? STR.shortNumber(a) : 3 === b ? a ? STR.formatNumber(a) : "0" : 7 === b ? STR.trim(a) :
-                                                                                                                                                               8 === b ? STR.zero(a) : 10 === b ? AGO.Label.get(a) : 11 === b ? AGO.Label.get(a, 1) : 12 === b ? AGO.Label.get(a, 2) : 15 === b ? AGO.Time.format(a, c) : 16 === b ? AGO.Time.format(a, c, !0) : 17 === b ? AGO.Time.formatTimestamp(a, c) : 18 === b ? AGO.Time.formatTime(a) : 19 === b ? AGO.Time.formatTime(a, !0) : a
+                8 === b ? STR.zero(a) : 10 === b ? AGO.Label.get(a) : 11 === b ? AGO.Label.get(a, 1) : 12 === b ? AGO.Label.get(a, 2) : 15 === b ? AGO.Time.format(a, c) : 16 === b ? AGO.Time.format(a, c, !0) : 17 === b ? AGO.Time.formatTimestamp(a, c) : 18 === b ? AGO.Time.formatTime(a) : 19 === b ? AGO.Time.formatTime(a, !0) : a
         );
         return a ? a + "" : ""
     }, setValue: function (a, b) {
@@ -692,16 +692,16 @@ var DOM = {
         return AGO.App.pathSkin + "ago/images/" + a
     }, urlMissionIcon: function (a) {
         return AGO.App.pathSkin +
-               "ago/images/task/mission-" + (a || 0
+            "ago/images/task/mission-" + (a || 0
             ) + ".gif"
     }, urlTypeIcon: function (a, b) {
         return AGO.App.pathSkin + "ago/images/task/type-" + (a || 0
-            ) + (b || "a"
-               ) + ".gif"
+        ) + (b || "a"
+        ) + ".gif"
     }, hasClass: function (a, b) {
-		a = a.replace(/\s+/g, " ");
+        a = a.replace(/\s+/g, " ");
         return b ? -1 < (" " + (a || ""
-        ).toLowerCase() + " "
+            ).toLowerCase() + " "
         ).indexOf(" " + b.toLowerCase().trim() + " ") : !1
     }, classMission: function (a) {
         return "ago_color_M" + STR.trimZero(a, 2)
@@ -711,20 +711,20 @@ var DOM = {
         return 0 < a ? "ago_color_lightgreen" : 0 > a ? "ago_color_palered" : "ago_color_orange"
     }, classStatusData: function (a) {
         return AGO.Styles.classStatusData[(a ||
-                                           0
-                                          ) + 2] || ""
+            0
+        ) + 2] || ""
     }, colorStatusData: function (a) {
         return AGO.Styles.colorStatusData[(a || 0
-                                          ) + 2] || ""
+        ) + 2] || ""
     }, color: function (a, b) {
         return !a || 4 !== a.length && 7 !== a.length ? "" : 0 < b && 100 > b ? (a = 7 === a.length ? parseInt(a.substring(1, 3), 16) + "," + parseInt(a.substring(3, 5), 16) + "," + parseInt(a.substring(5, 7), 16) : parseInt(a.substring(1, 2), 16) + "," + parseInt(a.substring(2, 3), 16) + "," + parseInt(a.substring(3, 4), 16), "rgba(" + a + (10 > b ? ",0.0" : ",0."
-        ) + b + ")"
+            ) + b + ")"
         ) : a
     }, getPlayer: function (a, b, c) {
         return (c ? '<span class="honorRank ' + AGO.Ogame.getHonorClass(c) + '">&nbsp;</span>' :
                 ""
-               ) + '<span class="' + AGO.Token.getClass(b) + '">' + (a || ""
-               ) + "</span>"
+        ) + '<span class="' + AGO.Token.getClass(b) + '">' + (a || ""
+        ) + "</span>"
     }
 }, OBJ = {
     parse: function (a) {
@@ -800,8 +800,8 @@ var DOM = {
             }
         }
     }, isEmpty: function (object) {
-        for(var key in object) {
-            if(object.hasOwnProperty(key)){
+        for (var key in object) {
+            if (object.hasOwnProperty(key)) {
                 return false;
             }
         }
@@ -845,26 +845,26 @@ var DOM = {
         return "string" === typeof a ? +a.replace(/[^\d]/g, "") || 0 : "number" === typeof a ? Math.floor(Math.abs(a)) : 0
     }, parseVersion: function (a) {
         return (a = /(\d+)\D*(\d*)\D*(\d*)\D*(\d*)/.exec(a ? a.toString() : "")
-               ) ?
-               parseInt(("00" + a[1]
-                        ).slice(-2) + ("00" + a[2]
-                        ).slice(-2) + ("00" + a[3]
-                        ).slice(-2) + ("00" + a[4]
-                        ).slice(-2), 10
-               ) : 0
+        ) ?
+            parseInt(("00" + a[1]
+            ).slice(-2) + ("00" + a[2]
+            ).slice(-2) + ("00" + a[3]
+            ).slice(-2) + ("00" + a[4]
+            ).slice(-2), 10
+            ) : 0
     }, parseIntShortcut: function (a) {
         a = STR.check(a).toLowerCase();
         return (-1 < a.indexOf("k") ? 1E3 : 1
-               ) * parseInt(a.replace(/[^\d]/g, ""), 10)
+        ) * parseInt(a.replace(/[^\d]/g, ""), 10)
     }, parseIntRess: function (a) {
         var r;
         a = STR.trim((a.match(/: ([^<]+)*/) ? a.match(/: ([^<]+)*/)[1] : a));
         if (a.match(/^[0-9]{1,3}\.[0-9]{3}$/))
             a = a.replace('.', '');
-        else if((r = new RegExp('^([0-9]{1,3}(\.|,))?[0-9]{1,3}(' + AGO.Label.is("KU0B") + ')')) && a.match(r))
-            a = a.replace(/,/g,'.').replace(AGO.Label.is("KU0B"),'')*1000000000;
-        else if((r = new RegExp('^([0-9]{1,3}(\.|,))?[0-9]{1,3}(' + AGO.Label.is("KU0M") + ')')) && a.match(r))
-            a = a.replace(/,/g,'.').replace(AGO.Label.is("KU0M"),'')*1000000;
+        else if ((r = new RegExp('^([0-9]{1,3}(\.|,))?[0-9]{1,3}(' + AGO.Label.is("KU0B") + ')')) && a.match(r))
+            a = a.replace(/,/g, '.').replace(AGO.Label.is("KU0B"), '') * 1000000000;
+        else if ((r = new RegExp('^([0-9]{1,3}(\.|,))?[0-9]{1,3}(' + AGO.Label.is("KU0M") + ')')) && a.match(r))
+            a = a.replace(/,/g, '.').replace(AGO.Label.is("KU0M"), '') * 1000000;
         return parseInt(a);
     }
 }, STR = {
@@ -883,8 +883,8 @@ var DOM = {
         var c = "";
         if (a) {
             b && (1E9 <= Math.abs(a) ? (a = Math.floor(a / 1E6), c = "\u2009" + AGO.Label.is("KU0M")
-            ) : 1E6 <= Math.abs(a) && (a = Math.floor(a / 1E3), c = "\u2009" + AGO.Label.is("KU0K")
-            )
+                ) : 1E6 <= Math.abs(a) && (a = Math.floor(a / 1E3), c = "\u2009" + AGO.Label.is("KU0K")
+                )
             );
             for (var d = [], e = Math.abs(+a || 0) + ""; ;) {
                 var f = e.slice(-3);
@@ -895,7 +895,7 @@ var DOM = {
                 }
             }
             return (0 > a ? "-" : ""
-                   ) + d.join(AGO.Label.is("KU0S")) + c
+            ) + d.join(AGO.Label.is("KU0S")) + c
         }
         return 0
     }, shortNumber: function (a, b) {
@@ -903,7 +903,7 @@ var DOM = {
         c = 2 === b ? 1 : 1 === b ? 10 : 100;
         if (1E9 <= a) {
             c = Math.ceil(a / 1E7 / c) + "", d =
-                                             AGO.Label.is("KU0B");
+                AGO.Label.is("KU0B");
         } else if (1E6 <= a) {
             c = Math.ceil(a / 1E4 / c) + "", d = AGO.Label.is("KU0M");
         } else if (1E3 <= a) {
@@ -918,7 +918,7 @@ var DOM = {
     }, addParameter: function (a, b) {
         b = STR.trim(b);
         return a && b ? "&" + a + "=" + encodeURI(b) :
-               ""
+            ""
     }, splitParameter: function (a) {
         var b, c, d;
         if (a = decodeURIComponent(a || "").replace(/\?/g, "&").split("#")[0]) {
@@ -940,6 +940,6 @@ var DOM = {
 };
 
 Node.prototype.hasClass = function (selector) {
-	if (this.classList.contains(selector)) return true;
-	else return false;
+    if (this.classList.contains(selector)) return true;
+    else return false;
 };

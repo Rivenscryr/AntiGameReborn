@@ -22,16 +22,16 @@ AGO.Notify = {
             b = 0
         }
         5 < AGO.Init.status && ("Hide" === a && (AGO.Notify.loading = !1
-        ), 3 === b && (AGO.Notify.loading = !0
-        ), e = HTML.colorStatusData(b), 3 !== b && (AGO.Notify.color =
-                                                    20 <= AGO.Notify.problem ? "#FF0000" : 10 < AGO.Notify.problem ? "#FF4B00" : AGO.Notify.loading ? "#FF4B00" : 5 <= AGO.Notify.problem ? "#FF9600" : 4 <= AGO.Notify.problem ? "#FFB500" : AGO.Notify.problem ? "#00B000" : "", AGO.Main.updateButton()
-        ), "Notify" === a ? (NMR.isMinMax(AGO.Notify.problem, 1, 19) && (d = AGO.Label.is("S" + (AGO.Notify.problem + 60
-                                                                                          )
-        )
-        ), e = AGO.Notify.color
-        ) : d = AGO.Label.is(a), 5 < AGO.Init.status && d && AGO.Main.updateInfo(a, d + (c || ""
-                                                                                 ), e
-        )
+            ), 3 === b && (AGO.Notify.loading = !0
+            ), e = HTML.colorStatusData(b), 3 !== b && (AGO.Notify.color =
+                    20 <= AGO.Notify.problem ? "#FF0000" : 10 < AGO.Notify.problem ? "#FF4B00" : AGO.Notify.loading ? "#FF4B00" : 5 <= AGO.Notify.problem ? "#FF9600" : 4 <= AGO.Notify.problem ? "#FFB500" : AGO.Notify.problem ? "#00B000" : "", AGO.Main.updateButton()
+            ), "Notify" === a ? (NMR.isMinMax(AGO.Notify.problem, 1, 19) && (d = AGO.Label.is("S" + (AGO.Notify.problem + 60
+                    )
+                    )
+                ), e = AGO.Notify.color
+            ) : d = AGO.Label.is(a), 5 < AGO.Init.status && d && AGO.Main.updateInfo(a, d + (c || ""
+            ), e
+            )
         )
     }
 };
@@ -48,19 +48,19 @@ AGO.Option = {
         AGO.App.reload && AGO.Option.Save()
     }, Save: function () {
         AGO.Data.setStorage(AGO.App.keyPlayer + "_Option", {
-                                O04: AGO.Option.is("O04"), U31: AGO.Option.is("U31"),
-                                U32: AGO.Option.isAnd("U31", "U32")
-                            }
+                O04: AGO.Option.is("O04"), U31: AGO.Option.is("U31"),
+                U32: AGO.Option.isAnd("U31", "U32")
+            }
         )
     }, set: function (a, b, c) {
         a && (b = 6 <= c ? STR.check(b) : 1 === c ? b ? 1 : 0 : +b || 0, AGO.Option.Data[a] = b, AGB.message("Option", "Set", {
-                                                                                                                 id: a,
-                                                                                                                 value: b
-                                                                                                             }, function (a) {
-                                                                                                                 a && (AGO.Option.Data[a.id] = a.value
-                                                                                                                 )
-                                                                                                             }
-        )
+                    id: a,
+                    value: b
+                }, function (a) {
+                    a && (AGO.Option.Data[a.id] = a.value
+                    )
+                }
+            )
         )
     }, get: function (a, b) {
         return b ? 2 === b ? +AGO.Option.Data[a] || 0 : 1 === b ? Boolean(AGO.Option.Data[a]) : a in AGO.Option.Data ? "string" === typeof AGO.Option.Data[a] ? AGO.Option.Data[a] : STR.check(AGO.Option.Data[a]) : "" : a in AGO.Option.Data ? AGO.Option.Data[a] : ""
@@ -82,21 +82,21 @@ AGO.Label = {
     }, Update: function () {
         var a;
         AGO.App.OgameMain && (a = {
-            localization: AGO.Global.message({
-                                                 role: "getProperty",
-                                                 property: "LocalizationStrings"
-                                             }
-            ), production: OBJ.parse(AGO.Init.Script("production"))
-        }, AGB.message("Label", "Update", {data: a})
+                localization: AGO.Global.message({
+                        role: "getProperty",
+                        property: "LocalizationStrings"
+                    }
+                ), production: OBJ.parse(AGO.Init.Script("production"))
+            }, AGB.message("Label", "Update", {data: a})
         )
     }, get: function (a, b) {
         return a ? (b && (a = (2 === b ? "K" : "L"
-                              ) + (AGO.Item.ResourceEnergy[a] ? AGO.Item.ResourceEnergy[a] : 1 === a.length ? "00" + a : 2 === a.length ? "0" + a : a
-                              )
-        ), a in AGO.Label.Data ? (AGO.Label.Data[a] || ""
-        ).replace(/&amp;/g,
-                  "&"
-        ) : a
+                ) + (AGO.Item.ResourceEnergy[a] ? AGO.Item.ResourceEnergy[a] : 1 === a.length ? "00" + a : 2 === a.length ? "0" + a : a
+                )
+            ), a in AGO.Label.Data ? (AGO.Label.Data[a] || ""
+            ).replace(/&amp;/g,
+                "&"
+            ) : a
         ) : ""
     }, is: function (a) {
         return a in AGO.Label.Data ? (AGO.Label.Data[a] || ""
@@ -118,24 +118,24 @@ AGO.Styles = {
         }
 
         var b, c, d = [];
-        3 <= AGO.App.mode && AGO.App.keyPlayer && (document.documentElement.style.overflowY = "scroll", c = AGO.Data.getStorage(AGO.App.keyPlayer + "_Styles", "JSON"), "Color"in c && (AGO.Styles.status = 1, AGO.Styles.Data = c, OBJ.is(c.colorType) && (AGO.Styles.colorType = c.colorType
-        ), OBJ.is(c.Page) || (c.Page = {}
-        ), b = AGO.App.page, OBJ.is(c[b]) && ("file"in c[b] && (c.Page.file = c[b].file
-        ), "improve"in c[b] && (c.Page.improve = c[b].improve
-        ),
-        "events"in c[b] && (c.Page.events = c[b].events
-        )
-        ), c.Events && (AGO.Events.modeBehavior = +c.Page.events || 0, AGO.Events.modeBehaviorAbove = VAL.check(AGO.Events.modeBehavior, 1, 2, 5, 6), AGO.Events.modeBehavior && (AGO.Events.modeBehaviorAbove ? d.push("#eventboxContent:not(:first-child){display:none;}") : d.push("#eventboxContent:first-child{display:none;}"), 5 > AGO.Events.modeBehavior && d.push("#eventboxContent, #eventboxContent #eventListWrap{ display: none; }")
-        )
-        ), c.Styles = d.join(""), b = document.createDocumentFragment(),
-            DOM.append(b, "style", {
-                           type: "text/css",
-                           media: "screen"
-                       }
-            ).textContent = a(c.Main) + a(c.Planets) + a(c.Events) + a(c.Page.file) + a(c.Mobile) + (c.Skin || ""
-            ) + (c.Color || ""
-                            ), AGO.isFirefox && document.head && 3 > AGO.App.beta ? DOM.appendChild(document.head, b) : DOM.prependChild(document.documentElement, b), window.setTimeout(AGO.Styles.preload, 5)
-        )
+        3 <= AGO.App.mode && AGO.App.keyPlayer && (document.documentElement.style.overflowY = "scroll", c = AGO.Data.getStorage(AGO.App.keyPlayer + "_Styles", "JSON"), "Color" in c && (AGO.Styles.status = 1, AGO.Styles.Data = c, OBJ.is(c.colorType) && (AGO.Styles.colorType = c.colorType
+                ), OBJ.is(c.Page) || (c.Page = {}
+                ), b = AGO.App.page, OBJ.is(c[b]) && ("file" in c[b] && (c.Page.file = c[b].file
+                    ), "improve" in c[b] && (c.Page.improve = c[b].improve
+                    ),
+                    "events" in c[b] && (c.Page.events = c[b].events
+                    )
+                ), c.Events && (AGO.Events.modeBehavior = +c.Page.events || 0, AGO.Events.modeBehaviorAbove = VAL.check(AGO.Events.modeBehavior, 1, 2, 5, 6), AGO.Events.modeBehavior && (AGO.Events.modeBehaviorAbove ? d.push("#eventboxContent:not(:first-child){display:none;}") : d.push("#eventboxContent:first-child{display:none;}"), 5 > AGO.Events.modeBehavior && d.push("#eventboxContent, #eventboxContent #eventListWrap{ display: none; }")
+                    )
+                ), c.Styles = d.join(""), b = document.createDocumentFragment(),
+                    DOM.append(b, "style", {
+                            type: "text/css",
+                            media: "screen"
+                        }
+                    ).textContent = a(c.Main) + a(c.Planets) + a(c.Events) + a(c.Page.file) + a(c.Mobile) + (c.Skin || ""
+                    ) + (c.Color || ""
+                    ), AGO.isFirefox && document.head && 3 > AGO.App.beta ? DOM.appendChild(document.head, b) : DOM.prependChild(document.documentElement, b), window.setTimeout(AGO.Styles.preload, 5)
+            )
         )
     },
     Init: function () {
@@ -143,20 +143,20 @@ AGO.Styles = {
         a = document.createDocumentFragment();
         AGO.Styles.Sheet = DOM.append(a, "style", {type: "text/css", media: "screen"});
         (AGO.App.Ogame || window.location.href.indexOf("component=empire") > -1) && OBJ.is(AGO.Styles.Data) && (OBJ.get(AGO.Styles.Data.Page,
-                                                             "improve"
-        ) && ("overview" === AGO.App.page && 1 !== AGO.Acc.type || DOM.extendClass(document.body, null, "ago_improve")
-                                                     ), AGO.Styles.set(AGO.Styles.Data.Styles)
+                "improve"
+            ) && ("overview" === AGO.App.page && 1 !== AGO.Acc.type || DOM.extendClass(document.body, null, "ago_improve")
+            ), AGO.Styles.set(AGO.Styles.Data.Styles)
         );
         document.head.appendChild(a)
     },
     Load: function (a) {
         AGO.App.Ogame && (1 !== AGO.Styles.status || AGO.App.reload || a
         ) && (AGB.Log("Update   - Styles   :", !0), AGB.message("Styles", "Init", {mobile: AGO.App.OgameMobile}, function (a) {
-                                                                    AGO.Data.setStorage(AGO.App.keyPlayer + "_Styles", a);
-                                                                    1 !== AGO.Styles.status && (AGO.Styles.Start(), AGO.Styles.Init()
-                                                                    )
-                                                                }
-        )
+                    AGO.Data.setStorage(AGO.App.keyPlayer + "_Styles", a);
+                    1 !== AGO.Styles.status && (AGO.Styles.Start(), AGO.Styles.Init()
+                    )
+                }
+            )
         )
     },
     set: function (a) {
@@ -184,10 +184,10 @@ AGO.Styles = {
         } else {
             "fleet3" ===
             AGO.App.page && ((new window.Image
-                             ).src = HTML.urlImage("fleet3_send_green.gif"), (new window.Image
-                                                                             ).src = HTML.urlImage("fleet3_send_orange.gif")
+                ).src = HTML.urlImage("fleet3_send_green.gif"), (new window.Image
+                ).src = HTML.urlImage("fleet3_send_orange.gif")
             ), (new window.Image
-               ).src = HTML.urlImage("task/type-3a.gif")
+            ).src = HTML.urlImage("task/type-3a.gif")
         }
     }
 };
@@ -397,7 +397,7 @@ AGO.Item = {
     },
     check: function (a, b, c) {
         return (a = STR.check(a)
-               ) && b && a in b ? a : STR.check(c)
+        ) && b && a in b ? a : STR.check(c)
     },
     valid: function (a) {
         return 1 <= +a && 503 >= +a && a in AGO.Item ? a : ""
@@ -408,9 +408,9 @@ AGO.Item = {
         );
         for (b = 0; b < a.length; b++) {
             AGO.Item[a[b]] && OBJ.iterate(AGO.Item[a[b]], function (a) {
-                                              c[a] =
-                                              0
-                                          }
+                    c[a] =
+                        0
+                }
             );
         }
         return c
@@ -437,14 +437,14 @@ AGO.Ogame = {
         return 5
     }, getFleetDuration: function (a, b, c) {
         return a in AGO.Item.Ship && b ? Math.round((35E3 / (c || 10
-                                                    ) * Math.sqrt(10 * b / AGO.Ogame.getShipSpeed(a)) + 10
-                                                    ) / (+AGO.Uni.speedFleet || 1
-                                                    )
+            ) * Math.sqrt(10 * b / AGO.Ogame.getShipSpeed(a)) + 10
+        ) / (+AGO.Uni.speedFleet || 1
+        )
         ) : 0
     }, getShipConsumption: function (a, b, c) {
         return a in AGO.Item.Ship && AGO.Item[a].consumption && b && c ? (c = 35E3 / (c * AGO.Uni.speedFleet - 10
         ) * Math.sqrt(10 * b / AGO.Ogame.getShipSpeed(a)), (AGO.Item[a].consumption * b / 35E3 * (c / 10 + 1
-        ) * (c / 10 + 1)
+            ) * (c / 10 + 1)
         ) * AGO.Uni.globalDeuteriumSaveFactor) : 0
     }, getShipCapacity: function (a, b) {
         return AGO.Item[a].capacity;
@@ -455,26 +455,26 @@ AGO.Ogame = {
     }, initShipSpeed: function () {
         var a = 5070900 <= NMR.parseVersion(AGO.App.versionOGame);
         OBJ.iterate(AGO.Item.Ship, function (b) {
-                        var c,
-                            d, e, f;
-                        "202" === b && 5 <= AGO.Units.get("117") ? (c = 1E4, d = "117", f = 20
-                        ) : "209" === b && 15 <= AGO.Units.get("118") ? a && (c = 6E3, d = "118", f = 900
-                        ) : "209" === b && 17 <= AGO.Units.get("117") ? a && (c = 4E3, d = "117", f = 600
-                        ) : "211" === b && 8 <= AGO.Units.get("118") ? (c = 5E3, d = "118", f = 1000
-                        ) : (c = AGO.Item[b].speed, d = AGO.Item[b].drive, f = AGO.Item[b].consumption
-                            );
-                        d && (e = "115" === d ? .1 : "117" === d ? .2 : .3, AGO.Item[b].speed = Math.floor(c * (10 + AGO.Units.get(d) * e * 10) / 10), AGO.Item[b].consumption = f)
-                    }
+                var c,
+                    d, e, f;
+                "202" === b && 5 <= AGO.Units.get("117") ? (c = 1E4, d = "117", f = 20
+                ) : "209" === b && 15 <= AGO.Units.get("118") ? a && (c = 6E3, d = "118", f = 900
+                ) : "209" === b && 17 <= AGO.Units.get("117") ? a && (c = 4E3, d = "117", f = 600
+                ) : "211" === b && 8 <= AGO.Units.get("118") ? (c = 5E3, d = "118", f = 1000
+                ) : (c = AGO.Item[b].speed, d = AGO.Item[b].drive, f = AGO.Item[b].consumption
+                );
+                d && (e = "115" === d ? .1 : "117" === d ? .2 : .3, AGO.Item[b].speed = Math.floor(c * (10 + AGO.Units.get(d) * e * 10) / 10), AGO.Item[b].consumption = f)
+            }
         )
     }, getDebris: function (a, b) {
         var c, d, e, f, g;
-		var h = {}
-		OBJ.copy(a, h);
+        var h = {}
+        OBJ.copy(a, h);
         c = {metal: 0, crystal: 0};
         if (OBJ.is(h)) {
             for (e in b = b && AGO.Uni.defToTF, d = AGO.Uni.debrisFactor || .3, f = AGO.Uni.debrisFactorDef || .3, g = AGO.Uni.repairFactor || .7, h) {
                 h[e] && (AGO.Item.Ship[e] ||
-                         (b && 1 === AGO.Item.Defense[e] && (d = f) && (h[e] = h[e] * (1-g)))
+                    (b && 1 === AGO.Item.Defense[e] && (d = f) && (h[e] = h[e] * (1 - g)))
                 ) && (c.metal += Math.floor(h[e] * Math.floor(AGO.Item[e].metal * d)), c.crystal += Math.floor(h[e] * Math.floor(AGO.Item[e].crystal * d))
                 );
             }
@@ -490,16 +490,16 @@ AGO.Ogame = {
         var c;
         c = "12" === a ? 10 * b * Math.pow(1.1, b) : 0;
         return Math.floor(c) *
-               AGO.Uni.speed
+            AGO.Uni.speed
     }, getConsumptionEnergy: function (a, b) {
         var c;
         "1" === a ? Math.pow(1.1, b) : "2" === a ? Math.pow(1.1, b) : "3" === a && Math.pow(1.1, b);
         return (c = "1" === a || "2" === a ? 10 : "3" === a ? 20 : 0
-               ) && 0 <= b ? Math.floor(c * b * Math.pow(1.1, b)) : 0
+        ) && 0 <= b ? Math.floor(c * b * Math.pow(1.1, b)) : 0
     }, getProductionEnergy: function (a, b) {
         var c, d;
         c = "4" === a ? 20 * b * Math.pow(1.1, b) : "12" === a ? 30 * b * Math.pow(1.05 + .01 * AGO.Units.get("113"), b) : "212" === a ? Math.round(Math.floor((AGO.Planets.Get("active", "temp") + 40 + 140
-                                                                                                                                                    ) / 6
+        ) / 6
         ) * b) : 0;
         AGO.Option.is("comstaff") ? d = 1.12 : AGO.Option.is("engineer") ? d = 1.1 : d = 1;
         return Math.round(d * c)
@@ -580,20 +580,20 @@ AGO.Units = {
         AGO.Units.Data = a || {}
     }, Read: function () {
         OBJ.iterate(AGO.Item.ResourceEnergy, function (a) {
-                        AGO.Units.Data[a] = AGO.Units.Data[a + "Start"] = DOM.getText("resources_" + a, "id", 2)
-                    }
+                AGO.Units.Data[a] = AGO.Units.Data[a + "Start"] = DOM.getText("resources_" + a, "id", 2)
+            }
         );
         AGO.Units.Data.resources = AGO.Units.Data.metal + AGO.Units.Data.crystal + AGO.Units.Data.deuterium
     }, Run: function () {
         AGB.message("Units", "Update", {planet: AGO.Acc.planetId, data: AGO.Units.Data}, function () {
-                        AGO.Units.status = 1
-                    }
+                AGO.Units.status = 1
+            }
         )
     }, Timer: function () {
         OBJ.iterate(AGO.Item.Resource, function (a) {
-                        AGO.Units.Data[a] =
-                        DOM.getText("resources_" + a, "id", 2)
-                    }
+                AGO.Units.Data[a] =
+                    DOM.getText("resources_" + a, "id", 2)
+            }
         );
         AGO.Units.Data.resources = AGO.Units.Data.metal + AGO.Units.Data.crystal + AGO.Units.Data.deuterium
     }, Update: function (a) {
@@ -606,18 +606,18 @@ AGO.Units = {
         b.onerror = b.onload = function () {
             var c, d;
             AGO.Init.status && (d = -1, 200 === +b.status && STR.check(b.responseText)[0] === String.fromCharCode(123) &&
-                                        (d = 4, c = {
-                                            planet: "account",
-                                            tabs: ["Research"],
-                                            data: OBJ.parse(b.responseText)
-                                        }, AGB.message("Units", "Action", {
-                                                           planets: AGO.Planets.ByCoordstype,
-                                                           list: [c]
-                                                       }
-                                        )
-                                        ), AGB.Log("Update   - Units    : Research " + (-1 === d ? " failed !" : ""
-                                                   )
-            ), a && a(d)
+                (d = 4, c = {
+                        planet: "account",
+                        tabs: ["Research"],
+                        data: OBJ.parse(b.responseText)
+                    }, AGB.message("Units", "Action", {
+                            planets: AGO.Planets.ByCoordstype,
+                            list: [c]
+                        }
+                    )
+                ), AGB.Log("Update   - Units    : Research " + (-1 === d ? " failed !" : ""
+                )
+                ), a && a(d)
             )
         };
         b.send(null)
@@ -628,17 +628,17 @@ AGO.Units = {
         )
     }, activeResources: function (a) {
         OBJ.is(a) && (OBJ.iterate(AGO.Item.Resource, function (b) {
-                                      a[b] = +AGO.Units.Data[b] || 0
-                                  }
-        ), a.resources = AGO.Units.Data.resources
+                    a[b] = +AGO.Units.Data[b] || 0
+                }
+            ), a.resources = AGO.Units.Data.resources
         )
     }, activeProduction: function () {
         var a;
         a = OBJ.parse(AGO.Init.Script("production"));
         OBJ.iterate(AGO.Item.ResourceEnergy, function (b) {
-                        a[b] && OBJ.is(a[b].resources) && (AGO.Units.Data[b + "Storage"] = +a[b].resources.max || 0, AGO.Units.Data[b + "Production"] = +a[b].resources.production || 0
-                        )
-                    }
+                a[b] && OBJ.is(a[b].resources) && (AGO.Units.Data[b + "Storage"] = +a[b].resources.max || 0, AGO.Units.Data[b + "Production"] = +a[b].resources.production || 0
+                )
+            }
         )
     }
 };
@@ -662,32 +662,32 @@ AGO.Time = {
         AGO.Time.pageDeltaRun = AGO.Time.localTimeRun - AGO.Time.localTime;
         (a = AGO.App.login ? 0 : AGO.Option.get("delta", 2)
         ) && 1200 > Math.abs(AGO.Time.localTimeDeltaAverage -
-                             a
+            a
         ) && (AGO.Time.localTimeDeltaAverage = Math.floor((9 * a + AGO.Time.localTimeDeltaAverage
-                                                          ) / 10
-        )
+            ) / 10
+            )
         );
         AGO.Option.set("delta", AGO.Time.localTimeDeltaAverage);
         if (a = (a = document.getElementById("bar")
-                ) ? a.querySelector(".OGameClock") : null) {
+        ) ? a.querySelector(".OGameClock") : null) {
             AGO.Time.status = 1, AGO.Time.ogameTime = AGO.Time.parse(a.textContent).getTime(), AGO.Time.timeZoneDelta = -(1E4 * Math.round((AGO.Time.ogameTime - AGO.Time.serverTime
-                                                                                                                                           ) / 1E4
-            )
+                ) / 1E4
+                )
             )
         }
     },
     Run: function () {
         var a, b, c, d, e;
         if (b = (a = document.getElementById("bar")
-                ) ? a.querySelector(".OGameClock") : null) {
+        ) ? a.querySelector(".OGameClock") : null) {
             if (AGO.Option.is("A31") &&
-                AGO.Time.timeZoneDelta && (AGO.Time.status = 2, b.innerHTML = AGO.Time.format(AGO.Time.ogameTime, "[d].[m].[Y] <span>[H]:[i]:[s]</span>"), AGO.Option.is("A32") && (AGO.Time.status = 3, d = AGO.Time.format(AGO.Time.ogameTime, "[d].[m].[Y] [H]:[i]:[s]", !0)
+            AGO.Time.timeZoneDelta && (AGO.Time.status = 2, b.innerHTML = AGO.Time.format(AGO.Time.ogameTime, "[d].[m].[Y] <span>[H]:[i]:[s]</span>"), AGO.Option.is("A32") && (AGO.Time.status = 3, d = AGO.Time.format(AGO.Time.ogameTime, "[d].[m].[Y] [H]:[i]:[s]", !0)
                 ), b.title = AGO.Label.get("A38"), DOM.addClass(b, null, "tooltip"), c = document.createElement("li"), c.setAttribute("style", "float: right; color: #848484; font-weight: 700;"), c.textContent = b.title[0], DOM.after(b, c)
-                ), AGO.Option.is("A34") && (e = (0 < AGO.Time.localTimeDelta ? " (+" :
-                                                 " (-"
-                                                ) + Math.floor(Math.abs(AGO.Time.localTimeDelta) / 100) / 10 + (AGO.Label.is("KD0S") || "s"
-                                                ) + ")  " + AGO.Time.format(AGO.Time.ogameTime, "[H]:[i]:[s]")
-                ), d || e) {
+            ), AGO.Option.is("A34") && (e = (0 < AGO.Time.localTimeDelta ? " (+" :
+                        " (-"
+                ) + Math.floor(Math.abs(AGO.Time.localTimeDelta) / 100) / 10 + (AGO.Label.is("KD0S") || "s"
+                ) + ")  " + AGO.Time.format(AGO.Time.ogameTime, "[H]:[i]:[s]")
+            ), d || e) {
                 b = document.createElement("div"), b.className = "ago_clock", e && (c = b.appendChild(document.createElement("span")), c.textContent = e
                 ), d && (c = b.appendChild(document.createElement("span")), c.id = "ago_clock_server", c.className = "tooltip", c.title = AGO.Label.get("A39"), c.textContent = d
                 ), DOM.appendChild(a, b)
@@ -707,26 +707,26 @@ AGO.Time = {
     },
     timestampMinute: function () {
         return Math.floor((Date.now() - 1381E9
-                          ) / 6E4
+        ) / 6E4
         )
     },
     getFinishTime: function (a) {
         return (new Date
         ).setTime(AGO.Time.ogameTime + AGO.Time.duration + 1E3 * (+a || 0
-                  )
+        )
         )
     },
     format: function (a, b, c) {
         function d(a) {
             return 0 > a || 9 <
-                            a ? a : "0" + a
+            a ? a : "0" + a
         }
 
         return a ? (!OBJ.is(a) && 500 < a && (a = new Date(a)
-        ), 1 < AGO.Time.status && !c && a.setTime(a.getTime() + AGO.Time.timeZoneDelta), b || (b = new Date, b = b.getFullYear() !== a.getFullYear() ? "[d].[m].[Y] [H]:[i]:[s]" : b.getMonth() !== a.getMonth() || b.getDate() !== a.getDate() ? "[d].[m] [H]:[i]:[s]" : "[H]:[i]:[s]"
-        ), b.split("[d]").join(d(a.getDate())).split("[m]").join(d(a.getMonth() + 1)).split("[Y]").join(a.getFullYear()).split("[y]").join(a.getFullYear().toString().substr(2, 4)).split("[H]").join(d(a.getHours())).split("[i]").join(d(a.getMinutes())).split("[s]").join(d(a.getSeconds()))
-        ) :
-               ""
+                ), 1 < AGO.Time.status && !c && a.setTime(a.getTime() + AGO.Time.timeZoneDelta), b || (b = new Date, b = b.getFullYear() !== a.getFullYear() ? "[d].[m].[Y] [H]:[i]:[s]" : b.getMonth() !== a.getMonth() || b.getDate() !== a.getDate() ? "[d].[m] [H]:[i]:[s]" : "[H]:[i]:[s]"
+                ), b.split("[d]").join(d(a.getDate())).split("[m]").join(d(a.getMonth() + 1)).split("[Y]").join(a.getFullYear()).split("[y]").join(a.getFullYear().toString().substr(2, 4)).split("[H]").join(d(a.getHours())).split("[i]").join(d(a.getMinutes())).split("[s]").join(d(a.getSeconds()))
+            ) :
+            ""
     },
     formatTimestamp: function (a, b) {
         return 1E6 < a ? AGO.Time.format(1E3 * a, b || "[d].[m].[Y] [H]:[i]:[s]", !0) : ""
@@ -741,11 +741,11 @@ AGO.Time = {
         k = Math.floor(h / 60);
         h -= 60 * k;
         return b ? (AGO.Time.formatTimeCacheCreate(), c = [], d && c.push(d + AGO.Time.formatTimeCache.years), e && c.push(e + AGO.Time.formatTimeCache.weeks), f && c.push(f + AGO.Time.formatTimeCache.days),
-        g && 3 > c.length && c.push(g + AGO.Time.formatTimeCache.hours), k && 3 > c.length && c.push(k + AGO.Time.formatTimeCache.minutes), h && 3 > c.length && c.push(h + AGO.Time.formatTimeCache.seconds), c.join(" ")
+            g && 3 > c.length && c.push(g + AGO.Time.formatTimeCache.hours), k && 3 > c.length && c.push(k + AGO.Time.formatTimeCache.minutes), h && 3 > c.length && c.push(h + AGO.Time.formatTimeCache.seconds), c.join(" ")
         ) : (0 > g || 9 < g ? g : "0" + g
-            ) + ":" + (0 > k || 9 < k ? k : "0" + k
-            ) + ":" + (0 > h || 9 < h ? h : "0" + h
-            )
+        ) + ":" + (0 > k || 9 < k ? k : "0" + k
+        ) + ":" + (0 > h || 9 < h ? h : "0" + h
+        )
     },
     parseFormatedTime: function (a) {
         var b = 0, c, d, e;
@@ -753,7 +753,7 @@ AGO.Time = {
             for (AGO.Time.formatTimeCacheCreate(), a = a.trim().split(" ").reverse(), e = 0; e < a.length; e++) {
                 d = NMR.parseIntAbs(a[e]), c = (a[e] || ""
                 ).replace(/\d/g, "").trim(), c === AGO.Time.formatTimeCache.seconds && 0 === e ? b += d : c ===
-                                                                                                          AGO.Time.formatTimeCache.minutes ? b += 60 * d : c === AGO.Time.formatTimeCache.hours ? b += 3600 * d : c === AGO.Time.formatTimeCache.days ? b += 86400 * d : c === AGO.Time.formatTimeCache.weeks ? b += 604800 * d : c === AGO.Time.formatTimeCache.years && (b += 31536E3 * d
+                AGO.Time.formatTimeCache.minutes ? b += 60 * d : c === AGO.Time.formatTimeCache.hours ? b += 3600 * d : c === AGO.Time.formatTimeCache.days ? b += 86400 * d : c === AGO.Time.formatTimeCache.weeks ? b += 604800 * d : c === AGO.Time.formatTimeCache.years && (b += 31536E3 * d
                 );
             }
         }
@@ -761,14 +761,14 @@ AGO.Time = {
     },
     formatTimeCacheCreate: function () {
         AGO.Time.formatTimeCache || (AGO.Time.formatTimeCache = {
-            years:   AGO.Label.is("KD0Y") || "y",
-            weeks:   AGO.Label.is("KD0W") || "w",
-            days:    AGO.Label.is("KD0D") || "d",
-            hours:   AGO.Label.is("KD0H") || "h",
-            minutes: AGO.Label.is("KD0M") || "m",
-            seconds: AGO.Label.is("KD0S") ||
-                     "s"
-        }
+                years: AGO.Label.is("KD0Y") || "y",
+                weeks: AGO.Label.is("KD0W") || "w",
+                days: AGO.Label.is("KD0D") || "d",
+                hours: AGO.Label.is("KD0H") || "h",
+                minutes: AGO.Label.is("KD0M") || "m",
+                seconds: AGO.Label.is("KD0S") ||
+                "s"
+            }
         )
     },
     parseTime: function (a) {
@@ -776,13 +776,13 @@ AGO.Time = {
         return 3 === a.length ? 3600 * (+a[0] || 0
         ) + 60 * (+a[1] || 0
         ) + (+a[2] || 0
-                                ) : 0
+        ) : 0
     },
     convertLocal: function (a, b) {
         var c;
         return a && 1 < AGO.Time.status ? (b || (b = "[d].[m].[Y] [H]:[i]:[s]"
-        ), (c = AGO.Time.parse(a, b)
-           ) ? AGO.Time.format(c, b) : a || ""
+            ), (c = AGO.Time.parse(a, b)
+            ) ? AGO.Time.format(c, b) : a || ""
         ) : a || ""
     },
     parse: function (a, b) {
@@ -797,7 +797,7 @@ AGO.Time = {
         d = b.replace(/\./g, "\\.");
         d = d.replace(/\//g, "\\/");
         d = d.replace(/\-/g,
-                      "\\-"
+            "\\-"
         );
         for (var e = {}, f = 0; f < c.length; f++) {
             var g = c[f];
@@ -818,8 +818,8 @@ AGO.Time = {
         c[e.i] && d.setMinutes(c[e.i]);
         c[e.H] && d.setHours(c[e.H]);
         c[e.Y] ? d.setFullYear(c[e.Y]) : c[e.y] && (f = d.getFullYear(), f = 100 * Math.floor(f / 100) + c[e.y], f > d.getFullYear() &&
-                                                                                                                 (f -= 100
-                                                                                                                 ), d.setFullYear(f)
+            (f -= 100
+            ), d.setFullYear(f)
         );
         c[e.d] && d.setDate(1);
         c[e.m] && d.setMonth(c[e.m] - 1);
@@ -833,18 +833,18 @@ AGO.Time = {
                 d = STR.check(d[0]).replace(/[^\d:\.\s]/g, "").replace(/ +/g, " ").trim().split(" "), c = STR.check(d[0]).split("."), e = STR.check(d[1]).split(":");
             } else if (d = a.match(/([^\d:]|\b)\d{1,2}:\d{1,2}:\d{1,2}([^\d:]|\b)/)) {
                 c = [], e = STR.check(d[0]).replace(/[^\d:]/g,
-                                                    ""
+                    ""
                 ).trim().split(":");
             }
             if (OBJ.is(e) && e.length && 24 > e[0] && 60 > e[1] && 60 > e[2] && (d = new Date, d.setMilliseconds(0), d.setSeconds(+e[2] || 0), d.setMinutes(+e[1] || 0), d.setHours(+e[0] || 0), 3 === c.length && (2E3 < c[2] ? d.setFullYear(+c[2] || 0) : 100 > c[2] && (e = 100 * Math.floor(d.getFullYear() / 100) + (+c[2] || 0
-                ), e > d.getFullYear() && (e -= 100
-                ), d.setFullYear(e)
-                )
+                        ), e > d.getFullYear() && (e -= 100
+                        ), d.setFullYear(e)
+                    )
                 ), 2 <= c.length && (d.setDate(1), d.setMonth((+c[1] || 0
-                                                              ) - 1
-                ), d.setDate(+c[0] || 0)
+                    ) - 1
+                    ), d.setDate(+c[0] || 0)
                 ), c = Math.floor(d.getTime() / 1E3), 1E9 < c
-                )) {
+            )) {
                 return b ? c : d
             }
         }
@@ -864,7 +864,7 @@ AGO.Task = {
         }
         if (1 <= b) {
             for (d =
-                 16; 20 >= d; d++) {
+                     16; 20 >= d; d++) {
                 c[AGO.Task.Info[d]] = +a[AGO.Task.Info[d]] || 0;
             }
         }
@@ -900,34 +900,34 @@ AGO.Task = {
         var d, e;
         d = STR.check(a).split(":");
         a = {
-            galaxy:         +d[0] || 0,
-            system:         +d[1] || 0,
-            position:       +d[2] || 0,
-            type:           +d[3] || 0,
-            mission:        +d[4] || 0,
-            speed:          +d[5] || 0,
-            holdingtime:    +d[6] || 0,
+            galaxy: +d[0] || 0,
+            system: +d[1] || 0,
+            position: +d[2] || 0,
+            type: +d[3] || 0,
+            mission: +d[4] || 0,
+            speed: +d[5] || 0,
+            holdingtime: +d[6] || 0,
             expeditiontime: +d[7] || 0,
-            union:          +d[8] || 0,
-            routine:        +d[9] || 0,
-            name:           d[10] || "",
-            detail:         d[11] || "",
-            detail2:        +d[12] || 0,
-            preferCargo:    d[13] || "",
-            preferShip:     d[14] || "",
-            arrival:        +d[15] || 0
+            union: +d[8] || 0,
+            routine: +d[9] || 0,
+            name: d[10] || "",
+            detail: d[11] || "",
+            detail2: +d[12] || 0,
+            preferCargo: d[13] || "",
+            preferShip: d[14] || "",
+            arrival: +d[15] || 0
         };
         0 <= c && AGO.Task.updateCoords(a, c);
         1 <= b && (a.metal = +d[16] || 0, a.crystal = +d[17] || 0, a.deuterium =
-                                                                   +d[18] || 0, a.preferResource = +d[19] || 0, a.timeResource = +d[20] || 0, a.resources = a.metal + a.crystal + a.deuterium
+                +d[18] || 0, a.preferResource = +d[19] || 0, a.timeResource = +d[20] || 0, a.resources = a.metal + a.crystal + a.deuterium
         );
         if (2 <= b) {
             for (a.ships = 0, a.shipsCivil = 0, a.shipsCombat = 0, a.timeShip = +d[21] || 0, e = 22; 35 >= e; e++) {
                 c = String(e + 180), b = +d[e] || 0, (a[c] = b
-                                                     ) && "212" !== c && (a.ships += b, c in AGO.Item.ShipCivil && (a.shipsCivil += b
-                ), c in AGO.Item.ShipCombat && (a.shipsCombat += b
-                )
-                                                     );
+                ) && "212" !== c && (a.ships += b, c in AGO.Item.ShipCivil && (a.shipsCivil += b
+                    ), c in AGO.Item.ShipCombat && (a.shipsCombat += b
+                    )
+                );
             }
         }
         return a
@@ -940,24 +940,24 @@ AGO.Task = {
         var c, d;
         if (OBJ.is(a)) {
             c =
-            [
-                a.galaxy || "",
-                a.system || "",
-                a.position || "",
-                a.type || "",
-                a.mission || "",
-                a.speed || "",
-                a.holdingtime || "",
-                a.expeditiontime || "",
-                a.union || "",
-                a.routine || "",
-                a.name || "",
-                a.detail || "",
-                a.detail2 || "",
-                a.preferCargo || "",
-                a.preferShip || "",
-                a.arrival || ""
-            ];
+                [
+                    a.galaxy || "",
+                    a.system || "",
+                    a.position || "",
+                    a.type || "",
+                    a.mission || "",
+                    a.speed || "",
+                    a.holdingtime || "",
+                    a.expeditiontime || "",
+                    a.union || "",
+                    a.routine || "",
+                    a.name || "",
+                    a.detail || "",
+                    a.detail2 || "",
+                    a.preferCargo || "",
+                    a.preferShip || "",
+                    a.arrival || ""
+                ];
             1 <= b && (c[16] = a.metal || "", c[17] = a.crystal || "", c[18] = a.deuterium || "", c[19] = a.preferResource || "", c[20] = a.timeResource || ""
             );
             if (2 <= b) {
@@ -971,24 +971,24 @@ AGO.Task = {
     },
     updateCoords: function (a, b, c) {
         OBJ.is(a) && (!c &&
-                      AGO.Task.checkCoords(a.galaxy, a.system, a.position) ? a.coords = a.galaxy + ":" + a.system + ":" + a.position : OBJ.is(c) && AGO.Task.checkCoords(c.galaxy, c.system, c.position) ? (a.galaxy = c.galaxy, a.system = c.system, a.position = c.position, a.coords = a.galaxy + ":" + a.system + ":" + a.position
-        ) : b && (c || (c = a
-        ), 2 >= b ? (a.galaxy = 2 === b ? AGO.Acc.galaxy : 0, a.system = 2 === b ? AGO.Acc.system : 0, a.position = 2 === b ? AGO.Acc.position : 0
-        ) : (a.galaxy = NMR.isMinMax(c.galaxy, 1, AGO.Uni.galaxies) ? c.galaxy : 3 === b ? AGO.Acc.galaxy : 0, a.system = NMR.isMinMax(c.system, 1,
-                                                                                                                                       AGO.Uni.systems
-        ) ? c.system : 3 === b ? AGO.Acc.system : 0, a.position = NMR.isMinMax(c.position, 1, AGO.Uni.positions) ? c.position : 3 === b ? AGO.Acc.position : 0
-           ), a.coords = 1 === b ? "" : a.galaxy + ":" + a.system + ":" + a.position
-        ), a.owncoords = AGO.Planets.owncoords(a.coords, a.type), a.coordstype = a.coords && a.type ? a.coords + ":" + a.type : ""
+            AGO.Task.checkCoords(a.galaxy, a.system, a.position) ? a.coords = a.galaxy + ":" + a.system + ":" + a.position : OBJ.is(c) && AGO.Task.checkCoords(c.galaxy, c.system, c.position) ? (a.galaxy = c.galaxy, a.system = c.system, a.position = c.position, a.coords = a.galaxy + ":" + a.system + ":" + a.position
+            ) : b && (c || (c = a
+                ), 2 >= b ? (a.galaxy = 2 === b ? AGO.Acc.galaxy : 0, a.system = 2 === b ? AGO.Acc.system : 0, a.position = 2 === b ? AGO.Acc.position : 0
+                ) : (a.galaxy = NMR.isMinMax(c.galaxy, 1, AGO.Uni.galaxies) ? c.galaxy : 3 === b ? AGO.Acc.galaxy : 0, a.system = NMR.isMinMax(c.system, 1,
+                        AGO.Uni.systems
+                    ) ? c.system : 3 === b ? AGO.Acc.system : 0, a.position = NMR.isMinMax(c.position, 1, AGO.Uni.positions) ? c.position : 3 === b ? AGO.Acc.position : 0
+                ), a.coords = 1 === b ? "" : a.galaxy + ":" + a.system + ":" + a.position
+            ), a.owncoords = AGO.Planets.owncoords(a.coords, a.type), a.coordstype = a.coords && a.type ? a.coords + ":" + a.type : ""
         )
     },
     updateCoordsType: function (a, b) {
         var c;
         b = STR.check(b);
         OBJ.is(a) && (c = b.split(":"), NMR.isMinMax(+c[3], 1, 3) && (a.type = +c[3] || 0
-        ), AGO.Task.checkCoords(+c[0], +c[1], +c[2]) ? (a.galaxy = +c[0] || 0, a.system = +c[1] ||
-                                                                                          0, a.position = +c[2] || 0, a.coords = a.galaxy + ":" + a.system + ":" + a.position, a.coordstype = a.type ? a.coords + ":" + a.type : "", a.owncoords = AGO.Planets ? AGO.Planets.owncoords(a.coords, a.type) : 0
-        ) : (delete a.coords, delete a.coordstype, delete a.owncoords
-           )
+            ), AGO.Task.checkCoords(+c[0], +c[1], +c[2]) ? (a.galaxy = +c[0] || 0, a.system = +c[1] ||
+                    0, a.position = +c[2] || 0, a.coords = a.galaxy + ":" + a.system + ":" + a.position, a.coordstype = a.type ? a.coords + ":" + a.type : "", a.owncoords = AGO.Planets ? AGO.Planets.owncoords(a.coords, a.type) : 0
+            ) : (delete a.coords, delete a.coordstype, delete a.owncoords
+            )
         )
     },
     updateResources: function (a) {
@@ -997,36 +997,36 @@ AGO.Task = {
     },
     updateStandardUnits: function (a) {
         OBJ.is(a) && (a.standardunits = AGO.Ogame.getStandardUnits(a,
-                                                                   AGO.Option.get("B35", 2)
-        )
+                AGO.Option.get("B35", 2)
+            )
         )
     },
     addResources: function (a, b) {
         OBJ.is(a) && (OBJ.is(b) && b.timeResource ? (OBJ.iterate(AGO.Item.Resource, function (c) {
-                                                                     a[c] = (a[c] || 0
-                                                                            ) + (b[c] || 0
-                                                                            )
-                                                                 }
-        ), a.resources = a.metal + a.crystal + a.deuterium, a.timeResource = a.timeResource || -1
-        ) : a.timeResource = a.timeResource ? -1 : 0
+                        a[c] = (a[c] || 0
+                        ) + (b[c] || 0
+                        )
+                    }
+                ), a.resources = a.metal + a.crystal + a.deuterium, a.timeResource = a.timeResource || -1
+            ) : a.timeResource = a.timeResource ? -1 : 0
         )
     },
     addShips: function (a, b) {
         OBJ.is(a) && (OBJ.is(b) && b.timeShip ? (a.shipsCivil = 0, a.shipsCombat = 0, OBJ.iterate(AGO.Item.ShipCivil, function (c) {
-                                                                                                      a[c] = (a[c] || 0
-                                                                                                             ) + (b[c] || 0
-                                                                                                             );
-                                                                                                      a.shipsCivil += a[c]
-                                                                                                  }
-        ), OBJ.iterate(AGO.Item.ShipCombat, function (c) {
-                           a[c] =
-                           (a[c] || 0
-                           ) + (b[c] || 0
-                           );
-                           a.shipsCombat += a[c]
-                       }
-        ), a.ships = a.shipsCivil + a.shipsCombat, a.timeShip = a.timeShip || -1
-        ) : a.timeShip = a.timeShip ? -1 : 0
+                        a[c] = (a[c] || 0
+                        ) + (b[c] || 0
+                        );
+                        a.shipsCivil += a[c]
+                    }
+                ), OBJ.iterate(AGO.Item.ShipCombat, function (c) {
+                        a[c] =
+                            (a[c] || 0
+                            ) + (b[c] || 0
+                            );
+                        a.shipsCombat += a[c]
+                    }
+                ), a.ships = a.shipsCivil + a.shipsCombat, a.timeShip = a.timeShip || -1
+            ) : a.timeShip = a.timeShip ? -1 : 0
         )
     },
     updateShips: function (a) {
@@ -1034,8 +1034,8 @@ AGO.Task = {
         if (OBJ.is(a)) {
             for (b in a.ships = 0, a.shipsCivil = 0, a.shipsCombat = 0, AGO.Item.Ship) {
                 a[b] && "212" !== b ? (a.ships += a[b], b in AGO.Item.ShipCivil && (a.shipsCivil += a[b]
-                ), b in AGO.Item.ShipCombat && (a.shipsCombat += a[b]
-                )
+                    ), b in AGO.Item.ShipCombat && (a.shipsCombat += a[b]
+                    )
                 ) : a[b] = 0
             }
         }
@@ -1047,10 +1047,10 @@ AGO.Task = {
                                b
     ) {
         return NMR.minMax(a, 1, {
-                                    galaxy: AGO.Uni.galaxies,
-                                    system: AGO.Uni.systems,
-                                    position: AGO.Uni.positions
-                                }[b] || 0
+            galaxy: AGO.Uni.galaxies,
+            system: AGO.Uni.systems,
+            position: AGO.Uni.positions
+        }[b] || 0
         )
     },
     cutSystem: function (a) {
@@ -1068,12 +1068,12 @@ AGO.Task = {
             (c = a.match(/([^\d:]|\b)t\s{0,2}\d{1,2}:\d{1,3}:\d{1,2}(:\d)*([^\d:]|\b)/i)
             ) && c[0] && (d = c[0], a = ""
             ), (c = a.match(/([^\d:]|\b)\d{1,2}\.\d{1,2}(\.\d{2}|\.\d{4})*([^\d:]|\b)/)
-               ) &&
-               c[0] && (d = c[0] + " " + a.split(c[0])[1], a = a.split(c[0])[0]
+            ) &&
+            c[0] && (d = c[0] + " " + a.split(c[0])[1], a = a.split(c[0])[0]
             ), (c = a.match(/([^\d:]|\b)\d{1,2}:\d{1,3}:\d{1,2}(:\d)*([^\d:]|\b)/)
-               ) && c[0] && (d || (d = a.split(c[0])[1]
-            ), AGO.Task.updateCoordsType(b, c[0].replace(/[^\d:]/g, ""))
-               ), d && (b.time = AGO.Time.parseDateTime(d, !0)
+            ) && c[0] && (d || (d = a.split(c[0])[1]
+                ), AGO.Task.updateCoordsType(b, c[0].replace(/[^\d:]/g, ""))
+            ), d && (b.time = AGO.Time.parseDateTime(d, !0)
             );
         }
         return b
@@ -1081,8 +1081,8 @@ AGO.Task = {
     trimCoords: function (a) {
         var b, c;
         return (a = STR.check(a)
-               ) ? (b = a.lastIndexOf("["), c = a.lastIndexOf("]"), a.slice(-1 < b ? b + 1 : 0, -1 < c ? c : a.length).trim()
-               ) : ""
+        ) ? (b = a.lastIndexOf("["), c = a.lastIndexOf("]"), a.slice(-1 < b ? b + 1 : 0, -1 < c ? c : a.length).trim()
+        ) : ""
     }
 };
 AGO.Token = {
@@ -1090,17 +1090,17 @@ AGO.Token = {
         "Action" === a && AGO.Token.Action(b)
     }, Init: function (a, b) {
         OBJ.is(a) && (OBJ.is(a.Info) ? (AGO.Token.Data = a, AGO.Token.Info = a.Info
-        ) : AGO.Token.Info = a
+            ) : AGO.Token.Info = a
         );
         b && (AGO.Token.getPlayerStatusList = null
         )
     }, Action: function (a) {
         OBJ.is(a) && (a.keyPlayer = AGO.App.keyPlayer, a.refresh = "galaxy" === AGO.App.page, AGB.message("Token", "Action", a, function (b) {
-                                                                                                              b && b.changed && (b.marked = a.marked, b.Data && (AGO.Token.Data = b.Data, b.Data = null
-                                                                                                              ), AGO.Init.Messages("Panel", "Action", b)
-                                                                                                              )
-                                                                                                          }
-        )
+                    b && b.changed && (b.marked = a.marked, b.Data && (AGO.Token.Data = b.Data, b.Data = null
+                        ), AGO.Init.Messages("Panel", "Action", b)
+                    )
+                }
+            )
         )
     }, getPlayerStatus: function (a,
                                   b
@@ -1118,7 +1118,7 @@ AGO.Token = {
             for (d = (c[k].className || ""
             ).split(" "), g = 0; g < d.length; g++) {
                 (f = (d[g] || ""
-                ).trim()
+                    ).trim()
                 ) && (e = Math.max(AGO.Token.getPlayerStatusList[f], e)
                 );
             }
@@ -1129,26 +1129,26 @@ AGO.Token = {
         ) : ""
     }, getClassSelection: function (a) {
         return 3 >=
-               a ? "ago_selection_S" + a : "ago_selection_" + a
+        a ? "ago_selection_S" + a : "ago_selection_" + a
     }, getClassSelected: function (a, b) {
         return "ago_selected ago_selected_" + (3 >= a ? "S" + a : a
-            ) + (b ? "_own" : ""
-               )
+        ) + (b ? "_own" : ""
+        )
     }, getClassHover: function (a, b) {
         return "ago_hover ago_hover_" + (3 >= a ? "S" + a : a
-            ) + (b ? "_own" : ""
-               )
+        ) + (b ? "_own" : ""
+        )
     }, getClassHighlight: function (a, b) {
         return "ago_highlight ago_highlight_" + (3 >= a ? "S" + a : a
-            ) + (b ? "_active" : ""
-               )
+        ) + (b ? "_active" : ""
+        )
     }, getColor: function (a) {
         return a && AGO.Token.Info[a] ? AGO.Token.Info[a].color || "" : ""
     }, getCondition: function (a) {
         return a && AGO.Token.Info[a] ? AGO.Token.Info[a].condition : 0
     }, getLimit: function (a) {
         return a &&
-               AGO.Token.Info[a] ? AGO.Token.Info[a].limit : 0
+        AGO.Token.Info[a] ? AGO.Token.Info[a].limit : 0
     }, getLabel: function (a) {
         return a && AGO.Token.Info[a] ? AGO.Token.Info[a].name || AGO.Label.get("C" + a) : ""
     }, valid: function (a) {
@@ -1157,7 +1157,7 @@ AGO.Token = {
     }, getColorOpacity: function (a, b) {
         var c;
         return a && AGO.Token.Info[a] && AGO.Token.Info[a].color ? (c = +AGO.Token.Info[a].opacity || (80 > a ? AGO.Option.get("CT2", 2) : AGO.Styles.opacity
-        ) || 100, "INHERIT" === AGO.Token.Info[a].color ? c / 100 : HTML.color(AGO.Token.Info[a].color, b ? 2 * c : c)
+            ) || 100, "INHERIT" === AGO.Token.Info[a].color ? c / 100 : HTML.color(AGO.Token.Info[a].color, b ? 2 * c : c)
         ) : ""
     }
 };
@@ -1167,20 +1167,20 @@ AGO.Fleet = {
         AGO.Fleet.Data.Current = AGO.Data.getStorage(AGO.App.keyPlayer + "_Fleet_Current", "JSON")
     }, Content: function (a, b, c, d) {
         b = OBJ.parse(d);
-        "fetcheventbox" === a ? "friendly"in b && (AGO.Fleet.Set("Current", "fleets", +b.friendly || 0), AGO.Init.Messages("Panel", "updateTab", {tab: "Flights"})
-        ) : "minifleet" === a && b.response && ("slots"in b.response && (AGO.Fleet.Set("Current", "fleets", +OBJ.get(b.response, "slots") || 0), AGO.Init.Messages("Panel", "updateTab", {tab: "Flights"})
-        ),
-            AGO.Init.Messages("Page", "sendShips", {mode: "finish", success: b.response.success})
+        "fetcheventbox" === a ? "friendly" in b && (AGO.Fleet.Set("Current", "fleets", +b.friendly || 0), AGO.Init.Messages("Panel", "updateTab", {tab: "Flights"})
+        ) : "minifleet" === a && b.response && ("slots" in b.response && (AGO.Fleet.Set("Current", "fleets", +OBJ.get(b.response, "slots") || 0), AGO.Init.Messages("Panel", "updateTab", {tab: "Flights"})
+            ),
+                AGO.Init.Messages("Page", "sendShips", {mode: "finish", success: b.response.success})
         )
     }, Set: function (a, b, c) {
         a && AGO.Fleet.Data[a] && (b = "string" === typeof b ? OBJ.createKey(b, c) : b, OBJ.iterate(b, function (c) {
-                                                                                                        AGO.Fleet.Data[a][c] = b[c]
-                                                                                                    }
-        ), "Current" === a ? AGO.Data.setStorage(AGO.App.keyPlayer + "_Fleet_Current", AGO.Fleet.Data.Current) : AGB.message("Fleet", "Set", {
-                                                                                                                                 tab: a,
-                                                                                                                                 data: b
-                                                                                                                             }
-        )
+                    AGO.Fleet.Data[a][c] = b[c]
+                }
+            ), "Current" === a ? AGO.Data.setStorage(AGO.App.keyPlayer + "_Fleet_Current", AGO.Fleet.Data.Current) : AGB.message("Fleet", "Set", {
+                    tab: a,
+                    data: b
+                }
+            )
         )
     }, Get: function (a, b, c) {
         a = a && AGO.Fleet.Data[a] && (b || 0 === b
@@ -1198,8 +1198,8 @@ AGO.DataBase = {
     }, Notify: function (a) {
         var b;
         OBJ.is(a) && (b = AGO.DataBase.Info[a.tab]
-        ) && ("loading"in a ? AGO.Notify.set(b, 3, " " + a.loading + " %") : (AGO.DataBase.Init(a), AGO.Notify.set(b, 4, " (" + OBJ.get(AGO.DataBase.Data[a.tab], "entries") + ")")
-        )
+        ) && ("loading" in a ? AGO.Notify.set(b, 3, " " + a.loading + " %") : (AGO.DataBase.Init(a), AGO.Notify.set(b, 4, " (" + OBJ.get(AGO.DataBase.Data[a.tab], "entries") + ")")
+            )
         )
     }
 };
@@ -1208,18 +1208,18 @@ AGO.Tools = {
         "Action" === a && AGO.Tools.Action(b)
     }, Action: function (a) {
         a && (a.keyPlayer = AGO.App.keyPlayer, a.planetId = AGO.Acc.planetId, a.coords = AGO.Acc.coords, a.coordstype = AGO.Acc.coordstype, a.type = AGO.Acc.type, a.planetName = AGO.Acc.planetName, a.Planets = {}, AGO.Planets.iterate(1, function (b, c) {
-                                                                                                                                                                                                                                              a.Planets[c] = {
-                                                                                                                                                                                                                                                  name: b.name,
-                                                                                                                                                                                                                                                  temp: b.temp
-                                                                                                                                                                                                                                              }
-                                                                                                                                                                                                                                          }
-        ), AGB.message("Tools", "Action", a, function (b) {
-                           var c;
-                           b && b.href && (c = document.getElementById("ago_tools_send") ||
-                                               document.body.appendChild(document.createElement("a")), c.id = "ago_tools_send", c.href = b.href, c.style.display = "none", c.target = a.shiftKeys || AGO.Option.is("T01") ? "_blank" : "ago_tools_" + b.id, DOM.click(c)
-                           )
-                       }
-        )
+                    a.Planets[c] = {
+                        name: b.name,
+                        temp: b.temp
+                    }
+                }
+            ), AGB.message("Tools", "Action", a, function (b) {
+                    var c;
+                    b && b.href && (c = document.getElementById("ago_tools_send") ||
+                            document.body.appendChild(document.createElement("a")), c.id = "ago_tools_send", c.href = b.href, c.style.display = "none", c.target = a.shiftKeys || AGO.Option.is("T01") ? "_blank" : "ago_tools_" + b.id, DOM.click(c)
+                    )
+                }
+            )
         )
     }
 };

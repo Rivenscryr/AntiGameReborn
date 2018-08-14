@@ -6,7 +6,7 @@ AGB.Time = {
         return Math.floor(Date.now() / 1E3)
     }, timestampMinute: function () {
         return Math.floor((Date.now() - 1381E9
-                          ) / 6E4
+        ) / 6E4
         )
     }, timestampMinuteConvert: function (a) {
         return 1E3 < a ? 60 * (+a || 0
@@ -115,7 +115,7 @@ var VAL = {
         return Boolean(a && "string" === typeof a)
     }, check: function (a) {
         return "string" === typeof a ? a : "number" === typeof a &&
-                                           a ? a + "" : ""
+        a ? a + "" : ""
     }, trim: function (a) {
         return "string" === typeof a ? a.trim() : "number" === typeof a && a ? a + "" : ""
     }, zero: function (a) {
@@ -127,11 +127,11 @@ var VAL = {
         return "string" === typeof a && "string" === typeof a ? a.length === b.length && a === b : !1
     }, getAttribute: function (a, b) {
         return "string" === typeof a ? ((a.split(" " + b + '="')[1] || ""
-                                        ).split('"')[0] || ""
+            ).split('"')[0] || ""
         ).trim() : ""
     }, getParameter: function (a, b) {
         var c = decodeURIComponent(b ||
-                                   ""
+            ""
         ).replace(/\?/g, "&").split("&" + a + "=")[1];
         return c ? c.split("&")[0].split("#")[0] || "" : ""
     }, addUrlPara: function (a, b) {
@@ -142,7 +142,7 @@ var VAL = {
         if ("string" === typeof a && 0 < a.length) {
             for (b = 0; b < a.length; b++) {
                 c = (c << 5
-                    ) - c + a.charCodeAt(b), c &= c;
+                ) - c + a.charCodeAt(b), c &= c;
             }
         }
         return c
@@ -154,7 +154,7 @@ var VAL = {
         return +a >= b && +a <= c
     }, parseInt: function (a) {
         return "string" === typeof a ? parseInt(a, 10) : "number" === typeof a ?
-                                                         Math.floor(a) : 0
+            Math.floor(a) : 0
     }, parseIntFormat: function (a) {
         return "string" === typeof a ? +a.replace(/[^\d\-]/g, "") || 0 : "number" === typeof a ? Math.floor(a) : 0
     }, parseIntAbs: function (a) {

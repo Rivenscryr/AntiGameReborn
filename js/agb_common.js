@@ -48,7 +48,7 @@ AGB.Option = {
     },
     Messages: function (a, b, c) {
         "Set" === a ? AGB.Option.Set(b,
-                                     c
+            c
         ) : "Menu" === a ? AGB.Option.Menu(b, c) : "Save" === a && AGB.Option.MenuSave(b, c)
     },
     Init: function (a, b) {
@@ -67,16 +67,16 @@ AGB.Option = {
                 g = STR.check(c.one).split(",");
                 for (h = 0; h < g.length; h++) {
                     c[g[h]] =
-                    1;
+                        1;
                 }
                 c.version === d.version && OBJ.parseCopy(d, c)
             }
             f = AGB.Option.get(c, "D04");
             f = NMR.isMinMax(f, 1, 3) ? f : NMR.minMax(AGB.Option.getDefault("D04", 0), 1, 3);
             OBJ.iterate(AGB.Para, function (a) {
-                            AGB.Para[a][0] && (AGB.Option.set(AGB.Option.Data[e], a, AGB.Option.getDefault(a, f)), a in c && AGB.Option.set(AGB.Option.Data[e], a, c[a])
-                            )
-                        }
+                    AGB.Para[a][0] && (AGB.Option.set(AGB.Option.Data[e], a, AGB.Option.getDefault(a, f)), a in c && AGB.Option.set(AGB.Option.Data[e], a, c[a])
+                    )
+                }
             );
             AGB.Option.Upgrade(AGB.Option.Data[e])
         }
@@ -85,7 +85,7 @@ AGB.Option = {
         var b;
         b = AGB.Data.get("Option", "Data", "version");
         a.version && 12 > a.version && (AGB.Core.Log("Option - Upgrade version 12 ", !0), a.F01 = 0, a.F13 =
-                                                                                                     a.FH0 = 1, a.F70 = 2, a.FA0 = 3, a.F80 = a.F90 = a.FL0 = 4, a.F63 = ""
+                a.FH0 = 1, a.F70 = 2, a.FA0 = 3, a.F80 = a.F90 = a.FL0 = 4, a.F63 = ""
         );
         a.version !== b && (a.version = b, a.changed = !0, AGB.Data.Change()
         )
@@ -96,14 +96,14 @@ AGB.Option = {
         b = AGB.Option.Data[c];
         AGB.Data.isStatus(c) && b && (a.backup || b.changed
         ) && (delete b.changed, f = [], g = [], d = {version: AGB.Data.get("Option", "Data", "version")}, e = {version: AGB.Data.get("Option", "Data", "version")}, OBJ.iterate(AGB.Para, function (a) {
-                                                                                                                                                                                    AGB.Para[a][1] && (b[a] ? 1 === b[a] ? g.push(a) : d[a] = b[a] : f.push(a), 3 === AGB.Para[a][1] && (e[a] = b[a]
-                                                                                                                                                                                    )
-                                                                                                                                                                                    )
-                                                                                                                                                                                }
-        ),
-            d.empty = f.join(","), d.one = g.join(","), a.save && (a.save[c + "_Option_Data"] = JSON.stringify(d), a.save[c + "_Option_Local"] = JSON.stringify(e)
-        ), a.backup && AGB.Data.isBackup(c, "Option", "Data", 2) && (a.backup.Option_Data = JSON.stringify(d)
-        )
+                    AGB.Para[a][1] && (b[a] ? 1 === b[a] ? g.push(a) : d[a] = b[a] : f.push(a), 3 === AGB.Para[a][1] && (e[a] = b[a]
+                        )
+                    )
+                }
+            ),
+                d.empty = f.join(","), d.one = g.join(","), a.save && (a.save[c + "_Option_Data"] = JSON.stringify(d), a.save[c + "_Option_Local"] = JSON.stringify(e)
+            ), a.backup && AGB.Data.isBackup(c, "Option", "Data", 2) && (a.backup.Option_Data = JSON.stringify(d)
+            )
         )
     },
     Menu: function (a, b) {
@@ -116,11 +116,11 @@ AGB.Option = {
         d = AGB.App.getPlayer(a);
         c = AGB.Option.Data[d];
         AGB.Data.isStatus(d) && c && (OBJ.is(a.data) && (OBJ.iterate(AGB.Para,
-                                                                     function (b) {
-                                                                         AGB.Para[b][0] && b in a.data && AGB.Option.set(c, b, a.data[b])
-                                                                     }
-        ), c.status = 1
-        ), a.data = null, c.changed = !0, AGB.Data.Change(d), AGB.Token.InitInfo(a), AGB.Data.Sync(a), b && b(c)
+                    function (b) {
+                        AGB.Para[b][0] && b in a.data && AGB.Option.set(c, b, a.data[b])
+                    }
+                ), c.status = 1
+            ), a.data = null, c.changed = !0, AGB.Data.Change(d), AGB.Token.InitInfo(a), AGB.Data.Sync(a), b && b(c)
         )
     },
     Set: function (a, b) {
@@ -128,19 +128,19 @@ AGB.Option = {
         d = AGB.App.getPlayer(a);
         c = AGB.Option.Data[d];
         d && c && ((e = AGB.Option.valid(a.id)
-                   ) && AGB.Para[e] && AGB.Para[e][0] ? (d = AGB.Option.get(c, e), e = {
-            id: e,
-            value: AGB.Option.set(c, e, a.value)
-        }, d !== e.value && (c.changed = !0, AGB.Data.Change()
-        ), b && b(e)
-                   ) : e && (c[e] = a.value
-        )
+            ) && AGB.Para[e] && AGB.Para[e][0] ? (d = AGB.Option.get(c, e), e = {
+                    id: e,
+                    value: AGB.Option.set(c, e, a.value)
+                }, d !== e.value && (c.changed = !0, AGB.Data.Change()
+                ), b && b(e)
+            ) : e && (c[e] = a.value
+            )
         )
     },
     Get: function (a, b) {
         return (b = AGB.Option.valid(b)
-               ) &&
-               a && OBJ.is(AGB.Option.Data[a]) ? AGB.Option.get(AGB.Option.Data[a], b) : ""
+        ) &&
+        a && OBJ.is(AGB.Option.Data[a]) ? AGB.Option.get(AGB.Option.Data[a], b) : ""
     },
     set: function (a, b, c) {
         var d;
@@ -158,7 +158,7 @@ AGB.Option = {
                 c[0] = AGB.Option.valid(c[0]);
                 c[1] = 21 <= d ? NMR.minMax(+c[1], 0, 100) || "" : "";
                 c[2] = 22 <= d ? NMR.minMax(+c[2], 0,
-                                            19
+                    19
                 ) || "" : "";
                 c[3] = c[2] ? +c[3] || "" : "";
                 c[4] = 23 <= d ? AGB.Option.valid(c[4]) : "";
@@ -184,8 +184,8 @@ AGB.Option = {
         var c;
         c = OBJ.get(AGB.Para[b], 0);
         return a && b ? 1 === c ? a[b] ? 1 : 0 : 2 === c ? +a[b] || 0 : c ? "string" === typeof a[b] ? a[b] : "number" === typeof a[b] ?
-                                                                                                              (a[b] || ""
-                                                                                                              ) + "" : "" : a[b] : ""
+            (a[b] || ""
+            ) + "" : "" : a[b] : ""
     },
     getDefault: function (a, b) {
         var c;
@@ -212,58 +212,58 @@ AGB.Label = {
     }, Load: function (a) {
         var b;
         AGB.App.getPlayer(a,
-                          "copy"
+            "copy"
         ) && (b = new XMLHttpRequest, b.open("GET", a.urlUni + "/api/localization.xml?nocache=" + AGB.Time.timestamp(), !0), b.overrideMimeType("text/html"), b.setRequestHeader("Cache-Control", "no-cache"), b.setRequestHeader("Pragma", "no-cache"), b.onerror = b.onload = function () {
-            var c, d, e, f, g, h, l, p;
-            d = AGB.App.getPlayer(a);
-            c = {};
-            if (d && AGB.Label.Data[d]) {
-                if (200 === +b.status && b.responseText) {
-                    for (e = STR.check(b.responseText).split("<name"), p = 0; p < e.length; p++) {
-                        if (f = STR.check(e[p])) {
-                            c.status = 1, l = STR.getAttribute(f, "id"), h = STR.check((f.split(">")[1] ||
-                                                                                        ""
-                                                                                       ).split("<")[0]
-                            ).trim(), +l && h && ("techs" === g && (c["L" + STR.trimZero(l, Math.max(3, l.toString().length))] = h
-                            ), "missions" === g && (c["LM" + STR.trimZero(l, 2)] = h
-                            )
-                            ), -1 < f.indexOf("<techs>") && (g = "techs"
-                            ), -1 < f.indexOf("<missions>") && (g = "missions"
-                            );
+                var c, d, e, f, g, h, l, p;
+                d = AGB.App.getPlayer(a);
+                c = {};
+                if (d && AGB.Label.Data[d]) {
+                    if (200 === +b.status && b.responseText) {
+                        for (e = STR.check(b.responseText).split("<name"), p = 0; p < e.length; p++) {
+                            if (f = STR.check(e[p])) {
+                                c.status = 1, l = STR.getAttribute(f, "id"), h = STR.check((f.split(">")[1] ||
+                                        ""
+                                    ).split("<")[0]
+                                ).trim(), +l && h && ("techs" === g && (c["L" + STR.trimZero(l, Math.max(3, l.toString().length))] = h
+                                    ), "missions" === g && (c["LM" + STR.trimZero(l, 2)] = h
+                                    )
+                                ), -1 < f.indexOf("<techs>") && (g = "techs"
+                                ), -1 < f.indexOf("<missions>") && (g = "missions"
+                                );
+                            }
                         }
                     }
+                    1 === c.status && (OBJ.copy(c, AGB.Label.Data[d]), AGB.Item.Init(a), AGB.Data.setStorage(a.keyCom, "Label", "Api", c)
+                    );
+                    AGB.Core.Log("Update   - Label    : " + a.urlUni + "/api/localization.xml" + (c.status = 1, ""
+                    ), !0
+                    )
                 }
-                1 === c.status && (OBJ.copy(c, AGB.Label.Data[d]), AGB.Item.Init(a), AGB.Data.setStorage(a.keyCom, "Label", "Api", c)
-                );
-                AGB.Core.Log("Update   - Label    : " + a.urlUni + "/api/localization.xml" + (c.status = 1, ""
-                             ), !0
-                )
-            }
-        }, b.send(null)
+            }, b.send(null)
         )
     }, Update: function (a) {
         var b, c, d, e, f;
         (c = AGB.App.getPlayer(a)
         ) && OBJ.is(a.data) && (b = {},
-            d = OBJ.is(a.data.localization) ? a.data.localization : {}, e = OBJ.is(d.timeunits) && d.timeunits["short"] ? d.timeunits["short"] : {}, b.KU0S = d.thousandSeperator || ".", b.KU0C = "." === d.thousandSeperator ? "," : ".", b.KU0K = d.unitKilo || "k", b.KU0M = d.unitMega || "m", b.KU0B = d.unitMilliard || "b", b.KD0Y = e.year || "y", b.KD0W = e.week || "w", b.KD0D = e.day || "d", b.KD0H = e.hour || "h", b.KD0M = e.minute || "m", b.KD0S = e.second || "s", d = OBJ.is(a.data.production) ? a.data.production : {}, f = {
-            metal: "091",
-            crystal: "092",
-            deuterium: "093",
-            energy: "094"
-        }, OBJ.iterate(f,
-                       function (a) {
-                           OBJ.is(d[a]) && (b["L" + f[a]] = (STR.check(d[a].tooltip).split("|")[0] || ""
-                                                            ).trim() || a
-                           )
-                       }
-        ), AGB.Core.Log("Update   - Label    : " + b.KU0B + ":" + b.KU0M + ":" + b.KU0K + " - " + b.KD0Y + ":" + b.KD0W + ":" + b.KD0D + " - " + b.KD0H + ":" + b.KD0M + ":" + b.KD0S, !0), AGB.Data.setStorage(c, "Label", "Loca", b), OBJ.copy(b, AGB.Label.Data[c]), AGB.Item.Init(a)
+                d = OBJ.is(a.data.localization) ? a.data.localization : {}, e = OBJ.is(d.timeunits) && d.timeunits["short"] ? d.timeunits["short"] : {}, b.KU0S = d.thousandSeperator || ".", b.KU0C = "." === d.thousandSeperator ? "," : ".", b.KU0K = d.unitKilo || "k", b.KU0M = d.unitMega || "m", b.KU0B = d.unitMilliard || "b", b.KD0Y = e.year || "y", b.KD0W = e.week || "w", b.KD0D = e.day || "d", b.KD0H = e.hour || "h", b.KD0M = e.minute || "m", b.KD0S = e.second || "s", d = OBJ.is(a.data.production) ? a.data.production : {}, f = {
+                metal: "091",
+                crystal: "092",
+                deuterium: "093",
+                energy: "094"
+            }, OBJ.iterate(f,
+                function (a) {
+                    OBJ.is(d[a]) && (b["L" + f[a]] = (STR.check(d[a].tooltip).split("|")[0] || ""
+                        ).trim() || a
+                    )
+                }
+            ), AGB.Core.Log("Update   - Label    : " + b.KU0B + ":" + b.KU0M + ":" + b.KU0K + " - " + b.KD0Y + ":" + b.KD0W + ":" + b.KD0D + " - " + b.KD0H + ":" + b.KD0M + ":" + b.KD0S, !0), AGB.Data.setStorage(c, "Label", "Loca", b), OBJ.copy(b, AGB.Label.Data[c]), AGB.Item.Init(a)
         )
     }, Get: function (a, b, c) {
         return (a = AGB.App.getPlayer(a)
-               ) && AGB.Label.Data[a] && b ? (c && (b = 1 === b.length ? "L00" + b : 2 === b.length ? "L0" + b : "L" + b
-        ), b in AGB.Label.Data[a] ? AGB.Label.Data[a][b] || "" :
-           b
-               ) : ""
+        ) && AGB.Label.Data[a] && b ? (c && (b = 1 === b.length ? "L00" + b : 2 === b.length ? "L0" + b : "L" + b
+            ), b in AGB.Label.Data[a] ? AGB.Label.Data[a][b] || "" :
+                b
+        ) : ""
     }
 };
 AGB.Styles = {
@@ -282,15 +282,15 @@ AGB.Styles = {
                 ) : (e = OBJ.get(AGB.App.Page[a], "css") || "", f = +AGB.Option.Get(d, f) || 0
                 );
                 e !== b.Page.file && (b[a] || (b[a] = {}
-                ), b[a].file = e
+                    ), b[a].file = e
                 );
                 f !== b.Page.improve && (b[a] ||
-                                         (b[a] = {}
-                                         ), b[a].improve = f
+                    (b[a] = {}
+                    ), b[a].improve = f
                 );
                 b.Events && h && (h = +AGB.Option.Get(d, h) || 0, h !== b.Page.events && (b[a] || (b[a] = {}
-                ), b[a].events = h
-                )
+                        ), b[a].events = h
+                    )
                 )
             }
 
@@ -305,9 +305,9 @@ AGB.Styles = {
             );
             if (e = AGB.Option.Get(d, "U11")) {
                 k = "  middle dark    color".split(" ")[e], m = AGB.Option.Get(d, "U19"), b.Skin = '@import url("' +
-                                                                                                   AGB.Config.pathSkin + 'cache/cache.css");' + (k ? '@import url("' + AGB.Config.pathSkin + "cache/" + k + '.css");' : ""
-                ) + (7 === e && m ? "body { background: " + m + " !important; }" : ""
-                                                                                                   );
+                    AGB.Config.pathSkin + 'cache/cache.css");' + (k ? '@import url("' + AGB.Config.pathSkin + "cache/" + k + '.css");' : ""
+                    ) + (7 === e && m ? "body { background: " + m + " !important; }" : ""
+                    );
             }
             b.Page = {file: "pages", improve: 0, events: +AGB.Option.Get(d, "E49") || 0};
             c("overview", "B01", "B01", "E41");
@@ -333,11 +333,11 @@ AGB.Styles = {
             e = [];
             OBJ.copy(AGB.Styles.colorType, e);
             AGB.Option.Get(c, "CM0") && (OBJ.iterate(AGB.Item.Mission, function (a) {
-                                                         d.push(".ago_color_" + a + "{color:" + AGB.Option.Get(c, a.replace(/M/, "C")) + "!important;}")
-                                                     }
-            ), m = AGB.Option.Get(c, "CM3"), NMR.isMinMax(m, 1, 99) && d.push("#eventContent .ago_events_reverse, #eventContent .ago_events_reverse + .ago_eventlist, #inhalt div.fleetDetails[ago_events_reverse] > span{opacity:" +
-                                                                              AGB.Styles.getOpacity(m) + "!important;}"
-            )
+                        d.push(".ago_color_" + a + "{color:" + AGB.Option.Get(c, a.replace(/M/, "C")) + "!important;}")
+                    }
+                ), m = AGB.Option.Get(c, "CM3"), NMR.isMinMax(m, 1, 99) && d.push("#eventContent .ago_events_reverse, #eventContent .ago_events_reverse + .ago_eventlist, #inhalt div.fleetDetails[ago_events_reverse] > span{opacity:" +
+                    AGB.Styles.getOpacity(m) + "!important;}"
+                )
             );
             if (AGB.Option.Get(c, "CT0")) {
                 for (m = 21; 80 > m; m++) {
@@ -355,11 +355,11 @@ AGB.Styles = {
                 (k = AGB.Token.getColor(c, "S5")
                 ) && d.push(".ago_selected_S5{box-shadow: 0 0 3px 2px " + k + ", 0 0 1px 1px " + k + " inset;}");
                 for (n = 1; 3 >=
-                            n; n++) {
+                n; n++) {
                     if (m = "S" + n, k = AGB.Token.getColor(c, m)) {
                         e[n] = k, d.push(".ago_selection_" + m + "{color:" + k + "!important;}"), d.push(".ago_selected_" + m + "{box-shadow: 0 0 0 1px " + k + " inset;}"), d.push(".ago_selected_" + m + "_own{box-shadow: 0 0 0 1px " + k + " inset;color:" + k + "!important;}"), d.push(".ago_hover_" + m + ":hover{box-shadow: 0 0 1px 0 " + k + " inset;}"), d.push(".ago_hover_" + m + "_own:hover{color:" + k + "!important;box-shadow: 0 0 1px 0 " + k + " inset;}"), AGB.Token.getCondition(c, m) && (d.push(".ago_highlight_" + m + "{background-color:" +
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        AGB.Token.getColorOpacity(c, m) + ";}"
-                        ), d.push(".ago_highlight_" + m + "_active{background-color:" + AGB.Token.getColorOpacity(c, m, "active") + ";}")
+                                AGB.Token.getColorOpacity(c, m) + ";}"
+                            ), d.push(".ago_highlight_" + m + "_active{background-color:" + AGB.Token.getColorOpacity(c, m, "active") + ";}")
                         );
                     }
                 }
@@ -369,7 +369,7 @@ AGB.Styles = {
                     }
                     if (k = AGB.Token.getColor(c, "S3")) {
                         d.push("#rechts .ago_highlight_S3 .planet-name, #rechts .ago_highlight_S3 .planet-koords{color:" +
-                               k + "!important;}"
+                            k + "!important;}"
                         ), d.push("#rechts .ago_highlight_S3_active .planet-name, #rechts .ago_highlight_S3_active .planet-koords{color:" + k + "!important;}"), d.push("#rechts .ago_hover_S3:hover .planet-name, #rechts .ago_hover_S3:hover .planet-koords{color:" + k + "!important;}")
                     }
                 }
@@ -391,15 +391,15 @@ AGB.Styles = {
     },
     getOpacity: function (a) {
         return "0." + (10 > a ? "0" + a : a
-            )
+        )
     },
     getImport: function (a) {
         return a ? '@import url("' + AGB.Config.pathSkin + "ago/" + a + '.css");' : ""
     },
     getColor: function (a, b) {
         return !a || 4 !== a.length && 7 !== a.length ? "" : 0 < b && 100 > b ? (a = 7 === a.length ? parseInt(a.substring(1, 3), 16) + "," + parseInt(a.substring(3, 5), 16) + "," + parseInt(a.substring(5, 7), 16) : parseInt(a.substring(1, 2), 16) + "," + parseInt(a.substring(2, 3), 16) + "," + parseInt(a.substring(3, 4), 16), "rgba(" + a + (10 > b ? ",0.0" :
-                                                                                                                                                                                                                                                                                                                                                        ",0."
-        ) + b + ")"
+                    ",0."
+            ) + b + ")"
         ) : a
     }
 };
@@ -671,19 +671,19 @@ AGB.Item = {
         var b, c;
         (c = AGB.App.getPlayer(a)
         ) && 1 === +OBJ.get(AGB.Label.Data[c], "status") && (AGB.Item.Data[c] = {}, b = AGB.Item.Data[c], OBJ.iterate(AGB.Item.Ship, function (c) {
-                                                                                                                          b[AGB.Label.Get(a, c, 1) || c] = c
-                                                                                                                      }
-        ), OBJ.iterate(AGB.Item.Defense,
-                       function (c) {
-                           b[AGB.Label.Get(a, c, 1) || c] = c
-                       }
-        ), OBJ.iterate(AGB.Item.Research, function (c) {
-                           b[AGB.Label.Get(a, c, 1) || c] = c
-                       }
-        ), OBJ.iterate(AGB.Item.ResourceEnergy, function (c) {
-                           b[AGB.Label.Get(a, AGB.Item.ResourceEnergy[c], 1) || c] = c
-                       }
-        )
+                    b[AGB.Label.Get(a, c, 1) || c] = c
+                }
+            ), OBJ.iterate(AGB.Item.Defense,
+                function (c) {
+                    b[AGB.Label.Get(a, c, 1) || c] = c
+                }
+            ), OBJ.iterate(AGB.Item.Research, function (c) {
+                    b[AGB.Label.Get(a, c, 1) || c] = c
+                }
+            ), OBJ.iterate(AGB.Item.ResourceEnergy, function (c) {
+                    b[AGB.Label.Get(a, AGB.Item.ResourceEnergy[c], 1) || c] = c
+                }
+            )
         )
     },
     valid: function (a) {
@@ -698,9 +698,9 @@ AGB.Units = {
         c = {};
         (b = AGB.Units.Data[a]
         ) && b.account && (c.status = b.status, c.timeResearch = AGB.Time.timestampMinuteConvert(b.account.timeResearch), OBJ.iterate(AGB.Item.Research, function (a) {
-                                                                                                                                          c[a] = +b.account[a] || 0
-                                                                                                                                      }
-        )
+                    c[a] = +b.account[a] || 0
+                }
+            )
         );
         return c
     }, Init: function (a, b) {
@@ -711,25 +711,25 @@ AGB.Units = {
                 status: 2,
                 version: f
             }, c = AGB.Units.Data[e], c.account = {}, d = OBJ.parse(b[AGB.Data.getKey(e, "Units", "Data")]), d.version === f && (c.status = d.status || 2, d.account && (g = STR.check(d.account).split(","), AGB.Item.Info.timeResearch && (c.account.timeResearch = +g[AGB.Item.Info.timeResearch.index] || 0
-            ), OBJ.iterate(AGB.Item.Research, function (a) {
-                               AGB.Item.Info[a] && (c.account[a] = +g[AGB.Item.Info[a].index] || 0
-                               )
-                           }
-            )
-            ), OBJ.iterate(d, function (a) {
-                               if (0 < +a) {
-                                   var b;
-                                   c[a] = {};
-                                   b = STR.check(d[a]).split(",");
-                                   OBJ.iterate(AGB.Item.Info, function (d) {
-                                                   100 < +d &&
-                                                   200 > +d || "timeResearch" === d || (c[a][d] = +b[AGB.Item.Info[d].index] || 0
-                                                   )
-                                               }
-                                   )
-                               }
-                           }
-            )
+                    ), OBJ.iterate(AGB.Item.Research, function (a) {
+                            AGB.Item.Info[a] && (c.account[a] = +g[AGB.Item.Info[a].index] || 0
+                            )
+                        }
+                    )
+                ), OBJ.iterate(d, function (a) {
+                        if (0 < +a) {
+                            var b;
+                            c[a] = {};
+                            b = STR.check(d[a]).split(",");
+                            OBJ.iterate(AGB.Item.Info, function (d) {
+                                    100 < +d &&
+                                    200 > +d || "timeResearch" === d || (c[a][d] = +b[AGB.Item.Info[d].index] || 0
+                                    )
+                                }
+                            )
+                        }
+                    }
+                )
             ), AGB.Units.SummarizePlanets(a)
         }
     }, Save: function (a) {
@@ -738,90 +738,90 @@ AGB.Units = {
         b = AGB.Units.Data[d];
         AGB.Data.isStatus(d) && b && (a.backup || b.changed
         ) && (e = {
-            version: b.version,
-            status: b.status
-        }, delete b.changed, b.account && (c = [], AGB.Item.Info.timeResearch && (c[AGB.Item.Info.timeResearch.index] = +b.account.timeResearch || ""
-        ), OBJ.iterate(AGB.Item.Research, function (a) {
-                           AGB.Item.Info[a] && (c[AGB.Item.Info[a].index] = +b.account[a] || ""
-                           )
-                       }
-        ), e.account =
-           c.join(",")
-        ), AGB.Units.iterate(d, function (a, b) {
-                                 var c, d;
-                                 c = [];
-                                 OBJ.iterate(AGB.Item.Info, function (b) {
-                                                 100 < +b && 200 > +b || "timeResearch" === b || (c[AGB.Item.Info[b].index] = +a[b] || ""
-                                                 )
-                                             }
-                                 );
-                                 for (d = c.length; 0 < d && !c[d - 1];) {
-                                     d--;
-                                 }
-                                 c.length = d;
-                                 e[b] = c.join(",")
-                             }
-        ), a.save && (a.save[d + "_Units_Data"] = JSON.stringify(e)
-        ), a.backup && AGB.Data.isBackup(d, "Units", "Data", 2) && (a.backup.Units_Data = JSON.stringify(e)
-        )
+                version: b.version,
+                status: b.status
+            }, delete b.changed, b.account && (c = [], AGB.Item.Info.timeResearch && (c[AGB.Item.Info.timeResearch.index] = +b.account.timeResearch || ""
+                ), OBJ.iterate(AGB.Item.Research, function (a) {
+                        AGB.Item.Info[a] && (c[AGB.Item.Info[a].index] = +b.account[a] || ""
+                        )
+                    }
+                ), e.account =
+                    c.join(",")
+            ), AGB.Units.iterate(d, function (a, b) {
+                    var c, d;
+                    c = [];
+                    OBJ.iterate(AGB.Item.Info, function (b) {
+                            100 < +b && 200 > +b || "timeResearch" === b || (c[AGB.Item.Info[b].index] = +a[b] || ""
+                            )
+                        }
+                    );
+                    for (d = c.length; 0 < d && !c[d - 1];) {
+                        d--;
+                    }
+                    c.length = d;
+                    e[b] = c.join(",")
+                }
+            ), a.save && (a.save[d + "_Units_Data"] = JSON.stringify(e)
+            ), a.backup && AGB.Data.isBackup(d, "Units", "Data", 2) && (a.backup.Units_Data = JSON.stringify(e)
+            )
         )
     }, Update: function (a, b) {
         var c, d, e;
         d = AGB.App.getPlayer(a);
         c = AGB.Units.Data[d];
         d && c && OBJ.is(a.data) && (e = [
-            {
-                planet: a.planet, tabs: ["Resource"],
-                data: a.data
-            }
-        ], (c = {
-            research: "Research",
-            resources: "Mining",
-            station: "Station",
-            shipyard: "Ship",
-            defense: "Defense",
-            fleet1: "Ship"
-        }[a.data.page]
-           ) && e.push({
-                           planet: "Research" === c ? "account" : a.planet,
-                           tabs: [c],
-                           data: a.data
-                       }
-        ), AGB.Units.Action({keyPlayer: d, list: e}, b)
+                {
+                    planet: a.planet, tabs: ["Resource"],
+                    data: a.data
+                }
+            ], (c = {
+                    research: "Research",
+                    resources: "Mining",
+                    station: "Station",
+                    shipyard: "Ship",
+                    defense: "Defense",
+                    fleet1: "Ship"
+                }[a.data.page]
+            ) && e.push({
+                    planet: "Research" === c ? "account" : a.planet,
+                    tabs: [c],
+                    data: a.data
+                }
+            ), AGB.Units.Action({keyPlayer: d, list: e}, b)
         )
     }, Action: function (a, b) {
         function c(a, b, c, d) {
             var f, k;
             if (("account" === a || 0 < +a
-                ) && Array.isArray(b) && OBJ.is(d)) {
+            ) && Array.isArray(b) && OBJ.is(d)) {
                 for (OBJ.is(e[a]) || (e[a] = {}
                 ), f = e[a], k = 0; k < b.length; k++) {
                     a = b[k], "Resource" === a ? (OBJ.iterate(AGB.Item.ResourceEnergy, function (a) {
-                                                                  f[a] = +d[a] || 0
-                                                              }
-                    ), f.resources =
-                       f.metal + f.crystal + f.deuterium, f.timeResource = AGB.Time.timestampMinute()
+                                f[a] = +d[a] || 0
+                            }
+                        ), f.resources =
+                            f.metal + f.crystal + f.deuterium, f.timeResource = AGB.Time.timestampMinute()
                     ) : "Ship" === a ? (f.shipsCivil = 0, f.shipsCombat = 0, OBJ.iterate(AGB.Item.Ship, function (a) {
-                                                                                             var b = +d[a] || 0;
-                                                                                             f[a] = "add" === c ? (+f[a] || 0
-                                                                                                                  ) + b : "remove" === c ? Math.max((+f[a] || 0
-                                                                                                                                                    ) - b, 0
-                                                                                             ) : b;
-                                                                                             a in AGB.Item.ShipCivil && (f.shipsCivil += f[a]
-                                                                                             );
-                                                                                             a in AGB.Item.ShipCombat && (f.shipsCombat += f[a]
-                                                                                             )
-                                                                                         }
-                    ), f.ships = f.shipsCivil + f.shipsCombat, f.timeShip = AGB.Time.timestampMinute()
+                                var b = +d[a] || 0;
+                                f[a] = "add" === c ? (+f[a] || 0
+                                ) + b : "remove" === c ? Math.max((+f[a] || 0
+                                ) - b, 0
+                                ) : b;
+                                a in AGB.Item.ShipCivil && (f.shipsCivil += f[a]
+                                );
+                                a in AGB.Item.ShipCombat && (f.shipsCombat += f[a]
+                                )
+                            }
+                        ), f.ships = f.shipsCivil + f.shipsCombat, f.timeShip = AGB.Time.timestampMinute()
                     ) : "Research" === a ? (OBJ.iterate(AGB.Item.Research, function (a) {
-                                                            f[a] = +d[a] || 0
-                                                        }
-                    ), f.timeResearch = AGB.Time.timestampMinute(),
-                        e.status = 1
+                                f[a] = +d[a] || 0
+                            }
+                        ), f.timeResearch = AGB.Time.timestampMinute(),
+                            e.status = 1
                     ) : AGB.Item[a] && (OBJ.iterate(AGB.Item[a], function (a) {
-                                                        f[a] = +d[a] || 0
-                                                    }
-                    ), f["time" + a] = 1
+                                f[a] = +d[a] || 0
+                            }
+                        ), f["time" + a] = 1
                     )
                 }
             }
@@ -832,18 +832,18 @@ AGB.Units = {
             c = 0;
             b = {account: 1, status: 1, version: 1, changed: 1};
             OBJ.iterate(a, function (d) {
-                            var f;
-                            c++;
-                            f = a[d];
-                            b[f] = d;
-                            OBJ.is(e[f]) || (e[f] = {}
-                            )
-                        }
+                    var f;
+                    c++;
+                    f = a[d];
+                    b[f] = d;
+                    OBJ.is(e[f]) || (e[f] = {}
+                    )
+                }
             );
             c && OBJ.iterate(e, function (a) {
-                                 a in b || (e[a] = ""
-                                 )
-                             }
+                    a in b || (e[a] = ""
+                    )
+                }
             )
         }
 
@@ -851,10 +851,10 @@ AGB.Units = {
         f = AGB.App.getPlayer(a);
         e = AGB.Units.Data[f];
         f && e && Array.isArray(a.list) && (OBJ.iterateArray(a.list, function (a) {
-                                                                 a && c(a.planet, a.tabs, a.action, a.data)
-                                                             }
-        ), a.planets && (d(a.planets), AGB.Units.SummarizePlanets(a)
-        ), e.changed = !0, AGB.Data.Change()
+                    a && c(a.planet, a.tabs, a.action, a.data)
+                }
+            ), a.planets && (d(a.planets), AGB.Units.SummarizePlanets(a)
+            ), e.changed = !0, AGB.Data.Change()
         );
         b && b()
     }, List: function (a, b) {
@@ -862,18 +862,18 @@ AGB.Units = {
         d = AGB.App.getPlayer(a);
         c = AGB.Units.Data[d];
         d && c && (e = {}, "summarized" === a.action && OBJ.iterate(c, function (a) {
-                                                                        if (0 < +a) {
-                                                                            var b;
-                                                                            b = c[a];
-                                                                            e[a] = {
-                                                                                ships: b.ships,
-                                                                                shipsCivil: b.shipsCivil,
-                                                                                shipsCombat: b.shipsCombat,
-                                                                                timeShip: b.timeShip
-                                                                            }
-                                                                        }
-                                                                    }
-        )
+                    if (0 < +a) {
+                        var b;
+                        b = c[a];
+                        e[a] = {
+                            ships: b.ships,
+                            shipsCivil: b.shipsCivil,
+                            shipsCombat: b.shipsCombat,
+                            timeShip: b.timeShip
+                        }
+                    }
+                }
+            )
         );
         b && b(e)
     }, Get: function (a, b, c, d) {
@@ -886,67 +886,67 @@ AGB.Units = {
         a = AGB.App.getPlayer(a);
         b = AGB.Units.Data[a];
         a && b && (b.account || (b.account = {}
-        ), c = b.account, c.resources = 0, OBJ.iterate(AGB.Item.Resource, function (a) {
-                                                           c[a] = 0
-                                                       }
-        ), c.ships = 0, c.shipsCivil = 0, c.shipsCombat = 0, OBJ.iterate(AGB.Item.Ship, function (a) {
-                                                                             c[a] = 0
-                                                                         }
-        ), OBJ.iterate(b, function (a) {
-                           if (0 < +a) {
-                               var e;
-                               e = b[a];
-                               OBJ.iterate(AGB.Item.Resource, function (a) {
-                                               c[a] += +e[a] || 0
-                                           }
-                               );
-                               c.resources += +c.resources || 0;
-                               OBJ.iterate(AGB.Item.Ship, function (a) {
-                                               c[a] += +e[a] || 0
-                                           }
-                               );
-                               c.ships += +e.ships || 0;
-                               c.shipsCivil += +e.shipsCivil || 0;
-                               c.shipsCombat += +e.shipsCombat || 0
-                           }
-                       }
-        )
+            ), c = b.account, c.resources = 0, OBJ.iterate(AGB.Item.Resource, function (a) {
+                    c[a] = 0
+                }
+            ), c.ships = 0, c.shipsCivil = 0, c.shipsCombat = 0, OBJ.iterate(AGB.Item.Ship, function (a) {
+                    c[a] = 0
+                }
+            ), OBJ.iterate(b, function (a) {
+                    if (0 < +a) {
+                        var e;
+                        e = b[a];
+                        OBJ.iterate(AGB.Item.Resource, function (a) {
+                                c[a] += +e[a] || 0
+                            }
+                        );
+                        c.resources += +c.resources || 0;
+                        OBJ.iterate(AGB.Item.Ship, function (a) {
+                                c[a] += +e[a] || 0
+                            }
+                        );
+                        c.ships += +e.ships || 0;
+                        c.shipsCivil += +e.shipsCivil || 0;
+                        c.shipsCombat += +e.shipsCombat || 0
+                    }
+                }
+            )
         )
     }, SummarizePlanets: function (a) {
         var b;
         b = AGB.App.getPlayer(a);
         a = AGB.Units.Data[b];
         b && a && AGB.Units.iterate(b, function (a) {
-                                        a.resources = 0;
-                                        OBJ.iterate(AGB.Item.Resource, function (b) {
-                                                        a.resources += +a[b] || 0
-                                                    }
-                                        );
-                                        a.shipsCivil = 0;
-                                        a.shipsCombat = 0;
-                                        OBJ.iterate(AGB.Item.ShipCivil, function (b) {
-                                                        a.shipsCivil += +a[b] || 0
-                                                    }
-                                        );
-                                        OBJ.iterate(AGB.Item.ShipCombat, function (b) {
-                                                        a.shipsCombat += +a[b] || 0
-                                                    }
-                                        );
-                                        a.ships = a.shipsCivil + a.shipsCombat
-                                    }
+                a.resources = 0;
+                OBJ.iterate(AGB.Item.Resource, function (b) {
+                        a.resources += +a[b] || 0
+                    }
+                );
+                a.shipsCivil = 0;
+                a.shipsCombat = 0;
+                OBJ.iterate(AGB.Item.ShipCivil, function (b) {
+                        a.shipsCivil += +a[b] || 0
+                    }
+                );
+                OBJ.iterate(AGB.Item.ShipCombat, function (b) {
+                        a.shipsCombat += +a[b] || 0
+                    }
+                );
+                a.ships = a.shipsCivil + a.shipsCombat
+            }
         )
     }, SummarizePosition: function (a) {
         function b(a) {
             h[a] = f ? (+e[a] || 0
-                       ) + (+f[a] || 0
-                       ) : +e[a] || 0
+            ) + (+f[a] || 0
+            ) : +e[a] || 0
         }
 
         function c(b) {
             var c, d;
             c = +OBJ.get(e, b) || 0;
             d = +OBJ.get(f,
-                         b
+                b
             ) || 0;
             h[b] = a.moon ? c && d ? c : c || d ? -1 : 0 : c
         }
@@ -956,12 +956,12 @@ AGB.Units = {
         d = AGB.Units.Data[g];
         h = {};
         g && d && (e = d[a.planet] || {}, f = d[a.moon], OBJ.iterate(AGB.Item.Resource, b), OBJ.iterate(AGB.Item.Ship, b), OBJ.iterate({
-                                                                                                                                           resources: 0,
-                                                                                                                                           ships: 0,
-                                                                                                                                           shipsCivil: 0,
-                                                                                                                                           shipsCombat: 0
-                                                                                                                                       }, b
-        ), c("timeResource"), c("timeShip")
+                    resources: 0,
+                    ships: 0,
+                    shipsCivil: 0,
+                    shipsCombat: 0
+                }, b
+            ), c("timeResource"), c("timeShip")
         );
         return h
     }, SummarizeAccount: function (a) {
@@ -969,38 +969,38 @@ AGB.Units = {
         b = AGB.App.getPlayer(a);
         a = AGB.Units.Data[b];
         b && a && (c = {
-            resources: 0,
-            ships: 0,
-            shipsCivil: 0,
-            shipsCombat: 0,
-            timeResource: 0,
-            timeShip: 0
-        }, OBJ.iterate(AGB.Item.Resource, function (a) {
-                           c[a] =
-                           0
-                       }
-        ), OBJ.iterate(AGB.Item.Ship, function (a) {
-                           c[a] = 0
-                       }
-        ), AGB.Units.iterate(b, function (a) {
-                                 a.timeResource && (c.timeResource = 1
-                                 );
-                                 a.timeShip && (c.timeShip = 1
-                                 );
-                                 OBJ.iterate(AGB.Item.Resource, function (b) {
-                                                 c[b] += +a[b] || 0
-                                             }
-                                 );
-                                 c.resources += +a.resources || 0;
-                                 OBJ.iterate(AGB.Item.Ship, function (b) {
-                                                 c[b] += +a[b] || 0
-                                             }
-                                 );
-                                 c.ships += +a.ships || 0;
-                                 c.shipsCivil += +a.shipsCivil || 0;
-                                 c.shipsCombat += +a.shipsCombat || 0
-                             }
-        )
+                resources: 0,
+                ships: 0,
+                shipsCivil: 0,
+                shipsCombat: 0,
+                timeResource: 0,
+                timeShip: 0
+            }, OBJ.iterate(AGB.Item.Resource, function (a) {
+                    c[a] =
+                        0
+                }
+            ), OBJ.iterate(AGB.Item.Ship, function (a) {
+                    c[a] = 0
+                }
+            ), AGB.Units.iterate(b, function (a) {
+                    a.timeResource && (c.timeResource = 1
+                    );
+                    a.timeShip && (c.timeShip = 1
+                    );
+                    OBJ.iterate(AGB.Item.Resource, function (b) {
+                            c[b] += +a[b] || 0
+                        }
+                    );
+                    c.resources += +a.resources || 0;
+                    OBJ.iterate(AGB.Item.Ship, function (b) {
+                            c[b] += +a[b] || 0
+                        }
+                    );
+                    c.ships += +a.ships || 0;
+                    c.shipsCivil += +a.shipsCivil || 0;
+                    c.shipsCombat += +a.shipsCombat || 0
+                }
+            )
         );
         return c
     }, create: function (a, b, c) {
@@ -1032,8 +1032,8 @@ AGB.Task = {
             }
             d.ships = 0;
             OBJ.iterate(AGB.Item.Ship, function (a) {
-                            d.ships += +d[a] || 0
-                        }
+                    d.ships += +d[a] || 0
+                }
             );
             return d
         }
@@ -1042,14 +1042,14 @@ AGB.Task = {
         var c, d, e, f;
         d = STR.check(a).split(":");
         c = {
-            galaxy:      +d[0] || 0,
-            system:      +d[1] || 0,
-            position:    +d[2] || 0,
-            type:        +d[3] || 0,
-            mission:     +d[4] || 0,
-            speed:       +d[5] || 0,
+            galaxy: +d[0] || 0,
+            system: +d[1] || 0,
+            position: +d[2] || 0,
+            type: +d[3] || 0,
+            mission: +d[4] || 0,
+            speed: +d[5] || 0,
             holdingtime: +d[6] ||
-                         0
+            0
         };
         c.expeditiontime = +d[7] || 0;
         c.union = +d[8] || 0;
@@ -1074,15 +1074,15 @@ AGB.Task = {
         var c, d;
         if (OBJ.is(a)) {
             c =
-            [
-                a.galaxy || "",
-                a.system || "",
-                a.position || "",
-                a.type || "",
-                a.mission || "",
-                a.speed || "",
-                a.holdingtime || ""
-            ];
+                [
+                    a.galaxy || "",
+                    a.system || "",
+                    a.position || "",
+                    a.type || "",
+                    a.mission || "",
+                    a.speed || "",
+                    a.holdingtime || ""
+                ];
             c[7] = a.expeditiontime || "";
             c[8] = a.union || "";
             c[9] = a.routine || "";
@@ -1101,7 +1101,7 @@ AGB.Task = {
                 }
             }
             for (d =
-                 c.length; 0 < d && !c[d - 1];) {
+                     c.length; 0 < d && !c[d - 1];) {
                 d--;
             }
             c.length = d;
@@ -1117,14 +1117,14 @@ AGB.Task = {
         return 1 <= a && a <= AGB.Uni.Info.galaxies && 1 <= b && b <= AGB.Uni.Info.systems && 1 <= c && c <= AGB.Uni.Info.positions && 1 <= d && 3 >= d
     }, getCoordsType: function (a) {
         return OBJ.is(a) && AGB.Task.checkCoordsType(a.galaxy,
-                                                     a.system, a.position, a.type
+            a.system, a.position, a.type
         ) ? a.galaxy + ":" + a.system + ":" + a.position + ":" + a.type : ""
     }, updateCoordsType: function (a, b) {
         var c;
         b = STR.check(b);
         OBJ.is(a) && b && (c = b.split(":"), NMR.isMinMax(+c[3], 1, 3) && (a.type = +c[3] || 0
-        ), AGB.Task.checkCoords(+c[0], +c[1], +c[2]) && (a.galaxy = +c[0] || 0, a.system = +c[1] || 0, a.position = +c[2] || 0, a.coords = a.galaxy + ":" + a.system + ":" + a.position, a.coordstype = a.type ? a.coords + ":" + a.type : ""
-        )
+            ), AGB.Task.checkCoords(+c[0], +c[1], +c[2]) && (a.galaxy = +c[0] || 0, a.system = +c[1] || 0, a.position = +c[2] || 0, a.coords = a.galaxy + ":" + a.system + ":" + a.position, a.coordstype = a.type ? a.coords + ":" + a.type : ""
+            )
         )
     }, cut: function (a, b) {
         return "string" === typeof a ? a.split(":", b).join(":") : ""
@@ -1143,12 +1143,12 @@ AGB.Construction = {
         var c, d;
         if (c = AGB.App.getPlayer(a)) {
             d = OBJ.parse(b[AGB.Data.getKey(c, "Construction", "Data")]), AGB.Construction.Data[c] = {version: d.version}, OBJ.iterate(d, function (a) {
-                                                                                                                                           Array.isArray(d[a]) && (AGB.Construction.Data[c][a] = [], d[a].forEach(function (b) {
-                                                                                                                                                                                                                      AGB.Construction.Data[c][a].push(AGB.Construction.split(b))
-                                                                                                                                                                                                                  }
-                                                                                                                                           )
-                                                                                                                                           )
-                                                                                                                                       }
+                    Array.isArray(d[a]) && (AGB.Construction.Data[c][a] = [], d[a].forEach(function (b) {
+                                AGB.Construction.Data[c][a].push(AGB.Construction.split(b))
+                            }
+                        )
+                    )
+                }
             ), AGB.Construction.Upgrade(AGB.Construction.Data[c])
         }
     },
@@ -1163,16 +1163,16 @@ AGB.Construction = {
         b = AGB.Construction.Data[d];
         AGB.Data.isStatus(d) && b && (a.backup || b.changed
         ) && (delete b.changed, c = {version: AGB.Data.get("Construction", "Data", "version")}, OBJ.iterate(b, function (a) {
-                                                                                                                Array.isArray(b[a]) && b[a].length && (c[a] = [], b[a].forEach(function (b) {
-                                                                                                                                                                                   c[a].push(AGB.Construction.join(b))
-                                                                                                                                                                               }
-                                                                                                                )
-                                                                                                                )
-                                                                                                            }
-        ), a.save && (a.save[d + "_Construction_Data"] =
-                      JSON.stringify(c)
-        ), a.backup && AGB.Data.isBackup(d, "Construction", "Data", 2) && (a.backup.Construction_Data = JSON.stringify(c)
-        )
+                    Array.isArray(b[a]) && b[a].length && (c[a] = [], b[a].forEach(function (b) {
+                                c[a].push(AGB.Construction.join(b))
+                            }
+                        )
+                    )
+                }
+            ), a.save && (a.save[d + "_Construction_Data"] =
+                    JSON.stringify(c)
+            ), a.backup && AGB.Data.isBackup(d, "Construction", "Data", 2) && (a.backup.Construction_Data = JSON.stringify(c)
+            )
         )
     }, Action: function (a, b) {
         var c, d, e, f, g, h, l;
@@ -1182,28 +1182,28 @@ AGB.Construction = {
             if (e = a.action, "set" === e) {
                 OBJ.get(a.value, "id") && (f = OBJ.create(a.value), f.time = 0, g = AGB.Task.getCoordsType(f)
                 ) && (AGB.Construction.update(d, f), OBJ.is(c[g]) ? c[g].unshift(f) : c[g] = [f], c.changed = !0, AGB.Data.Change(), b({
-                                                                                                                                           tab: "Construction",
-                                                                                                                                           data: g + ":0"
-                                                                                                                                       }
-                )
+                            tab: "Construction",
+                            data: g + ":0"
+                        }
+                    )
                 );
             } else if ("remove" === e) {
                 g = AGB.Construction.getKey(a.value),
                     h = AGB.Construction.getIndex(a.value), OBJ.is(c[g]) && c[g][h] && (c[g].splice(h, 1), c.changed = !0, AGB.Data.Change(), b({
-                                                                                                                                                    tab: "Construction",
-                                                                                                                                                    data: g + ":" + h
-                                                                                                                                                }
-                )
+                            tab: "Construction",
+                            data: g + ":" + h
+                        }
+                    )
                 );
             } else if ("reserve" === e) {
                 g = AGB.Construction.getKey(a.value), h = AGB.Construction.getIndex(a.value), OBJ.is(c[g]) && c[g][h] && (f = OBJ.create(c[g][h]), OBJ.get(f, "id") && g !== a.coords && f.reserved && (AGB.Task.updateCoordsType(f, a.coords), f.coordstype === a.coords && (c[g].splice(h, 1), g = f.coordstype, OBJ.is(c[g]) ? c[g].push(f) : c[g] = [f], h = c[g].length - 1, c.changed = !0, AGB.Data.Change(),
-                    b({tab: "Construction", data: g + ":" + h})
-                )
-                )
+                                b({tab: "Construction", data: g + ":" + h})
+                        )
+                    )
                 );
             } else if (VAL.check(e, "increase", "decrease", "increaseRange", "decreaseRange") && (g = AGB.Construction.getKey(a.value), h = AGB.Construction.getIndex(a.value), OBJ.is(c[g]) && c[g][h] && (f = OBJ.create(c[g][h]), OBJ.get(f, "id")
                 )
-                )) {
+            )) {
                 if (200 > +f.id) {
                     if (l = {increase: 1, decrease: -1}[e] || 0) {
                         f.increase += l;
@@ -1215,7 +1215,7 @@ AGB.Construction = {
                     f.level += l;
                 }
                 AGB.Construction.update(d,
-                                        f
+                    f
                 );
                 c[g][h] = f;
                 c.changed = !0;
@@ -1227,40 +1227,40 @@ AGB.Construction = {
         var c, d, e, f, g, h, l;
         if (OBJ.is(b) && AGB.Item.valid(b.id)) {
             if (c = b.id, OBJ.copy({
-                                       metal: 0,
-                                       crystal: 0,
-                                       deuterium: 0,
-                                       resources: 0,
-                                       duration: 0
-                                   }, b
-                ), c in AGB.Item.Ship || c in AGB.Item.Defense) {
+                    metal: 0,
+                    crystal: 0,
+                    deuterium: 0,
+                    resources: 0,
+                    duration: 0
+                }, b
+            ), c in AGB.Item.Ship || c in AGB.Item.Defense) {
                 b.level = Math.max(b.level, 1), b.duration = b.time * b.level, b.range = 0, b.increase = 0, OBJ.iterate(AGB.Item.Resource, function (a) {
-                                                                                                                            var d;
-                                                                                                                            d = OBJ.get(AGB.Item.Info[c], a);
-                                                                                                                            b[a] = d ? d * b.level : 0
-                                                                                                                        }
+                        var d;
+                        d = OBJ.get(AGB.Item.Info[c], a);
+                        b[a] = d ? d * b.level : 0
+                    }
                 ), b.resources = b.metal + b.crystal + b.deuterium;
             } else if (c in
-                       AGB.Item.Mining || c in AGB.Item.Station || c in AGB.Item.Research) {
+                AGB.Item.Mining || c in AGB.Item.Station || c in AGB.Item.Research) {
                 d = OBJ.get(AGB.Item.Info[c], "factor"), b.increase = c in AGB.Item.Research ? Math.max(b.increase || 0, 0) : Math.max(b.increase || 0, -1 * b.level), b.range = b.reserved ? 0 : 0 > b.increase ? Math.max(Math.min(b.level + b.increase, b.range || 0), 0) : Math.max(b.range || 0, 0), 0 > b.increase ? (f = Math.max(b.level + b.increase, 0), e = Math.max(f - b.range, 0), g = 4 * AGB.Units.Get(a, "account", "121")
                 ) : (0 < b.increase ? (e = b.level + b.increase, f = e + b.range
-                ) : e = f = b.level, g = 0
-                                                                                                                                                                                                                                                                                                          ), b.start = e, b.stop = f, h = {
+                    ) : e = f = b.level, g = 0
+                ), b.start = e, b.stop = f, h = {
                     metal: 0,
                     crystal: 0
                 }, OBJ.iterate(AGB.Item.Resource, function (a) {
-                                   var m;
-                                   if (m = OBJ.get(AGB.Item.Info[c], a)) {
-                                       for (l = e; l <= f; l++) {
-                                           b[a] += Math.floor(m * Math.pow(d, l - 1));
-                                       }
-                                       h[a] = b[a];
-                                       g && (b[a] = Math.floor(b[a] - b[a] / 100 * g)
-                                       )
-                                   }
-                               }
+                        var m;
+                        if (m = OBJ.get(AGB.Item.Info[c], a)) {
+                            for (l = e; l <= f; l++) {
+                                b[a] += Math.floor(m * Math.pow(d, l - 1));
+                            }
+                            h[a] = b[a];
+                            g && (b[a] = Math.floor(b[a] - b[a] / 100 * g)
+                            )
+                        }
+                    }
                 ), b.duration = Math.floor((h.metal + h.crystal
-                                           ) * b.time
+                ) * b.time
                 ), b.resources = b.metal + b.crystal + b.deuterium
             }
         }
@@ -1269,37 +1269,37 @@ AGB.Construction = {
         d = AGB.App.getPlayer(a);
         c = AGB.Construction.Data[d];
         d && c && (e = {tab: "Construction", list: c}, e.Active = AGB.Units.SummarizePosition({
-                                                                                                  keyPlayer: d,
-                                                                                                  planet: a.active
-                                                                                              }
-        ), e.Units = a.planet && "account" !==
-                                 a.planet ? AGB.Units.SummarizePosition(a) : AGB.Units.SummarizeAccount(a)
+                    keyPlayer: d,
+                    planet: a.active
+                }
+            ), e.Units = a.planet && "account" !==
+            a.planet ? AGB.Units.SummarizePosition(a) : AGB.Units.SummarizeAccount(a)
         );
         AGB.Panel.Cache(a, e);
         b && b(e)
     }, split: function (a) {
         a = STR.check(a).split(":");
         a = {
-            galaxy:         +a[0] || 0,
-            system:         +a[1] || 0,
-            position:       +a[2] || 0,
-            type:           +a[3] || 0,
-            mission:        +a[4] || 0,
-            speed:          +a[5] || 0,
-            holdingtime:    +a[6] || 0,
-            disabled:       +a[7] || 0,
-            time:           +a[8] || 0,
-            id:             a[10] || "",
-            level:          +a[11] || 0,
-            increase:       +a[12] || 0,
-            range:          +a[13] || 0,
-            reserved:       +a[14] || 0,
-            arrival:        +a[15] || 0,
-            metal:          +a[16] || 0,
-            crystal:        +a[17] || 0,
-            deuterium:      +a[18] || 0,
+            galaxy: +a[0] || 0,
+            system: +a[1] || 0,
+            position: +a[2] || 0,
+            type: +a[3] || 0,
+            mission: +a[4] || 0,
+            speed: +a[5] || 0,
+            holdingtime: +a[6] || 0,
+            disabled: +a[7] || 0,
+            time: +a[8] || 0,
+            id: a[10] || "",
+            level: +a[11] || 0,
+            increase: +a[12] || 0,
+            range: +a[13] || 0,
+            reserved: +a[14] || 0,
+            arrival: +a[15] || 0,
+            metal: +a[16] || 0,
+            crystal: +a[17] || 0,
+            deuterium: +a[18] || 0,
             preferResource: +a[19] || 0,
-            timeResource:   +a[20] || 0
+            timeResource: +a[20] || 0
         };
         a.resources = a.metal + a.crystal + a.deuterium;
         return a
@@ -1418,10 +1418,10 @@ AGB.Token = {
         var c;
         if (c = AGB.App.getPlayer(a)) {
             AGB.Token.Data[c] = {}, AGB.Token.Sort[c] = {}, AGB.Data.iterate("Token", function (a, e) {
-                                                                                 2 <= a.tab ? (AGB.Token.Data[c][e] = OBJ.parse(b[AGB.Data.getKey(c, "Token", e)]), AGB.Token.Upgrade(c, e)
-                                                                                 ) : a.tab && (AGB.Token.Data[c][e] = {}
-                                                                                 )
-                                                                             }
+                    2 <= a.tab ? (AGB.Token.Data[c][e] = OBJ.parse(b[AGB.Data.getKey(c, "Token", e)]), AGB.Token.Upgrade(c, e)
+                    ) : a.tab && (AGB.Token.Data[c][e] = {}
+                    )
+                }
             ), AGB.Token.InitInfo(a)
         }
     },
@@ -1429,26 +1429,26 @@ AGB.Token = {
         var b, c;
         (c = AGB.App.getPlayer(a)
         ) && AGB.Token.Data[c] && (AGB.Token.Data[c].Info = {}, b = AGB.Token.Data[c].Info, OBJ.iterate(AGB.Token.Info, function (a) {
-                                                                                                            var e;
-                                                                                                            b[a] = {};
-                                                                                                            AGB.Token.Info[a].cls && (b[a].cls = AGB.Token.Info[a].cls
-                                                                                                            );
-                                                                                                            (e = AGB.Option.Get(c, "C" + a)
-                                                                                                            ) && "string" === typeof e && (e = e.split("|"), e[0] && (b[a].color = e[0], e[1] && (b[a].opacity = +e[1]
-                                                                                                            ), e[2] && (b[a].condition = +e[2]
-                                                                                                            ), e[3] && (b[a].limit = +e[3]
-                                                                                                            ), e[4] && (b[a].name = e[4]
-                                                                                                            )
-                                                                                                            )
-                                                                                                            )
-                                                                                                        }
-        )
+                    var e;
+                    b[a] = {};
+                    AGB.Token.Info[a].cls && (b[a].cls = AGB.Token.Info[a].cls
+                    );
+                    (e = AGB.Option.Get(c, "C" + a)
+                    ) && "string" === typeof e && (e = e.split("|"), e[0] && (b[a].color = e[0], e[1] && (b[a].opacity = +e[1]
+                            ), e[2] && (b[a].condition = +e[2]
+                            ), e[3] && (b[a].limit = +e[3]
+                            ), e[4] && (b[a].name = e[4]
+                            )
+                        )
+                    )
+                }
+            )
         )
     }, Upgrade: function (a, b) {
         var c, d;
         d = AGB.Data.get("Token", b, "version");
         c =
-        AGB.Token.Data[a];
+            AGB.Token.Data[a];
         OBJ.is(c[b]) || (c[b] = {}
         );
         c[b].version !== d && (c[b].changed = !0, c[b].version = d, AGB.Data.Change()
@@ -1458,12 +1458,12 @@ AGB.Token = {
         c = AGB.App.getPlayer(a);
         b = AGB.Token.Data[c];
         OBJ.iterate(b, function (d) {
-                        AGB.Data.isStorage(c, "Token", d) && (a.backup || b[d].changed
-                        ) && (delete b[d].changed, a.save && (a.save[AGB.Data.getKey(c, "Token", d)] = JSON.stringify(b[d])
-                        ), a.backup && AGB.Data.isBackup(c, "Token", d, 2) && (a.backup["Token_" + d] = JSON.stringify(b[d])
-                        )
-                        )
-                    }
+                AGB.Data.isStorage(c, "Token", d) && (a.backup || b[d].changed
+                ) && (delete b[d].changed, a.save && (a.save[AGB.Data.getKey(c, "Token", d)] = JSON.stringify(b[d])
+                    ), a.backup && AGB.Data.isBackup(c, "Token", d, 2) && (a.backup["Token_" + d] = JSON.stringify(b[d])
+                    )
+                )
+            }
         )
     }, Action: function (a, b) {
         var c, d, e, f, g, h, l, p;
@@ -1473,33 +1473,33 @@ AGB.Token = {
         f = +a.token || 0;
         f = -1 === f ? f : "Alliance" !== e || !NMR.isMinMax(f, 41, 49) && 81 !== f ? "Player" === e && NMR.isMinMax(f, 51, 89) ? f : "Target" === e && NMR.isMinMax(f, 61, 89) ? f : 0 : f;
         d && e && c && f && (g = STR.check(a.id), "Target" === e && (1E8 < a.time ? g = AGB.Task.cutCoordsType(a.coords) || a.time : (a.time = 0, g = g || AGB.Task.cutCoords(a.coords)
-        )
-        ), p = {
-            tab: e,
-            action: a.action,
-            id: g,
-            token: f
-        }, "set" === a.action && (h = f + "|" + STR.check(a.name), "Alliance" === e && a.tag && (h += "|" + a.tag
-        ), "Target" === e && (h += "|" + STR.check(a.coords),
-        a.time && (h += "|" + a.time
-        )
-        )
-        ), 80 > f ? "set" === a.action ? (p.changed = !0, c[e].changed = !0, c[e][g] = h
-        ) : "remove" === a.action && g in c[e] && (p.changed = !0, c[e].changed = !0, delete c[e][g]
-        ) : 81 === f && OBJ.is(c.Current) && (g = e[0] + g, "set" === a.action ? (p.changed = !0, c.Current.changed = !0, c.Current[g] = h, l = 0, OBJ.iterate(c.Current, function (a) {
-                                                                                                                                                                   a[0] === e[0] && l++
-                                                                                                                                                               }
-        ), l = Math.max(0, l - AGB.Option.Get(d, "I05")), OBJ.iterate(c.Current, function (a) {
-                                                                          0 < l && a[0] === e[0] && (l--, delete c.Current[a]
-                                                                          )
-                                                                      }
-        )
-        ) : "remove" === a.action && g in c.Current && (p.changed = !0, c.Current.changed = !0, delete c.Current[g]
-        )
-        ), p.changed && (OBJ.is(AGB.Token.Sort[d]) && (AGB.Token.Sort[d][e] = null
-        ), a.refresh && (p.Data = c
-        ), AGB.Data.Change()
-        )
+                )
+            ), p = {
+                tab: e,
+                action: a.action,
+                id: g,
+                token: f
+            }, "set" === a.action && (h = f + "|" + STR.check(a.name), "Alliance" === e && a.tag && (h += "|" + a.tag
+                ), "Target" === e && (h += "|" + STR.check(a.coords),
+                    a.time && (h += "|" + a.time
+                    )
+                )
+            ), 80 > f ? "set" === a.action ? (p.changed = !0, c[e].changed = !0, c[e][g] = h
+            ) : "remove" === a.action && g in c[e] && (p.changed = !0, c[e].changed = !0, delete c[e][g]
+            ) : 81 === f && OBJ.is(c.Current) && (g = e[0] + g, "set" === a.action ? (p.changed = !0, c.Current.changed = !0, c.Current[g] = h, l = 0, OBJ.iterate(c.Current, function (a) {
+                            a[0] === e[0] && l++
+                        }
+                    ), l = Math.max(0, l - AGB.Option.Get(d, "I05")), OBJ.iterate(c.Current, function (a) {
+                            0 < l && a[0] === e[0] && (l--, delete c.Current[a]
+                            )
+                        }
+                    )
+                ) : "remove" === a.action && g in c.Current && (p.changed = !0, c.Current.changed = !0, delete c.Current[g]
+                )
+            ), p.changed && (OBJ.is(AGB.Token.Sort[d]) && (AGB.Token.Sort[d][e] = null
+                ), a.refresh && (p.Data = c
+                ), AGB.Data.Change()
+            )
         );
         b && b(p)
     }, List: function (a, b) {
@@ -1508,46 +1508,46 @@ AGB.Token = {
         f = AGB.Token.getTab(a);
         c = AGB.Token.Data[e];
         f && OBJ.is(c) && (AGB.Token.Sort[e] || (AGB.Token.Sort[e] = {}
-        ), d = AGB.Token.Sort[e], d[f] || (d[f] = {}, OBJ.iterate(c[f], function (a) {
-                                                                      if ("version" !== a && "changed" !== a) {
-                                                                          var b;
-                                                                          b = STR.check(c[f][a]).split("|")[0];
-                                                                          41 <= b && 79 >= b && (d[f][b] ? d[f][b].push(a) : d[f][b] = [a]
-                                                                          )
-                                                                      }
-                                                                  }
-        ), OBJ.iterate(c.Current,
-                       function (a) {
-                           if ("version" !== a && "changed" !== a) {
-                               var b;
-                               b = STR.check(c.Current[a]).split("|")[0];
-                               a[0] === f[0] && 81 <= b && 89 >= b && (a = a.slice(1), d[f][b] ? d[f][b].push(a) : d[f][b] = [a]
-                               )
-                           }
-                       }
-        )
-        ), g = {tab: f, token: a.token, listTab: {}, listToken: []}, OBJ.iterate(d[f], function (a) {
-                                                                                     g.listTab[a] = d[f][a].length
-                                                                                 }
-        ), a.token && (OBJ.iterateArray(d[f][a.token], function (b) {
-                                            (b = AGB.Token.get(c, f, a.token, b)
-                                            ) && g.listToken.push(b)
-                                        }
-        ), "Target" === f && a.sort ? g.listToken.sort(function (a, b) {
-                                                           var c = (OBJ.get(a, "coords") || ""
-                                                           ).split(":"), d = (OBJ.get(b, "coords") ||
-                                                                              ""
-                                                           ).split(":");
-                                                           return +c[0] < +d[0] ? -1 : +c[0] > +d[0] ? 1 : +c[1] < +d[1] ? -1 : +c[1] > +d[1] ? 1 : +c[2] < +d[2] ? -1 : +c[2] > +d[2] ? 1 : 0
-                                                       }
-        ) : g.listToken.sort(function (a, b) {
-                                 var c = (OBJ.get(a, "name") || ""
-                                 ).toLowerCase(), d = (OBJ.get(b, "name") || ""
-                                 ).toLowerCase();
-                                 return c < d ? -1 : c === d ? 0 : 1
-                             }
-        )
-        )
+            ), d = AGB.Token.Sort[e], d[f] || (d[f] = {}, OBJ.iterate(c[f], function (a) {
+                        if ("version" !== a && "changed" !== a) {
+                            var b;
+                            b = STR.check(c[f][a]).split("|")[0];
+                            41 <= b && 79 >= b && (d[f][b] ? d[f][b].push(a) : d[f][b] = [a]
+                            )
+                        }
+                    }
+                ), OBJ.iterate(c.Current,
+                    function (a) {
+                        if ("version" !== a && "changed" !== a) {
+                            var b;
+                            b = STR.check(c.Current[a]).split("|")[0];
+                            a[0] === f[0] && 81 <= b && 89 >= b && (a = a.slice(1), d[f][b] ? d[f][b].push(a) : d[f][b] = [a]
+                            )
+                        }
+                    }
+                )
+            ), g = {tab: f, token: a.token, listTab: {}, listToken: []}, OBJ.iterate(d[f], function (a) {
+                    g.listTab[a] = d[f][a].length
+                }
+            ), a.token && (OBJ.iterateArray(d[f][a.token], function (b) {
+                        (b = AGB.Token.get(c, f, a.token, b)
+                        ) && g.listToken.push(b)
+                    }
+                ), "Target" === f && a.sort ? g.listToken.sort(function (a, b) {
+                        var c = (OBJ.get(a, "coords") || ""
+                        ).split(":"), d = (OBJ.get(b, "coords") ||
+                            ""
+                        ).split(":");
+                        return +c[0] < +d[0] ? -1 : +c[0] > +d[0] ? 1 : +c[1] < +d[1] ? -1 : +c[1] > +d[1] ? 1 : +c[2] < +d[2] ? -1 : +c[2] > +d[2] ? 1 : 0
+                    }
+                ) : g.listToken.sort(function (a, b) {
+                        var c = (OBJ.get(a, "name") || ""
+                        ).toLowerCase(), d = (OBJ.get(b, "name") || ""
+                        ).toLowerCase();
+                        return c < d ? -1 : c === d ? 0 : 1
+                    }
+                )
+            )
         );
         AGB.Panel.Cache(a, g);
         b && b(g)
@@ -1565,24 +1565,24 @@ AGB.Token = {
     }, get: function (a, b, c, d) {
         var e;
         OBJ.is(a) && b && d && (80 > c ? OBJ.is(a[b]) &&
-                                         a[b][d] && (e = {
-            id: d,
-            name: AGB.Token.getName(a[b], d)
-        }, "Alliance" === b && (e.tag = AGB.Token.getTag(a[b], d)
-        ), "Target" === b && (e.coords = AGB.Token.getCoords(a[b], d), e.time = AGB.Token.getTime(a[b], d)
-        )
-        ) : 81 === c && OBJ.is(a.Current) && a.Current[b[0] + d] && (e = {
-            id: d,
-            name: AGB.Token.getName(a.Current, b[0] + d)
-        }, "Alliance" === b && (e.tag = AGB.Token.getTag(a.Current, b[0] + d)
-        ), "Target" === b && (e.coords = AGB.Token.getCoords(a.Current, b[0] + d), e.time = AGB.Token.getTime(a.Current, b[0] + d)
-        )
-        )
+                a[b][d] && (e = {
+                        id: d,
+                        name: AGB.Token.getName(a[b], d)
+                    }, "Alliance" === b && (e.tag = AGB.Token.getTag(a[b], d)
+                    ), "Target" === b && (e.coords = AGB.Token.getCoords(a[b], d), e.time = AGB.Token.getTime(a[b], d)
+                    )
+                ) : 81 === c && OBJ.is(a.Current) && a.Current[b[0] + d] && (e = {
+                    id: d,
+                    name: AGB.Token.getName(a.Current, b[0] + d)
+                }, "Alliance" === b && (e.tag = AGB.Token.getTag(a.Current, b[0] + d)
+                ), "Target" === b && (e.coords = AGB.Token.getCoords(a.Current, b[0] + d), e.time = AGB.Token.getTime(a.Current, b[0] + d)
+                )
+            )
         );
         return e || ""
     }, getName: function (a, b) {
         return OBJ.is(a) &&
-               b ? STR.check(a[b]).split("|")[1] || "" : ""
+        b ? STR.check(a[b]).split("|")[1] || "" : ""
     }, getCoords: function (a, b) {
         return OBJ.is(a) && b ? STR.check(a[b]).split("|")[2] || "" : ""
     }, getTag: function (a, b) {
@@ -1595,8 +1595,8 @@ AGB.Token = {
         return AGB.Token.is(a, "Info") && AGB.Token.Data[a].Info[b] ? AGB.Token.Data[a].Info[b].color || "" : ""
     }, getClass: function (a, b) {
         return AGB.Token.is(a, "Info") && AGB.Token.Data[a].Info[b] ? "status_abbr_" +
-                                                                      (AGB.Token.Data[a].Info[b].cls || b
-                                                                      ) : ""
+            (AGB.Token.Data[a].Info[b].cls || b
+            ) : ""
     }, getCondition: function (a, b) {
         return AGB.Token.is(a, "Info") && AGB.Token.Data[a].Info[b] ? +AGB.Token.Data[a].Info[b].condition || 0 : 0
     }, getOpacity: function (a, b) {
@@ -1606,9 +1606,9 @@ AGB.Token = {
         d = AGB.Token.getColor(a, b);
         e = AGB.Token.getOpacity(a, b);
         return d ? (e = e || (80 > b ? AGB.Option.Get(a, "CT2") : AGB.Styles.opacity
-        ) || 100, "INHERIT" === d ? e / 100 : AGB.Styles.getColor(d, c ? 2 * e :
-                                                                     e
-        )
+            ) || 100, "INHERIT" === d ? e / 100 : AGB.Styles.getColor(d, c ? 2 * e :
+                e
+            )
         ) : ""
     }, getTab: function (a) {
         return OBJ.is(a) && a.keyPlayer && AGB.Token.Data[a.keyPlayer] && a.tab && OBJ.is(AGB.Token.Data[a.keyPlayer][a.tab]) ? a.tab : ""
@@ -1623,9 +1623,9 @@ AGB.Fleet = {
         var c, d, e, f;
         if (e = AGB.App.getPlayer(a)) {
             c = AGB.Fleet.Data[e] = {version: AGB.Data.get("Fleet", "Data", "version")}, d = OBJ.parse(b[AGB.Data.getKey(e, "Fleet", "Data")]), f = c.version !== d.version, AGB.Data.iterate("Fleet", function (a, b) {
-                                                                                                                                                                                                  2 <= a.tab ? c[b] = OBJ.is(d[b]) && !f ? d[b] : 3 === a.tab ? [] : {} : a.tab && (c[b] = {}
-                                                                                                                                                                                                  )
-                                                                                                                                                                                              }
+                    2 <= a.tab ? c[b] = OBJ.is(d[b]) && !f ? d[b] : 3 === a.tab ? [] : {} : a.tab && (c[b] = {}
+                    )
+                }
             ), f && (c.changed = !0, AGB.Data.Change()
             );
         }
@@ -1636,8 +1636,8 @@ AGB.Fleet = {
         b = AGB.Fleet.Data[c];
         AGB.Data.isStatus(c) && b && (a.backup || b.changed
         ) && (delete b.changed, a.save && (a.save[c + "_Fleet_Data"] = JSON.stringify(b)
-        ), a.backup && AGB.Data.isBackup(c, "Fleet", "Data", 2) && (a.backup.Fleet_Data = JSON.stringify(b)
-        )
+            ), a.backup && AGB.Data.isBackup(c, "Fleet", "Data", 2) && (a.backup.Fleet_Data = JSON.stringify(b)
+            )
         )
     }, Set: function (a) {
         var b, c, d, e;
@@ -1645,12 +1645,12 @@ AGB.Fleet = {
         d = AGB.Data.getTab(a, "Fleet");
         b = AGB.Fleet.Data[c];
         c && d && b && (OBJ.is(b[d]) || (b[d] = {}
-        ), OBJ.iterate(a.data, function (c) {
-                           b[d][c] !== a.data[c] && (b[d][c] = a.data[c], e = !0
-                           )
-                       }
-        ), e && (b.changed = !0, AGB.Data.Change()
-        )
+            ), OBJ.iterate(a.data, function (c) {
+                    b[d][c] !== a.data[c] && (b[d][c] = a.data[c], e = !0
+                    )
+                }
+            ), e && (b.changed = !0, AGB.Data.Change()
+            )
         );
         b = c = d = e = null
     }, Action: function (a) {
@@ -1661,7 +1661,7 @@ AGB.Fleet = {
         b = AGB.Fleet.Data[c];
         if (c && d && b && "Last" === d && OBJ.get(a.data, "coords")) {
             if (Array.isArray(b.Last) || (b.Last = []
-                ), d = a.data, e = +d.routine || 0, f = d.mission, d.routine = 0, !e || VAL.check(e, 1, 2, 3, 4)) {
+            ), d = a.data, e = +d.routine || 0, f = d.mission, d.routine = 0, !e || VAL.check(e, 1, 2, 3, 4)) {
                 1 !== f && delete d.retreatAfterDefenderRetreat;
                 5 !== f && delete d.holdingtime;
                 15 !== f && delete d.expeditiontime;
@@ -1673,7 +1673,7 @@ AGB.Fleet = {
                     8 === f && (d.routine = 4
                     ), d.metal = d.crystal = d.deuterium = 0;
                 } else if (2 ===
-                           e || d.resources) {
+                    e || d.resources) {
                     !d.resources || 3 !== f && 4 !== f ? d.metal = d.crystal = d.deuterium = 0 : d.routine = 2;
                 }
                 e = [AGB.Task.join(d, 2)];
@@ -1690,24 +1690,24 @@ AGB.Fleet = {
                 AGB.Data.Change()
             } else {
                 5 === e ? (a = AGB.Task.split(OBJ.get(b.Routine, "Collect")), a.routine && (d.routine = a.routine, e = AGB.Task.cut(AGB.Task.join(d),
-                                                                                                                                    10
-                ), AGB.Fleet.Set({keyPlayer: c, tab: "Routine", data: {Collect: e}})
-                )
+                            10
+                        ), AGB.Fleet.Set({keyPlayer: c, tab: "Routine", data: {Collect: e}})
+                    )
                 ) : 6 === e ? (a = AGB.Task.split(OBJ.get(b.Routine, "Save")), a.routine && (d.routine = a.routine, e = AGB.Task.cut(AGB.Task.join(d), 10), AGB.Fleet.Set({
-                                                                                                                                                                              keyPlayer: c,
-                                                                                                                                                                              tab: "Routine",
-                                                                                                                                                                              data: {Save: e}
-                                                                                                                                                                          }
-                )
-                )
+                                keyPlayer: c,
+                                tab: "Routine",
+                                data: {Save: e}
+                            }
+                        )
+                    )
                 ) : 7 === e && (e = AGB.Task.cutSystem(a.coords), 15 === f && e && AGB.Fleet.Set({
-                                                                                                     keyPlayer: c,
-                                                                                                     tab: "Expo",
-                                                                                                     data: OBJ.createKey(e, (+OBJ.get(b.Expo, e) || 0
-                                                                                                                            ) + 1
-                                                                                                     )
-                                                                                                 }
-                )
+                            keyPlayer: c,
+                            tab: "Expo",
+                            data: OBJ.createKey(e, (+OBJ.get(b.Expo, e) || 0
+                            ) + 1
+                            )
+                        }
+                    )
                 )
             }
         }
@@ -1728,17 +1728,17 @@ AGB.DataBase = {
     },
     Start: function (a) {
         OBJ.is(a.indexedDB) && "function" === typeof a.IDBKeyRange && (AGB.DataBase.indexedDB = a.indexedDB,
-            AGB.DataBase.IDBKeyRange = a.IDBKeyRange, AGB.DataBase.status = 1
+                AGB.DataBase.IDBKeyRange = a.IDBKeyRange, AGB.DataBase.status = 1
         )
     },
     Init: function (a) {
         var b;
         if (b = AGB.App.getUni(a)) {
             OBJ.is(AGB.DataBase.Data[b]) || (AGB.DataBase.Data[b] = {
-                status: 0,
-                keyUni: a.keyUni,
-                urlUni: a.urlUni
-            }
+                    status: 0,
+                    keyUni: a.keyUni,
+                    urlUni: a.urlUni
+                }
             ), b = AGB.DataBase.Data[b], 0 <= b.status && 2 >= b.status && (b.status = 3, b.keyPlayer = a.keyPlayer, b.api = AGB.Option.Get(a.keyPlayer, "D20"), AGB.DataBase.Open(OBJ.create(b), "Player")
             )
         }
@@ -1747,20 +1747,20 @@ AGB.DataBase = {
         var b, c;
         (c = AGB.App.getUni(a)
         ) && AGB.DataBase.Data[c] && (b = {
-            status: AGB.DataBase.Data[c].status,
-            tab: a.tab
-        }, OBJ.iterate(AGB.DataBase.Info,
-                       function (a) {
-                           var e;
-                           e = AGB.DataBase.Data[c + "_" + a] || {};
-                           b[a] = {
-                               status:    +e.status || 0,
-                               timestamp: +e.timestamp || 0,
-                               loading:   +e.loading || 0,
-                               entries:   +e.entries || 0
-                           }
-                       }
-        )
+                status: AGB.DataBase.Data[c].status,
+                tab: a.tab
+            }, OBJ.iterate(AGB.DataBase.Info,
+                function (a) {
+                    var e;
+                    e = AGB.DataBase.Data[c + "_" + a] || {};
+                    b[a] = {
+                        status: +e.status || 0,
+                        timestamp: +e.timestamp || 0,
+                        loading: +e.loading || 0,
+                        entries: +e.entries || 0
+                    }
+                }
+            )
         );
         return b
     },
@@ -1779,26 +1779,26 @@ AGB.DataBase = {
         function b(a, b) {
             var c;
             AGB.App.getUni({keyUni: a}) && AGB.DataBase.Info[b] && (AGB.Core.Log("DataBase - Remove   : " + a + "_" + b, !0), c = !0, AGB.DataBase.set(a + "_" + b, "status",
-                                                                                                                                                       0
-            ), OBJ.iterate(AGB.DataBase.Info, function (b) {
-                               -3 === AGB.DataBase.get(a + "_" + b, "status") && (c = !1
-                               )
-                           }
-            ), c && AGB.DataBase.set(a, "status", 0)
+                    0
+                ), OBJ.iterate(AGB.DataBase.Info, function (b) {
+                        -3 === AGB.DataBase.get(a + "_" + b, "status") && (c = !1
+                        )
+                    }
+                ), c && AGB.DataBase.set(a, "status", 0)
             )
         }
 
         var c;
         if (c = AGB.App.getUni(a)) {
             AGB.DataBase.set(c, "status", -3), OBJ.iterate(AGB.DataBase.Info, function (a) {
-                                                               var e;
-                                                               e = c + "_" + a;
-                                                               AGB.DataBase.Close(e);
-                                                               AGB.DataBase.Data[e] = {status: -3};
-                                                               AGB.DataBase.indexedDB.deleteDatabase(e).onsuccess = function () {
-                                                                   b(c, a)
-                                                               }
-                                                           }
+                    var e;
+                    e = c + "_" + a;
+                    AGB.DataBase.Close(e);
+                    AGB.DataBase.Data[e] = {status: -3};
+                    AGB.DataBase.indexedDB.deleteDatabase(e).onsuccess = function () {
+                        b(c, a)
+                    }
+                }
             )
         }
     },
@@ -1808,12 +1808,12 @@ AGB.DataBase = {
     },
     get: function (a, b) {
         return a && b && OBJ.is(AGB.DataBase.Data[a]) ?
-               AGB.DataBase.Data[a][b] : 0
+            AGB.DataBase.Data[a][b] : 0
     },
     isStatus: function (a, b) {
         var c, d;
         if ((c = AGB.App.getUni(a)
-            ) && b && AGB.DataBase.Info[b]) {
+        ) && b && AGB.DataBase.Info[b]) {
             if (1 === AGB.DataBase.get(c, "status")) {
                 return c = c + "_" + b, d = AGB.DataBase.get(c, "status"), 1 === d || 2 === d ? c : "";
             }
@@ -1831,7 +1831,7 @@ AGB.DataBase = {
                         AGB.DataBase.Data[a].db = e.target.result
                     } catch (g) {
                         AGB.DataBase.Data[a].db =
-                        null
+                            null
                     }
                     try {
                         d(AGB.DataBase.Data[a].db.transaction(b, c || "readonly").objectStore(b))
@@ -1847,102 +1847,102 @@ AGB.DataBase = {
     Set: function (a) {
         var b;
         OBJ.is(a) && OBJ.is(a.data) && (b = AGB.DataBase.isStatus(a, "Player"), a.api = AGB.DataBase.get(a.keyUni, "api"), b && OBJ.is(a.data.Player) && AGB.DataBase.ObjectStore(b, "I", "readwrite", function (b) {
-                                                                                                                                                                                      b && OBJ.iterate(a.data.Player, function (d) {
-                                                                                                                                                                                                           var e;
-                                                                                                                                                                                                           e = a.data.Player[d];
-                                                                                                                                                                                                           e.I && (b.get(+d).onsuccess = function (d) {
-                                                                                                                                                                                                               d = d.target.result;
-                                                                                                                                                                                                               d && e.N === d.N && e.s === d.s && e.aI === d.aI || (a.api && AGB.Core.Log("Galaxy - Update Player " +
-                                                                                                                                                                                                                                                                                          e.N
-                                                                                                                                                                                                               ), b.put(e)
-                                                                                                                                                                                                               )
-                                                                                                                                                                                                           }
-                                                                                                                                                                                                           )
-                                                                                                                                                                                                       }
-                                                                                                                                                                                      )
-                                                                                                                                                                                  }
-        ), (b = AGB.DataBase.isStatus(a, "Universe")
-           ) && OBJ.is(a.data.Planet) && AGB.DataBase.ObjectStore(b, "pI", "readwrite", function (b) {
-                                                                      b && OBJ.iterate(a.data.Planet, function (d) {
-                                                                                           var e;
-                                                                                           e = a.data.Planet[d];
-                                                                                           b.index("c").get(d).onsuccess = function (f) {
-                                                                                               f = f.target.result;
-                                                                                               if (e && !f) {
-                                                                                                   a.api && AGB.Core.Log("Galaxy - New planet: " + d), b.put(e);
-                                                                                               } else if (e && f) {
-                                                                                                   if (e.I !== f.I) {
-                                                                                                       AGB.Core.Log("Galaxy - Different player: " + d + " - Player " + f.I), f.c = "moved", b.put(f), b.put(e);
-                                                                                                   } else if (e.pI !== f.pI) {
-                                                                                                       AGB.Core.Log("Galaxy - Different planet: " +
-                                                                                                                    d
-                                                                                                       ), f.c = "moved", b.put(f), b.put(e);
-                                                                                                   } else {
-                                                                                                       if (e.pN !== f.pN || e.mI !== f.mI || e.mN !== f.mN) {
-                                                                                                           AGB.Core.Log("Galaxy - Update planet: " + d), b.put(e)
-                                                                                                       }
-                                                                                                   }
-                                                                                               } else {
-                                                                                                   !e && f && (AGB.Core.Log("Galaxy - Missing planet: " + d + " - Player " + f.I), f.c = "moved", b.put(f)
-                                                                                                   )
-                                                                                               }
-                                                                                           }
-                                                                                       }
-                                                                      )
-                                                                  }
-        )
+                    b && OBJ.iterate(a.data.Player, function (d) {
+                            var e;
+                            e = a.data.Player[d];
+                            e.I && (b.get(+d).onsuccess = function (d) {
+                                    d = d.target.result;
+                                    d && e.N === d.N && e.s === d.s && e.aI === d.aI || (a.api && AGB.Core.Log("Galaxy - Update Player " +
+                                            e.N
+                                        ), b.put(e)
+                                    )
+                                }
+                            )
+                        }
+                    )
+                }
+            ), (b = AGB.DataBase.isStatus(a, "Universe")
+            ) && OBJ.is(a.data.Planet) && AGB.DataBase.ObjectStore(b, "pI", "readwrite", function (b) {
+                    b && OBJ.iterate(a.data.Planet, function (d) {
+                            var e;
+                            e = a.data.Planet[d];
+                            b.index("c").get(d).onsuccess = function (f) {
+                                f = f.target.result;
+                                if (e && !f) {
+                                    a.api && AGB.Core.Log("Galaxy - New planet: " + d), b.put(e);
+                                } else if (e && f) {
+                                    if (e.I !== f.I) {
+                                        AGB.Core.Log("Galaxy - Different player: " + d + " - Player " + f.I), f.c = "moved", b.put(f), b.put(e);
+                                    } else if (e.pI !== f.pI) {
+                                        AGB.Core.Log("Galaxy - Different planet: " +
+                                            d
+                                        ), f.c = "moved", b.put(f), b.put(e);
+                                    } else {
+                                        if (e.pN !== f.pN || e.mI !== f.mI || e.mN !== f.mN) {
+                                            AGB.Core.Log("Galaxy - Update planet: " + d), b.put(e)
+                                        }
+                                    }
+                                } else {
+                                    !e && f && (AGB.Core.Log("Galaxy - Missing planet: " + d + " - Player " + f.I), f.c = "moved", b.put(f)
+                                    )
+                                }
+                            }
+                        }
+                    )
+                }
+            )
         )
     },
     GetPlayer: function (a, b) {
         function c(c) {
             a.error && b(a);
             a.planets ? (c = c || {}, AGB.DataBase.getPlanetsByPlayerId(a, function (e) {
-                                                                            c.planets = e;
-                                                                            Array.isArray(c.planets) && (OBJ.iterateArray(c.planets, function (a) {
-                                                                                                                              a && (!c.planetHome || +a.planetId < +c.planetHome
-                                                                                                                              ) && (c.planetHome = a.planetId
-                                                                                                                              )
-                                                                                                                          }
-                                                                            ),
-                                                                                1 === a.planets ? c.planets.sort(function (a, b) {
-                                                                                                                     var c, d;
-                                                                                                                     c = STR.check(a.coords).split(":");
-                                                                                                                     d = STR.check(b.coords).split(":");
-                                                                                                                     return +c[0] < +d[0] ? -1 : +c[0] > +d[0] ? 1 : +c[1] < +d[1] ? -1 : +c[1] > +d[1] ? 1 : +c[2] < +d[2] ? -1 : +c[2] > +d[2] ? 1 : 0
-                                                                                                                 }
-                                                                                ) : 2 === a.planets && c.planets.sort(function (a, b) {
-                                                                                                                          STR.check(a.planetName);
-                                                                                                                          STR.check(b.planetName);
-                                                                                                                          return a < b ? -1 : a === b ? 0 : 1
-                                                                                                                      }
-                                                                                )
-                                                                            );
-                                                                            b(c)
-                                                                        }
-            )
+                        c.planets = e;
+                        Array.isArray(c.planets) && (OBJ.iterateArray(c.planets, function (a) {
+                                    a && (!c.planetHome || +a.planetId < +c.planetHome
+                                    ) && (c.planetHome = a.planetId
+                                    )
+                                }
+                            ),
+                                1 === a.planets ? c.planets.sort(function (a, b) {
+                                        var c, d;
+                                        c = STR.check(a.coords).split(":");
+                                        d = STR.check(b.coords).split(":");
+                                        return +c[0] < +d[0] ? -1 : +c[0] > +d[0] ? 1 : +c[1] < +d[1] ? -1 : +c[1] > +d[1] ? 1 : +c[2] < +d[2] ? -1 : +c[2] > +d[2] ? 1 : 0
+                                    }
+                                ) : 2 === a.planets && c.planets.sort(function (a, b) {
+                                        STR.check(a.planetName);
+                                        STR.check(b.planetName);
+                                        return a < b ? -1 : a === b ? 0 : 1
+                                    }
+                                )
+                        );
+                        b(c)
+                    }
+                )
             ) : b(c)
         }
 
         "function" === typeof b && (a.id ? AGB.DataBase.getPlayerById(a, c) : a.coords ? AGB.DataBase.getPlanetByCoords(a, function (b) {
-                                                                                                                            a.id = OBJ.get(b, "playerId");
-                                                                                                                            AGB.DataBase.getPlayerById(a,
-                                                                                                                                                       c
-                                                                                                                            )
-                                                                                                                        }
-        ) : b()
+                    a.id = OBJ.get(b, "playerId");
+                    AGB.DataBase.getPlayerById(a,
+                        c
+                    )
+                }
+            ) : b()
         )
     },
     GetPlanet: function (a, b) {
         "function" === typeof b && (a.id ? b() : a.coords ? AGB.DataBase.getPlanetByCoords(a, function (c) {
-                                                                                               c = c || {};
-                                                                                               a.id = c.playerId;
-                                                                                               AGB.DataBase.getPlayerById(a, function (a) {
-                                                                                                                              OBJ.copy(a, c);
-                                                                                                                              b(c)
-                                                                                                                          }
-                                                                                               )
-                                                                                           }
-        ) : b()
+                    c = c || {};
+                    a.id = c.playerId;
+                    AGB.DataBase.getPlayerById(a, function (a) {
+                            OBJ.copy(a, c);
+                            b(c)
+                        }
+                    )
+                }
+            ) : b()
         )
     },
     getPlayerById: function (a, b) {
@@ -1951,21 +1951,21 @@ AGB.DataBase = {
             if (c = AGB.DataBase.isStatus(a, "Player")) {
                 try {
                     AGB.DataBase.ObjectStore(c, "I", "readonly", function (c) {
-                                                 c && +a.id ? c.get(+a.id).onsuccess = function (a) {
-                                                     var c;
-                                                     a = a.target.result;
-                                                     OBJ.is(a) && a.I && (c = {
-                                                         playerId: (a.I || ""
-                                                                   ) + "",
-                                                         playerName: a.N || "",
-                                                         playerStatus: a.s || "",
-                                                         allianceId: (a.aI || ""
-                                                                   ) + ""
-                                                     }
-                                                     );
-                                                     b(c)
-                                                 } : b()
-                                             }
+                            c && +a.id ? c.get(+a.id).onsuccess = function (a) {
+                                var c;
+                                a = a.target.result;
+                                OBJ.is(a) && a.I && (c = {
+                                        playerId: (a.I || ""
+                                        ) + "",
+                                        playerName: a.N || "",
+                                        playerStatus: a.s || "",
+                                        allianceId: (a.aI || ""
+                                        ) + ""
+                                    }
+                                );
+                                b(c)
+                            } : b()
+                        }
                     )
                 } catch (d) {
                     b()
@@ -1981,23 +1981,23 @@ AGB.DataBase = {
             if (c = AGB.DataBase.isStatus(a, "Universe")) {
                 try {
                     AGB.DataBase.ObjectStore(c, "pI", "readonly", function (c) {
-                                                 var d;
-                                                 c && +a.id ? (d = [], c.index("I").openCursor(AGB.DataBase.IDBKeyRange.only(+a.id)).onsuccess = function (a) {
-                                                     var c, e;
-                                                     a.target.result ? (e = a.target.result.value, OBJ.get(e, "pI") && (c = {
-                                                         coords: e.c || "",
-                                                         planetId: (e.pI || ""
-                                                                 ) + "",
-                                                         planetName: e.pN || ""
-                                                     }, e.mI && (c.moonId = (e.mI ||
-                                                                             ""
-                                                                            ) + "", c.moonName = e.mN || ""
-                                                     ), d.push(c)
-                                                     ), a.target.result["continue"]()
-                                                     ) : b(d)
-                                                 }
-                                                 ) : b()
-                                             }
+                            var d;
+                            c && +a.id ? (d = [], c.index("I").openCursor(AGB.DataBase.IDBKeyRange.only(+a.id)).onsuccess = function (a) {
+                                    var c, e;
+                                    a.target.result ? (e = a.target.result.value, OBJ.get(e, "pI") && (c = {
+                                                coords: e.c || "",
+                                                planetId: (e.pI || ""
+                                                ) + "",
+                                                planetName: e.pN || ""
+                                            }, e.mI && (c.moonId = (e.mI ||
+                                                    ""
+                                                ) + "", c.moonName = e.mN || ""
+                                            ), d.push(c)
+                                        ), a.target.result["continue"]()
+                                    ) : b(d)
+                                }
+                            ) : b()
+                        }
                     )
                 } catch (d) {
                     b()
@@ -2013,25 +2013,25 @@ AGB.DataBase = {
             if (c = AGB.DataBase.isStatus(a, "Universe")) {
                 try {
                     AGB.DataBase.ObjectStore(c, "pI", "readonly", function (c) {
-                                                 c && a.coords ? c.index("c").get(a.coords).onsuccess = function (a) {
-                                                     var c;
-                                                     a = a.target.result;
-                                                     OBJ.is(a) && a.pI && (c = {
-                                                         playerId: (a.I || ""
-                                                                   ) + "",
-                                                         coords: a.c || "",
-                                                         planetId: (a.pI || ""
-                                                                   ) + "",
-                                                         planetName: a.pN || "",
-                                                         moonId: (a.mI || ""
-                                                                   ) + "",
-                                                         moonName: a.mN || ""
-                                                     }
-                                                     );
-                                                     b(c)
-                                                 } :
-                                                 b()
-                                             }
+                            c && a.coords ? c.index("c").get(a.coords).onsuccess = function (a) {
+                                    var c;
+                                    a = a.target.result;
+                                    OBJ.is(a) && a.pI && (c = {
+                                            playerId: (a.I || ""
+                                            ) + "",
+                                            coords: a.c || "",
+                                            planetId: (a.pI || ""
+                                            ) + "",
+                                            planetName: a.pN || "",
+                                            moonId: (a.mI || ""
+                                            ) + "",
+                                            moonName: a.mN || ""
+                                        }
+                                    );
+                                    b(c)
+                                } :
+                                b()
+                        }
                     )
                 } catch (d) {
                     b()
@@ -2056,33 +2056,33 @@ AGB.DataBase = {
         var d, e, f;
         f = -3;
         AGB.App.getUni(a) && b && (a.key = "", a.tab = b, AGB.DataBase.Info[a.tab] && (a.key = a.keyUni + "_" + a.tab, OBJ.is(AGB.DataBase.Data[a.key]) || (AGB.DataBase.Data[a.key] = {}
-        ), d = AGB.DataBase.Data[a.key], f = +d.status || 0, f = -1 > f ? f : 1 === f || 2 === f ? f : 0, d.status = f
-        )
+                ), d = AGB.DataBase.Data[a.key], f = +d.status || 0, f = -1 > f ? f : 1 === f || 2 === f ? f : 0, d.status = f
+            )
         );
         0 > f ? AGB.DataBase.Check(a) : OBJ.is(d.db) && d.timestamp ? AGB.DataBase.Check(a) :
-                                        (d.status = 4, AGB.DataBase.Close(a.key), e = AGB.DataBase.indexedDB.open(a.key, 2), e.onblocked = c, e.onerror = c, e.onupgradeneeded = function (d) {
-                                            var f, l;
-                                            f = AGB.DataBase.Info[a.tab].keyPath;
-                                            e.onsuccess = null;
-                                            l = d.target.result;
-                                            l.onerror = c;
-                                            l.objectStoreNames.contains("info") || l.createObjectStore("info");
-                                            l.objectStoreNames.contains(f) || (f = l.createObjectStore(f, {keyPath: f}), "Universe" === b && (f.createIndex("I", "I", {unique: !1}), f.createIndex("c", "c", {unique: !1})
-                                            )
-                                            );
-                                            c(d, 2)
-                                        }, e.onsuccess = function (a) {
-                                            var b;
-                                            try {
-                                                b = a.target.result.transaction("info").objectStore("info").get("timestampServer"),
-                                                    b.onerror = c, b.onsuccess = function (b) {
-                                                    c(a, 1, b.target.result)
-                                                }
-                                            } catch (d) {
-                                                c(a, -2)
-                                            }
-                                        }
-                                        )
+            (d.status = 4, AGB.DataBase.Close(a.key), e = AGB.DataBase.indexedDB.open(a.key, 2), e.onblocked = c, e.onerror = c, e.onupgradeneeded = function (d) {
+                    var f, l;
+                    f = AGB.DataBase.Info[a.tab].keyPath;
+                    e.onsuccess = null;
+                    l = d.target.result;
+                    l.onerror = c;
+                    l.objectStoreNames.contains("info") || l.createObjectStore("info");
+                    l.objectStoreNames.contains(f) || (f = l.createObjectStore(f, {keyPath: f}), "Universe" === b && (f.createIndex("I", "I", {unique: !1}), f.createIndex("c", "c", {unique: !1})
+                        )
+                    );
+                    c(d, 2)
+                }, e.onsuccess = function (a) {
+                    var b;
+                    try {
+                        b = a.target.result.transaction("info").objectStore("info").get("timestampServer"),
+                            b.onerror = c, b.onsuccess = function (b) {
+                            c(a, 1, b.target.result)
+                        }
+                    } catch (d) {
+                        c(a, -2)
+                    }
+                }
+            )
     },
     isRead: function (a) {
         return AGB.status && a.api && a.key && 3 <= AGB.DataBase.get(a.keyUni, "status") ? AGB.DataBase.Data[a.key].status : 0
@@ -2090,17 +2090,17 @@ AGB.DataBase = {
     Check: function (a) {
         var b, c, d;
         1 <= AGB.DataBase.isRead(a) ? (b = AGB.DataBase.Data[a.key], b.status = 1 !== b.status ? b.status : 1E3 > b.timestamp ? 2 : AGB.Time.timestamp() - b.timestamp > 3600 * AGB.DataBase.Info[a.tab].hour ? 2 : 1, 2 <= b.status && (a.load || !b.timestampRead || AGB.Time.timestamp() - b.timestampRead > AGB.DataBase.readLimit
-        ) ?
-                                                                                                                                                                                                                       (c = new XMLHttpRequest, c.timeout = 2E3, c.open("HEAD", a.urlUni + AGB.DataBase.Info[a.tab].url, !0), c.onerror = c.onload = function () {
-                                                                                                                                                                                                                           AGB.DataBase.isRead(a) && (b.timestampRead = AGB.Time.timestamp(), b.timestampHeader = Math.floor((new Date(c.getResponseHeader("Last-Modified"))
-                                                                                                                                                                                                                                                                                                                             ).getTime() / 1E3
-                                                                                                                                                                                                                           ), 200 === +c.status && 1E4 < b.timestampHeader ? b.status = b.timestamp / 100 < b.timestampHeader / 100 ? 3 : 1 : (b.timestampHeader = 0, AGB.Core.Log("DataBase   - ########## Problem: These OGame API is not available - " + a.tab, !0)
-                                                                                                                                                                                                                           )
-                                                                                                                                                                                                                           );
-                                                                                                                                                                                                                           AGB.DataBase.Read(a)
-                                                                                                                                                                                                                       },
-                                                                                                                                                                                                                           c.send(null)
-                                                                                                                                                                                                                       ) : AGB.DataBase.Read(a)
+            ) ?
+                (c = new XMLHttpRequest, c.timeout = 2E3, c.open("HEAD", a.urlUni + AGB.DataBase.Info[a.tab].url, !0), c.onerror = c.onload = function () {
+                        AGB.DataBase.isRead(a) && (b.timestampRead = AGB.Time.timestamp(), b.timestampHeader = Math.floor((new Date(c.getResponseHeader("Last-Modified"))
+                            ).getTime() / 1E3
+                            ), 200 === +c.status && 1E4 < b.timestampHeader ? b.status = b.timestamp / 100 < b.timestampHeader / 100 ? 3 : 1 : (b.timestampHeader = 0, AGB.Core.Log("DataBase   - ########## Problem: These OGame API is not available - " + a.tab, !0)
+                            )
+                        );
+                        AGB.DataBase.Read(a)
+                    },
+                        c.send(null)
+                ) : AGB.DataBase.Read(a)
         ) : (d = AGB.DataBase.get(a.key, "status"), -1 === d && AGB.Core.Log("DataBase   - Problem: Please restart your browser (" + a.key + ")", !0), -2 === d && AGB.Core.Log("DataBase   - Problem: Please delete the database " + a.tab + " for the universe " + a.keyUni, !0), AGB.DataBase.Read(a)
         )
     },
@@ -2115,20 +2115,20 @@ AGB.DataBase = {
                     d = " " + k[q];
                     b = +STR.getAttribute(d, "id") || q;
                     var f = STR.getAttribute(d, "name"), h = STR.getAttribute(d,
-                                                                              "status"
+                        "status"
                     ), l = 21;
                     h && (h[0] && (l = Math.max(+t[h[0]] || 0, l)
-                    ), h[1] && (l = Math.max(+t[h[1]] || 0, l)
-                    ), h[2] && (l = Math.max(+t[h[2]] || 0, l)
-                    )
+                        ), h[1] && (l = Math.max(+t[h[1]] || 0, l)
+                        ), h[2] && (l = Math.max(+t[h[2]] || 0, l)
+                        )
                     );
                     b = {I: b, N: f, s: l};
                     if (d = +STR.getAttribute(d, "alliance") || 0) {
                         b.aI = d;
                     }
                     0 === q % Math.ceil(k.length / 100) && (e.loading = Math.ceil(q / (k.length / 100
-                                                                                  )
-                    ) || 1, AGB.Manager.message(a, "DataBase", "Notify", {tab: a.tab, loading: e.loading})
+                        )
+                        ) || 1, AGB.Manager.message(a, "DataBase", "Notify", {tab: a.tab, loading: e.loading})
                     );
                     s.add(b).onsuccess = g
                 }
@@ -2138,15 +2138,15 @@ AGB.DataBase = {
                 var b, d;
                 q++;
                 3 !== AGB.DataBase.isRead(a) ? c() : q < k.length && (d = (" " + k[q]
-                ).split("<moon"), b = {
-                    pI: +STR.getAttribute(d[0], "id") || q, I: +STR.getAttribute(d[0],
-                                                                                 "player"
-                    )   || 2, pN: STR.getAttribute(d[0], "name"), c: STR.getAttribute(d[0], "coords")
-                }, d[1] && (b.mI = +STR.getAttribute(d[1], "id") || 0, b.mN = STR.getAttribute(d[1], "name")
-                ), 0 === q % Math.ceil(k.length / 100) && (e.loading = Math.ceil(q / (k.length / 100
-                                                                                 )
-                ) || 1, AGB.Manager.message(a, "DataBase", "Notify", {tab: a.tab, loading: e.loading})
-                ), s.add(b).onsuccess = m
+                    ).split("<moon"), b = {
+                        pI: +STR.getAttribute(d[0], "id") || q, I: +STR.getAttribute(d[0],
+                            "player"
+                        ) || 2, pN: STR.getAttribute(d[0], "name"), c: STR.getAttribute(d[0], "coords")
+                    }, d[1] && (b.mI = +STR.getAttribute(d[1], "id") || 0, b.mN = STR.getAttribute(d[1], "name")
+                    ), 0 === q % Math.ceil(k.length / 100) && (e.loading = Math.ceil(q / (k.length / 100
+                        )
+                        ) || 1, AGB.Manager.message(a, "DataBase", "Notify", {tab: a.tab, loading: e.loading})
+                    ), s.add(b).onsuccess = m
                 )
             }
 
@@ -2158,15 +2158,15 @@ AGB.DataBase = {
             e.db = b.target.result;
             e.entries = k.length;
             e.timestamp =
-            e.timestampHeader || +STR.getAttribute(k[0], "timestamp") || AGB.Time.timestamp();
+                e.timestampHeader || +STR.getAttribute(k[0], "timestamp") || AGB.Time.timestamp();
             r.objectStoreNames.contains("info") && r.objectStoreNames.contains(f.keyPath) ? (n = r.transaction("info", "readwrite"), n.objectStore("info").put(0, "timestampServer"), n.objectStore("info").put(0, "entries"), n = r.transaction(f.keyPath, "readwrite"), n.onabort = function () {
-                c(1)
-            }, n.ontimeout = c, n.oncomplete = function () {
-                k = null;
-                3 === AGB.DataBase.isRead(a) && (n = r.transaction("info", "readwrite"), n.objectStore("info").put(e.timestamp, "timestampServer"),
-                    n.objectStore("info").put(e.entries, "entries"), c(1)
-                )
-            }, s = n.objectStore(f.keyPath), s.clear(), "Player" === a.tab ? g() : "Universe" === a.tab && m()
+                    c(1)
+                }, n.ontimeout = c, n.oncomplete = function () {
+                    k = null;
+                    3 === AGB.DataBase.isRead(a) && (n = r.transaction("info", "readwrite"), n.objectStore("info").put(e.timestamp, "timestampServer"),
+                            n.objectStore("info").put(e.entries, "entries"), c(1)
+                    )
+                }, s = n.objectStore(f.keyPath), s.clear(), "Player" === a.tab ? g() : "Universe" === a.tab && m()
             ) : c(-2)
         }
 
@@ -2179,41 +2179,41 @@ AGB.DataBase = {
             }
             AGB.Manager.message(a, "DataBase", "Notify", AGB.DataBase.Status(a));
             AGB.Core.Log("DataBase - Read     : " + a.key + " - Finished with entries: " + (e.entries || ""
-                         ) + " (" + b + ")", !0
+            ) + " (" + b + ")", !0
             );
             d(a)
         }
 
         function d(a) {
             "Player" === a.tab ? AGB.DataBase.Open(a, "Universe") : "Universe" === a.tab && a.keyUni && (AGB.DataBase.Data[a.keyUni].status =
-                                                                                                         1, OBJ.iterate(AGB.DataBase.Info, function (b) {
-                                                                                                                            b = +AGB.DataBase.get(a.keyUni + "_" + b, "status") || 0;
-                                                                                                                            0 >= b && (AGB.DataBase.Data[a.keyUni].status = -1
-                                                                                                                            );
-                                                                                                                            3 <= b && -1 !== AGB.DataBase.Data[a.keyUni].status && (AGB.DataBase.Data[a.keyUni].status = 3
-                                                                                                                            )
-                                                                                                                        }
-            )
+                    1, OBJ.iterate(AGB.DataBase.Info, function (b) {
+                        b = +AGB.DataBase.get(a.keyUni + "_" + b, "status") || 0;
+                        0 >= b && (AGB.DataBase.Data[a.keyUni].status = -1
+                        );
+                        3 <= b && -1 !== AGB.DataBase.Data[a.keyUni].status && (AGB.DataBase.Data[a.keyUni].status = 3
+                        )
+                    }
+                )
             )
         }
 
         var e, f, g;
         3 === AGB.DataBase.isRead(a) ? (AGB.Core.Log("DataBase - Read     : " + a.key, !0), f = AGB.DataBase.Info[a.tab], e = AGB.DataBase.Data[a.key], e.loading = 0, AGB.Manager.message(a, "DataBase", "Notify", {
-                                                                                                                                                                                               tab: a.tab,
-                                                                                                                                                                                               loading: e.loading
-                                                                                                                                                                                           }
-        ), g = new XMLHttpRequest, g.open("GET", a.urlUni + f.url,
-                                          !0
-        ), g.overrideMimeType("text/html"), g.onerror = g.onload = function () {
-            var d, e;
-            AGB.DataBase.isRead(a) && (d = g.responseText || "", 200 === +g.status && -1 < d.indexOf(f.split) ? (AGB.DataBase.Close(a.key), e = AGB.DataBase.indexedDB.open(a.key), e.onerror = c, e.onblocked = c, e.onsuccess = function (a) {
-                b(a, d || "")
-            }
-            ) : (AGB.Core.Log("DataBase   - ########## Problem: These OGame API is not available - " + f.url, !0), c()
-                                                                 )
-            );
-            g = null
-        }, g.send(null)
+                    tab: a.tab,
+                    loading: e.loading
+                }
+            ), g = new XMLHttpRequest, g.open("GET", a.urlUni + f.url,
+                !0
+            ), g.overrideMimeType("text/html"), g.onerror = g.onload = function () {
+                var d, e;
+                AGB.DataBase.isRead(a) && (d = g.responseText || "", 200 === +g.status && -1 < d.indexOf(f.split) ? (AGB.DataBase.Close(a.key), e = AGB.DataBase.indexedDB.open(a.key), e.onerror = c, e.onblocked = c, e.onsuccess = function (a) {
+                            b(a, d || "")
+                        }
+                    ) : (AGB.Core.Log("DataBase   - ########## Problem: These OGame API is not available - " + f.url, !0), c()
+                    )
+                );
+                g = null
+            }, g.send(null)
         ) : d(a)
     }
 };
@@ -2239,7 +2239,7 @@ AGB.Tools = {
         if (d = AGB.App.getPlayer(a, "copy")) {
             e = {id: a.id};
             AGB.Option.Get(d, "T05") && (c = AGB.Task.splitActive(AGB.Option.Get(d, "T06"), 2, a.coordstype), c.ships ? a.Ships = OBJ.createFilter(c, AGB.Item.Ship) : a.planetId && (a.Ships = AGB.Units.create(d, a.planetId, AGB.Item.ShipCombat)
-            )
+                )
             );
             if (OBJ.is(a.Search)) {
                 switch (a.tab = a.Search.tab, a.tab) {
@@ -2247,7 +2247,7 @@ AGB.Tools = {
                         a.searchAlliance = a.Search.id;
                         a.searchAllianceName = a.Search.name;
                         a.searchAllianceTag =
-                        a.Search.tag;
+                            a.Search.tag;
                         break;
                     case "Player":
                         a.searchPlayer = a.Search.id;
@@ -2258,7 +2258,7 @@ AGB.Tools = {
                 }
             } else {
                 a.searchAlliance = AGB.Panel.getActive(d, "Alliance", "id", 6), a.searchAllianceName = AGB.Panel.getActive(d, "Alliance", "name", 6), a.searchAllianceTag = AGB.Panel.getActive(d, "Alliance", "tag", 6), a.searchPlayer = AGB.Panel.getActive(d, "Player", "id", 6), a.searchPlayerName = AGB.Panel.getActive(d, "Player", "name", 6), a.searchTarget = AGB.Panel.getActive(d,
-                                                                                                                                                                                                                                                                                                                                                                                             "Target", "id", 6
+                    "Target", "id", 6
                 ), a.searchTargetCoords = AGB.Panel.getActive(d, "Target", "coords", 6);
             }
             -1 < STR.check(a.searchTarget).indexOf(":") && (a.searchTarget = ""
@@ -2311,9 +2311,9 @@ AGB.Tools = {
         var b, c;
         if (c = AGB.Com.Get(a.abbrCom, "warriders")) {
             b =
-            "Alliance" === a.tab ? "&page=details&type=ally&name=" + (a.searchAllianceTag || ""
-            ) : "Player" === a.tab ? "&page=details&type=player&name=" + (a.searchPlayerName || ""
-            ) : "", a.href = "http://ogame.gamestats.org/?lang=" + c + "&uni=" + (a.abbrUni || ""
+                "Alliance" === a.tab ? "&page=details&type=ally&name=" + (a.searchAllianceTag || ""
+                ) : "Player" === a.tab ? "&page=details&type=player&name=" + (a.searchPlayerName || ""
+                ) : "", a.href = "http://ogame.gamestats.org/?lang=" + c + "&uni=" + (a.abbrUni || ""
             ).toLowerCase() + encodeURI(b)
         }
     },
@@ -2323,7 +2323,7 @@ AGB.Tools = {
         ) : "Player" === a.tab ? "&pora=players&value=" + (a.searchPlayerName || ""
         ) : "";
         a.href = "http://www.infuza.com/" + AGB.Com.Get(a.abbrCom, "infuza") + "/Search?server=" +
-                 AGB.Com.Get(a.abbrCom, "infuzaServer") + encodeURI(b)
+            AGB.Com.Get(a.abbrCom, "infuzaServer") + encodeURI(b)
     },
     createOgniter: function (a) {
         var b;
@@ -2336,25 +2336,25 @@ AGB.Tools = {
         var b, c;
         b = AGB.App.getPlayer(a, "copy");
         c = "http://calc.antigame.de/?lang=" + (a.abbrCom || ""
-        ).toLowerCase() + "&coords=" + (a.coords || ""
+            ).toLowerCase() + "&coords=" + (a.coords || ""
             ) + "&type=" +
             (a.type || ""
             ) + "&name=" + (a.planetName || ""
             ) + "&uni_speed=" + AGB.Uni.Get(b, "speed") + "&robo=" + AGB.Units.Get(b, a.planetId, "14") + "&nanite=" + AGB.Units.Get(b, a.planetId, "15") + "&rlab=" + AGB.Units.Get(b, a.planetId, "31") + (AGB.Option.Get(b, "technocrat") ? "&technocrat=1" : ""
             );
         OBJ.iterate(AGB.Item.Mining, function (d) {
-                        c += STR.addUrlPara(d + "c", AGB.Units.Get(b, a.planetId, d))
-                    }
+                c += STR.addUrlPara(d + "c", AGB.Units.Get(b, a.planetId, d))
+            }
         );
         OBJ.iterate(AGB.Item.Station, function (d) {
-                        c += STR.addUrlPara(d + "c", AGB.Units.Get(b, a.planetId, d))
-                    }
+                c += STR.addUrlPara(d + "c", AGB.Units.Get(b, a.planetId, d))
+            }
         );
         OBJ.iterate(AGB.Item.Research, function (a) {
-                        c += STR.addUrlPara(a +
-                                            "c", AGB.Units.Get(b, "account", a)
-                        )
-                    }
+                c += STR.addUrlPara(a +
+                    "c", AGB.Units.Get(b, "account", a)
+                )
+            }
         );
         a.href = c
     },
@@ -2365,10 +2365,10 @@ AGB.Tools = {
         c = "http://www.o-calc.com/?sec=_amortisation&lang=" + (a.abbrCom || ""
         ).toLowerCase() + "&p=" + AGB.Units.Get(b, "account", "122") + "&g=" + d + "&em=2&ec=1&ed=1&s=" + AGB.Uni.Get(b, "speed") + "&d=";
         OBJ.iterate(a.Planets, function (d) {
-                        c += encodeURI(OBJ.get(a.Planets[d], "name")) + "." + ((+OBJ.get(a.Planets[d], "temp") || 0
-                                                                               ) + 40
-                        ).toString(36) + "." + AGB.Units.Get(b, d, "1").toString(36) + "." + AGB.Units.Get(b, d, "2").toString(36) + "." + AGB.Units.Get(b, d, "3").toString(36) + "+"
-                    }
+                c += encodeURI(OBJ.get(a.Planets[d], "name")) + "." + ((+OBJ.get(a.Planets[d], "temp") || 0
+                    ) + 40
+                ).toString(36) + "." + AGB.Units.Get(b, d, "1").toString(36) + "." + AGB.Units.Get(b, d, "2").toString(36) + "." + AGB.Units.Get(b, d, "3").toString(36) + "+"
+            }
         );
         a.href = c
     },
@@ -2378,48 +2378,48 @@ AGB.Tools = {
         b = a.Task;
         d = "http://www.osimulate.com/?ref=antigame&lang=" + AGB.Com.Get(a.abbrCom, "osimulate") + "&uni=" + a.abbrCom + "_" + a.abbrUni + "&uni_speed=" + AGB.Uni.Get(c, "speedFleet") +
             "&fleet_debris=" + 100 * AGB.Uni.Get(c, "debrisFactor") + "&defense_debris=" + (AGB.Uni.Get(c, "defToTF") ? 100 * AGB.Uni.Get(c, "debrisFactorDef") : "0"
-        ) + "&rapidfire=" + (AGB.Uni.Get(c, "rapidFire") ? 1 : 0
+            ) + "&rapidfire=" + (AGB.Uni.Get(c, "rapidFire") ? 1 : 0
             ) + "&start_pos=" + (a.coords || ""
             ) + "&engine0_0=" + AGB.Units.Get(c, "account", "115") + "&engine0_1=" + AGB.Units.Get(c, "account", "117") + "&engine0_2=" + AGB.Units.Get(c, "account", "118");
         d = b && !b.timeResearch && AGB.Option.Get(c, "T03") ? d + "&del_techs=1" : d + ("&tech_a0_0=" + AGB.Units.Get(c, "account", "109") + "&tech_a0_1=" + AGB.Units.Get(c, "account",
-                                                                                                                                                                            "110"
-        ) + "&tech_a0_2=" + AGB.Units.Get(c, "account", "111")
+                "110"
+            ) + "&tech_a0_2=" + AGB.Units.Get(c, "account", "111")
         );
         OBJ.iterate(a.Ships, function (b) {
-                        d += STR.addUrlPara("ship_a0_" + ((+b || 0
-                                                          ) - 202
-                                            ) + "_b", a.Ships[b]
-                        )
-                    }
+                d += STR.addUrlPara("ship_a0_" + ((+b || 0
+                    ) - 202
+                ) + "_b", a.Ships[b]
+                )
+            }
         );
         b && (d += "&tech_d0_0=" + (+b["109"] || 0
-        ) + "&tech_d0_1=" + (+b["110"] || 0
-                   ) + "&tech_d0_2=" + (+b["111"] || 0
-                   ) + "&enemy_metal=" + (+b.metal || 0
-                   ) + "&enemy_crystal=" + (+b.crystal || 0
-                   ) + "&enemy_deut=" + (+b.deuterium || 0
-                   ) + "&enemy_name=" + (b.name || ""
-                   ) + "&enemy_pos=" + (b.coords || ""
-                   ) + "&enemy_type=" + (b.type || ""
-                   ) + "&enemy_player=" + (b.detail || ""
-                   ) + "&enemy_status=" + (b.status || ""
-                   ) + "&report_time=" +
-                   (b.time || ""
-                   ) + "&plunder_perc=" + (b.plunder || ""
-                   ) + STR.addUrlPara("abm_b", b["502"]), OBJ.iterate(AGB.Item.Ship, function (a) {
-                                                                          d += STR.addUrlPara("ship_d0_" + ((+a || 0
-                                                                                                            ) - 202
-                                                                                              ) + "_b", b[a]
-                                                                          )
-                                                                      }
-        ), OBJ.iterate(AGB.Item.Defense, function (a) {
-                           1 === AGB.Item.Defense[a] && (d += STR.addUrlPara("ship_d0_" + ((+a || 0
-                                                                                           ) - 387
-                                                                             ) + "_b", b[a]
-                           )
-                           )
-                       }
-        )
+                ) + "&tech_d0_1=" + (+b["110"] || 0
+                ) + "&tech_d0_2=" + (+b["111"] || 0
+                ) + "&enemy_metal=" + (+b.metal || 0
+                ) + "&enemy_crystal=" + (+b.crystal || 0
+                ) + "&enemy_deut=" + (+b.deuterium || 0
+                ) + "&enemy_name=" + (b.name || ""
+                ) + "&enemy_pos=" + (b.coords || ""
+                ) + "&enemy_type=" + (b.type || ""
+                ) + "&enemy_player=" + (b.detail || ""
+                ) + "&enemy_status=" + (b.status || ""
+                ) + "&report_time=" +
+                (b.time || ""
+                ) + "&plunder_perc=" + (b.plunder || ""
+                ) + STR.addUrlPara("abm_b", b["502"]), OBJ.iterate(AGB.Item.Ship, function (a) {
+                    d += STR.addUrlPara("ship_d0_" + ((+a || 0
+                        ) - 202
+                    ) + "_b", b[a]
+                    )
+                }
+            ), OBJ.iterate(AGB.Item.Defense, function (a) {
+                    1 === AGB.Item.Defense[a] && (d += STR.addUrlPara("ship_d0_" + ((+a || 0
+                            ) - 387
+                        ) + "_b", b[a]
+                        )
+                    )
+                }
+            )
         );
         a.href = d
     },
@@ -2429,48 +2429,48 @@ AGB.Tools = {
         b = a.Task;
         d = "http://websim.speedsim.net/index.php?version=1&ref=antigame&lang=" + AGB.Com.Get(a.abbrCom, "websim") + "&uni=" + a.abbrCom +
             "_" + a.abbrUni + "&uni_speed=" + AGB.Uni.Get(c, "speedFleet") + "&perc-df=" + 100 * AGB.Uni.Get(c, "debrisFactor") + "&def_to_df=" + (AGB.Uni.Get(c, "defToTF") ? 1 : 0
-        ) + "&rf=" + (AGB.Uni.Get(c, "rapidFire") ? 1 : 0
+            ) + "&rf=" + (AGB.Uni.Get(c, "rapidFire") ? 1 : 0
             ) + "&start_pos=" + (a.coords || ""
             ) + "&engine0_0=" + AGB.Units.Get(c, "account", "115") + "&engine0_1=" + AGB.Units.Get(c, "account", "117") + "&engine0_2=" + AGB.Units.Get(c, "account", "118");
         d = b && !b.timeResearch && AGB.Option.Get(c, "T03") ? d + "&del_techs=1" : d + ("&tech_a0_0=" + AGB.Units.Get(c, "account", "109") + "&tech_a0_1=" + AGB.Units.Get(c, "account",
-                                                                                                                                                                            "110"
-        ) + "&tech_a0_2=" + AGB.Units.Get(c, "account", "111")
+                "110"
+            ) + "&tech_a0_2=" + AGB.Units.Get(c, "account", "111")
         );
         OBJ.iterate(a.Ships, function (b) {
-                        d += STR.addUrlPara("ship_a0_" + ((+b || 0
-                                                          ) - 202
-                                            ) + "_b", a.Ships[b]
-                        )
-                    }
+                d += STR.addUrlPara("ship_a0_" + ((+b || 0
+                    ) - 202
+                ) + "_b", a.Ships[b]
+                )
+            }
         );
         b && (d += "&tech_d0_0=" + (+b["109"] || 0
-        ) + "&tech_d0_1=" + (+b["110"] || 0
-                   ) + "&tech_d0_2=" + (+b["111"] || 0
-                   ) + "&enemy_metal=" + (+b.metal || 0
-                   ) + "&enemy_crystal=" + (+b.crystal || 0
-                   ) + "&enemy_deut=" + (+b.deuterium || 0
-                   ) + "&enemy_name=" + (b.name || ""
-                   ) + "&enemy_pos=" + (b.coords || ""
-                   ) + "&enemy_type=" + (b.type || ""
-                   ) + "&enemy_player=" + (b.detail || ""
-                   ) + "&enemy_status=" + (b.status || ""
-                   ) + "&report_time=" +
-                   (b.time || ""
-                   ) + "&plunder_perc=" + (b.plunder || ""
-                   ) + STR.addUrlPara("abm_b", b["502"]), OBJ.iterate(AGB.Item.Ship, function (a) {
-                                                                          d += STR.addUrlPara("ship_d0_" + ((+a || 0
-                                                                                                            ) - 202
-                                                                                              ) + "_b", b[a]
-                                                                          )
-                                                                      }
-        ), OBJ.iterate(AGB.Item.Defense, function (a) {
-                           1 === AGB.Item.Defense[a] && (d += STR.addUrlPara("ship_d0_" + ((+a || 0
-                                                                                           ) - 387
-                                                                             ) + "_b", b[a]
-                           )
-                           )
-                       }
-        )
+                ) + "&tech_d0_1=" + (+b["110"] || 0
+                ) + "&tech_d0_2=" + (+b["111"] || 0
+                ) + "&enemy_metal=" + (+b.metal || 0
+                ) + "&enemy_crystal=" + (+b.crystal || 0
+                ) + "&enemy_deut=" + (+b.deuterium || 0
+                ) + "&enemy_name=" + (b.name || ""
+                ) + "&enemy_pos=" + (b.coords || ""
+                ) + "&enemy_type=" + (b.type || ""
+                ) + "&enemy_player=" + (b.detail || ""
+                ) + "&enemy_status=" + (b.status || ""
+                ) + "&report_time=" +
+                (b.time || ""
+                ) + "&plunder_perc=" + (b.plunder || ""
+                ) + STR.addUrlPara("abm_b", b["502"]), OBJ.iterate(AGB.Item.Ship, function (a) {
+                    d += STR.addUrlPara("ship_d0_" + ((+a || 0
+                        ) - 202
+                    ) + "_b", b[a]
+                    )
+                }
+            ), OBJ.iterate(AGB.Item.Defense, function (a) {
+                    1 === AGB.Item.Defense[a] && (d += STR.addUrlPara("ship_d0_" + ((+a || 0
+                            ) - 387
+                        ) + "_b", b[a]
+                        )
+                    )
+                }
+            )
         );
         a.href = d
     },
@@ -2505,34 +2505,34 @@ AGB.Tools = {
         d = "http://drago-sim.com/index.php?ref=antigame&lang=" + AGB.Com.Get(a.abbrCom, "dragosim") + "&uni=" + a.abbrCom + "_" + a.abbrUni + "&uni_speed=" + AGB.Uni.Get(c, "speedFleet") + "&debris_ratio=" + AGB.Uni.Get(c, "debrisFactor") + "&def_tf=" + Boolean(AGB.Uni.Get(c, "defToTF")) + "&rapid_fire=" + (AGB.Uni.Get(c, "rapidFire") ? 1 : 0
         );
         d = b && !b.timeResearch && AGB.Option.Get(c, "T03") ? d + "&del_techs=1" : d + ("&techs[0][0][w_t]=" + AGB.Units.Get(c, "account", "109") +
-                                                                                         "&techs[0][0][s_t]=" + AGB.Units.Get(c, "account", "110") + "&techs[0][0][r_p]=" + AGB.Units.Get(c, "account", "111")
+            "&techs[0][0][s_t]=" + AGB.Units.Get(c, "account", "110") + "&techs[0][0][r_p]=" + AGB.Units.Get(c, "account", "111")
         );
         OBJ.iterate(a.Ships, function (b) {
-                        d += STR.addUrlPara("numunits[0][0][" + e[b] + "]", a.Ships[b])
-                    }
+                d += STR.addUrlPara("numunits[0][0][" + e[b] + "]", a.Ships[b])
+            }
         );
         b && (d += "&techs[1][0][w_t]=" + (+b["109"] || 0
-        ) + "&techs[1][0][s_t]=" + (+b["110"] || 0
-                   ) + "&techs[1][0][r_p]=" + (+b["111"] || 0
-                   ) + "&v_met=" + (+b.metal || 0
-                   ) + "&v_kris=" + (+b.crystal || 0
-                   ) + "&v_deut=" + (+b.deuterium || 0
-                   ) + "&v_planet=" + (b.name || ""
-                   ) + "&v_coords=" + (b.coords || ""
-                   ) + "&enemy_type=" + (b.type || ""
-                   ) + "&enemy_player=" + (b.detail ||
-                                           ""
-                   ) + "&enemy_status=" + (b.status || ""
-                   ) + "&report_time=" + (b.time || ""
-                   ) + "&plunder_perc=" + (b.plunder || ""
-                   ) + STR.addUrlPara("missiles_available_v", b["502"]), OBJ.iterate(AGB.Item.Ship, function (a) {
-                                                                                         d += STR.addUrlPara("numunits[1][0][" + e[a] + "]", b[a])
-                                                                                     }
-        ), OBJ.iterate(AGB.Item.Defense, function (a) {
-                           1 === AGB.Item.Defense[a] && (d += STR.addUrlPara("numunits[1][0][" + e[a] + "]", b[a])
-                           )
-                       }
-        )
+            ) + "&techs[1][0][s_t]=" + (+b["110"] || 0
+            ) + "&techs[1][0][r_p]=" + (+b["111"] || 0
+            ) + "&v_met=" + (+b.metal || 0
+            ) + "&v_kris=" + (+b.crystal || 0
+            ) + "&v_deut=" + (+b.deuterium || 0
+            ) + "&v_planet=" + (b.name || ""
+            ) + "&v_coords=" + (b.coords || ""
+            ) + "&enemy_type=" + (b.type || ""
+            ) + "&enemy_player=" + (b.detail ||
+                ""
+            ) + "&enemy_status=" + (b.status || ""
+            ) + "&report_time=" + (b.time || ""
+            ) + "&plunder_perc=" + (b.plunder || ""
+            ) + STR.addUrlPara("missiles_available_v", b["502"]), OBJ.iterate(AGB.Item.Ship, function (a) {
+                    d += STR.addUrlPara("numunits[1][0][" + e[a] + "]", b[a])
+                }
+            ), OBJ.iterate(AGB.Item.Defense, function (a) {
+                    1 === AGB.Item.Defense[a] && (d += STR.addUrlPara("numunits[1][0][" + e[a] + "]", b[a])
+                    )
+                }
+            )
         );
         a.href = d
     }

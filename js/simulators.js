@@ -20,7 +20,7 @@ AGO.Websim = {
     Show: function () {
         function b(a, b) {
             var c = document.getElementsByName("ship_" +
-                                               a + "_" + b + "_b"
+                a + "_" + b + "_b"
             )[0];
             c && (c.addEventListener("change", AGO.Websim.CalculateFleet, !1), c.addEventListener("keyup", AGO.Websim.CalculateFleet, !1)
             )
@@ -35,17 +35,18 @@ AGO.Websim = {
         }
         var c = document.querySelector("input[type=reset]");
         c && (DOM.set(c, null, null, {
-                          padding: "3px",
-                          marginRight: "24px"
-                      }
-        ), DOM.set(c.parentNode.querySelectorAll("input")[1],
-                   null, null, {padding: "3px", margin: "0px 10px", minWidth: "150px"}
-        )
+                    padding: "3px",
+                    marginRight: "24px"
+                }
+            ), DOM.set(c.parentNode.querySelectorAll("input")[1],
+                null, null, {padding: "3px", margin: "0px 10px", minWidth: "150px"}
+            )
         );
         if (a = document.getElementById("del_techs")) {
             AGO.Websim.isAntigame && (a.checked = STR.getParameter("del_techs", document.location.href)
             );
-            var d = NMR.parseInt(STR.getParameter("uni_speed", document.location.href)) || 1, c = document.createElement("tr");
+            var d = NMR.parseInt(STR.getParameter("uni_speed", document.location.href)) || 1,
+                c = document.createElement("tr");
             c.innerHTML = "<td>" + AGO.Label.get("X04") + '</td><td><input id="uni_speed" size="3" maxlength="2" value="' + d + '"></td>';
             a = a.parentNode.parentNode.parentNode;
             a.insertBefore(c, a.childNodes[3])
@@ -56,7 +57,7 @@ AGO.Websim = {
         ) && a.insertBefore(c, a.childNodes[1]);
         for (c = 0; 13 >= c; c++) {
             b("a",
-              c
+                c
             );
         }
         for (c = 0; 13 >= c; c++) {
@@ -65,31 +66,32 @@ AGO.Websim = {
         a = document.querySelectorAll("input[type=button], input[type=reset]");
         for (c = 0; c < a.length; c++) {
             a[c].addEventListener("click", function () {
-                                      window.setTimeout(AGO.Websim.CalculateFleet, 10)
-                                  }, !1
+                    window.setTimeout(AGO.Websim.CalculateFleet, 10)
+                }, !1
             );
         }
         (a = document.querySelector("input[onclick^=sim_ip_attack]")
         ) && a.addEventListener("click", function () {
-                                    window.setTimeout(AGO.Websim.ShowResult, 330)
-                                }, !1
+                window.setTimeout(AGO.Websim.ShowResult, 330)
+            }, !1
         )
     },
     ShowTitle: function () {
         var b = "";
         AGO.Websim.isAntigame && (b = STR.getParameter("enemy_status", document.location.href), b = "honorableTarget" === b ?
-                                                                                                    "#FFFF66" : "inactive" === b ? "#6E6E6E" : "#FFFFFF", b = '<span style="padding: 0 50px;">' + STR.getParameter("uni", document.location.href) + "</span>" + STR.getParameter("enemy_name", document.location.href) + ' <span style="color: white;">[' + STR.getParameter("enemy_pos", document.location.href) + ']</span> -  <span style="color: ' + b + ';">' + STR.getParameter("enemy_player", document.location.href) + "</span> - " + decodeURI(STR.getParameter("report_time", document.location.href))
+                "#FFFF66" : "inactive" === b ? "#6E6E6E" : "#FFFFFF", b = '<span style="padding: 0 50px;">' + STR.getParameter("uni", document.location.href) + "</span>" + STR.getParameter("enemy_name", document.location.href) + ' <span style="color: white;">[' + STR.getParameter("enemy_pos", document.location.href) + ']</span> -  <span style="color: ' + b + ';">' + STR.getParameter("enemy_player", document.location.href) + "</span> - " + decodeURI(STR.getParameter("report_time", document.location.href))
         );
         var b = b + ('<a href="javascript:void(0)" id="ago_routine_harvest" style="float: right; background-color: #344566; border: 1px solid #415680; padding: 3px; margin: 0 10px;" title=" ' +
-                     AGO.Label.get("X01") + '">AGO ' + AGO.Label.get("F05") + "  " + AGO.Label.get("FH0") + "</a>"
-            ), b = b + ('<a href="javascript:void(0)" id="ago_routine_attack" style="float: right; background-color: #344566; border: 1px solid #415680; padding: 3px;" title=" ' + AGO.Label.get("X01") + '">AGO ' + AGO.Label.get("F05") + "  " + AGO.Label.get("FA0") + "</a>"
+                AGO.Label.get("X01") + '">AGO ' + AGO.Label.get("F05") + "  " + AGO.Label.get("FH0") + "</a>"
+            ),
+            b = b + ('<a href="javascript:void(0)" id="ago_routine_attack" style="float: right; background-color: #344566; border: 1px solid #415680; padding: 3px;" title=" ' + AGO.Label.get("X01") + '">AGO ' + AGO.Label.get("F05") + "  " + AGO.Label.get("FA0") + "</a>"
             ), a = document.getElementById("acs");
         a && (DOM.append(a.parentNode, "span", null, {
-                             color: "#6F9FC8",
-                             fontSize: "14px"
-                         }
-        ).innerHTML = b, DOM.set("ago_routine_attack", "id", null, null, {click: AGO.Websim.SetAttack}),
-            DOM.set("ago_routine_harvest", "id", null, null, {click: AGO.Websim.SetHarvest})
+                    color: "#6F9FC8",
+                    fontSize: "14px"
+                }
+            ).innerHTML = b, DOM.set("ago_routine_attack", "id", null, null, {click: AGO.Websim.SetAttack}),
+                DOM.set("ago_routine_harvest", "id", null, null, {click: AGO.Websim.SetHarvest})
         )
     },
     ShowTarget: function () {
@@ -107,11 +109,12 @@ AGO.Websim = {
 
         function a(a, b) {
             return '<input type="radio" name="plunder_ratio" value="' + a + '"' + (a === b ? ' checked="checked"' :
-                                                                                   ""
-                ) + ">" + a + "% "
+                    ""
+            ) + ">" + a + "% "
         }
 
-        var c = +STR.getParameter("plunder_perc", document.location.href) || 50, d = document.getElementById("enemy_pos");
+        var c = +STR.getParameter("plunder_perc", document.location.href) || 50,
+            d = document.getElementById("enemy_pos");
         if (d) {
             var e = d.parentNode.parentNode.querySelectorAll("td");
             e[4].innerHTML = AGO.Label.get("X03") + ":";
@@ -123,7 +126,7 @@ AGO.Websim = {
             d.parentNode.appendChild(document.createTextNode(" M"))
         }
         DOM.addEvents("input[name=plunder_ratio]",
-                      null, {click: AGO.Websim.CalculateResourse}
+            null, {click: AGO.Websim.CalculateResourse}
         );
         b("enemy_metal");
         b("enemy_crystal");
@@ -131,29 +134,30 @@ AGO.Websim = {
         AGO.Websim.CalculateResourse();
         DOM.set("#read_field + input", null, null, null, {click: AGO.Websim.ReadResourse});
         DOM.addEvents("read_field", "id", {
-                          click: function () {
-                              this.value = ""
-                          }
-                      }
+                click: function () {
+                    this.value = ""
+                }
+            }
         )
     },
     ReadResourse: function () {
         window.setTimeout(function () {
-                              AGO.Websim.CalculateResourse(null, !0)
-                          }, 500
+                AGO.Websim.CalculateResourse(null, !0)
+            }, 500
         )
     },
     CalculateResourse: function (b, a) {
         function c(b) {
             var c = document.querySelector("input[name=original_" + b + "]");
             c && (b = document.querySelector("input[name=" +
-                                             b + "]"
-            ), a && (c.value = STR.check(b.value)
-            ), b.value = STR.check(Math.floor(NMR.parseInt(c.value) * e))
+                    b + "]"
+                ), a && (c.value = STR.check(b.value)
+                ), b.value = STR.check(Math.floor(NMR.parseInt(c.value) * e))
             )
         }
 
-        var d = document.querySelectorAll("input[name=plunder_ratio]"), e = 3 === d.length ? d[2].checked ? 2 : d[1].checked ? 1.5 : 1 : 1;
+        var d = document.querySelectorAll("input[name=plunder_ratio]"),
+            e = 3 === d.length ? d[2].checked ? 2 : d[1].checked ? 1.5 : 1 : 1;
         a && (a = 100 < document.querySelector("#read_field").value.length
         );
         c("enemy_metal");
@@ -172,23 +176,23 @@ AGO.Websim = {
                 f = {};
                 var l = k.split(", ");
                 2 === l.length ? (f.flag = !0, f.metal = STR.trim(l[0].split(" ")[0]), f.crystal = STR.trim(l[1].split(" ")[0]), g = l[1].split(" ~ "), 2 === g.length && (l[1] = g[0], f.info = "~ " + g[1]
-                ), g = k.split(" ("), 2 === g.length && (l[1] = g[0], f.info = g[1].split(")")[0]
-                ), 3 === g.length && (l[1] = "", f.metal_perc = g[1].split(")")[0], f.crystal_perc = g[2].split(")")[0], n = g[0].split(" ")[1], p = g[1].split(" ")[2]
-                ),
-                    k = l[1].split(" "), f.deuterium = 3 <= k.length ? k[k.length - 2] : 0
+                    ), g = k.split(" ("), 2 === g.length && (l[1] = g[0], f.info = g[1].split(")")[0]
+                    ), 3 === g.length && (l[1] = "", f.metal_perc = g[1].split(")")[0], f.crystal_perc = g[2].split(")")[0], n = g[0].split(" ")[1], p = g[1].split(" ")[2]
+                    ),
+                        k = l[1].split(" "), f.deuterium = 3 <= k.length ? k[k.length - 2] : 0
                 ) : 8 === g && (f.flag = !0, f.deuterium = STR.trim(k.split(" ")[0]), q = k.split(" ")[1]
                 );
                 k = '<td style="min-width: 80px; text-align: right; padding: 0px 6px; color: ' + (6 === h || 7 === h ? "#FF9600" : 2 === h ? "#008000" : 4 === h ? "#FF0000" : ""
                 ) + ';">';
                 f.flag && !b ? (2 === h && (a = OBJ.create(f)
-                ), m = k + STR.check(f.metal) + '</td><td width="30">' + STR.check(f.metal_perc) + "</td>" + k + STR.check(f.crystal) + '</td><td width="30">' + STR.check(f.crystal_perc) + "</td>" + k + STR.check(f.deuterium) + '</td><td style="min-width: 80px; padding: 0px 8px; white-space: nowrap;">' +
-                       STR.check(f.info) + "</td>"
+                    ), m = k + STR.check(f.metal) + '</td><td width="30">' + STR.check(f.metal_perc) + "</td>" + k + STR.check(f.crystal) + '</td><td width="30">' + STR.check(f.crystal_perc) + "</td>" + k + STR.check(f.deuterium) + '</td><td style="min-width: 80px; padding: 0px 8px; white-space: nowrap;">' +
+                        STR.check(f.info) + "</td>"
                 ) : (9 === h && (f = NMR.minMax(NMR.parseInt(document.getElementById("uni_speed").value), 1, 100), m = AGO.Time.formatTime(Math.ceil(AGO.Time.parseTime(m) / f)) + " h"
-                ), m = '<td colspan="6" width="400">' + (b ? "" : m
-                ) + "</td>"
+                    ), m = '<td colspan="6" width="400">' + (b ? "" : m
+                    ) + "</td>"
                 );
                 d.push("<tr" + ("none" === e[h].style.display ? ' style="display: none;"' : ""
-                       ) + '><td style="padding: 2px 15px 2px 5px; white-space: nowrap;">' + r + "</td>" + m + "</tr>"
+                ) + '><td style="padding: 2px 15px 2px 5px; white-space: nowrap;">' + r + "</td>" + m + "</tr>"
                 )
             }
             b = document.getElementById("anti_result_table");
@@ -218,14 +222,14 @@ AGO.Websim = {
         for (a = 0; 13 >= a; a++) {
             if (c = document.getElementsByName("ship_a_" + a + "_b")[0]) {
                 d = NMR.parseInt(c.value), c.value = STR.check(d), 0 < d && (AGO.Websim.Data[e].count_attacker +=
-                                                                             d, AGO.Websim.Data[e].attacker += AGO.Item[AGO.Websim.ships[a]].retreat * d
+                        d, AGO.Websim.Data[e].attacker += AGO.Item[AGO.Websim.ships[a]].retreat * d
                 );
             }
         }
         for (a = 0; 13 >= a; a++) {
             if (c = document.getElementsByName("ship_d_" + a + "_b")[0]) {
                 d = NMR.parseInt(c.value), c.value = STR.check(d), 0 < d && (13 >= a && (AGO.Websim.Data[e].count_defender += d
-                ), AGO.Websim.Data[e].defender += AGO.Item[AGO.Websim.ships[a]].retreat * d
+                    ), AGO.Websim.Data[e].defender += AGO.Item[AGO.Websim.ships[a]].retreat * d
                 );
             }
         }
@@ -234,13 +238,13 @@ AGO.Websim = {
             c += +AGO.Websim.Data[a].attacker || 0, d += +AGO.Websim.Data[a].defender || 0, e += +AGO.Websim.Data[a].count_attacker || 0, n += +AGO.Websim.Data[a].count_defender || 0;
         }
         document.getElementById("anti_units_attacker").innerHTML =
-        STR.check(e);
+            STR.check(e);
         document.getElementById("anti_units_defender").innerHTML = STR.check(n);
         a = "white";
         e = "";
         c && d && (c > d ? (e = b(c / d) + "&nbsp; : &nbsp;1", a = c < 3 * d ? "#008000" : c < 5 * d ? "#FFFF00" : "#FF4B00"
-        ) : (e = "1&nbsp; : &nbsp;" + b(d / c), a = "#FF0000"
-                   )
+            ) : (e = "1&nbsp; : &nbsp;" + b(d / c), a = "#FF0000"
+            )
         );
         c = document.getElementById("anti_retreat_ratio");
         c.innerHTML = e;
@@ -253,7 +257,7 @@ AGO.Websim = {
         b.mission = 1;
         b.routine = 3;
         b.metal = DOM.getValue('input[name="original_enemy_metal"]',
-                               null, 3
+            null, 3
         );
         b.crystal = DOM.getValue('input[name="original_enemy_crystal"]', null, 3);
         b.deuterium = DOM.getValue('input[name="original_enemy_deut"]', null, 3);
@@ -304,7 +308,7 @@ AGO.Osimulate = {
         b.metal = DOM.getValue("input#numMetallo", null, 3);
         b.crystal = DOM.getValue("input#numCristallo", null, 3);
         b.deuterium = DOM.getValue("input#numDeuterio",
-                                   null, 3
+            null, 3
         );
         if (a = DOM.getText("#atk-tabs > ul > li.ui-tabs-active a", null, 7)) {
             for (d = 0; 13 >= d; d++) {
