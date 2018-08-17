@@ -552,42 +552,59 @@ AGO.Trader = {
         });
     },
     onImportExport: function () {
-        var addObserver, updateState, updateTime;
-        updateTime = function () {
-            var nextItem;
-            var bargainText = DOM.query("#div_traderImportExport .bargain_text").textContent;
+        DOM.addObserver(DOM.query("#div_traderImportExport .bargain_text"), {
+            childList: true,
+            characterData: true
+        }, function () {
+            AGO.Trader.checkImportExportState();
+        });
 
-            if (nextItem = bargainText.match(/\d+:\d+/)) {
-                nextItem = nextItem[0] + ":00";
-            } else {
-                nextItem = "00:00:00";
-            }
+        AGO.Trader.checkImportExportState();
+    },
+    checkImportExportState: function (node, callback) {
+        node = node ? node : document;
+        if (DOM.query("#div_traderImportExport .bargain_text", node).textContent !== "" && DOM.query("#div_traderImportExport .bargain.import_bargain.take", node).hasClass("hidden")) {
+            AGO.Trader.updateNextItem(DOM.query("#div_traderImportExport .bargain_text", node).textContent, callback);
+        } else {
+            AGO.Option.set("nextItem", -1);
+        }
+    },
+    updateNextItem: function (bargainText, callback) {
+        if (!bargainText) {
+            let b = new XMLHttpRequest;
+            b.open("POST", "index.php?page=traderOverview", true);
+            b.responseType = "document";
+            b.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            b.onerror = b.onload = function () {
+                if (200 === +b.status && b.responseXML) {
+                    AGO.Trader.checkImportExportState(b.responseXML, callback);
+                    -1 == AGO.Option.get("nextItem", 0) && "function" === typeof callback && callback.call(1);
+                }
+            };
+            b.send("show=importexport&ajax=1");
 
-            var ogameTime = AGO.Time.parseDateTime(AGO.Time.formatTimestamp(AGO.Time.ogameTime / 1000));
-            var day = ogameTime.getDate();
-            var month = ogameTime.getMonth() + 1;
-            var year = ogameTime.getFullYear();
+            return;
+        }
 
-            if (nextItem === "00:00:00") day++;
+        let nextItem;
 
-            var dateString = day + "." + month + "." + year + " " + nextItem;
-            AGO.Option.set("nextItem", AGO.Time.parseDateTime(dateString).getTime());
-        };
+        if (nextItem = bargainText.match(/\d+:\d+/)) {
+            nextItem = nextItem[0] + ":00";
+        } else {
+            nextItem = "00:00:00";
+        }
 
-        (addObserver = function () {
-            DOM.addObserver(DOM.query("#div_traderImportExport .bargain_text"), {
-                childList: true,
-                characterData: true
-            }, function () {
-                checkState();
-            });
-        })();
+        let ogameTime = AGO.Time.parseDateTime(AGO.Time.formatTimestamp(AGO.Time.ogameTime / 1000));
+        let day = ogameTime.getDate();
+        let month = ogameTime.getMonth() + 1;
+        let year = ogameTime.getFullYear();
 
-        (checkState = function () {
-            if (DOM.query("#div_traderImportExport .bargain_text").textContent !== "" && DOM.query("#div_traderImportExport .bargain.import_bargain.take").hasClass("hidden")) {
-                updateTime();
-            }
-        })();
+        if (nextItem === "00:00:00") day++;
+
+        let dateString = day + "." + month + "." + year + " " + nextItem;
+        AGO.Option.set("nextItem", AGO.Time.parseDateTime(dateString).getTime());
+
+        "function" === typeof callback && callback.call(0);
     }
 };
 AGO.Alliance = {

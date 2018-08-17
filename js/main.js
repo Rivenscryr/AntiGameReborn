@@ -80,7 +80,13 @@ AGO.Main = {
         DOM.setStyleColor("ago_menubutton_coords", "id", a);
         DOM.updateClass("ago_menubutton_logo", "id", "ago_menubutton_logo_" + d);
 
-        (!AGO.Option.get("nextItem", 0) || AGO.Time.ogameTime > AGO.Option.get("nextItem", 0)) ? DOM.addClass(".premiumHighligt", null, "selected") : 0;
+        if (!AGO.Option.get("nextItem", 0)) {
+            AGO.Trader && AGO.Trader.updateNextItem(0, function () {
+                1 == this && (DOM.addClass(".premiumHighligt", null, "selected"));
+            });
+        } else if (AGO.Time.ogameTime > AGO.Option.get("nextItem", 0)) {
+            DOM.addClass(".premiumHighligt", null, "selected");
+        }
     }, clickButton: function () {
         AGO.App.disabled ? AGO.App.Save({disabled: !1}) :
             20 > AGO.Notify.problem && AGO.Option.Menu()
