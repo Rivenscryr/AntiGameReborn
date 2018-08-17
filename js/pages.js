@@ -578,7 +578,7 @@ AGO.Trader = {
             b.onerror = b.onload = function () {
                 if (200 === +b.status && b.responseXML) {
                     AGO.Trader.checkImportExportState(b.responseXML, callback);
-                    -1 == AGO.Option.get("nextItem", 0) && "function" === typeof callback && callback.call(1);
+                    -1 === AGO.Option.get("nextItem", 0) && "function" === typeof callback && callback.call(1);
                 }
             };
             b.send("show=importexport&ajax=1");
