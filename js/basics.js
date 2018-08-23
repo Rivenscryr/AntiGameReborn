@@ -666,6 +666,9 @@ var DOM = {
         if (3 === b) {
             return NMR.parseIntAbs(a);
         }
+        if (4 === b) {
+            return NMR.parseIntFleet(a);
+        }
         if (7 === b) {
             return (a || ""
             ).trim();
@@ -865,7 +868,15 @@ var DOM = {
             a = a.replace(/,/g, '.').replace(AGO.Label.is("KU0B"), '') * 1000000000;
         else if ((r = new RegExp('^([0-9]{1,3}(\.|,))?[0-9]{1,3}(' + AGO.Label.is("KU0M") + ')')) && a.match(r))
             a = a.replace(/,/g, '.').replace(AGO.Label.is("KU0M"), '') * 1000000;
-        return parseInt(a);
+        return parseInt(a, 10);
+    }, parseIntFleet: function (a) {
+        var r;
+        a = STR.trim(a);
+        if (a.match(/^[0-9]{1,3}\.[0-9]{3}$/) || a.match(/^[0-9]{1,3}\.[0-9]{3}\.[0-9]{3}$/))
+            a = a.replace(/\./g, '');
+        else if ((r = new RegExp('^([0-9]{1,3}(\.|,)*)?[0-9]*(' + AGO.Label.is("KU0M") + ')$')) && a.match(r))
+            a = a.replace(/,/g, '.').replace(AGO.Label.is("KU0M"), '') * 1000000;
+        return parseInt(a, 10);
     }
 }, STR = {
     check: function (a) {

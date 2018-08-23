@@ -18,9 +18,8 @@ AGO.Fleet1 = {
             if (a.page = AGO.App.page, DOM.iterate(h.querySelectorAll('#buttonz li[id^="button"]'), function (b) {
                     var c;
                     c = STR.check(NMR.parseIntAbs(b.id));
-                    b = DOM.getTextChild(".level", b, 3);
-                    c in AGO.Item.Ship && (a[c] = b, a.ships += b, a.capacity += b * AGO.Item[c].capacity
-                    )
+                    b = DOM.getTextChild(".level", b, 4);
+                    c in AGO.Item.Ship && (a[c] = b, a.ships += b, a.capacity += b * AGO.Item[c].capacity)
                 }
             ), f = h.querySelector(".fleetStatus #slots")) {
                 f = f.querySelectorAll("span.tooltip"), 2 === f.length && (b = (DOM.getText(f[0]).split(":")[1] || ""
