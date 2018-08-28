@@ -157,7 +157,7 @@ AGO.Menu = {
         return !0
     },
     Init: function () {
-        2 > AGO.Menu.status && (AGO.Menu.status = 2, AGO.Menu.updatePath = AGO.isChrome ? AGO.App.beta ? "https://antigame.de/antigame/scripts/antigameorigin_beta.crx" : "https://chrome.google.com/webstore/detail/antigameorigin/ldbahlcmhmlpomdepooifmhnalokdhgm" : AGO.App.beta ? "https://antigame.de/antigame/scripts/antigameorigin_beta.xpi" : "https://antigame.de/antigame/scripts/antigameorigin.xpi", AGO.Styles.setFile("menu"),
+        2 > AGO.Menu.status && (AGO.Menu.status = 2, AGO.Menu.updatePath = AGO.isChrome ? AGO.App.beta ? "https://antigame.de/antigame/scripts/antigameorigin_beta.crx" : "https://chrome.google.com/webstore/detail/ago-v6/mhfbpacbhjchkjeopjfgdhckepclcfll" : AGO.App.beta ? "https://antigame.de/antigame/scripts/antigameorigin_beta.xpi" : "https://antigame.de/antigame/scripts/antigameorigin.xpi", AGO.Styles.setFile("menu"),
                 AGO.Para.Init(function () {
                         AGO.Menu.lang = AGO.Para.get("A10") || AGO.Uni.lang;
                         AGO.Label.InitMenu();

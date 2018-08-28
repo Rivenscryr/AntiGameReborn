@@ -1,51 +1,78 @@
 {
-	"name"					: "AGO v6",
-	"short_name"			: "AGO v6",
-	"version"				: "6.7.2",
-	"description"			: "AGO - the other OGame experience for all communities.",
-	"default_locale"		: "en",
-	"manifest_version"		: 2,
-	"permissions": [
-		"unlimitedStorage",
-		"storage",
-		"cookies",
-		"tabs",
-		"http://*.ogame.gameforge.com/*",
-		"https://*.ogame.gameforge.com/*"
-	],
-	"web_accessible_resources": [
-		"js/*.js",
-		"skin/*",
-		"loca/*.json"
-	],
-	"background": {
-		"scripts"			: [ "js/agb_basic.js", "js/agb_common.js", "js/agb_main.js", "js/agb_para.js", "js/agb_init.js", "js/agb_chrome.js", "bootstrap.js" ]
-	},
-	"content_scripts": [
-	
-		{
-			"matches"		: [ "https://*.ogame.gameforge.com/game/index.php*" ],
-			"js"			: [ "js/basics.js", "js/common.js", "js/overlays.js", "js/main.js", "js/init.js" ],
-			"run_at"		: "document_start"
-		},
-	
-		{
-			"matches"		: [ "http://www.osimulate.com/*", "http://websim.speedsim.net/*" ],
-			"js"			: [ "js/basics.js", "js/common.js", "js/init.js" ],
-			"run_at"		: "document_start"
-		},
-		
-		{
-			"matches"		: [ "http://*.ogame.gameforge.com/*", "https://*.ogame.gameforge.com/*" ],
-			"include_globs"	: [ "http://board.??.ogame.gameforge.com/*" ],
-			"css"			: [ "skin/board.css" ],
-			"run_at"		: "document_start"
-		}
-	],
-	"icons": {
-		"16": "Icon-16.png",
-		"48": "Icon-48.png",
-		"128": "Icon-128.png"
-	},
-	"minimum_chrome_version" : "32"
+  "name": "AGO v6",
+  "short_name": "AGO v6",
+  "version": "6.7.2a",
+  "description": "AGO - the other OGame experience for all communities.",
+  "default_locale": "en",
+  "manifest_version": 2,
+  "permissions": [
+    "unlimitedStorage",
+    "storage",
+    "cookies",
+    "tabs",
+    "http://*.ogame.gameforge.com/*",
+    "https://*.ogame.gameforge.com/*"
+  ],
+  "web_accessible_resources": [
+    "js/*.js",
+    "skin/*",
+    "loca/*.json"
+  ],
+  "background": {
+    "scripts": [
+      "js/agb_basic.js",
+      "js/agb_common.js",
+      "js/agb_main.js",
+      "js/agb_para.js",
+      "js/agb_init.js",
+      "js/agb_chrome.js",
+      "bootstrap.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.ogame.gameforge.com/game/index.php*"
+      ],
+      "js": [
+        "js/basics.js",
+        "js/common.js",
+        "js/overlays.js",
+        "js/main.js",
+        "js/init.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "http://www.osimulate.com/*",
+        "http://websim.speedsim.net/*"
+      ],
+      "js": [
+        "js/basics.js",
+        "js/common.js",
+        "js/init.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "http://*.ogame.gameforge.com/*",
+        "https://*.ogame.gameforge.com/*"
+      ],
+      "include_globs": [
+        "http://board.??.ogame.gameforge.com/*"
+      ],
+      "css": [
+        "skin/board.css"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "icons": {
+    "16": "Icon-16.png",
+    "48": "Icon-48.png",
+    "128": "Icon-128.png"
+  },
+  "minimum_chrome_version": "32"
 }

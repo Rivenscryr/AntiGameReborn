@@ -374,9 +374,6 @@ var AGO = {
                 e(a, b, c);
                 a && window.handleUnion()
             };
-            window.getFreeStorage = function () {
-                return window.storageCapacity;
-            }
         } else if ("fleet3" === AGO.Data.page) {
             c = window.updateVariables;
             window.updateVariables =

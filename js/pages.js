@@ -563,7 +563,7 @@ AGO.Trader = {
     },
     checkImportExportState: function (node, callback) {
         node = node ? node : document;
-        if (DOM.query("#div_traderImportExport .bargain_text", node).textContent !== "" && DOM.query("#div_traderImportExport .bargain.import_bargain.take", node).hasClass("hidden")) {
+        if (DOM.query("#div_traderImportExport .bargain_text", node).textContent !== "" && DOM.query("#div_traderImportExport .bargain.import_bargain.take", node).classList.contains("hidden")) {
             AGO.Trader.updateNextItem(DOM.query("#div_traderImportExport .bargain_text", node).textContent, callback);
         } else {
             AGO.Option.set("nextItem", -1);
@@ -572,7 +572,7 @@ AGO.Trader = {
     updateNextItem: function (bargainText, callback) {
         if (!bargainText) {
             let b = new XMLHttpRequest;
-            b.open("POST", "index.php?page=traderOverview", true);
+            b.open("POST", "https://" + AGO.Uni.domain + "/game/index.php?page=traderOverview", true);
             b.responseType = "document";
             b.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             b.onerror = b.onload = function () {
