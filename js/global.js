@@ -219,6 +219,18 @@ var AGO = {
                 )
             }
         );
+
+        let serverURL = window.location.origin;
+        serverURL += "/api/serverData.xml";
+        $.ajax({
+            type: "GET",
+            url: serverURL,
+            dataType: "xml",
+            success: function (data) {
+                AGO.Uni.galaxies = $('serverData', data).find('galaxies').text();
+                AGO.Uni.donutGalaxy = $('serverData', data).find('donutGalaxy').text();
+            }
+        });
     }, Tooltip: function () {
         function b(a, b) {
             a = a.replace(/\s+/g, " ");
