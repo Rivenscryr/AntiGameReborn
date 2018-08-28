@@ -4,7 +4,6 @@
 	"version"				: "6.7.1",
 	"description"			: "AGO - the other OGame experience for all communities.",
 	"default_locale"		: "en",
-	"homepage_url"			: "https://antigame.de",	
 	"manifest_version"		: 2,
 	"permissions": [
 		"unlimitedStorage",
