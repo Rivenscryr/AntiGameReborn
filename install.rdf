@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>riv@umadbro.org</em:id>
-    <em:version>6.7.0</em:version>
+    <em:version>6.7.2</em:version>
     <em:type>2</em:type>
    
     <!-- Angaben zu unterstützten Anwendungsversionen --> 
@@ -21,6 +21,5 @@
     <em:name>AGO v6</em:name>
     <em:description>AGO - the other OGame experience for all communities.</em:description>
     <em:creator>Francolino / maintained by RiV-</em:creator>
-    <em:homepageURL>https://antigame.de</em:homepageURL>
   </Description>      
 </RDF>
