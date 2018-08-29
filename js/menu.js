@@ -1002,7 +1002,11 @@ AGO.Menu.Show = function (a) {
                 "B23",
                 "B24"
             ]
-        ),d("F16"),d("F18"),e(12),v("F31", "F31", "RS"),AGO.Menu.appendSection("F50", "", "F00"),d("F51"),d("F52"),d("F53"),d("F54"),AGO.Menu.appendSection("F60", "", "F00"),g("F62", "ATC", [
+        ),d("F16"),d("F18"),g("F19", "", [
+            "fleet1",
+            "movement"
+        ]),
+        e(12),v("F31", "F31", "RS"),AGO.Menu.appendSection("F50", "", "F00"),d("F51"),d("F52"),d("F53"),d("F54"),AGO.Menu.appendSection("F60", "", "F00"),g("F62", "ATC", [
                 "L202",
                 "L203",
                 "F63"

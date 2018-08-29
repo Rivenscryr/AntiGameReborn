@@ -491,6 +491,8 @@ AGO.Global = {
                     page: AGO.App.page,
                     timeStatus: AGO.Time.status,
                     timeZoneDelta: AGO.Time.timeZoneDelta,
+                    galaxies: AGO.Uni.galaxies,
+                    donutGalaxy: AGO.Uni.donutGalaxy,
                     U60: AGO.Option.is("U60"),
                     U61: AGO.Option.isAnd("U60", "U61"),
                     U62: AGO.Option.get("U62", 2),
@@ -500,10 +502,10 @@ AGO.Global = {
                     B21: AGO.Option.get("B21", 2),
                     G30: AGO.Option.is("G30"),
                     O51: AGO.Planets.improve,
-                    O53: AGO.Planets.enabled &&
-                    AGO.Option.is("O53"),
+                    O53: AGO.Planets.enabled && AGO.Option.is("O53"),
                     F00: AGO.Option.is("F00"),
-                    F02: AGO.Option.get("F02", 2)
+                    F02: AGO.Option.get("F02", 2),
+                    F19: AGO.Option.get("F19")
                 }
             }
         )

@@ -1,7 +1,7 @@
 {
   "name": "AGO v6",
   "short_name": "AGO v6",
-  "version": "6.7.2a",
+  "version": "6.7.2.1",
   "description": "AGO - the other OGame experience for all communities.",
   "default_locale": "en",
   "manifest_version": 2,

@@ -159,7 +159,7 @@ var AGO = {
                     type: h,
                     shipCount: l,
                     token: window.miniFleetToken
-                }, 6 === +a && (b = Math.abs(AGO.Data.galaxy - b), AGO.Uni.donutGalaxy ? (b > (AGO.Uni.galaxies / 2) ? b = Math.abs(b - AGO.Uni.galaxies) : '') : '', c.speed = 6 <= b ? 1 : 5 <= b ? 2 : 4 <= b ? 4 : 3 <= b ? 6 : 2 <= b ? 9 : 10
+                }, 6 === +a && (b = Math.abs(AGO.Data.galaxy - b), AGO.Data.donutGalaxy ? (b > (AGO.Data.galaxies / 2) ? b = Math.abs(b - AGO.Data.galaxies) : '') : '', c.speed = 6 <= b ? 1 : 5 <= b ? 2 : 4 <= b ? 4 : 3 <= b ? 6 : 2 <= b ? 9 : 10
                 ), $.ajax(window.miniFleetLink, {
                         data: c,
                         dataType: "json",
@@ -187,7 +187,7 @@ var AGO = {
                 shipCount: l,
                 token: window.miniFleetToken
             };
-            6 === +a && (b = Math.abs(AGO.Data.galaxy - b), AGO.Uni.donutGalaxy ? (b > (AGO.Uni.galaxies / 2) ? b = Math.abs(b - AGO.Uni.galaxies) : '') : '', c.speed = 6 <= b ? 1 : 5 <= b ? 2 : 4 <= b ? 4 : 3 <= b ? 6 : 2 <= b ? 9 : 10);
+            6 === +a && (b = Math.abs(AGO.Data.galaxy - b), AGO.Data.donutGalaxy ? (b > (AGO.Data.galaxies / 2) ? b = Math.abs(b - AGO.Data.galaxies) : '') : '', c.speed = 6 <= b ? 1 : 5 <= b ? 2 : 4 <= b ? 4 : 3 <= b ? 6 : 2 <= b ? 9 : 10);
             $.ajax(miniFleetLink, {
                 data: c,
                 dataType: "json",
@@ -219,18 +219,6 @@ var AGO = {
                 )
             }
         );
-
-        let serverURL = window.location.origin;
-        serverURL += "/api/serverData.xml";
-        $.ajax({
-            type: "GET",
-            url: serverURL,
-            dataType: "xml",
-            success: function (data) {
-                AGO.Uni.galaxies = $('serverData', data).find('galaxies').text();
-                AGO.Uni.donutGalaxy = $('serverData', data).find('donutGalaxy').text();
-            }
-        });
     }, Tooltip: function () {
         function b(a, b) {
             a = a.replace(/\s+/g, " ");
@@ -387,6 +375,12 @@ var AGO = {
                     ).replace(/[^\d\-]/g, ""), 10
                 );
                 g(a)
+            }
+            g = AGO.Data.F19 === 1 ? "movement" : "fleet1";
+            g = window.reallySubmit.toString().replace(/location\.href=\"index\.php\?page=fleet1\"/g, "location.href=\"index.php?page="+g+"\"");
+            g = new Function("force", "return " + g)();
+            window.reallySubmit = function (force) {
+                g();
             }
         }
         var k = window.trySubmit;

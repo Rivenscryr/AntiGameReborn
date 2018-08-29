@@ -253,6 +253,7 @@
     "F13": "Select routine with the return-key when no ships chosen",
     "F16": "Adjust speed for the available capacity or deuterium",
     "F18": "Remove warning that no further planets may be colonized",
+    "F19": "After sending fleet redirect to",
     "F21": "Fleets",
     "F22": "Expos",
     "F23": "Capacity",
