@@ -375,12 +375,16 @@ var AGO = {
                     ).replace(/[^\d\-]/g, ""), 10
                 );
                 g(a)
-            }
-            g = AGO.Data.F19 === 1 ? "movement" : "fleet1";
-            g = window.reallySubmit.toString().replace(/location\.href=\"index\.php\?page=fleet1\"/g, "location.href=\"index.php?page="+g+"\"");
-            g = new Function("force", "return " + g)();
-            window.reallySubmit = function (force) {
-                g();
+            };
+            if (AGO.Data.F19 !== 0) {
+                g = AGO.Data.F19 === 1 ? "movement" : "fleet1";
+                g = window.reallySubmit.toString().replace(/location\.href=\"index\.php\?page=fleet1\"/g, "location.href=\"index.php?page="+g+"\"");
+                g = new Function("force", "return " + g);
+                g = g();
+                window.reallySubmit = function (force) {
+                    console.log(g);
+                    g();
+                }
             }
         }
         var k = window.trySubmit;
