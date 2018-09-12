@@ -111,7 +111,7 @@ AGO.Fleet3 = {
             ) && !AGO.App.OgameMobile) {
                 if (f = e.querySelector("#fightAfterRetreat + li span")) {
                     f.className = "value", d = document.createElement("li"),
-                        DOM.appendSPAN(d, "value").innerHTML = HTML.getPlayer(a.playerName, a.playerStatus, a.playerHonor), DOM.after(f.parentNode, d);
+                        h = DOM.appendSPAN(d, "value"), DOM.innerHTML(h, null, HTML.getPlayer(a.playerName, a.playerStatus, a.playerHonor)), DOM.after(f.parentNode, d);
                 }
                 if (f = e.querySelector("#consumption")) {
                     DOM.removeChildren(f.parentNode, 3), d = DOM.appendLI(null, {id: "speedLinks"}), DOM.appendSPAN(d, {

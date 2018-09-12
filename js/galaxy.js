@@ -239,18 +239,21 @@ AGO.Galaxy = {
             )) {
                 c.highlightDebris = NMR.isGreater(c.debrisResources, AGO.Token.getLimit(95)) ? 95 : NMR.isGreater(c.debrisResources, AGO.Token.getLimit(94)) ? 94 : 0;
                 if (f = g.querySelector("a.tooltipRel div")) {
-                    1 === s ? (n = Math.max(2 + 3 * (c.debrisResources + ""
-                        ).length - AGO.Galaxy.shrink,
-                            14
-                        ), n = Math.min(n, [30, 28, 26, 24][AGO.Galaxy.shrink]), DOM.set(f, null, {
-                                style: "width: " + n + "px; height: " + n + "px; background-size: " + n + "px;"
-                            }
-                        ), c.highlightDebris && DOM.set(f, null, {src: HTML.urlImage("galaxy_debris.gif")})
-                    ) : 1 < s && (l = ("ago_galaxy_debris " + AGO.Token.getClass(c.highlightDebris)
-                        ).trim(), k = DOM.appendDIV(null, l), l = c.highlightDebris ? "ago_text_background" : "", l = DOM.appendSPAN(k, l), l.innerHTML = (3 !== s || AGO.Galaxy.sameSystem ? STR.formatNumber(c.debrisMetal) : STR.shortNumber(c.debrisMetal, 0)
-                        ) + "<br/>" + (3 !== s || AGO.Galaxy.sameSystem ? STR.formatNumber(c.debrisCrystal) :
-                                STR.shortNumber(c.debrisCrystal, 0)
-                        ), DOM.appendChild(f, k), DOM.set(f, null, {style: "background: inherit;"}), AGO.Galaxy.improve && DOM.addClass(g, null, "ago_galaxy_debris_shadow")
+                    1 === s ? (n = Math.max(2 + 3 * (c.debrisResources + "").length - AGO.Galaxy.shrink, 14),
+                        n = Math.min(n, [30, 28, 26, 24][AGO.Galaxy.shrink]),
+                        DOM.set(f, null, {
+                            style: "width: " + n + "px; height: " + n + "px; background-size: " + n + "px;"
+                        }),
+                        c.highlightDebris && DOM.set(f, null, {src: HTML.urlImage("galaxy_debris.gif")})
+                    ) : 1 < s && (l = ("ago_galaxy_debris " + AGO.Token.getClass(c.highlightDebris)).trim(),
+                        k = DOM.appendDIV(null, l),
+                        l = c.highlightDebris ? "ago_text_background" : "",
+                        l = DOM.appendSPAN(k, l),
+                        DOM.appendTEXT(l, (3 !== s || AGO.Galaxy.sameSystem ? STR.formatNumber(c.debrisMetal) : STR.shortNumber(c.debrisMetal, 0))),
+                        DOM.append(l, "br"),
+                        DOM.appendTEXT(l, (3 !== s || AGO.Galaxy.sameSystem ? STR.formatNumber(c.debrisCrystal) : STR.shortNumber(c.debrisCrystal, 0))),
+                        DOM.appendChild(f, k),
+                        DOM.set(f, null, {style: "background: inherit;"}), AGO.Galaxy.improve && DOM.addClass(g, null, "ago_galaxy_debris_shadow")
                     );
                 }
                 c.owncoords || (l = {

@@ -112,6 +112,10 @@ var DOM = {
             }
         }
         return a
+    }, innerHTML: function (a, b, c) {
+        if (a = DOM.query(a, b)) {
+            a.innerHTML = DOMPurify.sanitize(c);
+        }
     }, parse: function (html) {
         // based on jQuery.buildFragment()
         //
@@ -150,7 +154,7 @@ var DOM = {
             var tag = (rtagName.exec(html) || ["", ""])[1].toLowerCase();
             var wrap = wrapMap[tag] || wrapMap._default;
 
-            tmp.innerHTML = wrap[1] + html.replace(rxhtmlTag, "<$1></$2>") + wrap[2];
+            DOM.innerHTML(tmp, null, (wrap[1] + html.replace(rxhtmlTag, "<$1></$2>") + wrap[2]));
 
             // Descend through wrappers to the right content
             var j = wrap[0] + 1;
@@ -431,7 +435,7 @@ var DOM = {
         return HTML.getText(d, c)
     }, setText: function (a, b, c, d, e) {
         if (a = DOM.query(a, b)) {
-            9 === d ? a.innerHTML = c || "" : a.textContent = HTML.setText(c, d, e)
+            9 === d ? DOM.innerHTML(a, null, (c || "")) : a.textContent = HTML.setText(c, d, e)
         }
     }, updateText: function (a,
                              b, c, d, e

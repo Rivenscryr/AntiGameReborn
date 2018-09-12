@@ -102,8 +102,7 @@ AGO.Movement = {
                 )
             )
         )) {
-            f = DOM.appendDIV(null, "ago_movement_details " + HTML.classMission(c));
-            f.innerHTML = a.ships + "<br/><br/>" + a.cargo;
+            f = DOM.appendDIV(null, "ago_movement_details " + HTML.classMission(c)), DOM.appendTEXT(f, a.ships), DOM.append(f, "br"), DOM.append(f, "br"), DOM.appendTEXT(f, a.cargo);
             if (c = b.querySelector(".starStreak .route")) {
                 DOM.setStyleDisplay(c), DOM.before(c, f);
             }
@@ -125,11 +124,11 @@ AGO.Movement = {
     }, getDetails: function (b) {
         if (b) {
             var a = {ships: "", cargo: ""}, c = "";
-            b = b.getElementsByTagName("td");
+            b = b.querySelectorAll("th,td");
             for (var d = 0; d < b.length; d++) {
-                "2" === b[d].colSpan ? (a.ships = c, c = ""
-                ) : ("value" !== b[d].className && "" !== c && (c += " "
-                    ), c += b[d].innerHTML
+                "TH" === b[d].tagName ? (a.ships = c, c = ""
+                ) : 2 !== b[d].colSpan && ("value" !== b[d].className && "" !== c && (c += " "
+                    ), (c += b[d].innerHTML)
                 );
             }
             a.cargo = c;

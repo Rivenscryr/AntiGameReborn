@@ -681,7 +681,7 @@ AGO.Time = {
         if (b = (a = document.getElementById("bar")
         ) ? a.querySelector(".OGameClock") : null) {
             if (AGO.Option.is("A31") &&
-            AGO.Time.timeZoneDelta && (AGO.Time.status = 2, b.innerHTML = AGO.Time.format(AGO.Time.ogameTime, "[d].[m].[Y] <span>[H]:[i]:[s]</span>"), AGO.Option.is("A32") && (AGO.Time.status = 3, d = AGO.Time.format(AGO.Time.ogameTime, "[d].[m].[Y] [H]:[i]:[s]", !0)
+            AGO.Time.timeZoneDelta && (AGO.Time.status = 2, DOM.innerHTML(b, null, AGO.Time.format(AGO.Time.ogameTime, "[d].[m].[Y] <span>[H]:[i]:[s]</span>")), AGO.Option.is("A32") && (AGO.Time.status = 3, d = AGO.Time.format(AGO.Time.ogameTime, "[d].[m].[Y] [H]:[i]:[s]", !0)
                 ), b.title = AGO.Label.get("A38"), DOM.addClass(b, null, "tooltip"), c = document.createElement("li"), c.setAttribute("style", "float: right; color: #848484; font-weight: 700;"), c.textContent = b.title[0], DOM.after(b, c)
             ), AGO.Option.is("A34") && (e = (0 < AGO.Time.localTimeDelta ? " (+" :
                         " (-"

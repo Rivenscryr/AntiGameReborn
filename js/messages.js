@@ -257,7 +257,8 @@ AGO.Messages = {
             DOM.updateStyle('.msg_title', message, 'width', '450px');
             DOM.setStyleDisplay('.msg_sender', message, 'none');
             DOM.setStyleDisplay('.msg_sender_label', message, 'none');
-            DOM.query('.msg_title', message).innerHTML += ' (' + AGO.Label.get('I70') + ': ' + (p.honorRank !== '' ? '<span class="honorRank ' + p.honorRank + '">&nbsp;</span>' : '') + '<span class="status_abbr_' + p.status + '">' + (p.playerName || '') + '</span>)';
+            c = DOM.query('.msg_title', message);
+            DOM.innerHTML(c, null, (c.innerHTML + ' (' + AGO.Label.get('I70') + ': ' + (p.honorRank !== '' ? '<span class="honorRank ' + p.honorRank + '">&nbsp;</span>' : '') + '<span class="status_abbr_' + p.status + '">' + (p.playerName || '') + '</span>)'));
 
             var activityColor = DOM.getAttribute('.msg_content font', message, 'color', '');
 
@@ -489,7 +490,7 @@ AGO.Messages = {
             var linkCoords = document.createElement('a');
             linkCoords.classList.add('txt_link');
             linkCoords.href = '#m' + p.msgId;
-            linkCoords.innerHTML = p.coords + (p.isMoon === '1' ? ' <figure class="planetIcon moon tooltip js_hideTipOnMobile" title=""></figure>' : '');
+            DOM.innerHTML(linkCoords, null, (p.coords + (p.isMoon === '1' ? ' <figure class="planetIcon moon tooltip js_hideTipOnMobile" title=""></figure>' : '')));
             linkCoords.onclick = function () {
                 message.classList.add('highlighted');
                 document.addEventListener('click', function toggleHighlight(e) {
@@ -506,12 +507,12 @@ AGO.Messages = {
             var spanAge = document.createElement('span');
             spanAge.classList.add('tooltipRight');
             spanAge.title = p.date;
-            spanAge.innerHTML = AGO.Time.formatTime(p.age / 1000, true);
+            spanAge.textContent = AGO.Time.formatTime(p.age / 1000, true);
             cellAge.appendChild(spanAge);
 
             var cellPlayer = DOM.appendTD(row);
             cellPlayer.style.textAlign = 'left';
-            cellPlayer.innerHTML = player + (parseInt(p.activity) > 0 ? ' (<span style="color: ' + p.activityColor + ';">' + p.activity + '</span>)' : '');
+            DOM.innerHTML(cellPlayer, null, (player + (parseInt(p.activity) > 0 ? ' (<span style="color: ' + p.activityColor + ';">' + p.activity + '</span>)' : '')));
 
             var cellLoot = DOM.appendTD(row);
             cellLoot.style.textAlign = 'right';
@@ -577,7 +578,12 @@ AGO.Messages = {
 
         var summaryDiv = DOM.appendDIV(tableWrap);
         summaryDiv.classList.add('summary');
-        summaryDiv.innerHTML = 'count: <span id="summaryCount"></span> | loot: <span id="summaryLoot"></span> | fleet: <span id="summaryFleet"></span>';
+        DOM.appendTEXT(summaryDiv, "count: ");
+        DOM.appendSPAN(summaryDiv, "summaryCount");
+        DOM.appendTEXT(summaryDiv, " | loot: ");
+        DOM.appendSPAN(summaryDiv, "summaryLoot");
+        DOM.appendTEXT(summaryDiv, " | fleet: ");
+        DOM.appendSPAN(summaryDiv, "summaryFleet");
         AGO.Messages.refreshSummary();
     },
 
@@ -741,9 +747,9 @@ AGO.Messages = {
             sumFleet += parseInt(((c = AGO.Messages.spyReports[id].fleet) > -1 ? c : 0));
         });
 
-        DOM.query('#summaryCount').textContent = Object.keys(AGO.Messages.spyReports).length;
-        DOM.query('#summaryLoot').textContent = AGO.Option.is('M53') ? STR.shortNumber(sumLoot, 1) : STR.formatNumber(sumLoot);
-        DOM.query('#summaryFleet').textContent = AGO.Option.is('M53') ? STR.shortNumber(sumFleet, 1) : STR.formatNumber(sumFleet);
+        DOM.query('.summaryCount').textContent = Object.keys(AGO.Messages.spyReports).length;
+        DOM.query('.summaryLoot').textContent = AGO.Option.is('M53') ? STR.shortNumber(sumLoot, 1) : STR.formatNumber(sumLoot);
+        DOM.query('.summaryFleet').textContent = AGO.Option.is('M53') ? STR.shortNumber(sumFleet, 1) : STR.formatNumber(sumFleet);
     },
 
     parseDetailedReport: function (msgid, callback) {

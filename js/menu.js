@@ -628,7 +628,7 @@ AGO.Menu = {
             )
         );
         c = DOM.appendTD(d);
-        "string" === typeof e ? c.innerHTML = e : "object" === typeof e && DOM.appendChild(c, e)
+        "string" === typeof e ? DOM.innerHTML(c, null, e) : "object" === typeof e && DOM.appendChild(c, e)
     },
     appendRowContent: function (a, b, c, f, e) {
         var g;
@@ -639,8 +639,8 @@ AGO.Menu = {
         c = DOM.appendTD(g, f);
         e && (c.style.color = e
         );
-        "string" === typeof a ? c.innerHTML = a : "object" === typeof a && DOM.appendChild(c, a);
-        b ? (c = DOM.appendTD(g), "string" === typeof b ? c.innerHTML = b : "object" === typeof b && DOM.appendChild(c,
+        "string" === typeof a ? DOM.innerHTML(c, null, a) : "object" === typeof a && DOM.appendChild(c, a);
+        b ? (c = DOM.appendTD(g), "string" === typeof b ? DOM.innerHTML(c, null, b) : "object" === typeof b && DOM.appendChild(c,
                 b
             )
         ) : DOM.setAttribute(c, null, "colspan", 2)
@@ -1079,11 +1079,11 @@ AGO.Menu.showTask = function (a) {
     }
 
     function c() {
-        var b, c;
+        var b, c, d, e;
         b = DOM.appendTR(u, "ago_menu_edit_header");
         b = DOM.appendTD(b, {colspan: 2}, "AT0", 10);
-        "standard" === a.name ? DOM.appendSPAN(b, "", "AT1", 10) : (c = STR.check(a.name).split(":"), DOM.appendSPAN(b).innerHTML = STR.check(c[0]) + ":" + STR.check(c[1]) + ":" + STR.check(c[2]) + ("3" === c[3] ? " " + HTML.IMG(HTML.urlTypeIcon(3), 14) : ""
-            )
+        "standard" === a.name ? DOM.appendSPAN(b, "", "AT1", 10) : (c = STR.check(a.name).split(":"), d = DOM.appendSPAN(b), e = STR.check(c[0]) + ":" + STR.check(c[1]) + ":" + STR.check(c[2]) + ("3" === c[3] ? " " + HTML.IMG(HTML.urlTypeIcon(3), 14) : ""
+            ), DOM.innerHTML(d, null, e)
         )
     }
 
@@ -1181,7 +1181,7 @@ AGO.Menu.showTask = function (a) {
             "ago_menu_edit", function () {
                 AGO.Menu.hideTask({action: "save"})
             }
-        ), l = document.createDocumentFragment(), u = DOM.appendTABLE(l), u.innerHTML = '<colgroup><col style="width: 240px;"></col><col style="width: 150px;"></col></colgroup>', c(), 0 <= t.indexOf("T") && (d("AT4", 0 <= t.indexOf("P")), 0 <= t.indexOf("E") ? (g("ATT", "detail2"), k("AT6", "mission", s.mission, {15: "LM15"}, "ago_menu_edit_hidden")
+        ), l = document.createDocumentFragment(), u = DOM.appendTABLE(l), u = DOM.append(u, "colgroup"), DOM.append(u, "col", null, {width: "240px"}), DOM.append(u, "col", null, {width: "150px"}), u = u.parentNode, c(), 0 <= t.indexOf("T") && (d("AT4", 0 <= t.indexOf("P")), 0 <= t.indexOf("E") ? (g("ATT", "detail2"), k("AT6", "mission", s.mission, {15: "LM15"}, "ago_menu_edit_hidden")
             ) : (k("AT5", "type", s.type, [" - ", "L081", "L082", "L083"]), m = 0 <= t.indexOf("C") ? {
                     0: " - ",
                     3: "LM03",

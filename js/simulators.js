@@ -1,4 +1,4 @@
-AGO.Websim = {
+/* AGO.Websim = {
     ships: "202 203 204 205 206 207 208 209 210 211 212 213 214 215 401 402 403 404 405 406 407 408".split(" "),
     Data: [],
     Interactive: function () {
@@ -280,8 +280,9 @@ AGO.Websim = {
         b.deuterium = 0;
         AGB.message("Background", "Set", {key: "Fleet_Task", value: JSON.stringify(b)})
     }
-};
-AGO.Osimulate = {
+}; */
+
+/* AGO.Osimulate = {
     ships: "202 203 204 205 206 207 208 209 210 211 212 213 214 215 401 402 403 404 405 406 407 408".split(" "),
     Interactive: function () {
         AGO.Osimulate.Show()
@@ -333,4 +334,4 @@ AGO.Osimulate = {
         a.deuterium = 0;
         AGB.message("Background", "Set", {key: "Fleet_Task", value: JSON.stringify(a)})
     }
-};
+}; */

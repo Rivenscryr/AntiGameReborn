@@ -78,15 +78,15 @@ AGO.Overview = {
                     e = AGO.Units.get(a + "Production");
                     d = AGO.Units.get(a + "Start");
                     if (b = document.getElementById("ago_overview_production_" + a)) {
-                        b.className = c >= g ? "overmark" : c >= .9 * g ? "middlemark" : "", b.innerHTML = (0 < e && c < g ? '<span class="undermark">(+' + STR.formatNumber(Math.floor(3600 * e)) + ") </span>" : '<span class="overmark">(0) </span>'
-                        ) + STR.formatNumber(c) + " / " + STR.formatNumber(g);
+                        b.className = c >= g ? "overmark" : c >= .9 * g ? "middlemark" : "", DOM.innerHTML(b, null, (0 < e && c < g ? '<span class="undermark">(+' + STR.formatNumber(Math.floor(3600 * e)) + ") </span>" : '<span class="overmark">(0) </span>'
+                        ) + STR.formatNumber(c) + " / " + STR.formatNumber(g));
                     }
                     (b = document.getElementById("ago_overview_storagetime_" +
                             a
                         )
                     ) && !AGO.Overview.storage && (a = 0 < e && c < g ? Math.floor((g - d
                         ) / e
-                        ) : 0, b.innerHTML = a ? AGO.Time.format(AGO.Time.getFinishTime(a)) : "\u2009"
+                        ) : 0, b.textContent = a ? AGO.Time.format(AGO.Time.getFinishTime(a)) : "\u2009"
                     )
                 }
             ), AGO.Overview.storage = !0

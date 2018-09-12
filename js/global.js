@@ -382,7 +382,6 @@ var AGO = {
                 g = new Function("force", "return " + g);
                 g = g();
                 window.reallySubmit = function (force) {
-                    console.log(g);
                     g();
                 }
             }

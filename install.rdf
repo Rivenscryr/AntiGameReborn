@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>riv@umadbro.org</em:id>
-    <em:version>6.7.2</em:version>
+    <em:version>6.7.2.3</em:version>
     <em:type>2</em:type>
    
     <!-- Angaben zu unterstützten Anwendungsversionen --> 

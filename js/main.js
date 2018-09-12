@@ -650,7 +650,7 @@ AGO.Panel = {
             b && (b = AGO.Label.get(b), f = DOM.appendTR(g), t = b.length > h / 7 ? {
                     "class": "tooltip",
                     title: b
-                } : null, DOM.appendTD(f, t).innerHTML = "&bull;&thinsp;" + b, DOM.appendTD(f)
+                } : null, t = DOM.appendTD(f, t), DOM.innerHTML(t, null, "&bull;&thinsp;" + b), DOM.appendTD(f)
             );
             f = DOM.appendTR(g, "ago_panel_settings_select", {setting: {id: a}, update: d, message: c});
             a = DOM.appendTD(f, {colspan: 2});
