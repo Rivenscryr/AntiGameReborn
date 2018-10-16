@@ -1,8 +1,5 @@
-Copyright (c) 2013 - AntiGameOrigin by Francolino / maintained by RiV-
+Copyright (c) 2018 - AntiGameReborn by RiV- / based on the work of Francolino
 
-https://antigame.de/
-	
-1. AntiGameOrigin is not open source. Code changes are prohibited and it is strictly forbidden to distribute AntiGameOrigin or modified versions.
-2. AntiGameOrigin is for private use only.
-3. You use AntiGameOrigin "as it is" on your own risk and please respect "fair play".
-4. AntiGameOrigin might stop working if you use forbidden OGame tools. List of allowed tools: http://board.origin.ogame.de/board3-news/board58-ogame-news/104-tolerated-addons-tools-scripts-skins/
+1. AntiGameReborn is not open source. Code changes are prohibited and it is strictly forbidden to distribute AntiGameReborn or modified versions.
+2. AntiGameReborn is for private use only.
+3. You use AntiGameReborn "as it is" on your own risk and please respect "fair play".

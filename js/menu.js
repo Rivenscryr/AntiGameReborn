@@ -1,6 +1,3 @@
-if (!AGO) {
-    var AGO = {};
-}
 AGO.Label.InitMenu = function () {
     var a;
     AGO.Label.Menu = OBJ.create(AGO.Label.Data);
@@ -523,7 +520,7 @@ AGO.Menu = {
         b = DOM.appendDIV(a, "ago_menu_header_title");
         b.textContent = AGO.Label.get("AM0") + " - " + AGO.App.versionAGO + (AGO.App.beta ? " - This version is only for AGO testers!" : ""
         );
-        DOM.appendSPAN(b, "ago_color_limeorange", "by Francolino / maintained by RiV-");
+        DOM.appendSPAN(b, "ago_color_limeorange", "by RiV- / based on the work of Francolino");
         b = DOM.appendDIV(a, "ago_menu_header_button");
         a = DOM.appendTABLE(b, null, null, [434, 220]);
         a = DOM.appendTR(a);

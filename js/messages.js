@@ -346,7 +346,7 @@ AGO.Messages = {
                 p.loot >= (1E3 * AGO.Option.get('M36')) ? p.lucrative = '1' : p.lucrative = '0';
 
                 p.fleet = DOM.getAttribute('.tooltipLeft', message, 'title', '');
-                p.defense = DOM.getAttribute('.tooltipRight', DOM.queryAll('.compacting', message)[3], 'title', '');
+                p.defense = DOM.getAttribute(DOM.queryAll('.tooltipRight', message)[1], null, 'title', '');
                 if (p.fleet.match('<br />')) {
                     p.dock = p.fleet.split('<br />')[1];
                     p.fleet = p.fleet.split('<br />')[0];

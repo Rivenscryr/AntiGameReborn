@@ -1,10 +1,10 @@
 ﻿{
-    "a10": "Izberi jezik menija AntiGame Origin.\r\n[OPTION]-[] izbere jezik stre\u017enika.",
+    "a10": "Izberi jezik menija AntiGameReborn.\r\n[OPTION]-[] izbere jezik stre\u017enika.",
     "a31": "Zdaj se vsaka prikazana \u010dasovna vrednost ujema s tvojim lokalnim \u010dasom.\r\n[LIST] The letter 'L' is added infront of the local clock.",
     "a32": "Prvotni stre\u017eni\u0161ki \u010das je prikazan v drugi uri pod spremenjeno uro.",
     "a34": "Poka\u017ee \u010das zadnje osve\u017eitve strani.\r\n[LIST] Razlika prika\u017ee odstopanje lokalne ure.",
-    "a51": "Pojdi na stran AntiGame Origin da prebere\u0161 ve\u010d o zahtevah, pregledu funkcij, spremembam in drugih informacijah.",
-    "a54": "Pojdi na forum AntiGame Origin da prijavi\u0161 probleme\/hro\u0161\u010de, prejme\u0161 podporo ali najde\u0161 re\u0161itve in da odda\u0161 povratne informacije ter predloge.\r\n[LIST] Objave v maternem jeziku so dobrodo\u0161le, dodajte angle\u0161ki prevod.",
+    "a51": "Pojdi na stran AntiGameReborn da prebere\u0161 ve\u010d o zahtevah, pregledu funkcij, spremembam in drugih informacijah.",
+    "a54": "Pojdi na forum AntiGameReborn da prijavi\u0161 probleme\/hro\u0161\u010de, prejme\u0161 podporo ali najde\u0161 re\u0161itve in da odda\u0161 povratne informacije ter predloge.\r\n[LIST] Objave v maternem jeziku so dobrodo\u0161le, dodajte angle\u0161ki prevod.",
     "b02": "Dan in \u010das, ko so vse trenutne gradnje kon\u010dane bosta prikazana v vsaki listi gradnje.",
     "b04": "Barva stopnje vsake research  je spremenjena:\r\n\r\n[LIST][RED]Red[]: Pod najmanj\u0161o stopnjo da omogo\u010di druge raziskave, stavbe in ladje\/obrambo.\r\n\r\n[LIST][ORANGE]Orange[]: Najmanj\u0161a stopnja je dose\u017eena, nadgradnje so \u0161e vedno smiselne.\r\n\r\n[LIST][GREEN]Green[]: Najmanj\u0161a stopnja je dose\u017eena, nadgradnje niso ve\u010d smiselne.",
     "b11": "Manjkajo\u010de ali skupne surovine so prikazane na veliki sliki, prav tako pa potrebno \u0161t. ladij za njihov transport.\r\n\r\n[LIST] You can select a level range and pin those details onto the [PAGE][I00][] tab [I30] for the advanced resource management and sending. Production, energy information and [GREEN]finish time[] is shown next to the Image. \r\n\r\n[LIST] Also with a click onto each construction of the [PAGE]InfoCompte[] upgrade list. \r\n\r\n[LIST] By clicking the amount of needed ships you can toggle between [ITEM]Large Cargo[] and [ITEM]Small Cargo[].",

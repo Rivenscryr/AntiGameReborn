@@ -377,12 +377,12 @@ var AGO = {
                 g(a)
             };
             if (AGO.Data.F19 !== 0) {
-                g = AGO.Data.F19 === 1 ? "movement" : "fleet1";
-                g = window.reallySubmit.toString().replace(/location\.href=\"index\.php\?page=fleet1\"/g, "location.href=\"index.php?page="+g+"\"");
-                g = new Function("force", "return " + g);
-                g = g();
+                var h = AGO.Data.F19 === 1 ? "movement" : "fleet1";
+                h = window.reallySubmit.toString().replace(/location\.href=\"index\.php\?page=fleet1\"/g, "location.href=\"index.php?page="+h+"\"");
+                h = new Function("force", "return " + h);
+                h = h();
                 window.reallySubmit = function (force) {
-                    g();
+                    h();
                 }
             }
         }
