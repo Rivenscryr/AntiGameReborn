@@ -33,7 +33,7 @@ AGO.Main = {
                     id: "ago_menubutton",
                     "class": "menubutton"
                 }, {click: AGO.Main.clickButton}
-            ), d = 1 < AGO.App.beta ? "AGOalpha" : AGO.App.beta ? "AGObeta" : "AGO", DOM.appendSPAN(c, "textlabel", d), DOM.appendSPAN(c, {id: "ago_menubutton_coords"}), DOM.prependChild(a, b), !AGO.App.disabled && 30 < AGO.Notify.problem && DOM.setStyleColor("ago_menubutton",
+            ), d = 1 < AGO.App.beta ? "AGRalpha" : AGO.App.beta ? "AGRbeta" : "AntiGameReborn", DOM.appendSPAN(c, "textlabel", d), DOM.appendSPAN(c, {id: "ago_menubutton_coords"}), DOM.prependChild(a, b), !AGO.App.disabled && 30 < AGO.Notify.problem && DOM.setStyleColor("ago_menubutton",
                 "id", "#FF0000"
             );
         }
