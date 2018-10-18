@@ -23,7 +23,7 @@ AGO.Overview = {
             }, 500
         )
     }, infocompte: function (a) {
-        a && a.target && (a = DOM.getData(a.target, null, 2), OBJ.is(a) && (a.level = 0, a.type = 1, a.coords = AGO.Task.trimCoords(a.coords), AGO.Task.updateCoords(a, 2, AGO.Task.splitCoords(a.coords)), AGO.Init.Messages("Panel", "Action", {
+        a && a.target && (a = DOM.getData(a.target, null, 2), OBJ.is(a) && (a.id = a.id+"", a.level = 0, a.type = 1, a.coords = AGO.Task.trimCoords(a.coords), AGO.Task.updateCoords(a, 2, AGO.Task.splitCoords(a.coords)), AGO.Init.Messages("Panel", "Action", {
                         action: "set",
                         tab: "Construction",
                         value: a
@@ -106,9 +106,7 @@ AGO.Building = {
         OBJ.set(AGO.Units.Data, "page", AGO.App.page);
         "research" === AGO.App.page && AGO.Notify.set("Problem", -12)
     }, Run: function () {
-        AGO.Option.is("B00") &&
-        (AGO.Building.enabled = !0
-        );
+        AGO.Option.is("B00") && (AGO.Building.enabled = true);
         AGO.Building.Show();
         AGO.Building.showConstructions()
     }, Interactive: function () {
@@ -197,17 +195,27 @@ AGO.Building = {
                         ) && d(g, AGO.Label.get("L082"), "ago_items_detail"), k = DOM.getTextChild("#content > span.level", e).split(":")[0], d(g, k || AGO.Label.get(f, 1), "ago_items_number", "ago_items_shortcut")
                     ), b.appendChild(g), DOM.appendSPAN(a, {id: "ago_items_finish"}), AGO.Building.Display()
             );
+            AGO.Option.is("B20") && DOM.addClass(".build-it_wrap", a, "x10");
+
             DOM.addEvents("#detail #number", null, {
-                    keyup: AGO.Building.Display, blur: function () {
-                        window.setTimeout(AGO.Building.Display,
-                            200
-                        )
+                keyup: function () {
+                    AGO.Building.Display();
+                    if (AGO.Option.is("B20") && (AGO.App.page === "shipyard" || AGO.App.page === "defense")) {
+                        AGO.Building.checkInput();
                     }
+                },
+                blur: function () {
+                    window.setTimeout(function () {
+                        AGO.Building.Display();
+                        if (AGO.Option.is("B20") && (AGO.App.page === "shipyard" || AGO.App.page === "defense")) {
+                            AGO.Building.checkInput();
+                        }
+                    }, 200);
                 }
-            );
+            });
             DOM.addEventsAll("#content ul.production_info", null, {click: AGO.Building.clickInfo});
             DOM.disableActiveElement();
-            DOM.disableAutocomplete()
+            DOM.disableAutocomplete();
         }
         e = g = c = g = e = c = null
     }, Display: function () {
@@ -263,7 +271,73 @@ AGO.Building = {
                 AGO.Building.updateValue("ago_items_number", AGO.Building.Data[c].level + AGO.Units.get(c), d, b)
             }
         }
-    }, updateSummary: function (a) {
+    },
+    checkInput: function () {
+        let number = DOM.getValue("#number", null, 2);
+        let type = DOM.getValue("input[name=type]");
+
+        let maxMet, maxCrys, maxDeut, maxUnits;
+        maxMet = AGO.Units.get("metal") / (AGO.Item[type].metal || 1);
+        maxCrys = AGO.Units.get("crystal") / (AGO.Item[type].crystal || 1);
+        maxDeut = AGO.Units.get("deuterium") / (AGO.Item[type].deuterium || 1);
+        maxUnits = Math.floor(Math.min(Math.min(maxMet, maxCrys), maxDeut));
+
+        if (number > 0 && number * 10 < maxUnits) {
+            if (!DOM.query("#build-x10")) AGO.Building.addButton();
+        } else if (DOM.query("#build-x10")) {
+            AGO.Building.removeButton();
+        }
+    },
+    addButton: function () {
+        let docFrag = document.createDocumentFragment();
+        let buildButton = DOM.appendA(docFrag, {class: "build-it", id: "build-x10"}, null, {iteration: 0});
+        DOM.appendSPAN(buildButton, null, "x10");
+        DOM.after(DOM.query(".build-it"), docFrag);
+        DOM.addEvents("#build-x10", null, {
+            click: function doBuild () {
+                DOM.query("#build-x10").removeEventListener("click", doBuild);
+                let number = DOM.getValue("#number", null, 2);
+                let type = DOM.getValue("input[name=type]");
+                let token = DOM.getValue("input[name=token]");
+
+                AGO.Building.doBuild(number, type, token);
+            }
+        });
+    },
+    removeButton: function () {
+        let x10Button = DOM.query("#build-x10");
+        if (x10Button) x10Button.remove();
+    },
+    doBuild: function (number, type, token) {
+        let iteration = DOM.getData("#build-x10").iteration;
+        DOM.setText("#build-x10 span", null, iteration + "/10");
+
+        let request;
+        request = new XMLHttpRequest();
+        request.open('POST', AGO.Uni.url + '/game/index.php?page='+AGO.App.page+'&deprecated=1', true);
+        request.responseType = "document";
+        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        request.onload = function () {
+            iteration++;
+            DOM.setData("#build-x10", null, {iteration: iteration});
+            DOM.setText("#build-x10 span", null, iteration + "/10");
+
+            let token = DOM.getValue("input[name=token]", request.responseXML);
+            if (iteration < 10) {
+                AGO.Building.doBuild(number, type, token);
+            } else {
+                setTimeout(function () {
+                    DOM.setText("#build-x10 span", null, "OK");
+                    document.location.reload();
+                }, 500);
+            }
+        };
+        request.onerror = function () {
+            DOM.setStyleColor("#build-x10 span", null, "#ff0000");
+        };
+        request.send("token="+token+"&modus=1&type="+type+"&menge="+number);
+    },
+    updateSummary: function (a) {
         function b(a, b, c, d, e) {
             var f;
             f = JSON.stringify({type: "setting", data: d});
@@ -541,8 +615,8 @@ AGO.Trader = {
     },
     Ready: function () {
         DOM.addObserver(DOM.query("#inhalt"), {childList: true}, function (mutations) {
-            for (var i = 0; i < mutations.length; i++) {
-                var mutation = mutations[i];
+            for (let i = 0; i < mutations.length; i++) {
+                let mutation = mutations[i];
                 if (mutation.target.id && mutation.target.id === "inhalt" && mutation.addedNodes && mutation.addedNodes.length) {
                     OBJ.iterate(mutation.addedNodes, function (node) {
                         if (mutation.addedNodes[node].id === "div_traderImportExport") AGO.Trader.onImportExport();
@@ -552,10 +626,7 @@ AGO.Trader = {
         });
     },
     onImportExport: function () {
-        DOM.addObserver(DOM.query("#div_traderImportExport .bargain_text"), {
-            childList: true,
-            characterData: true
-        }, function () {
+        DOM.addObserver(DOM.query("#div_traderImportExport .bargain_text"), {childList: true, characterData: true}, function () {
             AGO.Trader.checkImportExportState();
         });
 
@@ -571,23 +642,22 @@ AGO.Trader = {
     },
     updateNextItem: function (bargainText, callback) {
         if (!bargainText) {
-            let b = new XMLHttpRequest;
-            b.open("POST", "https://" + AGO.Uni.domain + "/game/index.php?page=traderOverview", true);
-            b.responseType = "document";
-            b.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            b.onerror = b.onload = function () {
-                if (200 === +b.status && b.responseXML) {
-                    AGO.Trader.checkImportExportState(b.responseXML, callback);
-                    -1 === AGO.Option.get("nextItem", 0) && "function" === typeof callback && callback.call(1);
+            let req = new XMLHttpRequest;
+            req.open("POST", "https://" + AGO.Uni.domain + "/game/index.php?page=traderOverview", true);
+            req.responseType = "document";
+            req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            req.onerror = req.onload = function () {
+                if (200 === +req.status && req.responseXML) {
+                    AGO.Trader.checkImportExportState(req.responseXML, callback);
+                    -1 === AGO.Option.get("nextItem", 0) && "function" === typeof callback && callback(1);
                 }
             };
-            b.send("show=importexport&ajax=1");
+            req.send("show=importexport&ajax=1");
 
             return;
         }
 
         let nextItem;
-
         if (nextItem = bargainText.match(/\d+:\d+/)) {
             nextItem = nextItem[0] + ":00";
         } else {
@@ -604,7 +674,7 @@ AGO.Trader = {
         let dateString = day + "." + month + "." + year + " " + nextItem;
         AGO.Option.set("nextItem", AGO.Time.parseDateTime(dateString).getTime());
 
-        "function" === typeof callback && callback.call(0);
+        "function" === typeof callback && callback(0);
     }
 };
 AGO.Alliance = {

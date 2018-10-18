@@ -992,7 +992,7 @@ AGO.Menu.Show = function (a) {
                 "B23",
                 "B24"
             ]
-        ),d("B04"),AGO.Menu.appendTab("Fleet"),AGO.Menu.appendSection("F00", "A80"),d("F01"),
+        ),d("B04"),d("B20"),AGO.Menu.appendTab("Fleet"),AGO.Menu.appendSection("F00", "A80"),d("F01"),
         d("F03"),g("F02", "", [
                 " - ",
                 "B22",

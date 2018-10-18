@@ -440,3 +440,20 @@
 .ago_improve #description #wreckfields .btn > input {
     font-size: 11px
 }
+
+#shipyard.ago_improve .x10 .build-it, #defense.ago_improve .x10 .build-it {
+    background-size: 425px;
+    height: 41px;
+}
+
+#shipyard.ago_improve .x10 .build-it span, #defense.ago_improve .x10 .build-it span {
+    width: 110px;
+    height: 41px;
+    font-size: 14px;
+}
+
+#shipyard.ago_improve .x10 .build-it:hover, #shipyard.ago_improve .x10 .build-it:active,
+#defense.ago_improve .x10 .build-it:hover, #defense.ago_improve .x10 .build-it:active {
+    background-position: 0 -41px !important;
+    color: #fff;
+}
