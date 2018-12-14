@@ -1,144 +1,176 @@
-if (!AGB) {
-    var AGB = {};
-}
 AGB.Manager = {
     Start: function () {
-        var a;
         AGB.status = 1;
         AGB.Config.pathSkin = chrome.extension.getURL("/skin/");
         AGB.Config.id = chrome.runtime.id;
         AGB.Config.version = chrome.runtime.getManifest().version;
         AGB.Config.name = STR.check(chrome.runtime.getManifest().name);
         AGB.Config.beta = -1 < AGB.Config.name.indexOf("Alpha") ? 2 : -1 < AGB.Config.name.indexOf("Beta") ? 1 : 0;
-        AGB.DataBase ? AGB.DataBase.Start(window) : AGB.DataBase = {};
+
+        if (AGB.DataBase)
+            AGB.DataBase.Start(window)
+        else
+            AGB.DataBase = {};
+
         AGB.Storage.Start(function () {
-                a = 1 < AGB.Config.beta ? "  - Development mode" : "";
-                a += AGB.Storage.status ? "  Storage Quota: local " +
-                    chrome.storage.local.QUOTA_BYTES + "  sync " + chrome.storage.local.QUOTA_BYTES : "  Something wrong with chrome.storage";
-                AGB.Core.Log("Start  Storage: " + AGB.Storage.status + "  DataBase: " + AGB.DataBase.status + (a || ""
-                ), !0
-                )
-            }
-        )
-    }, Check: function (a, c, b) {
-        OBJ.is(b) && OBJ.is(c) && "loading" === c.status && (c = AGB.App.Check(b.url), OBJ.is(c) && c.mode && AGB.Manager.Load(c, a)
-        )
-    }, Load: function (a, c) {
-        1 === a.mode && chrome.tabs.executeScript(c, {file: "js/coordinates.js", runAt: "document_start"})
-    }, loadScripts: function (a, c) {
-        var b;
-        if (OBJ.is(a) &&
-            c) {
-            for (b = 0; b < a.length; b++) {
-                a[b] && chrome.tabs.executeScript(c, {
-                        file: "js/" + a[b] + ".js",
-                        runAt: "document_start"
-                    }
-                )
+            let statusText;
+            statusText = 1 < AGB.Config.beta ? "  - Development mode" : "";
+            statusText += AGB.Storage.status ? "  Storage Quota: local " + chrome.storage.local.QUOTA_BYTES + "  sync " + chrome.storage.local.QUOTA_BYTES : "  Something wrong with chrome.storage";
+            AGB.Core.Log("Start  Storage: " + AGB.Storage.status + "  DataBase: " + AGB.DataBase.status + (statusText || ""), !0)
+        });
+    },
+    Check: function (tabID, changeInfo, tab) {
+        if (OBJ.is(tab) && OBJ.is(changeInfo) && "loading" === changeInfo.status) {
+            let tabData = AGB.App.Check(tab.url);
+            OBJ.is(tabData) && tabData.mode && AGB.Manager.Load(tabData, tabID);
+        }
+    },
+    Load: function (tabData, tabID) {
+        1 === tabData.mode && chrome.tabs.executeScript(tabID, {file: "js/coordinates.js", runAt: "document_start"});
+    },
+    loadScripts: function (scripts, tabID) {
+        if (OBJ.is(scripts) && tabID) {
+            for (let i = 0; i < scripts.length; i++) {
+                scripts[i] && chrome.tabs.executeScript(tabID, { file: "js/" + scripts[i] + ".js", runAt: "document_start"});
             }
         }
-    }, message: function (a, c, b, d) {
-        var f;
-        (f = AGB.App.getPlayer(a)
-        ) && chrome.tabs.query({url: "*://*.ogame.gameforge.com/*"}, function (a) {
-                var e;
-                for (e = 0; e < a.length; e++) {
-                    a[e] && a[e].id && chrome.tabs.sendMessage(a[e].id, {
-                            player: f,
-                            page: c,
-                            role: b,
-                            data: d
-                        }
-                    )
-                }
+    },
+    message: function (para, page, role, data) {
+        let keyPlayer = AGB.App.getPlayer(para);
+        keyPlayer && chrome.tabs.query({url: "*://*.ogame.gameforge.com/*"}, function (tabs) {
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i] && tabs[i].id && chrome.tabs.sendMessage(tabs[i].id, {
+                    player: keyPlayer,
+                    page: page,
+                    role: role,
+                    data: data
+                });
             }
-        )
+        });
     }
 };
 chrome.tabs.onUpdated.addListener(AGB.Manager.Check);
-chrome.runtime.onMessage.addListener(function (a, c, b) {
-        b = "function" === typeof b ? b : null;
-        if ((c = "object" === typeof c && c.tab ? c.tab.id : ""
-        ) && "object" === typeof a && ("Log" === a.page ? window.console.log("AntiGameOrigin:  " + a.para) : "Storage" === a.page ? "Set" === a.role ? AGB.Storage.Set(a.para) : "Get" === a.role ? AGB.Storage.Get(a.para, b) : "Remove" === a.role ? AGB.Storage.Remove(a.para) : "RemoveFilter" === a.role && AGB.Storage.RemoveFilter(a.para, b) : "Update" === a.page ? "Check" === a.role && chrome.runtime.requestUpdateCheck(function (c) {
-                    AGB.Manager.message(a.para,
-                        "Menu", "Install", c
-                    )
-                }
-            ) : a.page && OBJ.is(AGB[a.page]) && "function" === typeof AGB[a.page].Messages && AGB[a.page].Messages(a.role, a.para, b, c), b
-        )) {
-            return !0
+chrome.runtime.onMessage.addListener(function (message, sender, response) {
+    response = "function" === typeof response ? response : null;
+    sender = "object" === typeof sender && sender.tab ? sender.tab.id : "";
+        if (sender && "object" === typeof message) {
+            if ("Log" === message.page) {
+                window.console.log("AntiGameReborn:  " + message.para);
+            } else if ("Storage" === message.page) {
+                if ("Set" === message.role)
+                    AGB.Storage.Set(message.para);
+                else if ("Get" === message.role)
+                    AGB.Storage.Get(message.para, response);
+                else if ("Remove" === message.role)
+                    AGB.Storage.Remove(message.para);
+                else if ("RemoveFilter" === message.role)
+                    AGB.Storage.RemoveFilter(message.para, response)
+            } else if ("Update" === message.page && "Check" === message.role) {
+                chrome.runtime.requestUpdateCheck(function (update) {
+                    AGB.Manager.message(message.para, "Menu", "Install", update);
+                });
+            } else if (message.page && OBJ.is(AGB[message.page]) && "function" === typeof AGB[message.page].Messages)
+                AGB[message.page].Messages(message.role, message.para, response, sender);
+
+            if (response) return true;
         }
     }
 );
 AGB.Storage = {
-    status: 0, Start: function (a) {
-        var c;
+    status: 0,
+    Start: function (callback) {
+        let appStart;
         AGB.Storage.status = 0;
-        chrome.storage && chrome.storage.local ? (c = Math.floor(Date.now() / 1E3), chrome.storage.local.set({App_Start: c}, function () {
-                    chrome.storage.local.get(["App_Start"], function (b) {
-                            AGB.Storage.status = OBJ.is(b) && +b.App_Start === c ? 1 : 0;
-                            a()
-                        }
-                    )
+        if (chrome.storage && chrome.storage.local) {
+            appStart = Math.floor(Date.now() / 1E3);
+            chrome.storage.local.set({App_Start: appStart}, function () {
+                chrome.storage.local.get(["App_Start"], function (res) {
+                    AGB.Storage.status = OBJ.is(res) && +res.App_Start === appStart ? 1 : 0;
+                    callback();
+                });
+            });
+        } else
+            callback();
+    },
+    Set: function (para, callback) {
+        let storageType, data;
+        if (OBJ.is(para)) {
+            storageType = para.sync ? "sync" : "local";
+            if (para.key) {
+                data = {};
+                data[para.key] = para.data;
+            } else {
+                data = para.data;
+                if (OBJ.is(data) && Object.keys(data).length) {
+                    if (callback)
+                        chrome.storage[storageType].set(data, function () {
+                            callback(chrome.runtime.lastError ? -1 : 1)
+                        });
+                    else
+                        chrome.storage[storageType].set(data);
                 }
-            )
-        ) : a()
-    }, Set: function (a, c) {
-        var b, d;
-        OBJ.is(a) && (b = a.sync ? "sync" : "local", a.key ? (d = {}, d[a.key] = a.data
-            ) : d = a.data, OBJ.is(d) && Object.keys(d).length && (c ? chrome.storage[b].set(d, function () {
-                        c(chrome.runtime.lastError ? -1 :
-                            1
-                        )
+            }
+        }
+    },
+    Get: function (para, callback) {
+        let storageType;
+        if (callback) {
+            if (OBJ.is(para) && para.key) {
+                storageType = para.sync ? "sync" : "local";
+                if (OBJ.is(para.key))
+                    chrome.storage[storageType].get(Object.keys(para.key), callback);
+                else
+                    chrome.storage[storageType].get(para.key, function (data) {
+                        callback(OBJ.is(data) ? data[para.key] || "" : "")
+                    });
+            } else {
+                callback("");
+            }
+        }
+    },
+    Remove: function (para) {
+        let storageType;
+        if (OBJ.is(para) && para.key) {
+            storageType = para.sync ? "sync" : "local";
+            AGB.Core.Log("Delete - storage  - " + para.key, !0);
+            chrome.storage[storageType].remove(para.key);
+        }
+    },
+    List: function (data) {
+        if (OBJ.is(data)) {
+            chrome.storage.local.get(null, function (items) {
+                OBJ.iterate(items, function (key) {
+                    if (!data.filter || 0 === STR.check(key).indexOf(data.filter))
+                        AGB.Core.Log("List - storage  - " + key, true);
+                });
+            });
+            chrome.storage.sync.get(null, function (items) {
+                OBJ.iterate(items, function (key) {
+                    if (!data.filter || 0 === STR.check(key).indexOf(data.filter))
+                        AGB.Core.Log("List - sync  - " + key, true);
+                })
+            });
+        }
+    },
+    RemoveFilter: function (data) {
+        if (OBJ.is(data)) {
+            chrome.storage.local.get(null, function (items) {
+                OBJ.iterate(items, function (key) {
+                    if (!data.filter || 0 === STR.check(key).indexOf(data.filter)) {
+                        AGB.Core.Log("Delete - storage  - " + key, true);
+                        chrome.storage.local.remove(key);
                     }
-                ) : chrome.storage[b].set(d)
-            )
-        )
-    }, Get: function (a, c) {
-        var b;
-        OBJ.is(a) && a.key && c ? (b = a.sync ? "sync" : "local", OBJ.is(a.key) ? chrome.storage[b].get(Object.keys(a.key), c) : chrome.storage[b].get(a.key, function (b) {
-                    c(OBJ.is(b) ? b[a.key] || "" : "")
-                }
-            )
-        ) : c && c("")
-    }, Remove: function (a) {
-        var c;
-        OBJ.is(a) && a.key && (c = a.sync ? "sync" : "local", AGB.Core.Log("Delete - storage  - " + a.key, !0), chrome.storage[c].remove(a.key)
-        )
-    }, List: function (a) {
-        OBJ.is(a) && (chrome.storage.local.get(null, function (c) {
-                    OBJ.iterate(c, function (b) {
-                            a.filter && 0 !==
-                            STR.check(b).indexOf(a.filter) || AGB.Core.Log("List - storage  - " + b, !0)
-                        }
-                    )
-                }
-            ), chrome.storage.sync.get(null, function (c) {
-                    OBJ.iterate(c, function (b) {
-                            a.filter && 0 !== STR.check(b).indexOf(a.filter) || AGB.Core.Log("List - sync  - " + b, !0)
-                        }
-                    )
-                }
-            )
-        )
-    }, RemoveFilter: function (a) {
-        OBJ.is(a) && (chrome.storage.local.get(null, function (c) {
-                    OBJ.iterate(c, function (b) {
-                            a.filter && 0 !== STR.check(b).indexOf(a.filter) || (AGB.Core.Log("Delete - storage  - " + b, !0), chrome.storage.local.remove(b)
-                            )
-                        }
-                    )
-                }
-            ), chrome.storage.sync.get(null, function (c) {
-                    OBJ.iterate(c,
-                        function (b) {
-                            a.filter && 0 !== STR.check(b).indexOf(a.filter) || (AGB.Core.Log("Delete - sync  - " + b, !0), chrome.storage.sync.remove(b)
-                            )
-                        }
-                    )
-                }
-            )
-        )
-    }, Sync: function (a) {
-    }
+                })
+            });
+            chrome.storage.sync.get(null, function (key) {
+                OBJ.iterate(key, function (key) {
+                    if (!data.filter || 0 === STR.check(key).indexOf(data.filter)) {
+                        AGB.Core.Log("Delete - sync  - " + key, true);
+                        chrome.storage.sync.remove(key);
+                    }
+                })
+            });
+        }
+    },
+    Sync: function (a) {}
 };

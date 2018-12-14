@@ -1,6 +1,3 @@
-if (!AGB) {
-    var AGB = {};
-}
 AGB.Option = {
     Data: {},
     Limit: {
@@ -46,13 +43,16 @@ AGB.Option = {
         M28: [1, 9],
         M30: [0, 5]
     },
-    Messages: function (a, b, c) {
-        "Set" === a ? AGB.Option.Set(b,
-            c
-        ) : "Menu" === a ? AGB.Option.Menu(b, c) : "Save" === a && AGB.Option.MenuSave(b, c)
+    Messages: function (role, b, c) {
+        if ("Set" === role)
+            AGB.Option.Set(b, c);
+        else if ("Menu" === role)
+            AGB.Option.Menu(b, c);
+        else if ("Save" === role)
+            AGB.Option.MenuSave(b, c);
     },
     Init: function (a, b) {
-        var c, d, e, f, g, h;
+        let c, d, e, f, g, h;
         if (e = AGB.App.getPlayer(a)) {
             AGB.Option.Data[e] = {status: 2};
             c = OBJ.parse(OBJ.get(b, AGB.Data.getKey(e, "Option", "Data")));
@@ -207,8 +207,14 @@ AGB.Label = {
         var c, d;
         d = AGB.App.getPlayer(a, "copy");
         c = AGB.Label.Data;
-        d && (c[d] = {status: 2}, OBJ.parseCopy(AGB.Core.resourceFile("loca/EN.json"), c[d]), OBJ.parseCopy(AGB.Core.resourceFile("loca/" + a.abbrCom + ".json"), c[d]), c[a.abbrCom] = OBJ.create(c[d]), OBJ.parseCopy(OBJ.get(b, AGB.Data.getKey(d, "Label", "Loca")), c[d]), OBJ.parseCopy(OBJ.get(b, AGB.Data.getKey(a.keyCom, "Label", "Api")), c[d])
-        )
+        if (d) {
+            c[d] = {status: 2};
+            OBJ.parseCopy(AGB.Core.resourceFile("loca/EN.json"), c[d]);
+            OBJ.parseCopy(AGB.Core.resourceFile("loca/" + a.abbrCom + ".json"), c[d]);
+            c[a.abbrCom] = OBJ.create(c[d]);
+            OBJ.parseCopy(OBJ.get(b, AGB.Data.getKey(d, "Label", "Loca")), c[d]);
+            OBJ.parseCopy(OBJ.get(b, AGB.Data.getKey(a.keyCom, "Label", "Api")), c[d]);
+        }
     }, Load: function (a) {
         var b;
         AGB.App.getPlayer(a,
@@ -357,7 +363,7 @@ AGB.Styles = {
                 for (n = 1; 3 >=
                 n; n++) {
                     if (m = "S" + n, k = AGB.Token.getColor(c, m)) {
-                        e[n] = k, d.push(".ago_selection_" + m + "{color:" + k + "!important;}"), d.push(".ago_selected_" + m + "{box-shadow: 0 0 0 1px " + k + " inset;}"), d.push(".ago_selected_" + m + "_own{box-shadow: 0 0 0 1px " + k + " inset;color:" + k + "!important;}"), d.push(".ago_hover_" + m + ":hover{box-shadow: 0 0 1px 0 " + k + " inset;}"), d.push(".ago_hover_" + m + "_own:hover{color:" + k + "!important;box-shadow: 0 0 1px 0 " + k + " inset;}"), AGB.Token.getCondition(c, m) && (d.push(".ago_highlight_" + m + "{background-color:" +
+                        e[n] = k, d.push(".ago_selection_" + m + "{color:" + k + "!important;}"), d.push(".ago_selected_" + m + "{box-shadow: 0 0 0 1px " + k + " inset;}"), d.push(".ago_selected_" + m + "_own{box-shadow: 0 0 0 1px " + k + " inset;color:" + k + "!important;}"), d.push(".ago_hover_" + m + ":hover, .ago_hovered_" + m + "{box-shadow: 0 0 1px 0 " + k + " inset;}"), d.push(".ago_hover_" + m + "_own:hover{color:" + k + "!important;box-shadow: 0 0 1px 0 " + k + " inset;}"), AGB.Token.getCondition(c, m) && (d.push(".ago_highlight_" + m + "{background-color:" +
                                 AGB.Token.getColorOpacity(c, m) + ";}"
                             ), d.push(".ago_highlight_" + m + "_active{background-color:" + AGB.Token.getColorOpacity(c, m, "active") + ";}")
                         );
@@ -370,7 +376,7 @@ AGB.Styles = {
                     if (k = AGB.Token.getColor(c, "S3")) {
                         d.push("#rechts .ago_highlight_S3 .planet-name, #rechts .ago_highlight_S3 .planet-koords{color:" +
                             k + "!important;}"
-                        ), d.push("#rechts .ago_highlight_S3_active .planet-name, #rechts .ago_highlight_S3_active .planet-koords{color:" + k + "!important;}"), d.push("#rechts .ago_hover_S3:hover .planet-name, #rechts .ago_hover_S3:hover .planet-koords{color:" + k + "!important;}")
+                        ), d.push("#rechts .ago_highlight_S3_active .planet-name, #rechts .ago_highlight_S3_active .planet-koords{color:" + k + "!important;}"), d.push("#rechts .ago_hover_S3:hover .planet-name, #rechts .ago_hover_S3:hover .planet-koords, #rechts .ago_hovered_S3 .planet-name, #rechts .ago_hovered_S3 .planet-koords{color:" + k + "!important;}")
                     }
                 }
                 (k = AGB.Token.getColor(c, "SA")
@@ -691,18 +697,30 @@ AGB.Item = {
     }
 };
 AGB.Units = {
-    Data: {}, Messages: function (a, b, c) {
-        "Action" === a ? AGB.Units.Action(b, c) : "Update" === a ? AGB.Units.Update(b, c) : "List" === a && AGB.Units.List(b, c)
-    }, Start: function (a) {
-        var b, c;
-        c = {};
-        (b = AGB.Units.Data[a]
-        ) && b.account && (c.status = b.status, c.timeResearch = AGB.Time.timestampMinuteConvert(b.account.timeResearch), OBJ.iterate(AGB.Item.Research, function (a) {
-                    c[a] = +b.account[a] || 0
-                }
-            )
-        );
-        return c
+    Data: {},
+    Messages: function (role, para, response) {
+        if ("Action" === role) {
+            AGB.Units.Action(para, response);
+        } else if ("Update" === role) {
+            AGB.Units.Update(para, response);
+        } else if ("List" === role) {
+            AGB.Units.List(para, response);
+        }
+    }, Start: function (keyPlayer) {
+        let data, returnObj;
+        returnObj = {};
+        if ((data = AGB.Units.Data[keyPlayer]) && data.account) {
+            returnObj.status = data.status;
+            returnObj.timeResearch = AGB.Time.timestampMinuteConvert(data.account.timeResearch);
+            OBJ.iterate(AGB.Item.Research, function (ID) {
+                returnObj[ID] = +data.account[ID] || 0;
+            });
+        }
+        returnObj.Moons = {};
+        OBJ.is(data) && OBJ.iterate(data, function (ID) {
+            !isNaN(ID) && OBJ.is(data[ID]) && data[ID][43] && (returnObj.Moons[ID] = {43: data[ID][43]});
+        });
+        return returnObj;
     }, Init: function (a, b) {
         var c, d, e, f, g;
         f = AGB.Data.get("Units", "Data", "version");
@@ -876,11 +894,10 @@ AGB.Units = {
             )
         );
         b && b(e)
-    }, Get: function (a, b, c, d) {
-        var e;
-        a && AGB.Units.Data[a] && b && AGB.Units.Data[a][b] && c && (e = AGB.Units.Data[a][b][c]
-        );
-        return 6 === d ? STR.check(e) : +e || 0
+    }, Get: function (keyPlayer, target, unit, str) {
+        let returnValue;
+        keyPlayer && AGB.Units.Data[keyPlayer] && target && AGB.Units.Data[keyPlayer][target] && unit && (returnValue = AGB.Units.Data[keyPlayer][target][unit]);
+        return 6 === str ? STR.check(returnValue) : +returnValue || 0;
     }, XXsummarizeAccount: function (a) {
         var b, c;
         a = AGB.App.getPlayer(a);
@@ -1108,22 +1125,13 @@ AGB.Task = {
             return c.join(":")
         }
         return ""
-    }, splitCoords: function (a) {
-        a = STR.check(a).split(":");
-        return {galaxy: +a[0] || 0, system: +a[1] || 0, position: +a[2] || 0}
-    }, checkCoords: function (a, b, c) {
-        return 1 <= a && a <= AGB.Uni.Info.galaxies && 1 <= b && b <= AGB.Uni.Info.systems && 1 <= c && c <= AGB.Uni.Info.positions
-    }, checkCoordsType: function (a, b, c, d) {
-        return 1 <= a && a <= AGB.Uni.Info.galaxies && 1 <= b && b <= AGB.Uni.Info.systems && 1 <= c && c <= AGB.Uni.Info.positions && 1 <= d && 3 >= d
     }, getCoordsType: function (a) {
-        return OBJ.is(a) && AGB.Task.checkCoordsType(a.galaxy,
-            a.system, a.position, a.type
-        ) ? a.galaxy + ":" + a.system + ":" + a.position + ":" + a.type : ""
+        return OBJ.is(a) && a.galaxy && a.system && a.position && a.type ? a.galaxy + ":" + a.system + ":" + a.position + ":" + a.type : ""
     }, updateCoordsType: function (a, b) {
         var c;
         b = STR.check(b);
         OBJ.is(a) && b && (c = b.split(":"), NMR.isMinMax(+c[3], 1, 3) && (a.type = +c[3] || 0
-            ), AGB.Task.checkCoords(+c[0], +c[1], +c[2]) && (a.galaxy = +c[0] || 0, a.system = +c[1] || 0, a.position = +c[2] || 0, a.coords = a.galaxy + ":" + a.system + ":" + a.position, a.coordstype = a.type ? a.coords + ":" + a.type : ""
+            ), (a.galaxy = +c[0] || 0, a.system = +c[1] || 0, a.position = +c[2] || 0, a.coords = a.galaxy + ":" + a.system + ":" + a.position, a.coordstype = a.type ? a.coords + ":" + a.type : ""
             )
         )
     }, cut: function (a, b) {
@@ -1845,23 +1853,18 @@ AGB.DataBase = {
         }
     },
     Set: function (a) {
+        console.log(AGB.DataBase.get(a.keyUni, "api"));
         var b;
         OBJ.is(a) && OBJ.is(a.data) && (b = AGB.DataBase.isStatus(a, "Player"), a.api = AGB.DataBase.get(a.keyUni, "api"), b && OBJ.is(a.data.Player) && AGB.DataBase.ObjectStore(b, "I", "readwrite", function (b) {
-                    b && OBJ.iterate(a.data.Player, function (d) {
-                            var e;
-                            e = a.data.Player[d];
-                            e.I && (b.get(+d).onsuccess = function (d) {
-                                    d = d.target.result;
-                                    d && e.N === d.N && e.s === d.s && e.aI === d.aI || (a.api && AGB.Core.Log("Galaxy - Update Player " +
-                                            e.N
-                                        ), b.put(e)
-                                    )
-                                }
-                            )
-                        }
-                    )
-                }
-            ), (b = AGB.DataBase.isStatus(a, "Universe")
+                b && OBJ.iterate(a.data.Player, function (d) {
+                    var e;
+                    e = a.data.Player[d];
+                    e.I && (b.get(+d).onsuccess = function (d) {
+                        d = d.target.result;
+                        d && e.N === d.N && e.s === d.s && e.aI === d.aI || (a.api && AGB.Core.Log("Galaxy - Update Player " + e.N), b.put(e))
+                    })
+                })
+            }), (b = AGB.DataBase.isStatus(a, "Universe")
             ) && OBJ.is(a.data.Planet) && AGB.DataBase.ObjectStore(b, "pI", "readwrite", function (b) {
                     b && OBJ.iterate(a.data.Planet, function (d) {
                             var e;
@@ -2235,6 +2238,8 @@ AGB.Tools = {
         "Action" === a && AGB.Tools.Action(b, c)
     },
     Action: function (a, b) {
+        let test = JSON.stringify(AGB);
+        console.log(JSON.parse(test));
         var c, d, e;
         if (d = AGB.App.getPlayer(a, "copy")) {
             e = {id: a.id};
@@ -2289,6 +2294,9 @@ AGB.Tools = {
                     break;
                 case "T5C":
                     AGB.Tools.createDragosim(a);
+                    break;
+                case "T5D":
+                    AGB.Tools.createTrashsim(a);
                     break;
                 default:
                     AGB.Tools.createLink(a)
@@ -2535,5 +2543,9 @@ AGB.Tools = {
             )
         );
         a.href = d
+    },
+    createTrashsim: function (a) {
+        let url = "https://trashsim.universeview.be/" + AGB.Com.Get(a.abbrCom, "trashsim");
+        a.href = url;
     }
 };

@@ -1,6 +1,5 @@
-if (!AGB) {
-    var AGB = {};
-}
+const AGB = {};
+
 AGB.App = {
     Data: {},
     Player: {},
@@ -43,170 +42,244 @@ AGB.App = {
         "infuza.com": 1,
         "savecr.com": 1
     },
-    Messages: function (a, b, c, d) {
-        "Start" === a ? AGB.App.Start(b, c, d) : "Update" === a ? AGB.App.Update(b, c) : "Refresh" ===
-        a ? AGB.App.Refresh(b, c) : "Script" === a && OBJ.is(b) && AGB.Manager.loadScripts(b.scripts, d)
+    Messages: function (role, para, response, tabID) {
+        if ("Start" === role)
+            AGB.App.Start(para, response, tabID);
+        else if ("Update" === role)
+            AGB.App.Update(para, response);
+        else if ("Refresh" === role)
+            AGB.App.Refresh(para, response);
+        else if ("Script" === role)
+            OBJ.is(para) && AGB.Manager.loadScripts(para.scripts, tabID);
     },
-    Check: function (a) {
-        var b, c;
-        a = STR.check(a).toLowerCase();
-        c = (a.split("//")[1] || ""
-        ).split("/")[0] || "";
-        return a ? (b = {
-                href: a,
-                host: c
-            }, a.match(/http||https:\/\/.+\.ogame.gameforge.com\/game\/index\.php\?+.*page=*/i) ? b.mode = 3 : OBJ.iterate(AGB.App.Extern, function (a) {
-                    if (c === a || -1 < c.indexOf("." + a)) {
-                        b.mode = AGB.App.Extern[a]
+    Check: function (url) {
+        let tabData, host;
+        url = STR.check(url).toLowerCase();
+        host = (url.split("//")[1] || "").split("/")[0] || "";
+        if (url) {
+            tabData = {
+                href: url,
+                host: host
+            };
+            if (url.match(/https:\/\/.+\.ogame.gameforge.com\/game\/index\.php\?+.*page=*/i)) {
+                tabData.mode = 3;
+            } else {
+                OBJ.iterate(AGB.App.Extern, function (app) {
+                    if (host === app || -1 < host.indexOf("." + app)) {
+                        tabData.mode = AGB.App.Extern[app]
                     }
-                }
-            ), b
-        ) : null
-    },
-    Start: function (a, b, c) {
-        var d;
-        OBJ.is(a) && a.page && b && (AGB.Manager.loadScripts(OBJ.get(AGB.App.Page[a.page],
-                "js"
-            ) || ["pages"], c
-            ), 2 === a.mode ? b({
-                    Page: OBJ.get(AGB.App.Page[a.page], "page") || "Page",
-                    Label: AGB.Label.Data[a.abbrCom],
-                    Background: AGB.Background.Data
-                }
-            ) : 3 <= a.mode && a.accountId && a.keyCom && a.keyUni && a.keyPlayer && AGB.Com.Check(a.abbrCom) && a.abbrUni && a.urlUni && (d = a.keyPlayer, OBJ.is(AGB.App.Player[a.keyUni]) || (AGB.App.Player[a.keyUni] = {
-                        abbrUni: a.abbrUni,
-                        urlUni: a.urlUni
-                    }
-                ), AGB.App.Player[a.keyUni].keyPlayer = d, OBJ.is(AGB.App.Player[d]) || (AGB.App.Player[d] = {
-                        accountId: a.accountId, abbrCom: a.abbrCom, abbrUni: a.abbrUni,
-                        keyCom: a.keyCom, keyUni: a.keyUni, urlUni: a.urlUni
-                    }
-                ), a.reload = a.reload || 1 !== AGB.App.Player[d].status, AGB.App.Player[d].status = 1, AGB.Core.clearTimeout(AGB.App.Player[d].timeout), AGB.App.Player[d].timeout = AGB.Core.setTimeout(function () {
-                        AGB.status && AGB.App.Stop(d)
-                    }, 5E3
-                ), AGB.Data.Init(a, function (c) {
-                        b({
-                                Page: OBJ.get(AGB.App.Page[a.page], "page") || "Page",
-                                reload: a.reload || c,
-                                keyPlayer: d,
-                                Option: AGB.Option.Data[d],
-                                DataBase: AGB.DataBase.Status(a),
-                                Label: AGB.Label.Data[d],
-                                Item: AGB.Item.Data[d],
-                                App: AGB.App.Data[d],
-                                Uni: AGB.Uni.Data[d],
-                                Panel: AGB.Panel.Data[d],
-                                Box: AGB.Box.Data[d],
-                                Token: "galaxy" === a.page ? AGB.Token.Data[d] : AGB.Token.Data[d].Info,
-                                Units: AGB.Units.Start(d),
-                                Fleet: AGB.Fleet.Data[d],
-                                Background: AGB.Background.Data
-                            }
-                        )
-                    }
-                )
-            )
-        )
-    },
-    Stop: function (a) {
-    },
-    Update: function (a, b) {
-        var c;
-        (c = AGB.App.getPlayer(a, "copy")
-        ) && (a.reload || 2E3 < AGB.Time.timestamp() - (+AGB.App.Player[c].timestampUpdate || 0
-            )
-        ) && (AGB.App.Player[c].timestampUpdate = AGB.Time.timestamp(), AGB.App.Load(a), AGB.Uni.Load(a), AGB.Label.Load(a), AGB.DataBase.Init(a), b &&
-            b()
-        )
-    },
-    Refresh: function (a, b) {
-        var c;
-        (c = AGB.App.getPlayer(a)
-        ) && b && b({
-                Option: AGB.Option.Data[c],
-                Panel: AGB.Panel.Data[c],
-                Box: AGB.Box.Data[c],
-                Fleet: AGB.Fleet.Data[c],
-                Background: AGB.Background.Data
+                });
             }
-        )
-    },
-    Init: function (a, b) {
-        var c, d, g;
-        g = AGB.Data.get("App", "Data", "version");
-        if (d = AGB.App.getPlayer(a, "copy")) {
-            c = OBJ.parse(b[AGB.Data.getKey(d, "App", "Data")]), AGB.App.Data[d] = c.version === g ? c : {version: g}, AGB.App.Data[d].storage = AGB.Storage.status
+            return tabData;
+        } else {
+            return null;
         }
     },
-    Load: function (a) {
-        var b, c;
-        if (c = AGB.App.getPlayer(a, "copy")) {
-            b = new XMLHttpRequest,
-                b.open("POST", "https://antigame.de/antigame/ago_appdata.php", !0), b.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), b.onerror = b.onload = function () {
-                var c, g, e;
-                g = AGB.App.getPlayer(a);
-                c = AGB.App.Data[g];
-                g && c && (c.storage = AGB.Storage.status, e = OBJ.parse(200 === +b.status ? b.responseText : ""), e.versionFinal && (c.versionLoca = e.versionLoca, c.versionLocaMenu = e.versionLocaMenu, c.versionUpdate = 1 < AGB.Config.beta ? "" : 1 === AGB.Config.beta ? e.versionPreview : e.versionFinal, AGB.App.Save({player: g})
-                    ), AGB.Core.Log("Update   - App      : " +
-                        c.versionUpdate + "https://antigame.de/antigame/ago_appdata.php" + (e.versionFinal ? "" : " - failed !"
-                        ), !0
-                    )
-                )
-            }, b.send("domain=antigame.de&loca=" + a.abbrCom + "&locamenu=" + (AGB.Option.Get(c, "A10") || a.abbrCom
-            )
-            )
+    Start: function (para, response, tabID) {
+        let keyPlayer;
+
+        if (OBJ.is(para) && para.page && response) {
+            AGB.Manager.loadScripts(OBJ.get(AGB.App.Page[para.page], "js") || ["pages"], tabID);
+
+            if (2 === para.mode) {
+                response({
+                    Page: OBJ.get(AGB.App.Page[para.page], "page") || "Page",
+                    Label: AGB.Label.Data[para.abbrCom],
+                    Background: AGB.Background.Data
+                });
+            } else if (3 <= para.mode && para.accountId && para.keyCom && para.keyUni && para.keyPlayer && AGB.Com.Check(para.abbrCom) && para.abbrUni && para.urlUni) {
+                keyPlayer = para.keyPlayer;
+                if (!OBJ.is(AGB.App.Player[para.keyUni])) {
+                    AGB.App.Player[para.keyUni] = {
+                        abbrUni: para.abbrUni,
+                        urlUni: para.urlUni
+                    };
+                }
+
+                AGB.App.Player[para.keyUni].keyPlayer = keyPlayer;
+                if (!OBJ.is(AGB.App.Player[keyPlayer])) {
+                    AGB.App.Player[keyPlayer] = {
+                        accountId: para.accountId, abbrCom: para.abbrCom, abbrUni: para.abbrUni,
+                        keyCom: para.keyCom, keyUni: para.keyUni, urlUni: para.urlUni
+                    };
+                }
+
+                para.reload = para.reload || 1 !== AGB.App.Player[keyPlayer].status;
+                AGB.App.Player[keyPlayer].status = 1;
+                AGB.Core.clearTimeout(AGB.App.Player[keyPlayer].timeout);
+                AGB.App.Player[keyPlayer].timeout = AGB.Core.setTimeout(function () {
+                    AGB.status && AGB.App.Stop(keyPlayer)
+                }, 5E3);
+                AGB.Data.Init(para, function (forceReload) {
+                    response({
+                        Page: OBJ.get(AGB.App.Page[para.page], "page") || "Page",
+                        reload: para.reload || forceReload,
+                        keyPlayer: keyPlayer,
+                        Option: AGB.Option.Data[keyPlayer],
+                        DataBase: AGB.DataBase.Status(para),
+                        Label: AGB.Label.Data[keyPlayer],
+                        Item: AGB.Item.Data[keyPlayer],
+                        App: AGB.App.Data[keyPlayer],
+                        Uni: AGB.Uni.Data[keyPlayer],
+                        Panel: AGB.Panel.Data[keyPlayer],
+                        Box: AGB.Box.Data[keyPlayer],
+                        Token: "galaxy" === para.page ? AGB.Token.Data[keyPlayer] : AGB.Token.Data[keyPlayer].Info,
+                        Units: AGB.Units.Start(keyPlayer),
+                        Fleet: AGB.Fleet.Data[keyPlayer],
+                        Background: AGB.Background.Data
+                    });
+                });
+            }
         }
     },
-    Save: function (a) {
-        a = AGB.App.getPlayer(a);
-        AGB.Data.isStorage(a, "App", "Data") && OBJ.is(AGB.App.Data[a]) && AGB.Data.setStorage(a, "App", "Data", AGB.App.Data[a])
+    Stop: function (a) {},
+    Update: function (para, response) {
+        let keyPlayer = AGB.App.getPlayer(para, "copy");
+        if (keyPlayer && (para.reload || 2E3 < AGB.Time.timestamp() - (+AGB.App.Player[keyPlayer].timestampUpdate || 0))) {
+            AGB.App.Player[keyPlayer].timestampUpdate = AGB.Time.timestamp();
+            //AGB.App.Load(para);    #TODO: Server for updates
+            AGB.Uni.Load(para);
+            AGB.Label.Load(para);
+            AGB.DataBase.Init(para);
+            response && response();
+        }
     },
-    Get: function (a, b, c) {
-        var d;
-        a && AGB.App.Data[a] && b && (d = AGB.App.Data[a][b]
-        );
-        return 6 === c ? STR.check(d) : +d || 0
+    Refresh: function (para, response) {
+        let keyPlayer = AGB.App.getPlayer(para);
+        if (keyPlayer && response) {
+            response({
+                Option: AGB.Option.Data[keyPlayer],
+                Panel: AGB.Panel.Data[keyPlayer],
+                Box: AGB.Box.Data[keyPlayer],
+                Fleet: AGB.Fleet.Data[keyPlayer],
+                Background: AGB.Background.Data
+            });
+        }
     },
-    Set: function (a, b, c, d) {
-        a && AGB.App.Data[a] && c &&
-        AGB.App.Data[a][c] !== d && (AGB.App.Data[a][c] = d, AGB.App.Save({player: a})
-        )
+    Init: function (para, storage) {
+        let appData, keyPlayer, appVersion;
+        keyPlayer  = AGB.App.getPlayer(para, "copy");
+        appVersion = AGB.Data.get("App", "Data", "version");
+        if (keyPlayer) {
+            appData = OBJ.parse(storage[AGB.Data.getKey(keyPlayer, "App", "Data")]);
+            AGB.App.Data[keyPlayer] = appData.version === appVersion ? appData : {version: appVersion};
+            AGB.App.Data[keyPlayer].storage = AGB.Storage.status;
+        }
     },
-    getUni: function (a) {
-        return AGB.status && a && a.keyUni && AGB.App.Player[a.keyUni] ? (a.keyPlayer = AGB.App.Player[a.keyUni].keyPlayer, a.abbrUni = AGB.App.Player[a.keyUni].abbrUni, a.urlUni = AGB.App.Player[a.keyUni].urlUni, a.keyUni
-        ) : ""
+    Load: function (app) {
+        let keyPlayer;
+        if (keyPlayer = AGB.App.getPlayer(app, "copy")) {
+            let req;
+            req = new XMLHttpRequest;
+            req.open("POST", "https://###########/ago_appdata.php", true);
+            req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            req.onerror = req.onload = function () {
+                let appData, keyPlayer, resObj;
+                keyPlayer = AGB.App.getPlayer(app);
+                appData = AGB.App.Data[keyPlayer];
+                if (keyPlayer && appData) {
+                    appData.storage = AGB.Storage.status;
+                    resObj = OBJ.parse(200 === +req.status ? req.responseText : "");
+
+                    if (resObj.versionFinal) {
+                        appData.versionLoca = resObj.versionLoca;
+                        appData.versionLocaMenu = resObj.versionLocaMenu;
+                        appData.versionUpdate = 1 < AGB.Config.beta ? "" : 1 === AGB.Config.beta ? resObj.versionPreview : resObj.versionFinal;
+                        AGB.App.Save({player: keyPlayer});
+                    }
+
+                    AGB.Core.Log("Update   - App      : " + appData.versionUpdate + "https://##################/ago_appdata.php" + (resObj.versionFinal ? "" : " - failed !"), true);
+                }
+            };
+            req.send("domain=antigame.de&loca=" + app.abbrCom + "&locamenu=" + (AGB.Option.Get(keyPlayer, "A10") || app.abbrCom));
+        }
     },
-    getPlayer: function (a, b) {
-        return AGB.status && a && a.keyPlayer && AGB.App.Player[a.keyPlayer] && 1 === AGB.App.Player[a.keyPlayer].status ? (b && (a.accountId = AGB.App.Player[a.keyPlayer].accountId, a.abbrCom = AGB.App.Player[a.keyPlayer].abbrCom,
-                    a.abbrUni = AGB.App.Player[a.keyPlayer].abbrUni, a.keyCom = AGB.App.Player[a.keyPlayer].keyCom, a.keyUni = AGB.App.Player[a.keyPlayer].keyUni, a.urlUni = AGB.App.Player[a.keyPlayer].urlUni
-            ), a.keyPlayer
-        ) : ""
+    Save: function (keyPlayer) {
+        keyPlayer = AGB.App.getPlayer(keyPlayer);
+        if (AGB.Data.isStorage(keyPlayer, "App", "Data") && OBJ.is(AGB.App.Data[keyPlayer]))
+            AGB.Data.setStorage(keyPlayer, "App", "Data", AGB.App.Data[keyPlayer]);
+    },
+    Get: function (keyPlayer, key, c) {
+        let value;
+        if (keyPlayer && AGB.App.Data[keyPlayer] && key)
+            value = AGB.App.Data[keyPlayer][key];
+        return 6 === c ? STR.check(value) : +value || 0
+    },
+    Set: function (keyPlayer, key, value) {
+        if (keyPlayer && AGB.App.Data[keyPlayer] && key && AGB.App.Data[keyPlayer][key] !== value) {
+            AGB.App.Data[keyPlayer][key] = value;
+            AGB.App.Save({player: keyPlayer});
+        }
+    },
+    getUni: function (app) {
+        if (AGB.status && app && app.keyUni && AGB.App.Player[app.keyUni]) {
+            app.keyPlayer = AGB.App.Player[app.keyUni].keyPlayer;
+            app.abbrUni = AGB.App.Player[app.keyUni].abbrUni;
+            app.urlUni = AGB.App.Player[app.keyUni].urlUni;
+            return app.keyUni;
+        } else
+            return "";
+    },
+    getPlayer: function (data, copy) {
+        if (AGB.status && data && data.keyPlayer && AGB.App.Player[data.keyPlayer] && 1 === AGB.App.Player[data.keyPlayer].status) {
+            if (copy) {
+                data.accountId = AGB.App.Player[data.keyPlayer].accountId;
+                data.abbrCom = AGB.App.Player[data.keyPlayer].abbrCom;
+                data.abbrUni = AGB.App.Player[data.keyPlayer].abbrUni;
+                data.keyCom = AGB.App.Player[data.keyPlayer].keyCom;
+                data.keyUni = AGB.App.Player[data.keyPlayer].keyUni;
+                data.urlUni = AGB.App.Player[data.keyPlayer].urlUni;
+            }
+
+            return data.keyPlayer;
+        } else
+            return "";
     }
 };
 AGB.Background = {
-    Data: {}, Messages: function (a, b) {
-        "Set" === a && AGB.Background.Set(b)
-    }, Set: function (a) {
-        OBJ.is(a) && a.key && (AGB.Background.Data[a.key] = a.value || ""
-        )
+    Data: {},
+    Messages: function (role, data) {
+        if ("Set" === role) {
+            AGB.Background.Set(data);
+        }
+    },
+    Set: function (data) {
+        if (OBJ.is(data) && data.key) {
+            AGB.Background.Data[data.key] = data.value || "";
+        }
     }
 };
 AGB.Data = {
-    Status: {}, Info: {
-        App: {Data: {storage: 1, version: 3, tab: 2}},
-        Uni: {Data: {storage: 1, version: 3, tab: 2}},
-        Option: {Data: {storage: 4, version: 12, upgrade: 1}, Local: {storage: 1}},
-        Label: {Loca: {storage: 1, version: 1, key: 0}, Api: {storage: 1, version: 1, key: 2}},
-        Units: {Data: {storage: 2, version: 2}},
-        Fleet: {Data: {storage: 2, version: 2}, Routine: {tab: 2}, Expo: {tab: 2}, Last: {tab: 3}, Cooldown: {tab: 2}},
+    Status: {},
+    Info: {
+        App: {
+            Data: {storage: 1, version: 3, tab: 2}
+        },
+        Uni: {
+            Data: {storage: 1, version: 3, tab: 2}
+        },
+        Option: {
+            Data: {storage: 4, version: 12, upgrade: 1},
+            Local: {storage: 1}
+        },
+        Label: {
+            Loca: {storage: 1, version: 1, key: 0},
+            Api: {storage: 1, version: 1, key: 2}
+        },
+        Units: {
+            Data: {storage: 2, version: 2}
+        },
+        Fleet: {
+            Data: {storage: 2, version: 2},
+            Routine: {tab: 2}, Expo: {tab: 2},
+            Last: {tab: 3},
+            Cooldown: {tab: 2}
+        },
         Token: {
             Alliance: {storage: 3, version: 3, tab: 2},
             Player: {storage: 3, version: 3, tab: 2},
             Target: {storage: 3, version: 3, tab: 2},
-            Current: {
-                storage: 3,
-                version: 3, tab: 2
-            },
+            Current: {storage: 3, version: 3, tab: 2},
             Info: {tab: 1}
         },
         Panel: {
@@ -222,51 +295,71 @@ AGB.Data = {
             Box: {tab: 2},
             Cache: {tab: 1}
         },
-        Box: {Cache: {tab: 1}},
-        Construction: {Data: {storage: 2, version: 1}}
-    }, Messages: function (a, b, c) {
-        "Backup" === a ? AGB.Data.Backup(b, c) : "Restore" === a ? AGB.Data.Restore(b, c) : "Remove" === a ? AGB.Data.Remove(b,
-            c
-        ) : "List" === a && AGB.Data.List(b)
-    }, Init: function (a, b) {
-        var c, d;
-        (c = AGB.App.getPlayer(a)
-        ) && (!AGB.Data.Status[c] || a.reload && 1 === AGB.Data.Status[c]
-        ) ? (AGB.Data.Status[c] = 3, d = {}, OBJ.iterate(AGB.Data.Info, function (b) {
-                    OBJ.iterate(AGB.Data.Info[b], function (e) {
-                            var f;
-                            1 <= AGB.Data.Info[b][e].storage && (f = 2 === AGB.Data.Info[b][e].key ? a.keyCom : 1 === AGB.Data.Info[b][e].key ? a.keyUni : c, d[AGB.Data.getKey(f, b, e)] = e
-                            )
+        Box: {
+            Cache: {tab: 1}
+        },
+        Construction: {
+            Data: {storage: 2, version: 1}
+        }
+    },
+    Messages: function (role, para, response) {
+        if ("Backup" === role)
+            AGB.Data.Backup(para, response);
+        else if ("Restore" === role)
+            AGB.Data.Restore(para, response);
+        else if ("Remove" === role)
+            AGB.Data.Remove(para, response);
+        else if ("List" === role)
+            AGB.Data.List(para);
+    },
+    Init: function (para, callback) {
+        let keyPlayer, dataKeys;
+        if ((keyPlayer = AGB.App.getPlayer(para)) && (!AGB.Data.Status[keyPlayer] || para.reload && 1 === AGB.Data.Status[keyPlayer])) {
+            AGB.Data.Status[keyPlayer] = 3;
+            dataKeys = {};
+            OBJ.iterate(AGB.Data.Info, function (dataKey) {
+                OBJ.iterate(AGB.Data.Info[dataKey], function (subKey) {
+                    let key;
+                    if (1 <= AGB.Data.Info[dataKey][subKey].storage) {
+                        if (2 === AGB.Data.Info[dataKey][subKey].key) {
+                            key = para.keyCom;
+                        } else if (1 === AGB.Data.Info[dataKey][subKey].key) {
+                            key = para.keyUni;
+                        } else {
+                            key = keyPlayer;
                         }
-                    )
-                }
-            ), AGB.Storage.Get({key: d}, function (d) {
-                    d = OBJ.is(d) ? d : {};
-                    AGB.App.Init(a, d);
-                    AGB.Uni.Init(a, d);
-                    AGB.Option.Init(a,
-                        d
-                    );
-                    AGB.Label.Init(a, d);
-                    AGB.Units.Init(a, d);
-                    AGB.Fleet.Init(a, d);
-                    AGB.Token.Init(a, d);
-                    AGB.Panel.Init(a, d);
-                    AGB.Box.Init(a, d);
-                    AGB.Construction.Init(a, d);
-                    AGB.Item.Init(a);
-                    AGB.Data.Status[c] = 1;
-                    b && b(!0)
-                }
-            )
-        ) : b && b(!1)
-    }, Change: function () {
+                        dataKeys[AGB.Data.getKey(key, dataKey, subKey)] = subKey;
+                    }
+                });
+            });
+            AGB.Storage.Get({key: dataKeys}, function (data) {
+                data = OBJ.is(data) ? data : {};
+                AGB.App.Init(para, data);
+                AGB.Uni.Init(para, data);
+                AGB.Option.Init(para, data);
+                AGB.Label.Init(para, data);
+                AGB.Units.Init(para, data);
+                AGB.Fleet.Init(para, data);
+                AGB.Token.Init(para, data);
+                AGB.Panel.Init(para, data);
+                AGB.Box.Init(para, data);
+                AGB.Construction.Init(para, data);
+                AGB.Item.Init(para);
+                AGB.Data.Status[keyPlayer] = 1;
+                callback && callback(true);
+            });
+        } else {
+            callback && callback(false);
+        }
+    },
+    Change: function () {
         AGB.Core.clearTimeout(AGB.Data.changeTimeout);
         AGB.Data.changeTimeout = AGB.Core.setTimeout(function () {
                 AGB.status && AGB.Data.Save()
             }, 3E3
         )
-    }, Save: function (a, b) {
+    },
+    Save: function (a, b) {
         function c(a) {
             var c;
             AGB.Data.isStatus(a) && (c = {keyPlayer: a, save: {}}, b && (c.backup = {}
@@ -282,7 +375,8 @@ AGB.Data = {
         }
 
         AGB.App.getPlayer(a) ? c(a.keyPlayer) : OBJ.iterate(AGB.Data.Status, c)
-    }, Sync: function (a) {
+    },
+    Sync: function (a) {
         var b, c, d;
         b = AGB.App.getPlayer(a);
         AGB.Data.isStatus(b) && (d = Boolean(AGB.Option.Get(b, "D60") && 3 === AGB.Option.Get(b, "D61")), c = {}, c[b + "_SYNC_Sync_Data"] = d, AGB.Data.iterate("", function (a, e) {
@@ -295,7 +389,8 @@ AGB.Data = {
                 }
             )
         )
-    }, Backup: function (a, b) {
+    },
+    Backup: function (a, b) {
         function c(a, b) {
             var c, d;
             d = "com=" + a.abbrCom + "&uni=" + a.abbrUni + "&user_id=" + a.accountId + "&ident=" + a.ident + "&type=Sync&action=put&domain=antigame.de&string=" + encodeURIComponent(JSON.stringify(a.data)) + "&header=" + encodeURIComponent(JSON.stringify(a.data.Sync_Data));
@@ -316,7 +411,7 @@ AGB.Data = {
                     c[a.keyPlayer + "_SYNC_" + b] = JSON.stringify(a.data[b])
                 }
             );
-            AGB.Storage.Set({sync: !0, data: c}, function (c) {
+            AGB.Storage.Set({sync: true, data: c}, function (c) {
                     b && (a.status = c, a.error = -1 === c, a.data = null, a.error || AGB.App.Set(a.keyPlayer, "timestampSync", a.timestamp), b(a)
                     )
                 }
@@ -345,7 +440,8 @@ AGB.Data = {
                 }
             )
         )
-    }, Restore: function (a, b) {
+    },
+    Restore: function (a, b) {
         function c(c, d) {
             var e;
             e = {tab: a.tab, list: {}};
@@ -450,9 +546,11 @@ AGB.Data = {
                 )
             )
         )
-    }, List: function (a) {
+    },
+    List: function (a) {
         OBJ.is(a) && AGB.Storage.List(a)
-    }, Remove: function (a, b) {
+    },
+    Remove: function (a, b) {
         var c, d, g, e;
         c = AGB.App.getPlayer(a, "copy");
         if (AGB.Data.isStatus(c)) {
@@ -481,19 +579,20 @@ AGB.Data = {
             )
         }
         b && b(e)
-    }, removeStorageGroup: function (a,
-                                     b
-    ) {
+    },
+    removeStorageGroup: function (a, b) {
         OBJ.is(a) && AGB.Data.Info[b] && AGB.Data.iterate(b, function (c, d) {
                 var g;
                 1 <= c.storage && (g = 2 === c.key ? a.keyCom : 1 === c.key ? a.keyUni : a.keyPlayer, AGB.Storage.Remove({key: AGB.Data.getKey(g, b, d)})
                 )
             }
         )
-    }, setStorage: function (a, b, c, d) {
+    },
+    setStorage: function (a, b, c, d) {
         a && (d = OBJ.is(d) ? JSON.stringify(d) : d || "", AGB.Storage.Set({key: AGB.Data.getKey(a, b, c), data: d})
         )
-    }, iterate: function (a, b) {
+    },
+    iterate: function (a, b) {
         var c;
         if (AGB.Data.Info[a]) {
             for (c in AGB.Data.Info[a]) {
@@ -509,21 +608,28 @@ AGB.Data = {
                 }
             }
         }
-    }, getKey: function (a, b, c) {
+    },
+    getKey: function (a, b, c) {
         return AGB.Data.Info[b] && AGB.Data.Info[b][c] ? a + "_" + b + "_" + c : ""
-    }, get: function (a, b, c, d) {
+    },
+    get: function (a, b, c, d) {
         return AGB.Data.Info[a] && AGB.Data.Info[a][b] ? 6 === d ? STR.check(AGB.Data.Info[a][b][c] || "") : +AGB.Data.Info[a][b][c] || 0 : 6 === d ? "" : 0
-    }, getTab: function (a, b) {
+    },
+    getTab: function (a, b) {
         return a && a.tab && AGB.Data.Info[b] && AGB.Data.Info[b][a.tab] && AGB.Data.Info[b][a.tab].tab ? a.tab : ""
-    }, set: function (a, b, c, d) {
+    },
+    set: function (a, b, c, d) {
         AGB.Data.Info[a] && AGB.Data.Info[a][b] && (AGB.Data.Info[a][b][c] = +d || 0
         )
-    }, isStorage: function (a, b, c) {
+    },
+    isStorage: function (a, b, c) {
         return a && AGB.Data.Status[a] &&
         b && AGB.Data.Info[b] && AGB.Data.Info[b][c] ? AGB.Data.Info[b][c].storage : 0
-    }, isBackup: function (a, b, c, d) {
+    },
+    isBackup: function (a, b, c, d) {
         return Boolean(a && AGB.Data.Status[a] && b && AGB.Data.Info[b] && AGB.Data.Info[b][c] && AGB.Data.Info[b][c].storage >= d)
-    }, isStatus: function (a) {
+    },
+    isStatus: function (a) {
         return a && 1 === AGB.Data.Status[a]
     }
 };
@@ -536,7 +642,8 @@ AGB.Com = {
             dragosim: "english",
             warriders: "",
             infuza: "fr",
-            ogniter: "en"
+            ogniter: "en",
+            trashsim: "en"
         },
         AR: {
             infuzaServer: "ogame.com.ar",
@@ -545,7 +652,8 @@ AGB.Com = {
             dragosim: "spanish",
             warriders: "",
             infuza: "es",
-            ogniter: "ar"
+            ogniter: "ar",
+            trashsim: "es"
         },
         BA: {
             infuzaServer: "ba.ogame.org",
@@ -554,7 +662,8 @@ AGB.Com = {
             dragosim: "bosnian",
             warriders: "",
             infuza: "en",
-            ogniter: "yu"
+            ogniter: "yu",
+            trashsim: "hr"
         },
         BR: {
             infuzaServer: "ogame.com.br",
@@ -563,11 +672,13 @@ AGB.Com = {
             dragosim: "brazilian",
             warriders: "",
             infuza: "pt",
-            ogniter: "br"
+            ogniter: "br",
+            trashsim: "pt-BR"
         },
         CZ: {
             infuzaServer: "ogame.cz",
-            websim: "cz", osimulate: "cz", dragosim: "czech", warriders: "", infuza: "cs", ogniter: "cz"
+            websim: "cz", osimulate: "cz", dragosim: "czech", warriders: "", infuza: "cs", ogniter: "cz",
+            trashsim: "cs"
         },
         DE: {
             infuzaServer: "ogame.de",
@@ -576,7 +687,8 @@ AGB.Com = {
             dragosim: "german",
             warriders: "de",
             infuza: "de",
-            ogniter: "de"
+            ogniter: "de",
+            trashsim: "de"
         },
         DK: {
             infuzaServer: "ogame.dk",
@@ -585,7 +697,8 @@ AGB.Com = {
             dragosim: "danish",
             warriders: "",
             infuza: "da",
-            ogniter: "dk"
+            ogniter: "dk",
+            trashsim: "da"
         },
         EN: {
             infuzaServer: "ogame.org",
@@ -594,11 +707,13 @@ AGB.Com = {
             dragosim: "english",
             warriders: "org",
             infuza: "en",
-            ogniter: "en"
+            ogniter: "en",
+            trashsim: "en"
         },
         ES: {
             infuzaServer: "ogame.com.es", websim: "sp", osimulate: "es", dragosim: "spanish",
-            warriders: "es", infuza: "es", ogniter: "es"
+            warriders: "es", infuza: "es", ogniter: "es",
+            trashsim: "es"
         },
         FI: {
             infuzaServer: "fi.ogame.org",
@@ -607,7 +722,8 @@ AGB.Com = {
             dragosim: "english",
             warriders: "",
             infuza: "en",
-            ogniter: "fi"
+            ogniter: "fi",
+            trashsim: "sv"
         },
         FR: {
             infuzaServer: "ogame.fr",
@@ -616,7 +732,8 @@ AGB.Com = {
             dragosim: "french",
             warriders: "fr",
             infuza: "fr",
-            ogniter: "fr"
+            ogniter: "fr",
+            trashsim: "fr"
         },
         GR: {
             infuzaServer: "ogame.gr",
@@ -625,7 +742,8 @@ AGB.Com = {
             dragosim: "greek",
             warriders: "",
             infuza: "en",
-            ogniter: "gr"
+            ogniter: "gr",
+            trashsim: "el"
         },
         HR: {
             infuzaServer: "ogame.com.hr",
@@ -634,11 +752,13 @@ AGB.Com = {
             dragosim: "english",
             warriders: "",
             infuza: "en",
-            ogniter: "hr"
+            ogniter: "hr",
+            trashsim: "hr"
         },
         HU: {
             infuzaServer: "ogame.hu",
-            websim: "hu", osimulate: "hu", dragosim: "hungarian", warriders: "", infuza: "hu", ogniter: "hu"
+            websim: "hu", osimulate: "hu", dragosim: "hungarian", warriders: "", infuza: "hu", ogniter: "hu",
+            trashsim: "hu"
         },
         IT: {
             infuzaServer: "ogame.it",
@@ -647,7 +767,8 @@ AGB.Com = {
             dragosim: "italian",
             warriders: "",
             infuza: "it",
-            ogniter: "it"
+            ogniter: "it",
+            trashsim: "it"
         },
         JP: {
             infuzaServer: "ogame.jp",
@@ -656,7 +777,8 @@ AGB.Com = {
             dragosim: "english",
             warriders: "",
             infuza: "en",
-            ogniter: "jp"
+            ogniter: "jp",
+            trashsim: "en"
         },
         MX: {
             infuzaServer: "mx.ogame.org",
@@ -665,11 +787,13 @@ AGB.Com = {
             dragosim: "spanish",
             warriders: "",
             infuza: "es",
-            ogniter: "mx"
+            ogniter: "mx",
+            trashsim: "es"
         },
         NL: {
             infuzaServer: "ogame.nl", websim: "nl", osimulate: "nl", dragosim: "dutch",
-            warriders: "", infuza: "nl", ogniter: "nl"
+            warriders: "", infuza: "nl", ogniter: "nl",
+            trashsim: "nl"
         },
         NO: {
             infuzaServer: "ogame.no",
@@ -678,7 +802,8 @@ AGB.Com = {
             dragosim: "english",
             warriders: "",
             infuza: "en",
-            ogniter: "no"
+            ogniter: "no",
+            trashsim: "en"
         },
         PL: {
             infuzaServer: "ogame.pl",
@@ -687,7 +812,8 @@ AGB.Com = {
             dragosim: "polish",
             warriders: "pl",
             infuza: "pl",
-            ogniter: "pl"
+            ogniter: "pl",
+            trashsim: "pl"
         },
         PT: {
             infuzaServer: "ogame.com.pt",
@@ -696,7 +822,8 @@ AGB.Com = {
             dragosim: "portuguese",
             warriders: "",
             infuza: "pt",
-            ogniter: "pt"
+            ogniter: "pt",
+            trashsim: "pt"
         },
         RO: {
             infuzaServer: "ogame.ro",
@@ -705,11 +832,13 @@ AGB.Com = {
             dragosim: "romanian",
             warriders: "",
             infuza: "ro",
-            ogniter: "ro"
+            ogniter: "ro",
+            trashsim: "ro"
         },
         RU: {
             infuzaServer: "ogame.ru",
-            websim: "ru", osimulate: "ru", dragosim: "russian", warriders: "", infuza: "ru", ogniter: "ru"
+            websim: "ru", osimulate: "ru", dragosim: "russian", warriders: "", infuza: "ru", ogniter: "ru",
+            trashsim: "ru"
         },
         SE: {
             infuzaServer: "ogame.se",
@@ -718,7 +847,8 @@ AGB.Com = {
             dragosim: "swedish",
             warriders: "",
             infuza: "sv",
-            ogniter: "se"
+            ogniter: "se",
+            trashsim: "sv"
         },
         SI: {
             infuzaServer: "ogame.si",
@@ -727,7 +857,8 @@ AGB.Com = {
             dragosim: "english",
             warriders: "",
             infuza: "en",
-            ogniter: "si"
+            ogniter: "si",
+            trashsim: "en"
         },
         SK: {
             infuzaServer: "ogame.sk",
@@ -736,11 +867,13 @@ AGB.Com = {
             dragosim: "slovak",
             warriders: "",
             infuza: "en",
-            ogniter: "sk"
+            ogniter: "sk",
+            trashsim: "en"
         },
         TR: {
             infuzaServer: "tr.ogame.org", websim: "tr", osimulate: "tr", dragosim: "turkish",
-            warriders: "", infuza: "en", ogniter: "tr"
+            warriders: "", infuza: "en", ogniter: "tr",
+            trashsim: "tr"
         },
         TW: {
             infuzaServer: "ogame.tw",
@@ -749,7 +882,8 @@ AGB.Com = {
             dragosim: "taiwanese",
             warriders: "",
             infuza: "en",
-            ogniter: "tw"
+            ogniter: "tw",
+            trashsim: "zh"
         },
         US: {
             infuzaServer: "ogame.us",
@@ -758,7 +892,8 @@ AGB.Com = {
             dragosim: "english",
             warriders: "us",
             infuza: "en",
-            ogniter: "us"
+            ogniter: "us",
+            trashsim: "en"
         },
         ORIGIN: {
             infuzaServer: "pioneers.ogame.org",
@@ -767,7 +902,8 @@ AGB.Com = {
             dragosim: "english",
             warriders: "",
             infuza: "en",
-            ogniter: "en"
+            ogniter: "en",
+            trashsim: "en"
         }
     }, Get: function (a, b) {
         return a && AGB.Com.Data[a] ? AGB.Com.Data[a][b] || "" : ""

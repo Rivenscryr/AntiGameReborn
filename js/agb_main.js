@@ -1,6 +1,3 @@
-if (!AGB) {
-    var AGB = {};
-}
 AGB.Panel = {
     Data: {}, Messages: function (a, b, c) {
         "Set" === a ? AGB.Panel.Set(b) : "ListAccount" === a && AGB.Panel.ListAccount(b, c)
