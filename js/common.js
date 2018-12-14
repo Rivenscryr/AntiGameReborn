@@ -633,7 +633,7 @@ AGO.Ogame = {
         return a ? " rank_starlord1 rank_starlord2 rank_starlord3  rank_bandit1 rank_bandit2 rank_bandit3".split(" ")[a] : ""
     },
     getJumpgateCooldown: function (moonID) {
-        let level = AGO.Units.Data.Moons[moonID][43];
+        let level = AGO.Units.Data.Moons && AGO.Units.Data.Moons[moonID] && AGO.Units.Data.Moons[moonID][43] ? AGO.Units.Data.Moons[moonID][43] : 1;
         let cooldown = Math.round((14.9206 * Math.pow(level, 2) - 453.016 * level + 4038.1) / AGO.Uni.speedFleet);
         return cooldown;
     }
