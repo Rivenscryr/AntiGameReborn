@@ -284,18 +284,22 @@ AGO.Galaxy = {
                         let anchorMoon = cellMoon.querySelector("a[onclick]");
                         if (q) {
                             let strOnclick = DOM.getAttribute(anchorMoon, null, "onclick", 7).split(");").join(",0,this);");
-                            strOnclick = strOnclick.split("(")[1].split(")")[0].replace(/\s/g, "").split(",");
-                            cellMoon.onclick = function () {
-                                window.dispatchEvent(new CustomEvent("sendShips", {
-                                    detail: {
-                                        galaxy: strOnclick[1],
-                                        system: strOnclick[2],
-                                        position: strOnclick[3],
-                                        isMoon: strOnclick[4]
-                                    }
-                                }));
-                                return false; };
-                            DOM.setAttribute(cellMoon, null, "onclick", "return false;");
+                            if (AGO.isFirefox) {
+                                DOM.setAttribute(cellMoon, null, "onclick", strOnclick);
+                            } else if (AGO.isChrome) {
+                                strOnclick = strOnclick.split("(")[1].split(")")[0].replace(/\s/g, "").split(",");
+                                cellMoon.onclick = function () {
+                                    window.dispatchEvent(new CustomEvent("sendShips", {
+                                        detail: {
+                                            galaxy: strOnclick[1],
+                                            system: strOnclick[2],
+                                            position: strOnclick[3],
+                                            isMoon: strOnclick[4]
+                                        }
+                                    }));
+                                    return false; };
+                                DOM.setAttribute(cellMoon, null, "onclick", "return false;");
+                            }
                         }
                         DOM.removeAttribute(anchorMoon, null, "onclick");
                     }
