@@ -308,14 +308,14 @@ AGO.Galaxy = {
         }
 
         var e, g, p, m, f;
-        m = AGO.Task.cutCoords(AGO.Panel.GetActive("Target", "coords", 6));
+        m = AGO.Task.cutCoords(AGO.Panel.getActive("Target", "coords", 6));
         f = AGO.Galaxy.Task.coords;
         if (OBJ.is(a) && OBJ.is(AGO.Galaxy.Data.Row)) {
             for (p = 0; p < a.length; p++) {
                 if (e = AGO.Galaxy.Data.Row[p + 1], e.planetId || e.debrisResources) {
                     b && (h(a[p], null), DOM.setClassGroup(a[p], null, "ago_selected")
                     ),
-                    (g = (g = !e.coords || e.coords !== m && e.coords !== f ? e.playerId && e.playerId === AGO.Panel.GetActive("Player", "id", 6) ? "SB" : "" : "SA"
+                    (g = (g = !e.coords || e.coords !== m && e.coords !== f ? e.playerId && e.playerId === AGO.Panel.getActive("Player", "id", 6) ? "SB" : "" : "SA"
                         ) && AGO.Token.getColor(g) ? g : ""
                     ) && DOM.extendClass(a[p], null, AGO.Token.getClassSelected(g)), e = AGO.Token.getColorOpacity(AGO.Galaxy.highlight(e)), d(a[p], null, e, g)
                 }
