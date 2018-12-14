@@ -1,38 +1,36 @@
-if (!AGO) {
-    var AGO = {};
+if (-1 < window.navigator.userAgent.indexOf("Firefox")) {
+    AGO.isFirefox = true;
+    AGO.isPhone = -1 < window.navigator.userAgent.indexOf("Mobile");
+    AGO.isTablet = -1 < window.navigator.userAgent.indexOf("Tablet");
+    AGO.isMobile = AGO.isPhone || AGO.isTablet;
+} else if (-1 < window.navigator.userAgent.indexOf("Chrome")) {
+    AGO.isChrome = true;
 }
 
-AGO.versionOGameMax = "99.4.0";
--1 < window.navigator.userAgent.indexOf("Firefox") ? (AGO.isFirefox = false, AGO.isPhone = -1 < window.navigator.userAgent.indexOf("Mobile"), AGO.isTablet = -1 < window.navigator.userAgent.indexOf("Tablet"), AGO.isMobile = AGO.isPhone || AGO.isTablet
-) : -1 < window.navigator.userAgent.indexOf("Chrome") && (AGO.isChrome = !0
-);
-AGO.context = AGO.isFirefox ? this : 0;
+AGO.context = 0;
 AGO.Page = {
     Messages: function (a, b) {
         AGO.dummy = a + b
     }
 };
-var PAGE = {}, AGB = {
-    messageFirefox: function (a, b, c, d) {
-        c && (c.keyPlayer = AGO.App.keyPlayer, "function" === typeof d ? API.Messages(a, b, JSON.stringify(c), function (a) {
-                    d(JSON.parse(a))
-                }, "App" === a ? AGO.context : null
-            ) : API.Messages(a, b, JSON.stringify(c), null, "App" === a ? AGO.context : null)
-        )
-    }, messageChrome: function (a, b, c, d) {
-        c && (c.keyPlayer = AGO.App.keyPlayer, "function" === typeof d ? chrome.runtime.sendMessage("", {
-                    page: a,
-                    role: b,
-                    para: c
-                }, null, d
-            ) : chrome.runtime.sendMessage("", {page: a, role: b, para: c})
-        )
-    }, Resource: function (a) {
+
+let PAGE = {};
+
+const AGB = {
+    message: function (page, role, para, response) {
+        if (para) {
+            para.keyPlayer = AGO.App.keyPlayer;
+            if ("function" === typeof response) {
+                chrome.runtime.sendMessage("", {page: page, role: role, para: para}, null, response);
+            } else {
+                chrome.runtime.sendMessage("", {page: page, role: role, para: para});
+            }
+        }
+    },
+    // TODO: Find a solution for synchronous requests
+    Resource: function (a) {
         var b;
         if (a = STR.check(a)) {
-            if (AGO.isFirefox) {
-                return API.Resource(a);
-            }
             try {
                 return b = new XMLHttpRequest, b.open("GET", chrome.extension.getURL(a), !1), b.overrideMimeType("text/plain"), b.send(null), b.responseText || ""
             } catch (c) {
@@ -40,33 +38,67 @@ var PAGE = {}, AGB = {
         }
         return ""
     }, Log: function (a, b) {
-        (AGO.App.beta || b
-        ) && console.log("AntiGameOrigin:  " + a)
+        (AGO.App.beta || b) && console.log("AntiGameReborn:  " + a)
     }
 };
+
 AGO.Init = {
-    status: 0, active: !1, KeydownCache: [], timing: Date.now(), loop: 0, Messages: function (a, b, c) {
-        if (AGO.Init.status || "Continue" === b) {
-            Array.isArray(a) && (a = -1 < a.indexOf(AGO.App.Page) ? AGO.App.Page : ""
-            ), "Init" === a ? "Timer" === b ? window.setTimeout(AGO.Init.Timer, 0) : "Content" === b ? AGO.Init.Content(c) : "Ready" === b ? AGO.Init.Ready() : "Tooltip" === b && AGO.Init.Tooltip(c) : a && AGO[a] && "function" === typeof AGO[a].Messages && AGO[a].Messages(b, c)
+    status: 0,
+    active: false,
+    KeydownCache: [],
+    timing: Date.now(),
+    loop: 0,
+    Messages: function (module, role, para) {
+        if (AGO.Init.status || "Continue" === role) {
+            if (Array.isArray(module)) {
+                module = -1 < module.indexOf(AGO.App.Page) ? AGO.App.Page : "";
+            }
+
+            if ("Init" === module) {
+                if ("Timer" === role)
+                    window.setTimeout(AGO.Init.Timer, 0);
+                else if ("Content" === role)
+                    AGO.Init.Content(para);
+                else if ("Ready" === role)
+                    AGO.Init.Ready();
+                else if ("Tooltip" === role)
+                    AGO.Init.Tooltip(para);
+            } else if (module && AGO[module] && "function" === typeof AGO[module].Messages) {
+                AGO[module].Messages(role, para);
+            }
         }
-    }, Start: function () {
+    },
+    Start: function () {
         AGO.Init.status = 0;
-        document.location && document.location.href && document.documentElement ?
-            (AGB.message = AGO.isFirefox ? AGB.messageFirefox : AGB.messageChrome, AGO.App.Start(), 20 < AGO.Notify.problem ? document.addEventListener("DOMContentLoaded", AGO.Main.Run, !1) : AGO.App.mode && (AGO.Init.status = 1, AGO.Init.active = document.hasFocus(), AGO.Observer.Start(), AGO.App.reload ? AGO.Observer.Head(function () {
-                            AGO.App.Init();
-                            AGO.Init.Init()
-                        }
-                    ) : (AGO.Option.Start(), AGO.Styles.Start(), AGO.Option.is("O04") && (document.title = AGO.App.title
-                        ), AGO.Observer.Head(function () {
-                                AGO.App.Init();
-                                AGO.Styles.Init()
-                            }
-                        ), AGO.Init.Init()
-                    )
-                )
-            ) :
+        if (document.location && document.location.href && document.documentElement) {
+            AGO.App.Start();
+
+            if (20 < AGO.Notify.problem) {
+                document.addEventListener("DOMContentLoaded", AGO.Main.Run, false);
+            } else if (AGO.App.mode) {
+                AGO.Init.status = 1;
+                AGO.Init.active = document.hasFocus();
+                AGO.Observer.Start();
+
+                if (AGO.App.reload) {
+                    AGO.Observer.Head(function () {
+                        AGO.App.Init();
+                        AGO.Init.Init();
+                    });
+                } else {
+                    AGO.Option.Start();
+                    AGO.Styles.Start();
+                    AGO.Option.is("O04") && (document.title = AGO.App.title);
+                    AGO.Observer.Head(function () {
+                        AGO.App.Init();
+                        AGO.Styles.Init();
+                    });
+                    AGO.Init.Init();
+                }
+            }
+        } else {
             300 > ++AGO.Init.loop && window.setTimeout(AGO.Init.Start, AGO.Init.loop)
+        }
     }, Init: function () {
         AGB.message("App", "Start", {
                 page: AGO.App.page,
@@ -225,12 +257,11 @@ AGO.Init = {
         ) + "   + " + (Date.now() - AGO.Init.timingRange
         ) + " -- " + document.readyState
         ) : AGO.Init.timingRange = Date.now()
-    }, Location: function (a, b) {
+    },
+    Location: function (page, delay) {
         window.setTimeout(function () {
-            document.location.href = AGO.Uni.path + (a || "overview"
-            )
-        }, b || 300
-        )
+            document.location.href = AGO.Uni.path + (page || "overview");
+        }, delay || 300);
     }, Valid: function (a, b) {
         var c;
         AGO.Init.status && "function" === typeof a && (c = new XMLHttpRequest, c.open("GET", AGO.Uni.url + "/game/index.php?page=fetchTechs&ajax=1",
@@ -273,7 +304,11 @@ AGO.Background = {
     }
 };
 AGO.Observer = {
-    head: [null], body: [null], interactive: [null], mousedown: null, Start: function () {
+    head: [null], 
+	body: [null], 
+	interactive: [null], 
+	mousedown: null, 
+	Start: function () {
         var a;
         a = document.onreadystatechange;
         document.onreadystatechange = function () {
@@ -311,7 +346,7 @@ AGO.Observer = {
             },
             !1
         );
-        AGO.isChrome && chrome.runtime.onMessage.addListener(function (a) {
+        chrome.runtime.onMessage.addListener(function (a) {
                 a && a.player === AGO.App.keyPlayer && AGO.Init.Messages(a.page, a.role, a.data)
             }
         );
@@ -372,17 +407,18 @@ AGO.Observer = {
         );
         document.addEventListener("touchend", AGO.Observer.onSwipe, !1);
         document.addEventListener("touchcancel", AGO.Observer.onSwipe, !1)
-    }, Head: function (a) {
+    },
+    Head: function (a) {
         function b(a) {
             var b;
             OBJ.iterate(a, function (e) {
-                    "HTML" === a[e].target.nodeName && a[e].addedNodes.length && "BODY" === a[e].addedNodes[0].nodeName && a[e].addedNodes[0].childNodes.length && (b = !0)
+                    "HTML" === a[e].target.nodeName && a[e].addedNodes.length && "BODY" === a[e].addedNodes[0].nodeName && a[e].addedNodes[0].childNodes.length && (b = true)
                 }
             );
             b && AGO.Observer.Call(AGO.Observer.head)
         }
 
-        AGO.Init.status && (document.body || !0 === AGO.Observer.head[0] ? a() : (AGO.Observer.head[0] || (AGO.Observer.head[0] = DOM.addObserver(document, {
+        AGO.Init.status && (document.body || true === AGO.Observer.head[0] ? a() : (AGO.Observer.head[0] || (AGO.Observer.head[0] = DOM.addObserver(document, {
                             childList: !0,
                             subtree: !0
                         }, b
@@ -532,7 +568,6 @@ AGO.App = {
     mode: 0,
     beta: 0,
     versionOGame: "",
-    versionOGameMax: AGO.versionOGameMax,
     Overlay: {
         jumpgatelayer: "Jumpgate",
         techtree: "Techtree",
@@ -564,32 +599,58 @@ AGO.App = {
         highscorecontent: "Highscore"
     },
     Start: function () {
-        var a, b, c;
-        AGO.isFirefox ? (AGO.App.pathSkin = "chrome://skin/content/", OBJ.copy(OBJ.parse(API.App()), AGO.App)
-        ) : (AGO.App.pathSkin = chrome.extension.getURL("/skin/"), AGO.App.versionAGO = chrome.runtime.getManifest().version, AGO.App.name = STR.check(chrome.runtime.getManifest().name)
-        );
-        AGO.App.beta = -1 <
-        AGO.App.name.indexOf("Alpha") ? 3 : -1 < AGO.App.name.indexOf("Beta") ? 1 : 0;
+        AGO.App.pathSkin = chrome.extension.getURL("/skin/");
+        AGO.App.versionAGO = chrome.runtime.getManifest().version;
+        AGO.App.name = STR.check(chrome.runtime.getManifest().name);
+        AGO.App.beta = -1 < AGO.App.name.indexOf("Alpha") ? 3 : -1 < AGO.App.name.indexOf("Beta") ? 1 : 0;
         AGO.Uni.domain = document.location.hostname.toLowerCase();
         AGO.Uni.url = document.location.protocol + "//" + AGO.Uni.domain;
-        a = AGO.Uni.domain.split(".");
-        document.location.href.match(/http||https:\/\/.+\.ogame.gameforge.com\/game\/index\.php\?+.*page=*/i) ? (AGO.App.page = (c = STR.getParameter("page", document.location.href).toLowerCase()) === "standalone" ? STR.getParameter("component", document.location.href).toLowerCase() : c, AGO.App.page = 0 === AGO.App.page.indexOf("fleet") && STR.getParameter("cp", document.location.href) ? "fleet1" : AGO.App.page, AGO.Uni.path = document.location.href.split("?")[0] +
-                "?page=", b = (a[0] || ""
-            ).split("-"), AGO.Uni.lang = (b[1] || "EN"
-            ).toUpperCase(), AGO.Uni.number = NMR.parseIntAbs(b[0]), AGO.Uni.number && (AGO.App.mode = 3, AGO.Uni.abbr = "UNI" + AGO.Uni.number, AGO.App.keyCom = "AGO_" + AGO.Uni.lang, AGO.App.keyUni = AGO.App.keyCom + "_" + AGO.Uni.abbr, OBJ.copy(OBJ.parse(AGO.Data.getStorage(AGO.App.keyUni + "_App")), AGO.App), AGO.App.title = AGO.App.title || AGO.Uni.lang + " " + AGO.Uni.number, !AGO.App.playerId || STR.getParameter("phpsessid", document.location.href.toLowerCase()) ? AGO.App.login = AGO.App.reload = !0 : AGO.App.keyPlayer = AGO.App.keyUni + "_" + AGO.App.playerId
-            ), AGO.App.disabled && AGO.Notify.set("Problem", 21), 4 !== a.length && AGO.Notify.set("Problem", 31)
-        ) : (AGO.App.page = -1 < AGO.Uni.domain.indexOf("speedsim.net") ? "websim" : -1 < AGO.Uni.domain.indexOf("osimulate.com") ? "osimulate" : "", AGO.App.page && (AGO.Uni.lang = (STR.getParameter("uni", document.location.href).split("_")[0] || "EN"
-                ).toUpperCase(), AGO.App.keyCom = "AGO_" + AGO.Uni.lang, AGO.App.mode = 2
-            )
-        )
+
+        if (document.location.href.match(/https:\/\/.+\.ogame.gameforge.com\/game\/index\.php\?+.*page=*/i)) {
+            let page = STR.getParameter("page", document.location.href).toLowerCase();
+            AGO.App.page = page === "standalone" ? STR.getParameter("component", document.location.href).toLowerCase() : page;
+
+            // if planet is changed while on fleet2 or fleet3, user lands on fleet1 page even though url shows page=fleet2/3
+            if (0 === AGO.App.page.indexOf("fleet") && STR.getParameter("cp", document.location.href))
+                AGO.App.page = "fleet1";
+
+            AGO.Uni.path = document.location.href.split("?")[0] + "?page=";
+
+            let domainParts = AGO.Uni.domain.split(".");
+            let serverParts = (domainParts[0] || "").split("-");
+            AGO.Uni.lang = (serverParts[1] || "EN").toUpperCase();  // DE
+            AGO.Uni.number = NMR.parseIntAbs(serverParts[0]);   // 148
+
+            if (AGO.Uni.number) {
+                AGO.App.mode = 3;
+                AGO.Uni.abbr = "UNI" + AGO.Uni.number;  // UNI148
+                AGO.App.keyCom = "AGO_" + AGO.Uni.lang; // AGO_DE
+                AGO.App.keyUni = AGO.App.keyCom + "_" + AGO.Uni.abbr;  // AGO_DE_UNI148
+                OBJ.copy(OBJ.parse(AGO.Data.getStorage(AGO.App.keyUni + "_App")), AGO.App);
+
+                AGO.App.title = AGO.App.title || AGO.Uni.lang + " " + AGO.Uni.number;
+
+                if (!AGO.App.playerId || STR.getParameter("reloginx", document.location.href.toLowerCase()))
+                    AGO.App.login = AGO.App.reload = true;
+                else
+                    AGO.App.keyPlayer = AGO.App.keyUni + "_" + AGO.App.playerId;
+            }
+
+            AGO.App.disabled && AGO.Notify.set("Problem", 21);
+            4 !== domainParts.length && AGO.Notify.set("Problem", 31);
+        } else {
+            // AGO on tools sites
+            // TODO: AGO doesn't have permissions on these sites, look through all external sites and filter out outdated ones
+            AGO.App.page = -1 < AGO.Uni.domain.indexOf("speedsim.net") ? "websim" : -1 < AGO.Uni.domain.indexOf("osimulate.com") ? "osimulate" : "";
+
+            if (AGO.App.page) {
+                AGO.Uni.lang = (STR.getParameter("uni", document.location.href).split("_")[0] || "EN").toUpperCase();
+                AGO.App.keyCom = "AGO_" + AGO.Uni.lang;
+                AGO.App.mode = 2;
+            }
+        }
     },
     Init: function () {
-        /* var oReq = new XMLHttpRequest();
-        oReq.addEventListener("load", function (data) { 
-            AGO.App.versionOGameMax = JSON.parse(data.target.responseText).versionOGameMax;
-        });
-        oReq.open("GET", "https://antigame.de/_internal/ogame_version.txt?" + (new Date()).getTime());
-        oReq.send();*/
         var a, b, c;
         a = document.head.getElementsByTagName("meta");
         for (c = 0; c < a.length; c++) {
@@ -655,16 +716,14 @@ AGO.App = {
             }
         }
     },
-    Save: function (a) {
-        OBJ.copy(a, AGO.App);
+    Save: function (data) {
+        OBJ.copy(data, AGO.App);
         AGO.Data.setStorage(AGO.App.keyUni + "_App", {
-                disabled: AGO.App.disabled,
-                playerId: AGO.Acc.playerId,
-                session: AGO.Acc.session,
-                title: AGO.Uni.lang + " " + (AGO.Uni.name || AGO.Uni.number || ""
-                )
-            }
-        )
+            disabled: AGO.App.disabled,
+            playerId: AGO.Acc.playerId,
+            session: AGO.Acc.session,
+            title: AGO.Uni.lang + " " + (AGO.Uni.name || AGO.Uni.number || "")
+        });
     }
 };
 AGO.Uni = {
@@ -712,31 +771,33 @@ AGO.Data = {
                 )
             }
         )
-    }, setStorage: function (a, b) {
-        if (a) {
+    },
+    setStorage: function (key, data) {
+        if (key) {
             try {
-                window.localStorage[a] =
-                    OBJ.is(b) ? JSON.stringify(b) : b || ""
-            } catch (c) {
-                AGB.Log("Data - Error set localstorage", !0)
+                window.localStorage[key] = OBJ.is(data) ? JSON.stringify(data) : data || "";
+            } catch (e) {
+                AGB.Log("Data - Error set localstorage", true);
             }
         }
-    }, getStorage: function (a, b) {
-        if (a) {
-            if (b) {
+    },
+    getStorage: function (key, json) {
+        if (key) {
+            if (json) {
                 try {
-                    return JSON.parse(window.localStorage[a] || "{}")
-                } catch (c) {
+                    return JSON.parse(window.localStorage[key] || "{}")
+                } catch (e) {
                     return {}
                 }
             } else {
-                return window.localStorage[a] || "";
+                return window.localStorage[key] || "";
             }
         }
-        return b ? {} : ""
+        return json ? {} : ""
     }, removeStorage: function (a) {
         a && (window.localStorage[a] = ""
         )
     }
 };
+
 window.top === window.self && AGO.Init.Start();

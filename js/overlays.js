@@ -1,6 +1,3 @@
-if (!AGO) {
-    var AGO = {};
-}
 AGO.Jumpgate = {
     updateCooldownStatus: 0, Messages: function (a, b) {
         "Continue" === a && AGO.Jumpgate.Continue(b)
@@ -177,7 +174,7 @@ AGO.Jumpgate = {
                 ), DOM.addEventsAll("#jumpgate .send_none a", null, {click: AGO.Jumpgate.Display}), DOM.disableActiveElement(), DOM.disableAutocomplete()
             ) : (g = document.querySelector("#jumpgateNotReady #cooldown")
             ) && (a = AGO.Time.parseFormatedTime(g.textContent)
-            ) && AGO.Fleet.Set("Cooldown", AGO.Planets.GetId("active"), AGO.Time.timestamp() - Math.ceil(3600 / AGO.Uni.speedFleet) + a)
+            ) && AGO.Fleet.Set("Cooldown", AGO.Planets.GetId("active"), AGO.Time.timestamp() - Math.ceil(AGO.Ogame.getJumpgateCooldown(AGO.Planets.GetId("active"))) + a)
         }
         a = e = g = e = h = null
     }, updateCooldown: function (a) {
@@ -186,7 +183,7 @@ AGO.Jumpgate = {
             a =
                 document.querySelectorAll("#ago_jumpgate_target > tr");
             for (d = 0; d < a.length; d++) {
-                b = DOM.getAttribute(a[d], null, "ago-data", -2).data, c = AGO.Fleet.Get("Cooldown", AGO.Planets.GetId(b), 2), 1E5 < c && (c = 3600 / AGO.Uni.speedFleet - (AGO.Time.timestamp() - c
+                b = DOM.getAttribute(a[d], null, "ago-data", -2).data, c = AGO.Fleet.Get("Cooldown", AGO.Planets.GetId(b), 2), 1E5 < c && (c = AGO.Ogame.getJumpgateCooldown(AGO.Planets.GetId(b)) - (AGO.Time.timestamp() - c
                     ), 0 <= c && (f++, b = a[d].getElementsByClassName("ago_jumpgate_cooldown")[0], 60 >= c && DOM.updateClass(b, null, "ago_jumpgate_cooldown ago_jumpgate_cooldown_seconds"), c = 60 < c ? Math.ceil(c / 60) : Math.floor(c), DOM.updateText(b, null, Math.floor(c))
                     )
                 );
