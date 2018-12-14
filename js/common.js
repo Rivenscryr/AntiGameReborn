@@ -1,38 +1,86 @@
-if (!AGO) {
-    var AGO = {};
-}
 AGO.Notify = {
-    status: 0, Problem: [], problem: 0, Run: function () {
+    status: 0,
+    Problem: [],
+    problem: 0,
+    Run: function () {
         AGO.App.reload || (AGO.App.upgradeAvailable && AGO.Notify.set("Problem", 4), AGO.Events.included || AGO.Notify.set("Problem", 6), 1 !== AGO.Uni.status && AGO.Notify.set("Problem", 11), 1 !== AGO.Units.Data.status && AGO.Notify.set("Problem", 12), 1 !== AGO.Label.Data.status && AGO.Notify.set("Problem", 13), 1 !== AGO.App.storage && AGO.Notify.set("Problem", 15), 1 !== AGO.Option.Data.status && AGO.Notify.set("Problem", 17), AGO.App.twice && AGO.Notify.set("Problem", 18)
         )
-    }, set: function (a,
-                      b, c
-    ) {
-        var d, e;
-        if ("Problem" === a) {
+    },
+    set: function (type, errcode, text) {
+        let label, color;
+        if ("Problem" === type) {
             AGO.Notify.problem = 0;
-            b = 4 === b && AGO.Option.is("S44") || 5 === b && AGO.Option.is("S45") || 6 === b && (AGO.Option.is("S46") || !AGO.Option.is("E30")
-            ) || 8 === b && AGO.Option.is("S48") ? 0 : b;
-            0 < b ? AGO.Notify.Problem[b] = b : 0 > b && (AGO.Notify.Problem[Math.abs(b)] = 0
-            );
-            for (b = 0; b < AGO.Notify.Problem.length; b++) {
-                AGO.Notify.Problem[b] > AGO.Notify.problem && (AGO.Notify.problem = b
-                );
+
+            // S44/45/46/48 = option to hide that specific notification
+            if (4 === errcode && AGO.Option.is("S44") ||    // 4 = new update?
+                5 === errcode && AGO.Option.is("S45") ||    // 5 = no full spy reports (deprecated)
+                6 === errcode && (AGO.Option.is("S46") || !AGO.Option.is("E30")) || // 6 = events not available
+                8 === errcode && AGO.Option.is("S48")) {    // 8 = problem with browser database
+                errcode = 0;    // set errcode to 0 if the respective option to hide notification is checked
             }
-            b = 0
+
+            //#TODO: Find out what negative error codes mean
+            if (0 < errcode)
+                AGO.Notify.Problem[errcode] = errcode;
+            else if (0 > errcode)
+                AGO.Notify.Problem[Math.abs(errcode)] = 0;
+
+            for (errcode = 0; errcode < AGO.Notify.Problem.length; errcode++) {
+                if (AGO.Notify.Problem[errcode] > AGO.Notify.problem)
+                    AGO.Notify.problem = errcode;
+            }
+
+            errcode = 0;
         }
-        5 < AGO.Init.status && ("Hide" === a && (AGO.Notify.loading = !1
-            ), 3 === b && (AGO.Notify.loading = !0
-            ), e = HTML.colorStatusData(b), 3 !== b && (AGO.Notify.color =
-                    20 <= AGO.Notify.problem ? "#FF0000" : 10 < AGO.Notify.problem ? "#FF4B00" : AGO.Notify.loading ? "#FF4B00" : 5 <= AGO.Notify.problem ? "#FF9600" : 4 <= AGO.Notify.problem ? "#FFB500" : AGO.Notify.problem ? "#00B000" : "", AGO.Main.updateButton()
-            ), "Notify" === a ? (NMR.isMinMax(AGO.Notify.problem, 1, 19) && (d = AGO.Label.is("S" + (AGO.Notify.problem + 60
-                    )
-                    )
-                ), e = AGO.Notify.color
-            ) : d = AGO.Label.is(a), 5 < AGO.Init.status && d && AGO.Main.updateInfo(a, d + (c || ""
-            ), e
-            )
-        )
+
+        if (5 < AGO.Init.status) {
+            if ("Hide" === type) {
+                AGO.Notify.loading = false;
+            }
+
+            // error code = 3 is when data is being loaded into the database, e.g. when loading universe or player data
+            if (3 === errcode) {
+                AGO.Notify.loading = true;
+            }
+
+            color = HTML.colorStatusData(errcode);
+
+            if (3 !== errcode) {
+                if (20 <= AGO.Notify.problem)
+                    AGO.Notify.color = "#FF0000";
+                else if (10 < AGO.Notify.problem)
+                    AGO.Notify.color = "#FF4B00";
+                else if (AGO.Notify.loading)
+                    AGO.Notify.color = "#FF4B00";
+                else if (5 <= AGO.Notify.problem)
+                    AGO.Notify.color = "#FF9600";
+                else if (4 <= AGO.Notify.problem)
+                    AGO.Notify.color = "#FFB500";
+                else if (AGO.Notify.problem)
+                    AGO.Notify.color = "#00B000";
+                else
+                    AGO.Notify.color = "";
+
+                AGO.Main.updateButton();
+            }
+
+            // "Notify" shows a notification beneath the AGO button
+            if ("Notify" === type) {
+                // if AGO.Notify.problem is between 1 and 19, the corresponding label is problem+60
+                // if not there is no label to notify and thus no notification is shown
+                if (NMR.isMinMax(AGO.Notify.problem, 1, 19)) {
+                    label = AGO.Label.is("S" + (AGO.Notify.problem + 60));
+                }
+                color = AGO.Notify.color;
+            } else {
+                label = AGO.Label.is(type);
+            }
+
+            // if AGO is on "Interactive" status and there is a label, show notification
+            if (5 < AGO.Init.status && label) {
+                AGO.Main.updateInfo(type, label + (text || ""), color);
+            }
+        }
     }
 };
 AGO.Option = {
@@ -72,8 +120,11 @@ AGO.Option = {
     }, getPair: function (a) {
         a = STR.check(AGO.Option.Data[a]).split("|", 2);
         return 2 === a.length ? a : ""
-    }, Menu: function () {
-        document.getElementById("ago_menu") || AGB.message("App", "Script", {scripts: ["menu"]})
+    },
+    Menu: function () {
+        if (!document.getElementById("ago_menu")) {
+            AGB.message("App", "Script", {scripts: ["menu"]});
+        }
     }
 };
 AGO.Label = {
@@ -107,7 +158,14 @@ AGO.Styles = {
     status: 0,
     Data: null,
     opacity: 33,
-    colorStatusData: "#FF0000 #FF0000  #008000 #FFB500 #FF4B00 #00B000".split(" "),
+    colorStatusData: [
+        "#FF0000",
+        "#FF0000",
+        "",
+        "#008000",
+        "#FFB500",
+        "#FF4B00",
+        "#00B000"],
     classStatusData: "ago_color_red ago_color_red  ago_color_green ago_color_lightorange ago_color_darkorange ago_color_lightgreen".split(" "),
     classType: ["", "ago_color_planet", "ago_color_debris", "ago_color_moon"],
     classVisible: "ago_visible_hide ago_visible_hide ago_visible_weakest ago_visible_weaker ago_visible_weak ago_visible_middle ago_visible_strong ago_visible_stronger ago_visible_strongest ago_visible_show".split(" "),
@@ -1056,8 +1114,8 @@ AGO.Task = {
     cutSystem: function (a) {
         return "string" === typeof a ? a.split(":", 2).join(":") : ""
     },
-    cutCoords: function (a) {
-        return "string" === typeof a ? a.split(":", 3).join(":") : ""
+    cutCoords: function (coords) {
+        return "string" === typeof coords ? coords.split(":", 3).join(":") : "";
     },
     cutCoordsType: function (a) {
         return "string" === typeof a ? a.split(":", 4).join(":") : ""
