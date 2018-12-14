@@ -363,7 +363,7 @@ AGO.Planets = {
     },
     GetId: function (a) {
         return a &&
-        AGO.Planets.Data[a] ? a : "active" === a ? AGO.Acc.planetId : AGO.Planets.ByCoordstype[a] || ""
+        AGO.Planets.Data[a] ? a : "active" === a ? AGO.Acc.planetId : "selected" === a ? AGO.Planets.selectedPlanet : AGO.Planets.ByCoordstype[a] || ""
     },
     getHome: function () {
         var a;
@@ -398,29 +398,54 @@ AGO.Planets = {
             ).indexOf("moon") ? "ago_hover_S3" : "ago_hover_S1", DOM.setClassGroup(b.parentNode, null, "ago_hover", a)
         )
     },
-    Action: function (a) {
-        var b, d, c;
-        if (OBJ.is(a)) {
-            b = d = AGO.Planets.Get("active", "index");
-            if (a.scroll) {
-                a.type = a.type || AGO.Acc.type;
-                a.mode = "set";
+    Action: function (task) {
+        let newIndex, index;
+        if (OBJ.is(task)) {
+            AGO.Planets.switchTimeout && clearTimeout(AGO.Planets.switchTimeout);
+            newIndex = index = AGO.Planets.selectedPlanet ? AGO.Planets.Get("selected", "index") : AGO.Planets.Get("active", "index");
+            AGO.Planets.selectedPlanet && DOM.removeClassGroup(DOM.queryAll("#planetList .smallplanet")[newIndex-1], null, "ago_hovered");
+            if (task.scroll) {
+                task.type = task.type || AGO.Planets.selectedType || AGO.Acc.type;
+                task.mode = "set";
                 do {
-                    if ("down" === a.scroll ? (b++, b >= AGO.Planets.ByIndex.length && (b = 1
-                        )
-                    ) : (b--, 1 > b && (b = AGO.Planets.ByIndex.length - 1
-                        )
-                    ), 1 === a.type) {
+                    if ("down" === task.scroll) {
+                        newIndex++;
+                        newIndex >= AGO.Planets.ByIndex.length && (newIndex = 1);
+                    } else {
+                        newIndex--;
+                        1 > newIndex && (newIndex = AGO.Planets.ByIndex.length - 1);
+                    }
+
+                    let newPlanet;
+                    if (1 === task.type) {
                         break;
-                    } else if (c = AGO.Planets.ByIndex[b], AGO.Planets.Data[c].moon) {
+                    } else if (newPlanet = AGO.Planets.ByIndex[newIndex], AGO.Planets.Data[newPlanet].moon) {
                         break;
                     }
-                } while (b !== d)
+                } while (newIndex !== index)
             }
-            "set" === a.mode ? (b = document.querySelectorAll("#planetList .smallplanet a.planetlink")[b -
-                1]
-            ) && DOM.click(1 === a.type ? "a.planetlink" : "a.moonlink", b.parentNode) : "select" === a.mode && AGO.Planets.coloring && (AGO.Planets.Task.coords = a.coords, AGO.Planets.Task.type = a.type, AGO.Planets.Display()
-            )
+
+            if ("set" === task.mode) {
+                let newPlanet, delay = 0;
+                newPlanet = document.querySelectorAll("#planetList .smallplanet a.planetlink")[newIndex - 1];
+
+                if (task.wait && newPlanet) {
+                    delay = 750;
+                    AGO.Planets.selectedPlanet = 1 === task.type ? AGO.Planets.ByIndex[newIndex] : AGO.Planets.GetByIndex(newIndex, "moon", 6);
+                    AGO.Planets.selectedType = task.type;
+                    DOM.addClass(newPlanet.parentNode, null, "ago_hovered_S" + task.type);
+                }
+
+                if (newPlanet) {
+                    AGO.Planets.switchTimeout = setTimeout(function () {
+                        DOM.click(1 === task.type ? "a.planetlink" : "a.moonlink", newPlanet.parentNode);
+                    }, delay);
+                }
+            } else if ("select" === task.mode && AGO.Planets.coloring) {
+                AGO.Planets.Task.coords = task.coords;
+                AGO.Planets.Task.type = task.type;
+                AGO.Planets.Display();
+            }
         }
     },
     iterate: function (a, b) {
