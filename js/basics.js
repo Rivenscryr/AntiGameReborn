@@ -717,9 +717,9 @@ var DOM = {
         return AGO.Styles.classStatusData[(a ||
             0
         ) + 2] || ""
-    }, colorStatusData: function (a) {
-        return AGO.Styles.colorStatusData[(a || 0
-        ) + 2] || ""
+    },
+    colorStatusData: function (errcode) {
+        return AGO.Styles.colorStatusData[(errcode || 0) + 2] || "";
     }, color: function (a, b) {
         return !a || 4 !== a.length && 7 !== a.length ? "" : 0 < b && 100 > b ? (a = 7 === a.length ? parseInt(a.substring(1, 3), 16) + "," + parseInt(a.substring(3, 5), 16) + "," + parseInt(a.substring(5, 7), 16) : parseInt(a.substring(1, 2), 16) + "," + parseInt(a.substring(2, 3), 16) + "," + parseInt(a.substring(3, 4), 16), "rgba(" + a + (10 > b ? ",0.0" : ",0."
             ) + b + ")"
@@ -763,14 +763,12 @@ var DOM = {
         a && (c[a] = b
         );
         return c
-    }, copy: function (a,
-                       b
-    ) {
-        var c;
-        if (a && "object" === typeof a && b && "object" === typeof b) {
-            for (c in a) {
-                "object" !== typeof a[c] && (b[c] = a[c]
-                )
+    },
+    // copy properties of object obj into target
+    copy: function (obj, target) {
+        if (obj && "object" === typeof obj && target && "object" === typeof target) {
+            for (let key in obj) {
+                "object" !== typeof obj[key] && (target[key] = obj[key])
             }
         }
     }, is: function (a) {
@@ -812,9 +810,12 @@ var DOM = {
         return true;
     }
 }, VAL = {
-    choose: function (a) {
-        return 0 < a ? arguments[a] : ""
-    }, select: function (a) {
+    // choose nth argument
+    // example choose(a, planetName, "", moonName) where a = type (1 = planet, 3 = moon)
+    choose: function (n) {
+        return 0 < n ? arguments[n] : "";
+    },
+    select: function (a) {
         for (var b = 1; b < arguments.length; b++) {
             if (a === arguments[b]) {
                 return arguments[b]
