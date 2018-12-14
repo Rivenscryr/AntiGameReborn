@@ -100,15 +100,12 @@ window.addEventListener("ago_global", function (b) {
 var AGO = {
     Data: {}, Uni: {}, message: function (b, a, c) {
         window.dispatchEvent(new window.CustomEvent("ago_global_send", {
-                detail: JSON.stringify({
-                        page: b || "",
-                        role: a || "",
-                        data: c || ""
-                    }
-                )
-            }
-            )
-        )
+            detail: JSON.stringify({
+                page: b || "",
+                role: a || "",
+                data: c || ""
+            })
+        }))
     }, setData: function (b, a) {
         var c = document.getElementById("ago_global_data");
         c && c.setAttribute("ago-data-" + b, a || "")
@@ -378,7 +375,7 @@ var AGO = {
             };
             if (AGO.Data.F19 !== 0) {
                 var h = AGO.Data.F19 === 1 ? "movement" : "fleet1";
-                h = window.reallySubmit.toString().replace(/location\.href=\"index\.php\?page=fleet1\"/g, "location.href=\"index.php?page="+h+"\"");
+                h = window.reallySubmit.toString().replace(/location\.href=\"index\.php\?page=fleet1\"/g, "location.href=\"index.php?page=" + h + "\"");
                 h = new Function("force", "return " + h);
                 h = h();
                 window.reallySubmit = function (force) {
@@ -397,3 +394,11 @@ var AGO = {
         }
     }
 };
+window.addEventListener("sendShipsWithPopout", function (evt) {
+    let data = evt.detail;
+    sendShipsWithPopup(6, data.galaxy, data.system, data.position, (data.isMoon === '1' ? '3' : '1'), 0);
+}, false);
+window.addEventListener("sendShips", function (evt) {
+    let data = evt.detail;
+    sendShips(6, data.galaxy, data.system, data.position, (data.isMoon === '1' ? '3' : '1'), 0, this);
+}, false);

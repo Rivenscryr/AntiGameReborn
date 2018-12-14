@@ -561,7 +561,15 @@ AGO.Messages = {
             //TO DO
             var aSpy = DOM.appendA(cellActions);
             aSpy.classList.add('spyTableIcon', 'icon', 'icon_eye');
-            aSpy.setAttribute('onclick', 'sendShipsWithPopup(6,' + p.galaxy + ',' + p.system + ',' + p.position + ',' + (p.isMoon === '1' ? '3' : '1') + ',0);return false');
+            let evtSendShipsWithPopout = new CustomEvent("sendShipsWithPopout", {
+                detail: {
+                    galaxy: p.galaxy,
+                    system: p.system,
+                    position: p.position,
+                    isMoon: p.isMoon
+                }
+            });
+            aSpy.onclick = function () { window.dispatchEvent(evtSendShipsWithPopout); return false; };
             aSpy.href = '#';
 
 

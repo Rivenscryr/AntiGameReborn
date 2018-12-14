@@ -127,150 +127,237 @@ AGO.Galaxy = {
             AGO.Galaxy.showHighlight(a.querySelectorAll(".row"));
             AGO.Galaxy.updateDataBase()
         }
-    }, showRows: function (a) {
-        var b, d, h, e, g, p, m, f, n, k, l, c, s, q, t, r;
-        s = AGO.Option.get("G45", 2);
-        t = AGO.Option.is("G58");
-        for (r = 0; r < a.length; r++) {
-            c =
-                {position: r + 1};
-            c.coords = AGO.Galaxy.Data.galaxy + ":" + AGO.Galaxy.Data.system + ":" + c.position;
-            c.owncoords = AGO.Planets.owncoords(c.coords, 1);
-            c.coordsActive = AGO.Task.cutCoords(AGO.Panel.GetActive("Target", "coords", 6));
-            c.coordsCurrent = AGO.Galaxy.Task.coords;
-            AGO.Galaxy.Data.Row[c.position] = c;
-            m = p = g = e = h = d = b = void 0;
-            DOM.iterateChildren(a[r], function (a) {
-                    var c = a.className || "";
-                    HTML.hasClass(c, "allytag") ? b = a : HTML.hasClass(c, "playername") ? d = a : HTML.hasClass(c, "microplanet") ? h = a : HTML.hasClass(c, "moon") ? e = a : HTML.hasClass(c,
-                        "debris"
-                    ) ? g = a : HTML.hasClass(c, "position") ? p = a : HTML.hasClass(c, "planetname") && (m = a
-                    )
+    }, showRows: function (rows) {
+        var cellAlly, cellPlayer, cellPlanet, cellMoon, cellDebris, cellPosition, cellPlanetName, f, divTooltip, ulListLinks, l, row, debrisSizeStyle, q, dontFixTooltips;
+        debrisSizeStyle = AGO.Option.get("G45", 2);
+        dontFixTooltips = AGO.Option.is("G58");
+        for (let i = 0; i < rows.length; i++) {
+            row = {position: i + 1};
+            row.coords = AGO.Galaxy.Data.galaxy + ":" + AGO.Galaxy.Data.system + ":" + row.position;
+            row.owncoords = AGO.Planets.owncoords(row.coords, 1);
+            row.coordsActive = AGO.Task.cutCoords(AGO.Panel.getActive("Target", "coords", 6));
+            row.coordsCurrent = AGO.Galaxy.Task.coords;
+            AGO.Galaxy.Data.Row[row.position] = row;
+
+            cellPlanetName = cellPosition = cellDebris = cellMoon = cellPlanet = cellPlayer = cellAlly = void 0;
+            DOM.iterateChildren(rows[i], function (cell) {
+                let className = cell.className || "";
+                if (HTML.hasClass(className, "allytag"))
+                    cellAlly = cell;
+                else if (HTML.hasClass(className, "playername"))
+                    cellPlayer = cell;
+                else if (HTML.hasClass(className, "microplanet"))
+                    cellPlanet = cell;
+                else if (HTML.hasClass(className, "moon"))
+                    cellMoon = cell;
+                else if (HTML.hasClass(className, "debris"))
+                    cellDebris = cell;
+                else if (HTML.hasClass(className, "position"))
+                    cellPosition = cell;
+                else if (HTML.hasClass(className, "planetname"))
+                    cellPlanetName = cell;
+            });
+
+            if (cellAlly) {
+                let showAllyRank = AGO.Option.is("G44");
+                let allyTagWrapper = cellAlly.querySelector(".allytagwrapper");
+                let allyID = DOM.getAttribute(allyTagWrapper, null, "rel");
+                row.allianceId = STR.check(NMR.parseIntFormat(allyID));
+                if (allyTagWrapper && row.allianceId) {
+                    row.allianceTag = DOM.getTextChild(allyTagWrapper, null, 7);
+                    row.allianceTag.length > 7 ? DOM.setText(allyTagWrapper.childNodes[0], null, row.allianceTag.slice(0, -3) + "...") : !1;
+                    row.allianceOwn = HTML.hasClass(allyTagWrapper.className, "status_abbr_ally_own") ? 41 : 0;
+                    row.allianceColor = AGO.Token.getClass(AGO.Galaxy.getToken("Alliance", row.allianceId) || row.allianceOwn);
+                    row.allianceColor && DOM.addClass(cellAlly, null, row.allianceColor);
+                    let divTooltip = allyTagWrapper.querySelector(".htmlTooltip");
+                    let ulListLinks = allyTagWrapper.querySelector(".htmlTooltip .ListLinks");
+                    if (divTooltip && ulListLinks) {
+                        row.allianceName = DOM.getText("h1", divTooltip, 7);
+                        row.allianceRank = DOM.getText(".rank a", ulListLinks, 2);
+                        row.allianceMember = DOM.getText(".members", ulListLinks, 2);
+                        DOM.setData(ulListLinks, null, {
+                            tab: "Alliance",
+                            id: row.allianceId,
+                            name: row.allianceName,
+                            tag: row.allianceTag
+                        });
+                        if (showAllyRank) {
+                            let anchorRank = DOM.appendA(null, {
+                                "class": "ago_galaxy_rank",
+                                href: DOM.getAttribute(".rank a", ulListLinks, "href")
+                            });
+                            let rankClass = ("ago_galaxy_rank " + row.allianceColor).trim();
+                            DOM.appendSPAN(anchorRank, rankClass, row.allianceRank + "/" + row.allianceMember);
+                            DOM.appendChild(cellAlly, anchorRank);
+                        }
+                        if (!dontFixTooltips) {
+                            DOM.setAttribute(allyTagWrapper, null, "rel", allyID + String.fromCharCode(65 + row.position));
+                            DOM.setAttribute(divTooltip, null, "id", allyID + String.fromCharCode(65 + row.position));
+                        }
+                    }
                 }
-            );
-            b && (f = b.querySelector(".allytagwrapper"),
-                    q = DOM.getAttribute(f, null, "rel"),
-                    c.allianceId = STR.check(NMR.parseIntFormat(q)),
-                f && c.allianceId && (c.allianceTag = DOM.getTextChild(f, null, 7),
-                        c.allianceTag.length > 7 ? DOM.setText(f.childNodes[0], null, c.allianceTag.slice(0, -3) + "...") : !1,
-                        c.allianceOwn = HTML.hasClass(f.className, "status_abbr_ally_own") ? 41 : 0,
-                        c.allianceColor = AGO.Token.getClass(AGO.Galaxy.getToken("Alliance", c.allianceId) || c.allianceOwn),
-                    c.allianceColor && DOM.addClass(b, null, c.allianceColor),
-                        n = f.querySelector(".htmlTooltip"),
-                        k = f.querySelector(".htmlTooltip .ListLinks"),
-                    n && k && (c.allianceName = DOM.getText("h1", n, 7),
-                            c.allianceRank = DOM.getText(".rank a", k, 2),
-                            c.allianceMember = DOM.getText(".members", k, 2),
-                            l = {
-                                tab: "Alliance",
-                                id: c.allianceId,
-                                name: c.allianceName,
-                                tag: c.allianceTag
-                            },
-                            DOM.setData(k, null, l),
-                        AGO.Option.is("G44") && (k = DOM.appendA(null, {
-                                    "class": "ago_galaxy_rank",
-                                    href: DOM.getAttribute(".rank a", k, "href")
-                                }
-                            ), l = ("ago_galaxy_rank " + c.allianceColor
-                            ).trim(), DOM.appendSPAN(k, l, c.allianceRank + "/" + c.allianceMember), DOM.appendChild(b,
-                                k
-                            )
-                        ), t || (DOM.setAttribute(f, null, "rel", q + String.fromCharCode(65 + c.position)), DOM.setAttribute(n, null, "id", q + String.fromCharCode(65 + c.position))
-                        )
-                    )
-                )
-            );
-            d && !c.owncoords && (f = d.querySelector("a.tooltipRel"), q = DOM.getAttribute(f, null, "rel"), c.playerId = STR.check(NMR.parseIntFormat(q)), f && c.playerId && (c.playerBuddy = DOM.hasClass(p, null, "status_abbr_buddy") ? 51 : 0, c.playerColor = AGO.Token.getClass(AGO.Galaxy.getToken("Player", c.playerId) || c.playerBuddy) || c.allianceColor, c.playerStatus = AGO.Token.getPlayerStatus(".status > span",
-                        d
-                    ) || 21, n = d.querySelector(".htmlTooltip"), k = d.querySelector(".htmlTooltip .ListLinks"), n && k && (c.playerName = DOM.getText("h1 span", n, 7), c.playerRank = DOM.getText(".rank a", k, 2), l = {
+            }
+
+            if (cellPlayer && !row.owncoords) {
+                let showPlayerRank = AGO.Option.is("G43");
+                let anchorPlayer = cellPlayer.querySelector("a.tooltipRel");
+                let playerID = DOM.getAttribute(anchorPlayer, null, "rel");
+                row.playerId = STR.check(NMR.parseIntFormat(playerID));
+                if (anchorPlayer && row.playerId) {
+                    row.playerBuddy = DOM.hasClass(cellPosition, null, "status_abbr_buddy") ? 51 : 0;
+                    row.playerColor = AGO.Token.getClass(AGO.Galaxy.getToken("Player", row.playerId) || row.playerBuddy) || row.allianceColor;
+                    row.playerStatus = AGO.Token.getPlayerStatus(".status > span", cellPlayer) || 21;
+                    let divTooltip = cellPlayer.querySelector(".htmlTooltip");
+                    let ulListLinks = cellPlayer.querySelector(".htmlTooltip .ListLinks");
+                    if (divTooltip && ulListLinks) {
+                        row.playerName = DOM.getText("h1 span", divTooltip, 7);
+                        row.playerRank = DOM.getText(".rank a", ulListLinks, 2);
+                        DOM.setData(anchorPlayer, null, {
                             message: {
                                 page: "Token",
                                 role: "Action",
-                                data: {action: "set", tab: "Player", token: 81, id: c.playerId, name: c.playerName}
+                                data: {action: "set", tab: "Player", token: 81, id: row.playerId, name: row.playerName}
                             }
-                        }, DOM.setData(f, null, l), l = {
+                        });
+                        DOM.setData(ulListLinks, null, {
                             tab: "Player",
-                            id: c.playerId,
-                            name: c.playerName
-                        }, DOM.setData(k, null, l), AGO.Option.is("G43") && (k = DOM.appendA(null, {
-                                    "class": "ago_galaxy_rank",
-                                    href: DOM.getAttribute(".rank a", k, "href")
-                                }
-                            ), l = ("ago_galaxy_rank " +
-                                c.playerColor
-                            ).trim(), l = DOM.appendSPAN(k, l, 1E4 <= c.playerRank ? "10 k" : c.playerRank), DOM.appendChild(d, k)
-                        ), t || (DOM.setAttribute(f, null, "rel", q + String.fromCharCode(65 + c.position)), DOM.setAttribute(n, null, "id", q + String.fromCharCode(65 + c.position))
-                        )
-                    )
-                )
-            );
-            q = 2 !== AGO.Galaxy.behave && !c.allianceOwn && !c.playerBuddy && VAL.check(c.playerStatus, 21, 22, 23, 26, 27, 28);
-            h && (c.planetId = DOM.getAttribute(h, null, "data-planet-id", 7), c.planetId && (n = h.querySelector(".htmlTooltip"), k = h.querySelector(".htmlTooltip .ListLinks"),
-                    n && k && (c.planetName = DOM.getText("h1 span", n, 7), h.querySelector(".activity") && (c.planetActivity = DOM.getText(k.firstElementChild, null, 2) || 1
-                        )
-                    ), c.owncoords || (l = {
-                            tab: "Target",
-                            id: c.planetId,
-                            name: c.playerName,
-                            coords: c.coords + ":1"
-                        }, DOM.setData(k, null, l), q && (3 === AGO.Galaxy.behave && DOM.extendClass(h, null, "ago_galaxy_espionage")
-                        )
-                    )
-                )
-            );
-            e && (c.moonId = DOM.getAttribute(e, null, "data-moon-id", 7), c.moonId && (n = e.querySelector(".htmlTooltip"),
-                        k = e.querySelector(".htmlTooltip .ListLinks"), n && k && (c.moonName = DOM.getText("h1 span", n, 7), e.querySelector(".activity") && (c.moonActivity = DOM.getText(k.firstElementChild, null, 2) || 1
-                        )
-                    ), c.owncoords || (l = {
-                            tab: "Target",
-                            id: c.planetId,
-                            name: c.playerName,
-                            coords: c.coords + ":3"
-                        }, DOM.setData(k, null, l), q && 3 === AGO.Galaxy.behave && DOM.extendClass(e, null, "ago_galaxy_espionage"), (f = e.querySelector("a[onclick]"), q && (n = DOM.getAttribute(f, null, "onclick", 7).split(");").join(",0,this);"), DOM.setAttribute(e,
-                                    null, "onclick", n
-                                )
-                            ), DOM.removeAttribute(f, null, "onclick")
-                        )
-                    )
-                )
-            );
-            if (g && (l = g.querySelectorAll(".debris-content"), c.debrisMetal = DOM.getText(l[0], null, 2), c.debrisCrystal = DOM.getText(l[1], null, 2), c.debrisResources = c.debrisMetal + c.debrisCrystal, c.debrisResources
-            )) {
-                c.highlightDebris = NMR.isGreater(c.debrisResources, AGO.Token.getLimit(95)) ? 95 : NMR.isGreater(c.debrisResources, AGO.Token.getLimit(94)) ? 94 : 0;
-                if (f = g.querySelector("a.tooltipRel div")) {
-                    1 === s ? (n = Math.max(2 + 3 * (c.debrisResources + "").length - AGO.Galaxy.shrink, 14),
-                        n = Math.min(n, [30, 28, 26, 24][AGO.Galaxy.shrink]),
-                        DOM.set(f, null, {
-                            style: "width: " + n + "px; height: " + n + "px; background-size: " + n + "px;"
-                        }),
-                        c.highlightDebris && DOM.set(f, null, {src: HTML.urlImage("galaxy_debris.gif")})
-                    ) : 1 < s && (l = ("ago_galaxy_debris " + AGO.Token.getClass(c.highlightDebris)).trim(),
-                        k = DOM.appendDIV(null, l),
-                        l = c.highlightDebris ? "ago_text_background" : "",
-                        l = DOM.appendSPAN(k, l),
-                        DOM.appendTEXT(l, (3 !== s || AGO.Galaxy.sameSystem ? STR.formatNumber(c.debrisMetal) : STR.shortNumber(c.debrisMetal, 0))),
-                        DOM.append(l, "br"),
-                        DOM.appendTEXT(l, (3 !== s || AGO.Galaxy.sameSystem ? STR.formatNumber(c.debrisCrystal) : STR.shortNumber(c.debrisCrystal, 0))),
-                        DOM.appendChild(f, k),
-                        DOM.set(f, null, {style: "background: inherit;"}), AGO.Galaxy.improve && DOM.addClass(g, null, "ago_galaxy_debris_shadow")
-                    );
+                            id: row.playerId,
+                            name: row.playerName
+                        });
+                        if (showPlayerRank) {
+                            let anchorRank = DOM.appendA(null, {
+                                "class": "ago_galaxy_rank",
+                                href: DOM.getAttribute(".rank a", ulListLinks, "href")
+                            });
+                            let rankClass = ("ago_galaxy_rank " + row.playerColor).trim();
+                            DOM.appendSPAN(anchorRank, rankClass, 1E4 <= row.playerRank ? (Math.floor(row.playerRank/1000)) + " k" : row.playerRank);
+                            DOM.appendChild(cellPlayer, anchorRank);
+                        }
+                        if (!dontFixTooltips) {
+                            DOM.setAttribute(anchorPlayer, null, "rel", playerID + String.fromCharCode(65 + row.position));
+                            DOM.setAttribute(divTooltip, null, "id", playerID + String.fromCharCode(65 + row.position));
+                        }
+                    }
                 }
-                c.owncoords || (l = {
-                        tab: "Target",
-                        id: c.planetId,
-                        name: c.playerName,
-                        coords: c.coords + ":2"
-                    }, DOM.setData(".htmlTooltip .ListLinks", g, l)
-                )
             }
-            c.planetId && (DOM.addClass(a[r], null, "ago_galaxy_row"), c.positionColor = AGO.Token.getClass(AGO.Galaxy.getToken("Target", c.planetId)) || c.playerColor, c.positionColor && DOM.addClass(p, null, c.positionColor), m && (c.positionColor ?
-                        (DOM.addClass(m, null, c.positionColor), DOM.addClass("a", m, c.positionColor), DOM.addClass("span", m, c.positionColor)
-                        ) : AGO.Option.is("CT0") && DOM.addClass("a", m, "ago_color_bright")
-                )
-            )
+
+            q = 2 !== AGO.Galaxy.behave && !row.allianceOwn && !row.playerBuddy && VAL.check(row.playerStatus, 21, 22, 23, 26, 27, 28);
+
+            if (cellPlanet) {
+                row.planetId = DOM.getAttribute(cellPlanet, null, "data-planet-id", 7);
+                if (row.planetId) {
+                    let divTooltip = cellPlanet.querySelector(".htmlTooltip");
+                    let ulListLinks = cellPlanet.querySelector(".htmlTooltip .ListLinks");
+                    if (divTooltip && ulListLinks) {
+                        row.planetName = DOM.getText("h1 span", divTooltip, 7);
+                        if (cellPlanet.querySelector(".activity")) row.planetActivity = DOM.getText(ulListLinks.firstElementChild, null, 2) || 1;
+                    }
+                    if (!row.owncoords) {
+                        DOM.setData(ulListLinks, null, {
+                            tab: "Target",
+                            id: row.planetId,
+                            name: row.playerName,
+                            coords: row.coords + ":1"
+                        });
+                        q && 3 === AGO.Galaxy.behave && DOM.extendClass(cellPlanet, null, "ago_galaxy_espionage");
+                    }
+                }
+            }
+
+            if (cellMoon) {
+                row.moonId = DOM.getAttribute(cellMoon, null, "data-moon-id", 7);
+                if (row.moonId) {
+                    let divTooltip = cellMoon.querySelector(".htmlTooltip");
+                    let ulListLinks = cellMoon.querySelector(".htmlTooltip .ListLinks");
+                    if (divTooltip && ulListLinks) {
+                        row.moonName = DOM.getText("h1 span", divTooltip, 7);
+                        if (cellMoon.querySelector(".activity")) row.moonActivity = DOM.getText(ulListLinks.firstElementChild, null, 2) || 1;
+                    }
+                    if (!row.owncoords) {
+                        DOM.setData(ulListLinks, null, {
+                            tab: "Target",
+                            id: row.planetId,
+                            name: row.playerName,
+                            coords: row.coords + ":3"
+                        });
+                        q && 3 === AGO.Galaxy.behave && DOM.extendClass(cellMoon, null, "ago_galaxy_espionage");
+                        let anchorMoon = cellMoon.querySelector("a[onclick]");
+                        if (q) {
+                            let strOnclick = DOM.getAttribute(anchorMoon, null, "onclick", 7).split(");").join(",0,this);");
+                            strOnclick = strOnclick.split("(")[1].split(")")[0].replace(/\s/g, "").split(",");
+                            cellMoon.onclick = function () {
+                                window.dispatchEvent(new CustomEvent("sendShips", {
+                                    detail: {
+                                        galaxy: strOnclick[1],
+                                        system: strOnclick[2],
+                                        position: strOnclick[3],
+                                        isMoon: strOnclick[4]
+                                    }
+                                }));
+                                return false; };
+                            DOM.setAttribute(cellMoon, null, "onclick", "return false;");
+                        }
+                        DOM.removeAttribute(anchorMoon, null, "onclick");
+                    }
+                }
+            }
+
+            if (cellDebris) {
+                let debrisContent = cellDebris.querySelectorAll(".debris-content");
+                row.debrisMetal = DOM.getText(debrisContent[0], null, 2);
+                row.debrisCrystal = DOM.getText(debrisContent[1], null, 2);
+                row.debrisResources = row.debrisMetal + row.debrisCrystal;
+                if (row.debrisResources) {
+                    row.highlightDebris = NMR.isGreater(row.debrisResources, AGO.Token.getLimit(95)) ? 95 : NMR.isGreater(row.debrisResources, AGO.Token.getLimit(94)) ? 94 : 0;
+                    let debrisField = cellDebris.querySelector("a.tooltipRel div");
+                    if (debrisField) {
+                        if (1 === debrisSizeStyle) {
+                            let debrisSize = Math.max(2 + 3 * (row.debrisResources + "").length - AGO.Galaxy.shrink, 14);
+                            debrisSize = Math.min(debrisSize, [30, 28, 26, 24][AGO.Galaxy.shrink]);
+                            DOM.set(debrisField, null, {
+                                style: "width: " + debrisSize + "px; height: " + debrisSize + "px; background-size: " + debrisSize + "px;"
+                            });
+                            row.highlightDebris && DOM.set(debrisField, null, {src: HTML.urlImage("galaxy_debris.gif")});
+                        } else if (1 < debrisSizeStyle) {
+                            let debrisClass = ("ago_galaxy_debris " + AGO.Token.getClass(row.highlightDebris)).trim();
+                            let debrisDiv = DOM.appendDIV(null, debrisClass);
+                            let debrisBgClass = row.highlightDebris ? "ago_text_background" : "";
+                            let debrisBgSpan = DOM.appendSPAN(debrisDiv, debrisBgClass);
+                            DOM.appendTEXT(debrisBgSpan, (3 !== debrisSizeStyle || AGO.Galaxy.sameSystem ? STR.formatNumber(row.debrisMetal) : STR.shortNumber(row.debrisMetal, 0)));
+                            DOM.append(debrisBgSpan, "br");
+                            DOM.appendTEXT(debrisBgSpan, (3 !== debrisSizeStyle || AGO.Galaxy.sameSystem ? STR.formatNumber(row.debrisCrystal) : STR.shortNumber(row.debrisCrystal, 0)));
+                            DOM.appendChild(debrisField, debrisDiv);
+                            DOM.set(debrisField, null, {style: "background: inherit;"});
+                            AGO.Galaxy.improve && DOM.addClass(cellDebris, null, "ago_galaxy_debris_shadow");
+                        }
+                    }
+                    if (!row.owncoords) {
+                        DOM.setData(".htmlTooltip .ListLinks", cellDebris, {
+                            tab: "Target",
+                            id: row.planetId,
+                            name: row.playerName,
+                            coords: row.coords + ":2"
+                        });
+                    }
+                }
+            }
+
+            if (row.planetId) {
+                let colorStatusTags = AGO.Option.is("CT0");
+                DOM.addClass(rows[i], null, "ago_galaxy_row");
+                row.positionColor = AGO.Token.getClass(AGO.Galaxy.getToken("Target", row.planetId)) || row.playerColor;
+                row.positionColor && DOM.addClass(cellPosition, null, row.positionColor);
+                if (cellPlanetName) {
+                    if (row.positionColor) {
+                        DOM.addClass(cellPlanetName, null, row.positionColor);
+                        DOM.addClass("a", cellPlanetName, row.positionColor);
+                        DOM.addClass("span", cellPlanetName, row.positionColor);
+                    } else {
+                        colorStatusTags && DOM.addClass("a", cellPlanetName, "ago_color_bright");
+                    }
+                }
+            }
         }
-        f = k = l = f = null
     }, updateDataBase: function () {
         var a, b, d;
         b = {Player: {}, Planet: {}};
