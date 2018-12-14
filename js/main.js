@@ -321,18 +321,21 @@ AGO.Planets = {
         if (b = document.getElementById("planetList")) {
             if (a || 0 < AGO.Planets.updateDisplayStatus) {
                 AGO.Planets.updateDisplayStatus--, AGO.Planets.iterate(3, function (a, h) {
-                        if (c = AGO.Fleet.Get("Cooldown", h, 2)) {
-                            c = 3600 / AGO.Uni.speedFleet - (AGO.Time.timestamp() - Math.max(c, 1E4)
-                            ), 0 <= c ? (AGO.Planets.updateDisplayStatus = 5, e = "ago_planets_cooldown" + (60 >= c ? " ago_planets_cooldown_seconds" : ""
-                                ), f = 60 < c ? Math.ceil(c / 60) : Math.floor(c) ||
-                                    "", (d = b.querySelector("#planet-" + a.planet + " .ago_planets_cooldown")
-                                ) ? (DOM.updateText(d, null, f), DOM.updateClass(d, null, e)
-                                ) : (d = b.querySelector("#planet-" + a.planet + " .moonlink")
-                                ) && DOM.appendSPAN(d, e, f)
-                            ) : AGO.Fleet.Get("Cooldown", h, 0, 2)
-                        }
+                    if (c = AGO.Fleet.Get("Cooldown", h, 2)) {
+                            c = AGO.Ogame.getJumpgateCooldown(h) - (AGO.Time.timestamp() - Math.max(c, 1E4));
+                            if (0 <= c) {
+                                AGO.Planets.updateDisplayStatus = 5;
+                                e = "ago_planets_cooldown" + (60 >= c ? " ago_planets_cooldown_seconds" : "");
+                                f = 60 < c ? Math.ceil(c / 60) : Math.floor(c) || "";
+                                (d = b.querySelector("#planet-" + a.planet + " .ago_planets_cooldown")
+                                    ) ? (DOM.updateText(d, null, f), DOM.updateClass(d, null, e)
+                                    ) : (d = b.querySelector("#planet-" + a.planet + " .moonlink")
+                                    ) && DOM.appendSPAN(d, e, f)
+                            } else {
+                                AGO.Fleet.Get("Cooldown", h, 0, 2)
+                            }
                     }
-                );
+                });
             }
             AGO.Planets.coloring && AGO.Planets.Task.coords && AGO.Planets.Task.coordstype !== AGO.Planets.Task.coords + ":" + AGO.Planets.Task.type && DOM.iterateChildren(b, function (a) {
                     var b, c;

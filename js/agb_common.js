@@ -1853,7 +1853,6 @@ AGB.DataBase = {
         }
     },
     Set: function (a) {
-        console.log(AGB.DataBase.get(a.keyUni, "api"));
         var b;
         OBJ.is(a) && OBJ.is(a.data) && (b = AGB.DataBase.isStatus(a, "Player"), a.api = AGB.DataBase.get(a.keyUni, "api"), b && OBJ.is(a.data.Player) && AGB.DataBase.ObjectStore(b, "I", "readwrite", function (b) {
                 b && OBJ.iterate(a.data.Player, function (d) {
@@ -2238,8 +2237,6 @@ AGB.Tools = {
         "Action" === a && AGB.Tools.Action(b, c)
     },
     Action: function (a, b) {
-        let test = JSON.stringify(AGB);
-        console.log(JSON.parse(test));
         var c, d, e;
         if (d = AGB.App.getPlayer(a, "copy")) {
             e = {id: a.id};
