@@ -23,7 +23,7 @@ AGO.Overview = {
             }, 500
         )
     }, infocompte: function (a) {
-        a && a.target && (a = DOM.getData(a.target, null, 2), OBJ.is(a) && (a.id = a.id+"", a.level = 0, a.type = 1, a.coords = AGO.Task.trimCoords(a.coords), AGO.Task.updateCoords(a, 2, AGO.Task.splitCoords(a.coords)), AGO.Init.Messages("Panel", "Action", {
+        a && a.target && (a = DOM.getData(a.target, null, 2), OBJ.is(a) && (a.id = a.id + "", a.level = 0, a.type = 1, a.coords = AGO.Task.trimCoords(a.coords), AGO.Task.updateCoords(a, 2, AGO.Task.splitCoords(a.coords)), AGO.Init.Messages("Panel", "Action", {
                         action: "set",
                         tab: "Construction",
                         value: a
@@ -135,10 +135,9 @@ AGO.Building = {
                         (DOM.updateClass(".eckeoben span", b, "overmark"), DOM.addClass(".timeLink span", b.parentNode, "overmark")
                         ), c && (e = DOM.getText("span.textlabel", b, 7) || AGO.Label.get(f, 11), DOM.appendSPAN(b, "ago_items_textName ago_items_text ago_text_background", e)
                         ), !(d && DOM.hasClass(a[k], null, "on") && AGO.Option.is("commander")
-                        ) || g && c || !VAL.check(AGO.App.page, "shipyard", "defense") && "212" !== f || (e = AGO.Units.get("metal") / (AGO.Item[f].metal || 1
-                            ), g = AGO.Units.get("crystal") / (AGO.Item[f].crystal || 1
-                            ), h = AGO.Units.get("deuterium") / (AGO.Item[f].deuterium ||
-                                1
+                        ) || g && c || !VAL.check(AGO.App.page, "shipyard", "defense") && "212" !== f || (e = (AGO.Units.get("metal") || 1) / (AGO.Item[f].metal || 0
+                            ), g = (AGO.Units.get("crystal") || 1) / (AGO.Item[f].crystal || 0
+                            ), h = (AGO.Units.get("deuterium") || 1) / (AGO.Item[f].deuterium || 0
                             ), (e = STR.formatNumber(Math.floor(Math.min(Math.min(e, g), h)))
                             ) && VAL.check(f, "407", "408") && (e = 1
                             ), DOM.appendSPAN(b, "ago_items_textCount ago_items_text ago_text_background", e)
@@ -213,6 +212,7 @@ AGO.Building = {
                     }, 200);
                 }
             });
+            AGO.Option.is("B20") && (AGO.App.page === "shipyard" || AGO.App.page === "defense") && AGO.Building.checkInput();
             DOM.addEventsAll("#content ul.production_info", null, {click: AGO.Building.clickInfo});
             DOM.disableActiveElement();
             DOM.disableAutocomplete();
@@ -273,16 +273,16 @@ AGO.Building = {
         }
     },
     checkInput: function () {
-        let number = DOM.getValue("#number", null, 2);
+        let number = DOM.getValue("#number", null, 2) || 1;
         let type = DOM.getValue("input[name=type]");
 
         let maxMet, maxCrys, maxDeut, maxUnits;
-        maxMet = AGO.Units.get("metal") / (AGO.Item[type].metal || 1);
-        maxCrys = AGO.Units.get("crystal") / (AGO.Item[type].crystal || 1);
-        maxDeut = AGO.Units.get("deuterium") / (AGO.Item[type].deuterium || 1);
+        maxMet = (AGO.Units.get("metal") || 1) / (AGO.Item[type].metal || 0);
+        maxCrys = (AGO.Units.get("crystal") || 1) / (AGO.Item[type].crystal || 0);
+        maxDeut = (AGO.Units.get("deuterium") || 1) / (AGO.Item[type].deuterium || 0);
         maxUnits = Math.floor(Math.min(Math.min(maxMet, maxCrys), maxDeut));
 
-        if (number > 0 && number * 10 < maxUnits) {
+        if (number > 0 && number * 10 <= maxUnits) {
             if (!DOM.query("#build-x10")) AGO.Building.addButton();
         } else if (DOM.query("#build-x10")) {
             AGO.Building.removeButton();
@@ -294,7 +294,7 @@ AGO.Building = {
         DOM.appendSPAN(buildButton, null, "x10");
         DOM.after(DOM.query(".build-it"), docFrag);
         DOM.addEvents("#build-x10", null, {
-            click: function doBuild () {
+            click: function doBuild() {
                 DOM.query("#build-x10").removeEventListener("click", doBuild);
                 let number = DOM.getValue("#number", null, 2);
                 let type = DOM.getValue("input[name=type]");
@@ -312,9 +312,15 @@ AGO.Building = {
         let iteration = DOM.getData("#build-x10").iteration;
         DOM.setText("#build-x10 span", null, iteration + "/10");
 
-        let request;
-        request = new XMLHttpRequest();
-        request.open('POST', AGO.Uni.url + '/game/index.php?page='+AGO.App.page+'&deprecated=1', true);
+        let stopBuild = false;
+        DOM.addEvents("#build-x10", null, {
+            click: function () {
+                stopBuild = true;
+            }
+        });
+
+        let request = new XMLHttpRequest();
+        request.open('POST', AGO.Uni.url + '/game/index.php?page=' + AGO.App.page + '&deprecated=1', true);
         request.responseType = "document";
         request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         request.onload = function () {
@@ -323,7 +329,7 @@ AGO.Building = {
             DOM.setText("#build-x10 span", null, iteration + "/10");
 
             let token = DOM.getValue("input[name=token]", request.responseXML);
-            if (iteration < 10) {
+            if (iteration < 10 && !stopBuild) {
                 AGO.Building.doBuild(number, type, token);
             } else {
                 setTimeout(function () {
@@ -335,7 +341,7 @@ AGO.Building = {
         request.onerror = function () {
             DOM.setStyleColor("#build-x10 span", null, "#ff0000");
         };
-        request.send("token="+token+"&modus=1&type="+type+"&menge="+number);
+        request.send("token=" + token + "&modus=1&type=" + type + "&menge=" + number);
     },
     updateSummary: function (a) {
         function b(a, b, c, d, e) {
@@ -626,7 +632,10 @@ AGO.Trader = {
         });
     },
     onImportExport: function () {
-        DOM.addObserver(DOM.query("#div_traderImportExport .bargain_text"), {childList: true, characterData: true}, function () {
+        DOM.addObserver(DOM.query("#div_traderImportExport .bargain_text"), {
+            childList: true,
+            characterData: true
+        }, function () {
             AGO.Trader.checkImportExportState();
         });
 
