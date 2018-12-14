@@ -227,7 +227,7 @@ AGO.Fleet1 = {
                     property: "sendingEnabled"
                 }
             ) || 0, 2 <= PAGE.getRoutine(a.calculator) ? 3 <= PAGE.getRoutine(a.calculator, "mode") && (e = AGO.Task.create(PAGE[a.calculator], 0), e.routine = 0
-            ) : 1 === PAGE.getRoutine(a.routine) ? e = AGO.Task.create(a, 2) : AGO.Option.is("I83") && AGO.Acc.coords === a.coords && AGO.Panel.GetActive("Target", "id", 6) && (e = {arrival: AGO.Panel.GetActive("Target", "time")}, AGO.Task.updateCoordsType(e, AGO.Panel.GetActive("Target",
+            ) : 1 === PAGE.getRoutine(a.routine) ? e = AGO.Task.create(a, 2) : AGO.Option.is("I83") && AGO.Acc.coords === a.coords && AGO.Panel.getActive("Target", "id", 6) && (e = {arrival: AGO.Panel.getActive("Target", "time")}, AGO.Task.updateCoordsType(e, AGO.Panel.getActive("Target",
                     "coords", 6
                     )
                 )

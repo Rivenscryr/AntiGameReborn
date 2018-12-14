@@ -1,6 +1,5 @@
-if (!AGO) {
-    var AGO = {};
-}
+const AGO = {};
+
 AGO.Main = {
     Messages: function (a, b) {
         "Display" === a && AGO.Main.Display(b)
@@ -21,49 +20,88 @@ AGO.Main = {
             }
         );
         document.getElementById("officers").classList.contains("all") ? AGO.Option.set("comstaff", 1) : AGO.Option.set("comstaff", 0);
-    }, Run: function () {
-        var a, b, d, c;
-        if (a = document.getElementById("menuTableTools")) {
-            b = document.createDocumentFragment(), AGO.Main.addVersionCheck(b),
-                d = b.appendChild(document.createElement("li")), c = DOM.appendSPAN(d, "menu_icon"), DOM.appendA(c, {
-                    id: "ago_menubutton_logo",
-                    "class": "ago_menubutton_logo_inactive"
-                }, {click: AGO.Main.clickIcon}
-            ), c = DOM.appendA(d, {
-                    id: "ago_menubutton",
-                    "class": "menubutton"
-                }, {click: AGO.Main.clickButton}
-            ), d = 1 < AGO.App.beta ? "AGRalpha" : AGO.App.beta ? "AGRbeta" : "AntiGameReborn", DOM.appendSPAN(c, "textlabel", d), DOM.appendSPAN(c, {id: "ago_menubutton_coords"}), DOM.prependChild(a, b), !AGO.App.disabled && 30 < AGO.Notify.problem && DOM.setStyleColor("ago_menubutton",
-                "id", "#FF0000"
-            );
+		
+		if (!AGO.Option.get("nextItem", 0)) {
+            AGO.Trader && AGO.Trader.updateNextItem(0, function (highlight) {
+                1 === highlight && (DOM.addClass(".premiumHighligt", null, "selected"));
+            });
+        } else if (AGO.Time.ogameTime > AGO.Option.get("nextItem", 0)) {
+            DOM.addClass(".premiumHighligt", null, "selected");
         }
+    },
+    Run: function () {
+        let menuToolsWrapper;
+        if (menuToolsWrapper = document.getElementById("menuTableTools")) {
+            let docFrag, listItem, menuIcon, buttonText, menuButton;
+            docFrag = document.createDocumentFragment();
+            listItem = docFrag.appendChild(document.createElement("li"));
+            menuIcon = DOM.appendSPAN(listItem, "menu_icon");
+            DOM.appendA(menuIcon, {id: "ago_menubutton_logo", "class": "ago_menubutton_logo_inactive"}, {click: AGO.Main.clickIcon});
+            menuButton = DOM.appendA(listItem, {id: "ago_menubutton", "class": "menubutton"}, {click: AGO.Main.clickButton});
+            buttonText = 1 < AGO.App.beta ? "AGRalpha" : AGO.App.beta ? "AGRbeta" : "AntiGameReborn";
+            DOM.appendSPAN(menuButton, "textlabel", buttonText);
+            DOM.appendSPAN(menuButton, {id: "ago_menubutton_coords"});
+            DOM.prependChild(menuToolsWrapper, docFrag);
+            !AGO.App.disabled && 30 < AGO.Notify.problem && DOM.setStyleColor("ago_menubutton", "id", "#FF0000");
+        }
+
         if (20 > AGO.Notify.problem) {
-            a = document.getElementById("logoLink");
-            b = ["", "fleet1", "movement", "galaxy", "messages"][AGO.Option.get("O03", 2)];
-            a && b && (a.parentNode.href = AGO.Uni.path + b
-            );
-            if (a = document.getElementById("playerName")) {
-                if (3 !== a.childNodes[0].nodeType ? DOM.prependChild(a, document.createTextNode(AGO.App.title + " ")) : a.childNodes[0].textContent = AGO.App.title + " ", (d = a.querySelector(".status_abbr_outlaw")
-                ) && d.title) {
-                    b = "";
-                    for (d = d.title; c = /\d{1,2}\D/g.exec(d);) {
-                        b += c[0] + " ", d = d.split(c[0]).join("");
+            // O03 = "The OGame logo is linked to page"
+            let logoTarget;
+            logoTarget = ["", "fleet1", "movement", "galaxy", "messages"][AGO.Option.get("O03", 2)];
+            if (logoTarget) {
+                let ogameLogo = document.getElementById("logoLink");
+                if (ogameLogo) ogameLogo.parentNode.href = AGO.Uni.path + logoTarget;
+            }
+
+            let playerName;
+            if (playerName = document.getElementById("playerName")) {
+                // add App title (e.g. "EN Polaris") infront of playerName
+                if (3 !== playerName.childNodes[0].nodeType) {
+                    DOM.prependChild(playerName, document.createTextNode(AGO.App.title + " "))
+                } else {
+                    playerName.childNodes[0].textContent = AGO.App.title + " ";
+                }
+
+                //if player is outlaw display time left to lose outlaw status behind playerName
+                let outlaw;
+                if ((outlaw = playerName.querySelector(".status_abbr_outlaw")) && outlaw.title) {
+                    let timeLeft, timePart;
+
+                    timeLeft = "";
+                    for (outlaw = outlaw.title; timePart = /\d{1,2}\D/g.exec(outlaw);) {
+                        timeLeft += timePart[0] + " ";
+                        outlaw = outlaw.split(timePart[0]).join("");
                     }
-                    DOM.appendTEXT(a, b)
+
+                    DOM.appendTEXT(playerName, timeLeft);
                 }
             }
+
+            // O04 = "Show community, universe and next event time in windows title"
             AGO.Main.modeTitle = AGO.Option.is("O04") ? 3 : 0;
-            AGO.Main.Display()
+            AGO.Main.Display();
         }
     }, Complete: function () {
         AGO.Main.updateTitle();
-        AGO.Main.checkVersionCheck();
         AGO.Main.Check()
     }, onKeydown: function (a) {
         var b;
-        return 112 <= a.keyCode && 123 >= a.keyCode && AGO.Option.is("U32") ? ((b = document.querySelectorAll("#planetList .smallplanet a.planetlink")
-            ) && b[a.keyCode - 112] && DOM.click(a.shiftKey ? "a.moonlink" : "a.planetlink", b[a.keyCode - 112].parentNode), !1
-        ) : !0
+		if (112 <= a.keyCode && 123 >= a.keyCode && AGO.Option.is("U32")) {
+			if ((b = document.querySelectorAll("#planetList .smallplanet a.planetlink")) && b[a.keyCode - 112]) 
+				DOM.click(a.shiftKey ? "a.moonlink" : "a.planetlink", b[a.keyCode - 112].parentNode); 
+			return false;
+		} else if (a.keyCode >= 37 && a.keyCode <= 40 && a.ctrlKey) {
+			let direction = {37: "left", 38: "up", 39: "right", 40: "down"}[a.keyCode];
+			if ("left" === direction)
+                AGO.Planets.Action({mode: "set", type: 1, wait: 1});
+			else if ("right" === direction)
+                AGO.Planets.Action({mode: "set", type: 3, wait: 1});
+			else if (VAL.check(direction, "up", "down"))
+			    AGO.Planets.Action({scroll: direction, wait: 1});
+		} else {
+			return true;
+		}
     }, onSwipe: function (a, b) {
         if (12 === b) {
             AGO.Panel.onSwipe(a);
@@ -71,57 +109,91 @@ AGO.Main = {
             b) {
             AGO.Planets.onSwipe(a)
         }
-    }, Display: function () {
-        var a, b, d;
-        d = "inactive";
-        AGO.Option.is("I83") && (a = AGO.Panel.GetActive("Target", "coords", 6), b = AGO.Task.cutCoords(a), a = OBJ.get(AGO.Styles.colorType, +a.split(":")[3] || 1) || "", d = b || AGO.Panel.GetActive("Target", "time") ? "autocopy" : "coords"
-        );
-        DOM.updateText("ago_menubutton_coords", "id", b);
-        DOM.setStyleColor("ago_menubutton_coords", "id", a);
-        DOM.updateClass("ago_menubutton_logo", "id", "ago_menubutton_logo_" + d);
+    },
+    Display: function () {
+        let target, color, coords, spanClass;
+        spanClass = "inactive";
 
-        if (!AGO.Option.get("nextItem", 0)) {
-            AGO.Trader && AGO.Trader.updateNextItem(0, function () {
-                1 == this && (DOM.addClass(".premiumHighligt", null, "selected"));
-            });
-        } else if (AGO.Time.ogameTime > AGO.Option.get("nextItem", 0)) {
-            DOM.addClass(".premiumHighligt", null, "selected");
+        // "I83": "Select the active target always when loading Fleet I."
+        if (AGO.Option.is("I83")) {
+            target = AGO.Panel.getActive("Target", "coords", 6);
+            coords = AGO.Task.cutCoords(target);
+            color = OBJ.get(AGO.Styles.colorType, +target.split(":")[3] || 1) || "";
+            spanClass = coords || AGO.Panel.getActive("Target", "time") ? "autocopy" : "coords";
         }
-    }, clickButton: function () {
-        AGO.App.disabled ? AGO.App.Save({disabled: !1}) :
-            20 > AGO.Notify.problem && AGO.Option.Menu()
-    }, updateButton: function () {
-        5 < AGO.Init.status && DOM.setStyleColor("ago_menubutton", "id", AGO.Notify.color || "")
-    }, updateInfo: function (a, b, d) {
-        var c;
-        if (5 < AGO.Init.status && a) {
-            AGO.Main.statusInfo = 2;
-            if (!(c = document.getElementById("ago_menubutton_info")
-            )) {
-                var e, f;
-                (e = document.getElementById("ago_menubutton")
-                ) ? (f = document.createElement("li"), f.className = "ago_menubutton_info", c = f.appendChild(document.createElement("div")), c.id = "ago_menubutton_info", DOM.after(e.parentNode,
-                        f
-                    )
-                ) : c = void 0
+
+        DOM.updateText("ago_menubutton_coords", "id", coords);
+        DOM.setStyleColor("ago_menubutton_coords", "id", color);
+        DOM.updateClass("ago_menubutton_logo", "id", "ago_menubutton_logo_" + spanClass);
+    },
+    clickButton: function () {
+        if (AGO.App.disabled) {
+            AGO.App.Save({disabled: false});
+            AGO.Init.Location("", 1000);
+        } else {
+            if (20 > AGO.Notify.problem) {
+                AGO.Option.Menu();
             }
-            c && (DOM.hasChildren(c) || (c.parentNode.style.display = "list-item", window.setTimeout(AGO.Main.hideInfo, AGO.Notify.loading ? 4E3 : 2E3)
-                ), a = document.getElementById("ago_menubutton_info_" + a) || DOM.append(c, "span", {id: "ago_menubutton_info_" + a}, {display: "block"}), DOM.updateText(a, null, b), DOM.updateStyle(a, null, "color", d)
-            )
         }
-    }, hideInfo: function () {
-        var a;
+    },
+    updateButton: function () {
+        5 < AGO.Init.status && DOM.setStyleColor("ago_menubutton", "id", AGO.Notify.color || "");
+    },
+    updateInfo: function (type, label, color) {
+        if (5 < AGO.Init.status && type) {
+            AGO.Main.statusInfo = 2;
+            let infoWrap = document.getElementById("ago_menubutton_info");
+
+            // if there is no info beneath the menu button, create one
+            if (!infoWrap) {
+                let menuButton, newWrap;
+                if (menuButton = document.getElementById("ago_menubutton"))  {
+                    newWrap = document.createElement("li");
+                    newWrap.className = "ago_menubutton_info";
+                    infoWrap = newWrap.appendChild(document.createElement("div"));
+                    infoWrap.id = "ago_menubutton_info";
+                    DOM.after(menuButton.parentNode, newWrap);
+                } else {
+                    infoWrap = void 0;
+                }
+            }
+
+            if (infoWrap) {
+                let infoSpan;
+                if (!DOM.hasChildren(infoWrap)) {
+                    infoWrap.parentNode.style.display = "list-item";
+                    window.setTimeout(AGO.Main.hideInfo, AGO.Notify.loading ? 4E3 : 2E3);
+                }
+
+                infoSpan = document.getElementById("ago_menubutton_info_" + type) || DOM.append(infoWrap, "span", {id: "ago_menubutton_info_" + type}, {display: "block"});
+                DOM.updateText(infoSpan, null, label);
+                DOM.updateStyle(infoSpan, null, "color", color);
+            }
+        }
+    },
+    hideInfo: function () {
+        let infoWrap;
+
+        // statusInfo starts with 2 and is decreased by 1 everytime hideInfo is called until it reaches 0
+        // when it reaches 0 the info wrap is removed
         AGO.Main.statusInfo = Math.max(AGO.Main.statusInfo - 1, 0);
         if (AGO.Main.statusInfo) {
             window.setTimeout(AGO.Main.hideInfo, AGO.Notify.loading ? 4E3 : 2E3);
-        } else if (AGO.Notify.set("Hide"),
-            a = document.getElementById("ago_menubutton_info")) {
-            DOM.removeChildren(a), DOM.setStyleDisplay(a.parentNode)
+        } else {
+            AGO.Notify.set("Hide");
+
+            if (infoWrap = document.getElementById("ago_menubutton_info")) {
+                DOM.removeChildren(infoWrap);
+                DOM.setStyleDisplay(infoWrap.parentNode);
+            }
         }
-    }, clickIcon: function () {
+    },
+    clickIcon: function () {
+        // toggle I83
+        // "I83": "Select the active target always when loading Fleet I."
         AGO.Option.set("I83", !AGO.Option.is("I83"), 1);
-        AGO.Init.Messages("Main", "Display");
-        AGO.Init.Messages("Panel", "Display")
+        AGO.Init.Messages("Main", "Display"); // AGO.Main.Display();
+        AGO.Init.Messages("Panel", "Display"); // AGO.Panel.Display();
     }, updateTitle: function () {
         if (AGO.Option.is('O04'))
             if ((AGO.Main.modeTitle > 0) && DOM.getProperty("eventboxBlank", "id", "offsetHeight", 2)) {
@@ -136,120 +208,14 @@ AGO.Main = {
                     document.title = AGO.App.title;
                 }
             }
-    }, Check: function () {
-    }, addVersionCheck: function (a) {
-        var b, d, c, e;
-        c = NMR.parseVersion(AGO.App.versionOGameMax) >= NMR.parseVersion(AGO.App.versionOGame);
-        b = document.getElementById("oGameVersionCheckData");
-        b || (a = a.appendChild(document.createElement("li")), b = DOM.appendDIV(a, {id: "oGameVersionCheckData"}, {display: "none"}), d = DOM.appendA(a, {
-                    id: "oGameVersionCheckMenuButton",
-                    "class": "menubutton"
-                }, {click: AGO.Main.clickVersionCheck}
-            ), e = {
-                BA: "Skripte",
-                CZ: "Skripty",
-                GR: "\u03a3\u03b5\u03bd\u03ac\u03c1\u03b9\u03b1",
-                HU: "Szkriptek",
-                JP: "\u30b9\u30af\u30ea\u30d7\u30c8",
-                NO: "Skript",
-                PL: "Skrypty",
-                RO: "Scripturi",
-                RU: "\u0441\u0446\u0435\u043d\u0430\u0440\u0438\u0438",
-                SE: "Skript",
-                SI: "Skripti",
-                SK: "Skripty",
-                TR: "Scriptler",
-                TW: "\u811a\u672c"
-            }[AGO.Uni.lang] || "Scripts", DOM.appendSPAN(d, "textlabel", e), c && AGO.Option.is("O02") && DOM.setStyleDisplay(a)
-        );
-        a = document.createElement("span");
-        DOM.appendSPAN(a, "", "AntiGameOrigin");
-        DOM.appendSPAN(a, "", AGO.App.versionOGameMax);
-        DOM.appendSPAN(a, "", "https://antigame.de/home.php?page=home");
-        DOM.appendSPAN(a,
-            "", c
-        );
-        DOM.appendChild(b, a);
-        (d = d || document.getElementById("oGameVersionCheckMenuButton")
-        ) && !c && (b = 6, window.localStorage && (c = window.localStorage.getItem("OGameVersionCheck") || "", b = parseInt(c.split("|")[1], 10) || 0, c.split("|")[0] !== AGO.ogameVersion && (b = 0
-                )
-            ), 6 > b && "#FF4B00" !== d.style.color && (window.localStorage && window.localStorage.setItem("OGameVersionCheck", AGO.App.versionOGame + "|" + (b + 1
-                )
-                ), d.style.color = "#FF4B00"
-            )
-        )
-    }, checkVersionCheck: function () {
-        var a, b;
-        (a = document.getElementById("oGameVersionCheckData")
-        ) &&
-        AGO.Option.is("O02") && (DOM.iterateChildren(a, function (a) {
-                    "true" !== DOM.getText(DOM.getChildren(a, 3)) && (b = !0
-                    )
-                }
-            ), DOM.setStyleDisplay(a.parentNode, null, b ? "list-item" : "none")
-        )
-    }, clickVersionCheck: function () {
-        var a, b, d, c, e, f, g;
-        a = document.getElementById("contentWrapper");
-        b = document.getElementById("oGameVersionCheck");
-        e = document.getElementById("oGameVersionCheckData");
-        if (a) {
-            if (DOM.setStyleDisplay("inhalt", "id", b ? "block" : "none"), b) {
-                a.removeChild(b);
-            } else {
-                c = (b = document.querySelector("#oGameVersionCheckMenuButton span")
-                ) ?
-                    b.textContent : "";
-                b = DOM.appendDIV(null, {id: "oGameVersionCheck"});
-                d = DOM.appendDIV(b, null, {
-                        background: 'url("' + document.location.protocol + '//gf1.geo.gfsrv.net/cdn63/10e31cd5234445e4084558ea3506ea.gif") no-repeat scroll 0px 0px transparent',
-                        height: "28px",
-                        marginTop: "8px",
-                        position: "relative",
-                        textAlign: "center"
-                    }
-                );
-                DOM.appendDIV(d, null, {
-                        font: "700 12px/23px Verdana,Arial,Helvetica,sans-serif",
-                        color: "rgb(111, 159, 200)",
-                        paddingTop: "3px"
-                    }
-                ).textContent = c;
-                d = DOM.appendDIV(b, null, {
-                        background: 'url("' + document.location.protocol + '//gf1.geo.gfsrv.net/cdn9e/4f73643e86a952be4aed7fdd61805a.gif") repeat-y scroll 5px 0px transparent',
-                        color: "rgb(132, 132, 132)",
-                        margin: "0px",
-                        padding: "17px 0px 10px",
-                        width: "100%",
-                        textAlign: "center"
-                    }
-                );
-                if (e) {
-                    for (g = 0; g < e.childNodes.length; g++) {
-                        f = e.childNodes[g].childNodes[2].textContent, c = DOM.append(d, "p", null, {
-                                padding: "3px 0px",
-                                color: "true" === e.childNodes[g].childNodes[3].textContent ? "#008000" : "#FF4B00"
-                            }
-                        ), DOM.appendTEXT(c, e.childNodes[g].childNodes[0].textContent), DOM.appendA(c, {
-                                href: f,
-                                target: "_blank"
-                            }
-                        ).textContent = " ( link ) ";
-                    }
-                }
-                DOM.appendDIV(b, null, {
-                        background: 'url("' + document.location.protocol + '//gf1.geo.gfsrv.net/cdn30/aa3e8edec0a2681915b3c9c6795e6f.gif") no-repeat scroll 2px 0px transparent',
-                        height: "17px"
-                    }
-                );
-                DOM.prependChild(a, b)
-            }
-        }
-    }
+    }, Check: function () {}
 };
 AGO.Planets = {
     status: 0,
     updateDisplayStatus: 0,
+    selectedPlanet: 0,
+    selectedType: 0,
+    switchTimeout: 0,
     Data: {},
     ByIndex: [],
     ByCoords: {},
@@ -463,7 +429,11 @@ AGO.Planets = {
     }
 };
 AGO.Panel = {
-    displayStatus: 0, mouseStatus: !1, mouseCount: 0, Data: {}, Messages: function (a, b) {
+    displayStatus: 0,
+    mouseStatus: false,
+    mouseCount: 0,
+    Data: {},
+    Messages: function (a, b) {
         "Display" === a ? AGO.Panel.Display(b) : "updateTab" === a ? AGO.Panel.updateTab(b) : "Action" === a ? AGO.Panel.Action(b) : "hover" === a && AGO.Panel.hoverExtern(b)
     }, Timer: function () {
     }, Init: function (a, b) {
@@ -574,9 +544,20 @@ AGO.Panel = {
     ) {
         a = a && AGO.Panel.Data[a] && b ? AGO.Panel.Data[a][b] : "";
         return 6 === d ? STR.check(a) : +a || 0
-    }, GetActive: function (a, b, d) {
-        a = a && AGO.Panel.Data[a] ? OBJ.get(AGO.Panel.Data[a].active, b) : "";
-        return 6 === d ? STR.check(a) : +a || 0
+    },
+    getActive: function (tab, prop, string) {
+        let result;
+        if (tab && AGO.Panel.Data[tab]) {
+            result = OBJ.get(AGO.Panel.Data[tab].active, prop);
+        } else {
+            result = "";
+        }
+
+        if (6 === string) {
+            return STR.check(result);
+        } else {
+            return +result || 0;
+        }
     }, Display: function (a) {
         var b, d;
         if (5 < AGO.Init.status && !AGO.Panel.updateDisplayLock) {
@@ -1074,7 +1055,7 @@ AGO.Panel = {
     }, createAlliance: function (a, b, d, c) {
         function e(b) {
             var d, c, e;
-            b && b.tab && (e = AGO.Panel.GetActive("Alliance", "id", 6), d = document.createDocumentFragment(), c =
+            b && b.tab && (e = AGO.Panel.getActive("Alliance", "id", 6), d = document.createDocumentFragment(), c =
                     AGO.Panel.appendTable(d), AGO.Panel.appendToken(c, "Alliance", b.token, b.listTab), c = AGO.Panel.appendTable(d), AGO.Panel.appendAlliance(c, "Alliance", b.token, e, b.listToken), DOM.replaceChildren(DOM.getChildren(a, 2), d)
             )
         }
@@ -1083,7 +1064,7 @@ AGO.Panel = {
     }, createPlayer: function (a, b, d, c) {
         function e(b) {
             var d, c, e;
-            b && b.tab && (e = AGO.Panel.GetActive("Player", "id", 6), d = document.createDocumentFragment(), c = AGO.Panel.appendTable(d), AGO.Panel.appendToken(c, b.tab, b.token, b.listTab),
+            b && b.tab && (e = AGO.Panel.getActive("Player", "id", 6), d = document.createDocumentFragment(), c = AGO.Panel.appendTable(d), AGO.Panel.appendToken(c, b.tab, b.token, b.listTab),
                     c = AGO.Panel.appendTable(d), AGO.Panel.appendPlayer(c, b.token, e, b.listToken), DOM.replaceChildren(DOM.getChildren(a, 2), d)
             )
         }
@@ -1096,7 +1077,7 @@ AGO.Panel = {
     }, createTarget: function (a, b, d, c) {
         function e(b) {
             var d, c, e;
-            b && b.tab && (e = AGO.Panel.GetActive("Target", "id", 6), d = document.createDocumentFragment(), c = AGO.Panel.appendTable(d), AGO.Panel.appendToken(c, "Target", b.token, b.listTab), c = AGO.Panel.appendTable(d), AGO.Panel.appendTarget(c,
+            b && b.tab && (e = AGO.Panel.getActive("Target", "id", 6), d = document.createDocumentFragment(), c = AGO.Panel.appendTable(d), AGO.Panel.appendToken(c, "Target", b.token, b.listTab), c = AGO.Panel.appendTable(d), AGO.Panel.appendTarget(c,
                     b.token, e, b.listToken
                 ), DOM.replaceChildren(DOM.getChildren(a, 2), d)
             )
@@ -1298,7 +1279,7 @@ AGO.Panel = {
                     data: a.token
                 }
             ) : ("toggle" === a.action &&
-                (a.action = AGO.Panel.GetActive(b, "id", 6) === a.id ? "deselect" : "select", "Target" === b && VAL.check(AGO.App.page, "fleet1", "fleet2") && (a.action = "select"
+                (a.action = AGO.Panel.getActive(b, "id", 6) === a.id ? "deselect" : "select", "Target" === b && VAL.check(AGO.App.page, "fleet1", "fleet2") && (a.action = "select"
                     )
                 ), d = VAL.check(a.action, "remove", "deselect") ? "" : a.id, AGB.message("Token", "Get", {
                         tab: b,
@@ -1440,7 +1421,7 @@ AGO.Box = {
     }, Display: function () {
         var a, b;
         a = AGO.Panel.Get("Box", "data", 6);
-        b = AGO.Panel.GetActive(a, "id", 6);
+        b = AGO.Panel.getActive(a, "id", 6);
         "Player" === a && b ? AGB.message("Box", "List", {tab: a, id: b, planets: 1}, AGO.Box.Show) : AGO.Box.Show()
     }, click: function (a) {
         a && a.target && (a = DOM.getData(a.target,
@@ -1501,7 +1482,7 @@ AGO.Events = {
                     mission: c,
                     arrival: +a[d].getAttribute("data-arrival-time") || 0,
                     union: g ||
-                    "",
+                        "",
                     unionType: h || 0,
                     reverse: "true" === a[d].getAttribute("data-return-flight")
                 }, AGO.Events.modeColorMissions && AGO.Events.eData[f].reverse && (a[d].className += " ago_events_reverse"
