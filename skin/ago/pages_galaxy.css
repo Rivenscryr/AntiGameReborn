@@ -96,6 +96,15 @@
     color: #cfcbc2
 }
 
+body:not(.ago_improve) #galaxytable td.playername {
+	width: 172px !important;
+}
+
+body:not(.ago_improve) #galaxytable {
+	min-height: 606px;
+	height: 606px;
+}
+
 .ago_galaxy_rank {
     font-size: 10px;
     color: #cfcbc2
@@ -169,6 +178,21 @@
 	height: 24px;
 	background-size: 24px;
 	background-repeat: no-repeat;
+}
+
+#galaxy .ago_shrink_1 #galaxytable td.moon a, #galaxy .ago_shrink_1 #galaxytable td.debris a {
+	width: 28px;
+	height: 28px;
+}
+
+#galaxy .ago_shrink_2 #galaxytable td.moon a, #galaxy .ago_shrink_2 #galaxytable td.debris a {
+	width: 26px;
+	height: 26px;
+}
+
+#galaxy .ago_shrink_3 #galaxytable td.moon a, #galaxy .ago_shrink_3 #galaxytable td.debris a {
+	width: 24px;
+	height: 24px;
 }
 
 #galaxy .ago_shrink_1 #galaxytable .debrisField, #galaxy .ago_shrink_1 #galaxytable .noDebrisField {
@@ -275,16 +299,20 @@
 	background-color: inherit;
 }
 
-#galaxy.ago_improve #galaxytable tbody, #galaxy .ago_shrink_1 #galaxytable tbody {
+#galaxy.ago_improve #galaxytable tbody {
 	border-spacing: 3px 3px;
 }
 
-#galaxy .ago_shrink_2 #galaxytable tbody {
+#galaxy .ago_shrink_1 #galaxytable tbody {
 	border-spacing: 2px 2px;
 }
 
-#galaxy .ago_shrink_3 #galaxytable tbody {
+#galaxy .ago_shrink_2 #galaxytable tbody {
 	border-spacing: 1px 1px;
+}
+
+#galaxy .ago_shrink_3 #galaxytable tbody {
+	border-spacing: 0px 0px;
 }
 
 #galaxy .ago_shrink_2 #galaxytable tr.row, #galaxy .ago_shrink_3 #galaxytable tr.row {
@@ -296,23 +324,23 @@
 }
 
 #galaxy.ago_improve #galaxytable {
-	min-height: 604px;
-	height: 604px;
+	min-height: 606px;
+	height: 606px;
 }
 
 #galaxy .ago_shrink_1 #galaxytable {
-	min-height: 604px;
-	height: 604px;
+	min-height: 591px;
+	height: 591px;
 }
 
 #galaxy .ago_shrink_2 #galaxytable {
-	min-height: 575px;
-	height: 575px;
+	min-height: 546px;
+	height: 546px;
 }
 
 #galaxy .ago_shrink_3 #galaxytable {
-	min-height: 560px;
-	height: 560px;
+	min-height: 531px;
+	height: 531px;
 }
 
 #galaxy div.activity {
