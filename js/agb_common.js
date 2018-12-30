@@ -706,7 +706,8 @@ AGB.Units = {
         } else if ("List" === role) {
             AGB.Units.List(para, response);
         }
-    }, Start: function (keyPlayer) {
+    },
+    Start: function (keyPlayer) {
         let data, returnObj;
         returnObj = {};
         if ((data = AGB.Units.Data[keyPlayer]) && data.account) {
@@ -715,11 +716,11 @@ AGB.Units = {
             OBJ.iterate(AGB.Item.Research, function (ID) {
                 returnObj[ID] = +data.account[ID] || 0;
             });
+            returnObj.Moons = {};
+            OBJ.is(data) && OBJ.iterate(data, function (ID) {
+                !isNaN(ID) && OBJ.is(data[ID]) && data[ID][43] && (returnObj.Moons[ID] = {43: data[ID][43]});
+            });
         }
-        returnObj.Moons = {};
-        OBJ.is(data) && OBJ.iterate(data, function (ID) {
-            !isNaN(ID) && OBJ.is(data[ID]) && data[ID][43] && (returnObj.Moons[ID] = {43: data[ID][43]});
-        });
         return returnObj;
     }, Init: function (a, b) {
         var c, d, e, f, g;
