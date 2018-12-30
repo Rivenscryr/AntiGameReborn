@@ -59,15 +59,18 @@ AGO.Empire = {
                 AGO.Task.updateResources(h);
                 AGO.Empire.improve && DOM.setText(".items.groupitems + div", this, h.resources, 3);
                 for (g in m) {
-                    if (a = $(this).find("div." + g + " img").length ? $(this).find("div." + g).eq(0).clone().children().remove().end().get(0) : $(this).find("div." + g).get(0)) {
+                    if (a = $(this).find("div." + g).get(0)) {
                         if (g in AGO.Item.Ship || g in AGO.Item.Defense) {
-                            h[g] = DOM.getText(a, null, 3), g in AGO.Item.Ship && AGO.Item[g].capacity && h[g] && (h.capacity += h[g] * AGO.Item[g].capacity
-                            );
+                            a = a.childNodes.length > 1 ? a.childNodes[0] : a;
+                            h[g] = DOM.getText(a, null, 3);
+                            g in AGO.Item.Ship && AGO.Item[g].capacity && h[g] && (h.capacity += h[g] * AGO.Item[g].capacity);
                         } else if (g in AGO.Item.Mining || g in AGO.Item.Station || g in AGO.Item.Research) {
-                            (e =
-                                    a.querySelector("span.disabled")
-                            ) ? (h[g] = DOM.getText(e, null, 3), AGO.Empire.improve && "199" !== g && "212" !== g && -1 === DOM.getText(e).indexOf("-") && AGO.Empire.appendTooltip(e, g, h, b)
-                            ) : h[g] = DOM.getText("a", a, 3);
+                            if (e = a.querySelector("span.disabled")) {
+                                h[g] = DOM.getText(e, null, 3);
+                                AGO.Empire.improve && "199" !== g && "212" !== g && -1 === DOM.getText(e).indexOf("-") && AGO.Empire.appendTooltip(e, g, h, b)
+                            } else {
+                                h[g] = DOM.getText("a", a, 3);
+                            }
                         }
                     }
                 }
