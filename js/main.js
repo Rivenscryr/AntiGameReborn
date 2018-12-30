@@ -87,11 +87,12 @@ AGO.Main = {
         AGO.Main.Check()
     }, onKeydown: function (a) {
         var b;
+        let ctrlArrowPlanetSwitch = AGO.Option.is("U35");
 		if (112 <= a.keyCode && 123 >= a.keyCode && AGO.Option.is("U32")) {
 			if ((b = document.querySelectorAll("#planetList .smallplanet a.planetlink")) && b[a.keyCode - 112]) 
 				DOM.click(a.shiftKey ? "a.moonlink" : "a.planetlink", b[a.keyCode - 112].parentNode); 
 			return false;
-		} else if (a.keyCode >= 37 && a.keyCode <= 40 && a.ctrlKey) {
+		} else if (a.keyCode >= 37 && a.keyCode <= 40 && a.ctrlKey && ctrlArrowPlanetSwitch) {
             if (document.activeElement.tagName in {'TEXTAREA': 1}) return;
 			let direction = {37: "left", 38: "up", 39: "right", 40: "down"}[a.keyCode];
 			if ("left" === direction)
