@@ -107,11 +107,10 @@ AGO.Fleet1 = {
                 g = PAGE[5] = AGO.Task.splitActive(AGO.Option.get("F81", -1), 1);
                 e && AGO.Fleet.Set("Routine", {Collect: 1 === e ? "::::3:10::::1" : 2 === e ? h + "::::::2" : ""});
                 l = AGO.Task.split(AGO.Fleet.Get("Routine", "Collect", 6), 0, 1);
+                !AGO.Planets.ByCoords[l.coords] && AGO.Fleet.Set("Routine", {Collect: ""});
                 l.routine && (g.last = l.routine, l.routine = 0, OBJ.iterate(l, function (a) {
-                            l[a] && (g[a] = l[a]
-                            )
-                        }
-                    )
+                        l[a] && (g[a] = l[a])
+                    })
                 );
                 1 === g.last ? AGO.Task.updateCoordsType(g, AGO.Acc.coords + ":3") : (g.type = PAGE.Type.check(g.type) || 1, AGO.Task.updateCoords(g, 2)
                 );
