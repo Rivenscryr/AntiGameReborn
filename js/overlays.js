@@ -530,3 +530,41 @@ AGO.Search = {
         )
     }
 };
+AGO.ShareReport = {
+    Buddies: [],
+    Overlay: function (content) {
+        DOM.addObserver(content, {childList: true}, function (mutations) {
+            mutations.forEach(function (mutation) {
+                mutation.addedNodes.length && AGO.ShareReport.getBuddies(function () {
+                    AGO.ShareReport.getAlliance(function () {
+                        AGO.ShareReport.Display(content);
+                    });
+                });
+            });
+        });
+    },
+    Display: function (content) {
+        AGO.ShareReport.Buddies.forEach(function (buddy) {
+            $(content).find("#selectNew").append(
+                $("<option>", {value: buddy, text: buddy})
+            );
+        })
+    },
+    getBuddies: function (callback) {
+        $.post("index.php?page=buddies", function (res) {
+            $(res).find(".player").each(function (i, e) {
+                AGO.ShareReport.Buddies.push(e.textContent);
+            });
+            callback();
+        });
+    },
+    getAlliance: function (callback) {
+        $.post("index.php?page=allianceOverview", {ajax: 1}, function (res) {
+            $(res).find("table.members tbody tr td:first-child span").each(function (i, e) {
+                let buddy = e.textContent.split("(")[0].replace(/\s+/g, "");
+                AGO.ShareReport.Buddies.indexOf(buddy) === -1 && AGO.ShareReport.Buddies.push(buddy);
+            });
+            callback();
+        })
+    }
+};

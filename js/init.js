@@ -575,7 +575,8 @@ AGO.App = {
         showmessage: "Showmessage",
         buddies: "Buddies",
         notices: "Notices",
-        search: "Search"
+        search: "Search",
+        sharereportoverlay: "ShareReport"
     },
     Content: {
         resources: "Resources",
