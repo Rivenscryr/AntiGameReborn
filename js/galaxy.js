@@ -94,10 +94,20 @@ AGO.Galaxy = {
         var a, b, d, h;
         a = document.getElementById("galaxytable");
         if (AGO.Galaxy.status && a && DOM.updateAttribute(a, null, "ago-status", 1, 8)) {
-            b = DOM.getAttribute(a, null, "data-galaxy",
-                2
-            );
+            b = DOM.getAttribute(a, null, "data-galaxy", 2);
             d = DOM.getAttribute(a, null, "data-system", 2);
+
+            let agoBox = DOM.query("#ago_box");
+            if (agoBox && agoBox.style.display !== "none") {
+                let index = 1;
+                DOM.iterateChildren(DOM.query("#ago_box_content", agoBox), function (child) {
+                    let data = DOM.query("a:first-child", child).getAttribute("ago-data");
+                    data = JSON.parse(data).message.data;
+                    if (data.galaxy === b && data.system === d) AGO.Box.Current = index;
+                    index++;
+                })
+            }
+
             AGO.Galaxy.sameSystem = b === AGO.Galaxy.Data.galaxy && d === AGO.Galaxy.Data.system;
             AGO.Galaxy.Data = {galaxy: b, system: d, Row: []};
             AGO.Galaxy.behave = AGO.Option.is("G51") || AGO.Init.mobile ? AGO.Option.is("G52") ? 3 : AGO.isMobile ? 2 : 1 : 0;

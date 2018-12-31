@@ -1381,7 +1381,9 @@ AGO.Panel = {
     }
 };
 AGO.Box = {
-    Data: {}, Messages: function (a, b) {
+    Data: {},
+    Current: 0,
+    Messages: function (a, b) {
         "Action" === a && AGO.Box.Action(b)
     }, Init: function (a, b) {
         AGO.Box.enabled = !0;
@@ -1436,7 +1438,7 @@ AGO.Box = {
                         "class": "ago_box",
                         id: "ago_box"
                     }, {fontSize: "9px"}
-                ), c = DOM.appendDIV(b, {id: "ago_box_header"}), DOM.appendA(c, "ago_box_icon22 galaxy highlighted", {click: AGO.Box.clickGalaxy}), DOM.appendA(c, "ago_box_icon22 galaxy highlighted", null, {task: "home"}), DOM.appendSPAN(c, {
+                ), c = DOM.appendDIV(b, {id: "ago_box_header"}), DOM.appendA(c, "ago_box_icon22 galaxy highlighted", null, {task: "cycle"}), DOM.appendSPAN(c, {
                         id: "ago_box_title",
                         "class": "tooltipHTML",
                         title: e
@@ -1454,10 +1456,16 @@ AGO.Box = {
         b = AGO.Panel.getActive(a, "id", 6);
         "Player" === a && b ? AGB.message("Box", "List", {tab: a, id: b, planets: 1}, AGO.Box.Show) : AGO.Box.Show()
     }, click: function (a) {
-        a && a.target && (a = DOM.getData(a.target,
-                null, 2
-            ), "home" === a.task && DOM.click("#ago_box_content .ago_box_homeplanet a:first-child"), OBJ.is(a.action) && AGO.Box.Action(a.action), OBJ.is(a.message) && AGO.Init.Messages(a.message.page, a.message.role, a.message.data)
-        )
+        if (a && a.target) {
+            a = DOM.getData(a.target, null, 2);
+            if ("cycle" === a.task) {
+                let planetCount = DOM.queryAll("#ago_box_content div").length;
+                if (AGO.Box.Current + 1 > planetCount) AGO.Box.Current = 0;
+                DOM.click("#ago_box_content div:nth-child("+(AGO.Box.Current+1)+") a:first-child");
+            }
+            OBJ.is(a.action) && AGO.Box.Action(a.action);
+            OBJ.is(a.message) && AGO.Init.Messages(a.message.page, a.message.role, a.message.data);
+        }
     }, Action: function (a) {
         AGO.Box.enabled && OBJ.is(a) && ("remove" === a.action && (AGB.message("Box", "List", {tab: a.tab}), a.tab = ""
             ), AGO.Panel.set("Box", "data", a.tab), AGO.Box.Display()
