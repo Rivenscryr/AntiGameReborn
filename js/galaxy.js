@@ -141,7 +141,7 @@ AGO.Galaxy = {
             AGO.Galaxy.updateDataBase()
         }
     }, showRows: function (rows) {
-        var cellAlly, cellPlayer, cellPlanet, cellMoon, cellDebris, cellPosition, cellPlanetName, f, divTooltip, ulListLinks, l, row, debrisSizeStyle, q, dontFixTooltips;
+        let cellAlly, cellPlayer, cellPlanet, cellMoon, cellDebris, cellPosition, cellPlanetName, row, debrisSizeStyle, q, dontFixTooltips;
         debrisSizeStyle = AGO.Option.get("G45", 2);
         dontFixTooltips = AGO.Option.is("G58");
         for (let i = 0; i < rows.length; i++) {
