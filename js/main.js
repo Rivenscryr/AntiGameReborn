@@ -1431,6 +1431,7 @@ AGO.Box = {
                 }
             }
             e = a.playerName + "|Planets: " + a.planets.length + "<BR>";
+            let galaxyIconFunction = AGO.Option.get("O71");
             (b = document.getElementById("ago_box")
             ) ? (DOM.setAttribute("ago_box_title", "id", "title", e),
                     DOM.setText("ago_box_title", "id", a.playerName), DOM.replaceChildren(document.getElementById("ago_box_content"), d), DOM.setStyleDisplay(b, null, "block")
@@ -1438,7 +1439,7 @@ AGO.Box = {
                         "class": "ago_box",
                         id: "ago_box"
                     }, {fontSize: "9px"}
-                ), c = DOM.appendDIV(b, {id: "ago_box_header"}), DOM.appendA(c, "ago_box_icon22 galaxy highlighted", null, {task: "cycle"}), DOM.appendSPAN(c, {
+                ), c = DOM.appendDIV(b, {id: "ago_box_header"}), DOM.appendA(c, "ago_box_icon22 galaxy highlighted", null, {task: galaxyIconFunction === 0 ? "home" : "cycle"}), DOM.appendSPAN(c, {
                         id: "ago_box_title",
                         "class": "tooltipHTML",
                         title: e
@@ -1463,6 +1464,7 @@ AGO.Box = {
                 if (AGO.Box.Current + 1 > planetCount) AGO.Box.Current = 0;
                 DOM.click("#ago_box_content div:nth-child("+(AGO.Box.Current+1)+") a:first-child");
             }
+            "home" === a.task && DOM.click("#ago_box_content .ago_box_homeplanet a:first-child");
             OBJ.is(a.action) && AGO.Box.Action(a.action);
             OBJ.is(a.message) && AGO.Init.Messages(a.message.page, a.message.role, a.message.data);
         }
