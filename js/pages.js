@@ -259,9 +259,15 @@ AGO.Building = {
             } else if (VAL.check(c, "22", "23", "24")) {
                 e = AGO.Ogame.getStorageCapacity(b.current), d = e - AGO.Ogame.getStorageCapacity(b.difference), AGO.Building.updateValue("ago_items_detail", e, d);
             } else if ("42" === c) {
-                d = (e = b.current * b.current
-                ) ? "(" + AGO.Acc.galaxy +
-                    ":" + Math.max(AGO.Acc.system - e + 1, 1) + " - " + AGO.Acc.galaxy + ":" + Math.min(AGO.Acc.system + e - 1, AGO.Uni.systems) + ")" : "", AGO.Building.updateValue("ago_items_detail", e, d);
+                e = b.current * b.current;
+                let lower = AGO.Acc.system - e + 1;
+                lower = lower < 1 && AGO.Uni.donutSystem ? AGO.Uni.systems - Math.abs(lower) : Math.max(lower, 1);
+                lower = e > AGO.Uni.systems/2 ? 1 : lower;
+                let higher = AGO.Acc.system + e - 1;
+                higher = higher > AGO.Uni.systems && AGO.Uni.donutSystem ? higher - AGO.Uni.systems : Math.min(higher, AGO.Uni.systems);
+                higher = e > AGO.Uni.systems/2 ? AGO.Uni.systems : higher;
+                d = e ? "(" + AGO.Acc.galaxy + ":" + lower + " - " + AGO.Acc.galaxy + ":" + higher + ")" : "";
+                AGO.Building.updateValue("ago_items_detail", e, d);
             } else if (200 < c) {
                 if (c in AGO.Item.Ship || AGO.Uni.defToTF && c in AGO.Item.Defense) {
                     b = {}, b[c] = Math.max(AGO.Building.Data[c].level, 1), b = AGO.Ogame.getDebris(b, !0), d = "(" + Math.min(Math.floor(b.total / 1E4) / 10, 20) + "%)", AGO.Building.updateValue("ago_items_detail", b.total, d);
@@ -430,9 +436,7 @@ AGO.Building = {
                 )
             ), DOM.replaceChildren(c, d), c = d = e = g = h = null
         }
-    }, updateValue: function (a,
-                              b, c, d
-    ) {
+    }, updateValue: function (a, b, c, d) {
         if (a = document.getElementById(a)) {
             "string" === typeof b ? DOM.updateTextChild(a, null, b) : DOM.updateTextChild(a, null, b || "0", b ? 4 : 0), d && DOM.setData(a, null, d), "string" === typeof c ? DOM.updateText("span", a, c) : (b = c ? (0 < c ? "(+" : "("
                 ) + STR.formatNumber(Math.ceil(c), !0) + ")" : "(0)", (b = DOM.updateText("span", a, b)
