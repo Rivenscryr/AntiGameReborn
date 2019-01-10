@@ -19,6 +19,7 @@ AGO.Messages = {
     handlingMessageTabEvent: false,
 
     allMessages: {},
+    visibleMessages: {},
     spyReports: {},
     spyReportsKeys: {},
 
@@ -48,9 +49,10 @@ AGO.Messages = {
 
                     if (tab && AGO.Messages.messageTabEvents[tab.id]) {
                         DOM.query('.tab_inner', mutation.target).classList.add('ago_improved');
-                        AGO.Messages.allMessages = {};
+                        AGO.Messages.visibleMessages = {};
                         var content = document.getElementById(tab.getAttribute('aria-controls'));
                         DOM.iterate(DOM.queryAll('.msg', content), function (message) {
+                            AGO.Messages.visibleMessages[message.dataset.msgId] = message;
                             AGO.Messages.allMessages[message.dataset.msgId] = message;
                         });
                         AGO.Messages.addButtons(AGO.Messages.messageTabEvents[tab.id], content);
@@ -104,7 +106,7 @@ AGO.Messages = {
         var deleteIDs = [];
         OBJ.iterate(AGO.Messages.allMessages, function doAction(msgID) {
             if ((e.target.name === 'delEspAction' && DOM.query('.espionageDefText', AGO.Messages.allMessages[msgID])) ||
-                (e.target.name === 'delEspLoot' && DOM.query('.compacting', AGO.Messages.allMessages[msgID]) && AGO.Messages.allMessages[msgID].dataset.lucrative === '0') ||
+                (e.target.name === 'delEspLoot' && AGO.Messages.spyReports[msgID] && AGO.Messages.spyReports[msgID].lucrative === '0') ||
                 (e.target.name === 'delShown')
             ) {
                 deleteIDs.push(msgID)
@@ -168,9 +170,9 @@ AGO.Messages = {
     },
 
     reviseContent: function (tab, tabContent) {
-        OBJ.iterate(AGO.Messages.allMessages, function (msgId) {
+        OBJ.iterate(AGO.Messages.visibleMessages, function (msgId) {
             if (AGO.Option.is('A31')) {
-                var spanTime = DOM.query('.msg_head .msg_date', AGO.Messages.allMessages[msgId]);
+                var spanTime = DOM.query('.msg_head .msg_date', AGO.Messages.visibleMessages[msgId]);
                 var msgTime = DOM.getText(spanTime);
                 spanTime.textContent = AGO.Time.convertLocal(msgTime);
             }
@@ -180,9 +182,9 @@ AGO.Messages = {
     shrinkSpyReports: function (tab, tabContent) {
         // shrink spy reports
         if (AGO.Option.is("M12")) {
-            OBJ.iterate(AGO.Messages.allMessages, function (msgId) {
+            OBJ.iterate(AGO.Messages.visibleMessages, function (msgId) {
                 // TODO: tried to use css, but firefox completely ignores it!?
-                var message = AGO.Messages.allMessages[msgId];
+                var message = AGO.Messages.visibleMessages[msgId];
                 if (DOM.query('.compacting', message) || DOM.query('.espionageDefText', message)) {
                     DOM.iterate(DOM.queryAll('.msg_content br'), function (br) {
                         br.parentElement.removeChild(br);
@@ -212,8 +214,8 @@ AGO.Messages = {
         };
 
         var prefillTechs = window.btoa(JSON.stringify(playerTechs));
-        OBJ.iterate(AGO.Messages.allMessages, function (id) {
-            var message = AGO.Messages.allMessages[id];
+        OBJ.iterate(AGO.Messages.visibleMessages, function (id) {
+            var message = AGO.Messages.visibleMessages[id];
             if (DOM.query('.compacting', message)) {
                 var txtLink = DOM.query('.msg_actions .txt_link', message);
                 var divActBtns = document.createElement('div');
@@ -311,8 +313,8 @@ AGO.Messages = {
     },
 
     parseMessagesEsp: function (tab, tabContent) {
-        OBJ.iterate(AGO.Messages.allMessages, function (msgId) {
-            var message = AGO.Messages.allMessages[msgId],
+        OBJ.iterate(AGO.Messages.visibleMessages, function (msgId) {
+            var message = AGO.Messages.visibleMessages[msgId],
                 c;
 
             if (DOM.query('.compacting', message)) {
@@ -330,6 +332,7 @@ AGO.Messages = {
                 p.position = p.coords.split(':')[2];
                 p.isMoon = DOM.query('.msg_head .msg_title .moon', message) ? 1 : 0;
                 p.activityColor = DOM.getAttribute('.msg_content font', message, 'color', '');
+                p.attacking = DOM.query('.icon_attack img', message) ? 1 : 0;
 
                 p.loot = NMR.parseIntRess(DOM.getAttribute('.tooltipRight', message, 'title', ''));
                 var a, b = AGO.Option.get('FA3') / 100;
@@ -379,13 +382,14 @@ AGO.Messages = {
 
     getSpyReportMap: function () {
         var i = 0;
-        AGO.Messages.spyReports = {};
-        OBJ.iterate(AGO.Messages.allMessages, function (msgId) {
-            if (DOM.query('.compacting', AGO.Messages.allMessages[msgId])) {
-                AGO.Messages.spyReports[i] = AGO.Messages.allMessages[msgId].dataset;
+        //AGO.Messages.spyReports = {};
+        OBJ.iterate(AGO.Messages.visibleMessages, function (msgId) {
+            if (DOM.query('.compacting', AGO.Messages.visibleMessages[msgId])) {
+                AGO.Messages.spyReports[msgId] = AGO.Messages.visibleMessages[msgId].dataset;
                 i++;
             }
         });
+        AGO.Messages.Count = i;
     },
 
     sortSpyReports: function (by) {
@@ -467,7 +471,7 @@ AGO.Messages = {
         });
 
         var tableBody = DOM.query('tbody', table);
-        OBJ.iterate(AGO.Messages.spyReports, function (id) {
+        OBJ.iterate(AGO.Messages.spyReportsKeys, function (id) {
             var f;
             var p = {};
             OBJ.copy(AGO.Messages.spyReports[AGO.Messages.spyReportsKeys[id]], p);
@@ -543,7 +547,7 @@ AGO.Messages = {
                 DOM.query('#spyTable tbody').removeChild(DOM.query('#t_' + p.msgId));
                 if (f = DOM.query('#d_' + p.msgId)) DOM.query('#spyTable tbody').removeChild(f);
                 OBJ.deleteWhere(AGO.Messages.spyReports, 'msgId', p.msgId);
-                OBJ.deleteWhere(AGO.Messages.allMessages, 'id', 'm' + p.msgId);
+                OBJ.deleteWhere(AGO.Messages.visibleMessages, 'id', 'm' + p.msgId);
                 AGO.Messages.refreshSummary();
                 AGO.Messages.refreshOddEven();
             };
@@ -584,7 +588,7 @@ AGO.Messages = {
             aAttack.href = '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3' + (AGO.Option.is('FA2') ? '&am202=' + p.sc : '&am203=' + p.lc);
             aAttack.textContent = 'A';
             AGO.Option.is('M16') ? aAttack.target = 'ago_fleet_attacks' : 0;
-            DOM.query('.icon_attack img', message) ? aAttack.classList.add('attacking') : 0;
+            p.attacking === "1" && aAttack.classList.add('attacking');
 
             tableBody.appendChild(row);
         });
