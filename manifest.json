@@ -1,7 +1,7 @@
 {
   "name": "AntiGameReborn",
   "short_name": "AGR",
-  "version": "6.8.3.2",
+  "version": "6.8.3.3",
   "description": "AGR - the other OGame experience for all communities.",
   "default_locale": "en",
   "manifest_version": 2,
@@ -36,7 +36,7 @@
       ],
       "js": [
         "js/main.js",
-        "js/libs.js",
+        "js/libs/purify.min.js",
         "js/basics.js",
         "js/common.js",
         "js/overlays.js",

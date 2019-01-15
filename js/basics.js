@@ -114,7 +114,7 @@ var DOM = {
         return a
     }, innerHTML: function (a, b, c) {
         if (a = DOM.query(a, b)) {
-            a.innerHTML = DOMPurify.sanitize(c);
+            a.innerHTML = DOMPurify.sanitize(c, {ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp|chrome-extension):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i});
         }
     }, parse: function (html) {
         // based on jQuery.buildFragment()
