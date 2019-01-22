@@ -159,6 +159,7 @@
     "M86": "Espionage action on",
     "M87": "Return of a fleet",
     "M91": "Delete shown or marked messages",
+    "M92": "Delete shown or marked Spy reports with defense > $defense",
     "S63": "Update installed",
     "S64": "Update available",
     "S65": "Espionage reports not available",

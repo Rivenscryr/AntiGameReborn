@@ -1063,7 +1063,7 @@ AGO.Menu.Show = function (a) {
                 "G47",
                 "G48"
             ]
-        ),d("G43"),d("G44"),d("G51"),d("G58"),AGO.Menu.appendSection("G30"),d("G31"),d("G32"),d("G33"),d("G34"),d("G35"),v("G38", "G38", "S"),AGO.Menu.appendSection("G20"),d("G21"),AGO.Menu.appendTab("Messages"),AGO.Menu.appendSection("M00", "A80"),d("M04"),d("M05", "", "", 2),d("M88", "M80", "", 2),d("M89", "M80",
+        ),d("G43"),d("G44"),d("G51"),d("G58"),AGO.Menu.appendSection("G30"),d("G31"),d("G32"),d("G33"),d("G34"),d("G35"),v("G38", "G38", "S"),AGO.Menu.appendSection("G20"),d("G21"),AGO.Menu.appendTab("Messages"),AGO.Menu.appendSection("M00", "A80"),d("M04"),d("M05", "", "", 2),d("M06", "", "", 2),d("M88", "M80", "", 2),d("M89", "M80",
             "", 2
         ),d("M90", "M80", "", 2),AGO.Menu.appendSection("M70", "", "M00"),d("M74"),AGO.Menu.appendSection("M10", "", "M00"),d("M51"),d("M53", "", "", 2),d("M12"
         ),d("M16"),d("M14"),d("M20"),/*d("M28", "", "", 2),*/d("M30"),d("M36", "", "", 2),d("M37", "", "", 2),DOM.setStyleDisplay("#inhalt", t),DOM.setStyleDisplay("#buttonz", t),(m = t.querySelector("#ago_menu")

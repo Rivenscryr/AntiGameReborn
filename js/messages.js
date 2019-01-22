@@ -86,7 +86,8 @@ AGO.Messages = {
 
         if (tabName === 'onViewFleetsEsp') {
             divContent += '<td style="width: 35px;"><input class="anti_msg_buttons tooltipCustom" title="' + AGO.Label.get('M80').replace('$subject', '\'' + AGO.Label.get('M86') + '\'') + '" value="S" type="button" style="color: #ff9600;" name="delEspAction"></td>' +
-                '<td style="width: 35px;"><input class="anti_msg_buttons tooltipCustom" title="' + AGO.Label.get('M82').replace('$plunder', '\'' + AGO.Option.get('M36') * 1E3 + '\'').replace('$debris', '\'' + AGO.Option.get('M37') * 1E3 + '\'') + '" value="< S" type="button" style="color: #660011;" name="delEspLoot"></td>' +
+                '<td style="width: 35px;"><input class="anti_msg_buttons tooltipCustom" title="' + AGO.Label.get('M82').replace('$plunder', STR.formatNumber(AGO.Option.get('M36') * 1E3)).replace('$debris', STR.formatNumber(AGO.Option.get('M37') * 1E3)) + '" value="< S" type="button" style="color: #660011;" name="delEspLoot"></td>' +
+                '<td style="width: 35px;"><input class="anti_msg_buttons tooltipCustom" title="' + AGO.Label.get('M92').replace('$defense', STR.formatNumber(AGO.Option.get('M06') * 1E3)) + '" value="> D" type="button" style="color: #660011;" name="delEspDef"></td>' +
                 '<td style="width: 10px;">&nbsp;</td>';
         }
 
@@ -107,6 +108,7 @@ AGO.Messages = {
         OBJ.iterate(AGO.Messages.allMessages, function doAction(msgID) {
             if ((e.target.name === 'delEspAction' && DOM.query('.espionageDefText', AGO.Messages.allMessages[msgID])) ||
                 (e.target.name === 'delEspLoot' && AGO.Messages.spyReports[msgID] && AGO.Messages.spyReports[msgID].lucrative === '0') ||
+                (e.target.name === 'delEspDef' && AGO.Messages.spyReports[msgID] && AGO.Messages.spyReports[msgID].defense > AGO.Option.get('M06') * 1E3) ||
                 (e.target.name === 'delShown')
             ) {
                 deleteIDs.push(msgID)

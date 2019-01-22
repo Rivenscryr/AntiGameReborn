@@ -69,6 +69,7 @@
     "m000": "[SHORTCUTS] [m009]",
     "m009": "[SHORTCUT]V[] Mark shown or marked messages as read.\r\n[SHORTCUT]&lt; S[] Delete shown or marked spy reports with a plunder or debris less the limits.\r\n[SHORTCUT]&lt; C[] Delete shown or marked combat reports with a loss below the limit.\r\n[SHORTCUT]E[] Delete shown or marked [EXPEDITION] combats and results. \r\n[SHORTCUT]P[] Delete shown or marked player messages. \r\n[SHORTCUT]S[] Delete shown or marked messages with subject '[M86]'. \r\n[SHORTCUT]R[] Delete shown or marked messages with subject '[M87]'. \r\n[SHORTCUT]1[] Delete shown or marked messages with a custom subject. \r\n[SHORTCUT]2[] Delete shown or marked messages with a custom subject.\r\n[SHORTCUT]3[] Delete shown or marked messages with a custom subject.\r\n[SHORTCUT]X[] Delete all shown or marked messages.",
     "m05": "Define the maximum lost units to delete shown or marked combat reports using the [BUTTON]&lt; C[] button.",
+    "m06": "Define the maximum units in defense to delete shown or marked espionage reports using the [BUTTON]&gt; D[]",
     "m80": "The beginning of a custom message subject to delete matching messages by using the buttons [BUTTON]1[], [BUTTON]2[] or [BUTTON]3[].",
     "m88": "[m80]",
     "m89": "[m80]",
