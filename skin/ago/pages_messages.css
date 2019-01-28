@@ -102,11 +102,11 @@ div#agoSpyReportOverview {
     margin-right: 2px;
 }
 
-.spyTabletwoOtherIcons {
+.icon_galaxy, .icon_attack {
     background: url("images/icon_blank.png") center center no-repeat
 }
 
-.spyTabletwoOtherIcons:hover {
+.icon_galaxy:hover, .icon_attack:hover {
 	background: url("images/icon_hover.png") center center no-repeat
 	
 }

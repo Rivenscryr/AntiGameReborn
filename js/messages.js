@@ -560,7 +560,7 @@ AGO.Messages = {
 
             var aGalaxy = DOM.appendA(cellActions);
             aGalaxy.classList.add('spyTableIcon');
-            aGalaxy.classList.add('spyTabletwoOtherIcons');
+            aGalaxy.classList.add('icon_galaxy');
             aGalaxy.href = '/game/index.php?page=galaxy&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position;
             aGalaxy.textContent = 'G';
 
@@ -586,7 +586,7 @@ AGO.Messages = {
 
             var aAttack = DOM.appendA(cellActions);
             aAttack.classList.add('spyTableIcon');
-            aAttack.classList.add('spyTabletwoOtherIcons');
+            aAttack.classList.add('icon_attack');
             aAttack.href = '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3' + (AGO.Option.is('FA2') ? '&am202=' + p.sc : '&am203=' + p.lc);
             aAttack.textContent = 'A';
             AGO.Option.is('M16') ? aAttack.target = 'ago_fleet_attacks' : 0;
