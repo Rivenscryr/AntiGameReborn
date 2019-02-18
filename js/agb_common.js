@@ -2543,7 +2543,36 @@ AGB.Tools = {
         a.href = d
     },
     createTrashsim: function (a) {
-        let url = "https://trashsim.universeview.be/" + AGB.Com.Get(a.abbrCom, "trashsim");
+        let player = AGB.App.getPlayer(a, "copy");
+        let [galaxy, system, position] = a.coords.split(":");
+
+        let playerTechs = {
+            0:
+                [{
+                    research: {
+                        109: {level: AGB.Units.Get(player, "account", "109")},
+                        110: {level: AGB.Units.Get(player, "account", "110")},
+                        111: {level: AGB.Units.Get(player, "account", "111")},
+                        115: {level: AGB.Units.Get(player, "account", "115")},
+                        117: {level: AGB.Units.Get(player, "account", "117")},
+                        118: {level: AGB.Units.Get(player, "account", "118")}
+                    },
+                    planet: {
+                        galaxy: galaxy,
+                        system: system,
+                        position: position
+                    },
+                    ships: {}
+                }]
+        };
+
+        OBJ.iterate(a.Ships, function (id) {
+                a.Ships[id] && (playerTechs[0][0].ships[id] = { count: a.Ships[id] });
+            }
+        );
+
+        let prefillTechs = window.btoa(JSON.stringify(playerTechs));
+        let url = "https://trashsim.universeview.be/" + AGB.Com.Get(a.abbrCom, "trashsim") + "#prefill=" + prefillTechs;
         a.href = url;
     }
 };
