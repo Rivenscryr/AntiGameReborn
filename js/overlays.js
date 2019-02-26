@@ -535,11 +535,11 @@ AGO.ShareReport = {
     isLoaded: 0,
     isDone: 0,
     Overlay: function (content) {
-        AGO.ShareReport.getBuddies(function () {
-            AGO.ShareReport.getAlliance(function () {
+        AGO.ShareReport.getBuddies()
+            .then(AGO.ShareReport.getAlliance)
+            .then(() => {
                 AGO.ShareReport.Display(content);
             });
-        });
 
         DOM.addObserver(content, {childList: true}, function (mutations) {
             mutations.forEach(function (mutation) {
@@ -556,22 +556,19 @@ AGO.ShareReport = {
             })
         }
     },
-    getBuddies: function (callback) {
-        $.post("index.php?page=buddies", function (res) {
-            $(res).find(".player").each(function (i, e) {
-                AGO.ShareReport.Buddies.push(e.textContent);
-            });
-            callback();
+    getBuddies: async () => {
+        let res = await $.post("index.php?page=buddies");
+        $(res).find(".player").each(function (i, e) {
+            AGO.ShareReport.Buddies.push(e.textContent);
         });
     },
-    getAlliance: function (callback) {
-        $.post("index.php?page=allianceOverview", {ajax: 1}, function (res) {
-            $(res).find("table.members tbody tr td:first-child span").each(function (i, e) {
-                let buddy = e.textContent.split("(")[0].replace(/\s{2,}/g, "").trim();
-                AGO.ShareReport.Buddies.indexOf(buddy) === -1 && AGO.ShareReport.Buddies.push(buddy);
-            });
-            AGO.ShareReport.isDone = 1;
-            callback();
-        })
+    getAlliance: async () => {
+        let res = await $.post("index.php?page=allianceOverview", {ajax: 1});
+        $(res).find("table.members tbody tr td:first-child span").each(function (i, e) {
+            console.log(e.textContent);
+            let buddy = e.textContent.split("(")[0].replace(/\s{2,}/g, "").trim();
+            AGO.ShareReport.Buddies.indexOf(buddy) === -1 && AGO.ShareReport.Buddies.push(buddy);
+        });
+        AGO.ShareReport.isDone = 1;
     }
 };
