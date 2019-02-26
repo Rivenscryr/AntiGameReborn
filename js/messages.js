@@ -39,7 +39,6 @@ AGO.Messages = {
     },
 
     Ready: function () {
-		console.log(AGO);
         $ = "jQuery" in window ? window.jQuery : !0;
         DOM.addObserver(DOM.query('#messages .js_tabs'), {childList: true, subtree: true}, function (mutations) {
             for (var i = 0; i < mutations.length; i++) {
