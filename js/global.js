@@ -171,7 +171,7 @@ var AGO = {
                 if (typeof(a.newToken) != "undefined") {
                     window.miniFleetToken = a.newToken
                 }
-                window.fadeBox(a.response.message + " " + a.response.coordinates.galaxy + ":" + a.response.coordinates.system + ":" + a.response.coordinates.position, !a.response.success)
+                window.fadeBox(a.response.message + (a.response.coordinates ? " " + a.response.coordinates.galaxy + ":" + a.response.coordinates.system + ":" + a.response.coordinates.position : "") , !a.response.success)
             }
 
             m = m || "";
