@@ -375,6 +375,7 @@ AGO.Messages = {
 
                 p.date = AGO.Time.convertLocal(DOM.getText('.msg_head .msg_date', message));
                 p.age = AGO.Time.ogameTime - AGO.Time.parse(DOM.getText('.msg_head .msg_date', message)).getTime();
+                p.age = p.age >= 0 ? p.age : 0;
 
                 OBJ.copy(p, message.dataset);
                 if (AGO.Option.is('M20')) AGO.Messages.reviseMessage(message);
