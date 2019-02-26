@@ -394,11 +394,3 @@ var AGO = {
         }
     }
 };
-window.addEventListener("sendShipsWithPopout", function (evt) {
-    let data = evt.detail;
-    sendShipsWithPopup(6, data.galaxy, data.system, data.position, (data.isMoon === '1' ? '3' : '1'), 0);
-}, false);
-window.addEventListener("sendShips", function (evt) {
-    let data = evt.detail;
-    sendShips(6, data.galaxy, data.system, data.position, (data.isMoon === '1' ? '3' : '1'), 0, this);
-}, false);
