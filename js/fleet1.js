@@ -19,7 +19,7 @@ AGO.Fleet1 = {
                     var c;
                     c = STR.check(NMR.parseIntAbs(b.id));
                     b = DOM.getAttribute("a", b, "title", 2);
-                    c in AGO.Item.Ship && (a[c] = b, a.ships += b, a.capacity += b * AGO.Item[c].capacity)
+                    c in AGO.Item.Ship && (a[c] = b, a.ships += b, a.capacity += b * AGO.Ogame.getShipCapacity(c))
                 }
             ), f = h.querySelector(".fleetStatus #slots")) {
                 f = f.querySelectorAll("span.tooltip"), 2 === f.length && (b = (DOM.getText(f[0]).split(":")[1] || ""
@@ -81,10 +81,9 @@ AGO.Fleet1 = {
                 b.preferShip = ["202", "203"][AGO.Option.get("F62", 2)] || b.thirdShip || "203";
                 b.preferCargo = "202" === b.preferShip ? "202" : "203";
                 b.secondCargo = "203" === b.preferCargo ? "202" : "203";
-                b.need_smallCargo =
-                    Math.ceil(b.freight / 5E3);
-                b.need_largeCargo = Math.ceil(b.freight / 25E3);
-                b.need_thirdShip = Math.ceil(b.freight / AGO.Item[b.thirdShip || "209"].capacity);
+                b.need_smallCargo = Math.ceil(b.freight / AGO.Ogame.getShipCapacity("202"));
+                b.need_largeCargo = Math.ceil(b.freight / AGO.Ogame.getShipCapacity("203"));
+                b.need_thirdShip = Math.ceil(b.freight / AGO.Ogame.getShipCapacity(b.thirdShip || "209"));
                 a = "203" === b.preferCargo ? b.need_largeCargo : b.need_smallCargo;
                 b.status = a <= c[b.preferCargo] ? 3 : b.need_smallCargo <= c["202"] + 5 * c["203"] ? 2 : c.ships ? 1 : 0;
                 break;
@@ -125,15 +124,15 @@ AGO.Fleet1 = {
                         g.freight += Math.max(c[a] - g[a], 1)
                     }
                 );
-                g.need_smallCargo = Math.ceil(g.freight / 5E3);
-                g.need_largeCargo = Math.ceil(g.freight / 25E3);
+                g.need_smallCargo = Math.ceil(g.freight / AGO.Ogame.getShipCapacity("202"));
+                g.need_largeCargo = Math.ceil(g.freight / AGO.Ogame.getShipCapacity("203"));
                 a = "203" === g.preferCargo ? g.need_largeCargo : g.need_smallCargo;
                 g.status = c.ships ? 2 > g.owncoords || 4 <= g.owncoords ? 1 : a <= c[g.preferCargo] ? 3 : g.need_smallCargo <= c["202"] + 5 * c["203"] ? 2 : 1 : 0;
                 g[g.preferCargo] = Math.min(a,
                     c[g.preferCargo]
                 );
                 g[g.secondCargo] = c[g.preferCargo] < a ? Math.ceil((a - c[g.preferCargo]
-                ) * AGO.Item[g.preferCargo].capacity / AGO.Item[g.secondCargo].capacity
+                ) * AGO.Ogame.getShipCapacity(g.preferCargo) / AGO.Ogame.getShipCapacity(g.secondCargo)
                 ) : 0;
                 break;
             case 6:
@@ -698,7 +697,7 @@ AGO.Fleet1 = {
                         b.owncoords && (b.owncoords = h(b.coords, b.type)
                         );
                         b.mission = e(b.mission) || e(8);
-                        b.status = 8 !== b.mission ? 0 : b["209"] * AGO.Item["209"].capacity >= c.metal + c.crystal ? 3 : 1;
+                        b.status = 8 !== b.mission ? 0 : b["209"] * AGO.Ogame.getShipCapacity("209") >= c.metal + c.crystal ? 3 : 1;
                         break;
                     case 5:
                         b.mission = e(b.mission) || e(PAGE[5].mission);
@@ -748,7 +747,7 @@ AGO.Fleet1 = {
                     DOM.updateText("ago_info_freight", "id", c.resources, 3);
                     break;
                 case 4:
-                    a(b["209"] * AGO.Item["209"].capacity, c.resources);
+                    a(b["209"] * AGO.Ogame.getShipCapacity("209"), c.resources);
                     DOM.updateText("ago_info_freight", "id", c.metal + c.crystal, 3);
                     break;
                 case 5:
@@ -803,7 +802,7 @@ AGO.Fleet1 = {
             if (b) {
                 e = AGO.Ogame.getFleetDuration(b, f.distance, f.speed);
                 g = AGO.Ogame.getShipConsumption(b, f.distance, e);
-                p = Math.max(0, Math.ceil(f.resources / AGO.Item[b].capacity));
+                p = Math.max(0, Math.ceil(f.resources / AGO.Ogame.getShipCapacity(b)));
                 if (c = document.getElementById("ago_calc_ships_" + a)) {
                     DOM.updateText(c, null, p, 3) && (r = p ? h[b] >= p ? "ago_color_lightgreen" : "ago_color_palered" : "ago_color_blue", DOM.updateClass(c, null, r)
                     ), c.parentNode.className = b === PAGE[PAGE.Para.calculator].preferShip ? "ago_calc_selected" : "";
@@ -1214,7 +1213,7 @@ AGO.Task.updateShips = function (a, e) {
     OBJ.is(a) && (a.consumption = 1, a["212"] = 0, a.ships = a.shipsCivil = a.shipsCombat = a.capacity = a.expoints = a.minspeed = 0, OBJ.iterate(AGO.Item.Ship, function (e) {
                 var c;
                 if (c = a[e]) {
-                    if (e in AGO.Item.ShipCivil ? a.shipsCivil += c : a.shipsCombat += c, a.ships += c, a.capacity += c * AGO.Item[e].capacity, a.expoints += (AGO.Item[e].metal + AGO.Item[e].crystal
+                    if (e in AGO.Item.ShipCivil ? a.shipsCivil += c : a.shipsCombat += c, a.ships += c, a.capacity += c * AGO.Ogame.getShipCapacity(e), a.expoints += (AGO.Item[e].metal + AGO.Item[e].crystal
                     ) / 200 * c, c = AGO.Ogame.getShipSpeed(e), !a.minspeed || c < a.minspeed) {
                         a.minspeed = c, h = e
                     }

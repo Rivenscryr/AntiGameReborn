@@ -504,11 +504,10 @@ AGO.Ogame = {
         ) * Math.sqrt(10 * b / AGO.Ogame.getShipSpeed(a)), (AGO.Item[a].consumption * b / 35E3 * (c / 10 + 1
             ) * (c / 10 + 1)
         ) * AGO.Uni.globalDeuteriumSaveFactor) : 0
-    }, getShipCapacity: function (a, b) {
-        return AGO.Item[a].capacity;
+    }, getShipCapacity: function (a) {
+        return AGO.Item[a].capacity * (1 + (AGO.Units.get("114") || 0) * 0.02);
     }, getShipSpeed: function (a) {
-        AGO.Ogame.initShipSpeed && (AGO.Ogame.initShipSpeed(), AGO.Ogame.initShipSpeed = null
-        );
+        AGO.Ogame.initShipSpeed && (AGO.Ogame.initShipSpeed(), AGO.Ogame.initShipSpeed = null);
         return AGO.Item[a].speed
     }, initShipSpeed: function () {
         var a = 5070900 <= NMR.parseVersion(AGO.App.versionOGame);
@@ -538,7 +537,7 @@ AGO.Ogame = {
             }
         }
         c.total = c.metal + c.crystal;
-        c.recs = Math.ceil(c.total / 2E4);
+        c.recs = Math.ceil(c.total / AGO.Ogame.getShipCapacity("209"));
         c.enough = 0 < c.total && c.total >= 1E3 * AGO.Option.get("M37", 2);
         return c
     }, chooseTopscore: function (a, b, c, d, e, f, g, k) {

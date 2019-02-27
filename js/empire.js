@@ -63,7 +63,7 @@ AGO.Empire = {
                         if (g in AGO.Item.Ship || g in AGO.Item.Defense) {
                             a = a.childNodes.length > 1 ? a.childNodes[0] : a;
                             h[g] = DOM.getText(a, null, 3);
-                            g in AGO.Item.Ship && AGO.Item[g].capacity && h[g] && (h.capacity += h[g] * AGO.Item[g].capacity);
+                            g in AGO.Item.Ship && AGO.Ogame.getShipCapacity(g) && h[g] && (h.capacity += h[g] * AGO.Ogame.getShipCapacity(g));
                         } else if (g in AGO.Item.Mining || g in AGO.Item.Station || g in AGO.Item.Research) {
                             if (e = a.querySelector("span.disabled")) {
                                 h[g] = DOM.getText(e, null, 3);
@@ -142,10 +142,10 @@ AGO.Empire = {
         0 < n && (a += '<span style="color:#FFCC00">energy: ' + STR.formatNumber(n) + "</span><br/>"
         );
         a += '<span style="font-size:0.9em;">(small cargo: ' + STR.formatNumber(Math.ceil((d + k + f
-            ) / 5E3
+            ) / AGO.Ogame.getShipCapacity("202")
             )
         ) + " or large cargo: " + STR.formatNumber(Math.ceil((d + k + f
-            ) / 25E3
+            ) / AGO.Ogame.getShipCapacity("203")
             )
         ) + ")</span><br/>";
         a += "<br />";
@@ -161,7 +161,7 @@ AGO.Empire = {
         b = f - c.deuterium;
         0 < b && (a += "deuterium: " + STR.formatNumber(b) + "<br/>", m += b
         );
-        0 < m && (a += '<span style="font-size:0.9em;">(small cargo: ' + STR.formatNumber(Math.ceil(m / 5E3)) + " or large cargo: " + STR.formatNumber(Math.ceil(m / 25E3)) + ")</span><br/>"
+        0 < m && (a += '<span style="font-size:0.9em;">(small cargo: ' + STR.formatNumber(Math.ceil(m / AGO.Ogame.getShipCapacity("202"))) + " or large cargo: " + STR.formatNumber(Math.ceil(m / AGO.Ogame.getShipCapacity("203"))) + ")</span><br/>"
         );
         0 < n && n > c.energy && (a += "<br />", b = n - c.energy, a += '<span style="text-decoration:underline;font-weight:bold;">energy needed:</span> ' + STR.formatNumber(b) + "<br/>"
         );

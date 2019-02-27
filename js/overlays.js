@@ -223,7 +223,7 @@ AGO.Jumpgate = {
                 )
             }
         );
-        AGO.Option.is("G35") && (a = Math.ceil(AGO.Jumpgate.Maxi.resources / 25E3), b = Math.max(a - (+AGO.Jumpgate.Maxi["203"] || 0
+        AGO.Option.is("G35") && (a = Math.ceil(AGO.Jumpgate.Maxi.resources / AGO.Ogame.getShipCapacity("203")), b = Math.max(a - (+AGO.Jumpgate.Maxi["203"] || 0
             ), 0
             ), b = 0 < b ? 5 * b : 0, a > (AGO.Jumpgate.Mini["203"] || 0
             ) && (d["203"] = Math.max(AGO.Jumpgate.Maxi["203"] - a, 0)

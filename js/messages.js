@@ -633,8 +633,8 @@ AGO.Messages = {
 
                 var percentCargos = 1 + AGO.Option.get('FA3') / 100;
                 for (var f = totalRes * p.plunder, i = 1; f > (AGO.Option.get('M36') * 1E3); (totalRes = totalRes - f, f = totalRes * p.plunder, i++)) {
-                    var totalLC = Math.ceil(f / 25000 * percentCargos),
-                        totalSC = Math.ceil(f / 5000 * percentCargos);
+                    var totalLC = Math.ceil(f / AGO.Ogame.getShipCapacity("203") * percentCargos),
+                        totalSC = Math.ceil(f / AGO.Ogame.getShipCapacity("202") * percentCargos);
                     $('.detailsContent').last().append(
                         $('<div>', {'style': 'margin: auto; width: 100%; text-align: left;'}).append(
                             $('<span>', {'style': 'float: left; width: 15%;'}).text(AGO.Label.get('M24') + (i == 1 ? '' : ' ' + i)),
