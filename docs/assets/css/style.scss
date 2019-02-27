@@ -14,7 +14,28 @@
 }
 
 section #title {
-  margin-bottom: 10px;
+  max-width: 463px;
+  margin: 0 auto 20px;
+}
+
+section #title .logo {
+  float: left;
+  height: 140px;
+}
+
+section #title .title {
+  height: 140px;
+  display: inline-block;
+  margin-left: 25px;
+}
+
+section #title .title h1 {
+  margin-top: 30px;
+  text-align: left;
+}
+
+section #title .title p {
+  text-align: left;
 }
 
 section #navigation nav {
@@ -23,6 +44,10 @@ section #navigation nav {
 
 section #navigation nav a {
   margin-right: 25px;
+}
+
+section #navigation nav a:last-child {
+  margin-right: 0;
 }
 
 section #content {
