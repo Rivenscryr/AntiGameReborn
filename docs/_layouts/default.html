@@ -48,7 +48,7 @@
         </div>
 
         <div id="navigation">
-          {% for item in site.data.navigation[page.lang] %}
+          {% for item in site.data.navigation.pages[page.lang] %}
             <a href="/{{ page.lang }}/{{ item.url }}">{{ item.title }}</a>
           {% endfor %}
         </div>
