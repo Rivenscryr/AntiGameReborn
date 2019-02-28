@@ -1,7 +1,7 @@
 ---
 redirect_from: "/changelog/"
 lang: en
-name: changelog
+path: changelog
 ---
 
 ## Changelog

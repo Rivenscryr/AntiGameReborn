@@ -1,6 +1,6 @@
 ---
 lang: de
-name: docs
+path: docs
 ---
 
 ## Documentation

@@ -1,6 +1,6 @@
 ---
 lang: de
-name: 
+path: 
 ---
 
 Willkommen auf der Homepage von **AntiGameReborn**, dem beliebtesten Addon für das

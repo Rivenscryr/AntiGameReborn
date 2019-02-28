@@ -1,6 +1,6 @@
 ---
 lang: de
-name: changelog
+path: changelog
 ---
 
 ## Changelog
