@@ -16,6 +16,7 @@ AGO.Messages = {
         'tabs-nfSystem': 'onViewSystem',
         'tabs-nfFavorites': 'onViewFavorites'
     },
+    currentTab: "",
     handlingMessageTabEvent: false,
 
     allMessages: {},
@@ -38,6 +39,13 @@ AGO.Messages = {
         AGO.Data.setStorage(AGO.App.keyPlayer + "_SPY_TABLE_DATA", AGO.Messages.spyTableData);
     },
 
+    Content: function (page, url, para, response, data) {
+        if (STR.getParameter("action", para) === "103") {
+            for (let msgID in data)
+                data[msgID] && AGO.Messages.deleteMessage(msgID);
+        }
+    },
+
     Ready: function () {
         $ = "jQuery" in window ? window.jQuery : !0;
         DOM.addObserver(DOM.query('#messages .js_tabs'), {childList: true, subtree: true}, function (mutations) {
@@ -46,6 +54,12 @@ AGO.Messages = {
                 if (mutation.target.id && mutation.target.classList.contains('ui-tabs-panel') && !DOM.query('.tab_inner.ago_improved', mutation.target)) {
                     var tab = DOM.query('#messages .tabs_wrap .tabs_btn .list_item[aria-controls="' + mutation.target.id + '"], ' +
                         '#messages .tabs_wrap .subtabs .list_item[aria-controls="' + mutation.target.id + '"]');
+
+                    if (tab.id !== AGO.Messages.currentTab) {
+                        AGO.Messages.currentTab = tab.id;
+                        AGO.Messages.allMessages = {};
+                        AGO.Messages.spyReports = {};
+                    }
 
                     if (tab && AGO.Messages.messageTabEvents[tab.id]) {
                         DOM.query('.tab_inner', mutation.target).classList.add('ago_improved');
@@ -103,32 +117,47 @@ AGO.Messages = {
         });
     },
 
+    ajaxDelete: function (deleteIDs) {
+        $.ajax(document.location.protocol + '//' + AGO.Uni.domain + '/game/index.php?page=messages', {
+            data: {
+                messageId: JSON.stringify(deleteIDs),
+                action: "103",
+                ajax: "1"
+            },
+            dataType: "json",
+            type: "POST"
+        }).done(function (data, textStatus) {
+            for (let msgID in data)
+                data[msgID] && AGO.Messages.deleteMessage(msgID);
+        }).fail(function (jqXHR, textStatus) {
+        });
+    },
+
+    deleteMessage: function (msgID) {
+        $("#t_" + msgID).remove();
+        $("#d_" + msgID).remove();
+        $("[data-msg-id="+msgID+"]").remove();
+        if (AGO.Messages.spyReports[msgID]) delete AGO.Messages.spyReports[msgID];
+        if (AGO.Messages.allMessages[msgID]) delete AGO.Messages.allMessages[msgID];
+        if (AGO.Messages.visibleMessages[msgID]) delete AGO.Messages.visibleMessages[msgID];
+        AGO.Messages.refreshSummary();
+        AGO.Messages.refreshOddEven();
+    },
+
     runBtnFunction: function (e) {
         var deleteIDs = [];
         OBJ.iterate(AGO.Messages.allMessages, function doAction(msgID) {
-            if ((e.target.name === 'delEspAction' && DOM.query('.espionageDefText', AGO.Messages.allMessages[msgID])) ||
+            if ((e.target.name === 'delEspAction' && AGO.Messages.visibleMessages[msgID] && DOM.query('.espionageDefText', AGO.Messages.allMessages[msgID])) ||
                 (e.target.name === 'delEspLoot' && AGO.Messages.spyReports[msgID] && AGO.Messages.spyReports[msgID].lucrative === '0') ||
                 (e.target.name === 'delEspDef' && AGO.Messages.spyReports[msgID] && AGO.Messages.spyReports[msgID].defense > AGO.Option.get('M06') * 1E3) ||
-                (e.target.name === 'delShown')
+                (e.target.name === 'delShown' && (AGO.Messages.spyReports[msgID] || AGO.Messages.visibleMessages[msgID]))
             ) {
                 deleteIDs.push(msgID)
             }
         });
 
         if (deleteIDs.length)
-            $.ajax(document.location.protocol + '//' + AGO.Uni.domain + '/game/index.php?page=messages', {
-                data: {
-                    messageId: JSON.stringify(deleteIDs),
-                    action: "103",
-                    ajax: "1"
-                },
-                dataType: "json",
-                type: "POST"
-            }).done(function (data, textStatus) {
-                for (var msgID in data)
-                    $('[data-msg-id=' + msgID + ']').remove(), $('#t_' + msgID).remove();
-            }).fail(function (jqXHR, textStatus) {
-            });
+            AGO.Messages.ajaxDelete(deleteIDs);
 
         document.location.href = '#agoSpyReportOverview';
     },
@@ -385,7 +414,8 @@ AGO.Messages = {
 
     getSpyReportMap: function () {
         var i = 0;
-        //AGO.Messages.spyReports = {};
+        // "M54": "Extend spy table when browsing pages"
+        !AGO.Option.is("M54") && (AGO.Messages.spyReports = {});
         OBJ.iterate(AGO.Messages.visibleMessages, function (msgId) {
             if (DOM.query('.compacting', AGO.Messages.visibleMessages[msgId])) {
                 AGO.Messages.spyReports[msgId] = AGO.Messages.visibleMessages[msgId].dataset;
@@ -506,7 +536,7 @@ AGO.Messages = {
                         document.removeEventListener('click', toggleHighlight, false);
                     } else return;
                 }, false);
-            }
+            };
             cellCoords.appendChild(linkCoords);
 
             var cellAge = DOM.appendTD(row);
@@ -542,18 +572,8 @@ AGO.Messages = {
             var cellActions = DOM.appendTD(row);
             var aDelete = DOM.appendA(cellActions);
             aDelete.classList.add('spyTableIcon');
-            DOM.query('#m' + p.msgId) ? aDelete.classList.add('icon', 'icon_delete') : aDelete.appendChild(document.createTextNode('-'));
-            aDelete.addEventListener('click', function () {
-                DOM.query('.js_actionKill', message) ? DOM.click('.js_actionKill', message) : !0;
-            }, false);
-            DOM.query('.js_actionKill', message).onclick = function deleteMessage(e) {
-                DOM.query('#spyTable tbody').removeChild(DOM.query('#t_' + p.msgId));
-                if (f = DOM.query('#d_' + p.msgId)) DOM.query('#spyTable tbody').removeChild(f);
-                OBJ.deleteWhere(AGO.Messages.spyReports, 'msgId', p.msgId);
-                OBJ.deleteWhere(AGO.Messages.visibleMessages, 'id', 'm' + p.msgId);
-                AGO.Messages.refreshSummary();
-                AGO.Messages.refreshOddEven();
-            };
+            aDelete.classList.add('icon', 'icon_delete');
+            aDelete.onclick = function () { AGO.Messages.ajaxDelete(p.msgId) };
 
             var aDetails = DOM.appendA(cellActions);
             aDetails.classList.add('icon', 'spyTableIcon', 'icon_minimize', 'overlay');

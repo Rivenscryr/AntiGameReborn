@@ -150,6 +150,7 @@
     "M35": "Show all",
     "M51": "Show spy table",
     "M53": "Use short number format",
+    "M54": "Extend spy table when browsing pages",
     "M80": "Delete shown or marked messages with subject $subject",
     "M81": "Mark shown or marked messages as read",
     "M82": "Delete shown or marked Spy reports with plunder &lt; $plunder and fleet &lt; $debris",
