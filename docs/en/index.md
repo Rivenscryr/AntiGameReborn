@@ -1,9 +1,11 @@
 ---
-redirect_from: "/index/"
+redirect_from: "/"
 lang: en
+name: 
 ---
 
-Welcome to the homepage of AntiGameReborn, the most popular addon for the browsergame OGame.
+Welcome to the homepage of **AntiGameReborn**, the most popular addon for the 
+browsergame OGame.
 
 AntiGameReborn provides a lot of useful features for every play style:
 
@@ -26,7 +28,7 @@ activated and deactivated individually.
 # Installation
 [Download AntiGameReborn for Chrome / Opera](https://chrome.google.com/webstore/detail/mhfbpacbhjchkjeopjfgdhckepclcfll/)
 
-[Download AntiGameReborn for Firefox](https://addons.mozilla.org/de/firefox/addon/antigamereborn/)
+[Download AntiGameReborn for Firefox](https://addons.mozilla.org/en/firefox/addon/antigamereborn/)
 
 For installation in Opera install the addon "[Install Chrome Extensions](https://addons.opera.com/de/extensions/details/install-chrome-extensions/)" first, then install AGR from the Chrome web store.
 

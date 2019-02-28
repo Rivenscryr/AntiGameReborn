@@ -1,6 +1,5 @@
 ---
-redirect_from: "/docs/"
-lang: en
+lang: de
 name: docs
 ---
 
