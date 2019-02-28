@@ -1,7 +1,7 @@
 ---
 redirect_from: "/"
 lang: en
-path: 
+page: 
 ---
 
 Welcome to the homepage of **AntiGameReborn**, the most popular addon for the 

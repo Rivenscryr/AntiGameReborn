@@ -1,7 +1,7 @@
 ---
 redirect_from: "/docs/"
 lang: en
-path: docs
+page: docs
 ---
 
 ## Documentation
