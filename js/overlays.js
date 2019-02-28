@@ -565,7 +565,6 @@ AGO.ShareReport = {
     getAlliance: async () => {
         let res = await $.post("index.php?page=allianceOverview", {ajax: 1});
         $(res).find("table.members tbody tr td:first-child span").each(function (i, e) {
-            console.log(e.textContent);
             let buddy = e.textContent.split("(")[0].replace(/\s{2,}/g, "").trim();
             AGO.ShareReport.Buddies.indexOf(buddy) === -1 && AGO.ShareReport.Buddies.push(buddy);
         });

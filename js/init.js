@@ -161,20 +161,30 @@ AGO.Init = {
                 )
             }
         )
-    }, Content: function (a) {
-        var b, c, d;
-        5 < AGO.Init.status && a && a.page && (c = a.page, (b = AGO[OBJ.get(AGO.App.Overlay, c)]
-            ) ? "function" === typeof b.Content && (AGO.Init.activeOverlay || (d = document.querySelectorAll("body > .ui-dialog .ui-dialog-content"), d.length && (AGO.Init.activeOverlay = {
-                            element: d[d.length - 1].id, page: DOM.getAttribute(d[d.length -
-                                1], null, "data-page"
-                            ).toLowerCase()
+    }, Content: function (para) {
+        let d;
+        if (5 < AGO.Init.status && para && para.page) {
+            let page = para.page;
+            let targetPAGE;
+            if(targetPAGE = AGO[OBJ.get(AGO.App.Overlay, page)]) {
+                if ("function" === typeof targetPAGE.Content) {
+                    if (!AGO.Init.activeOverlay) {
+                        d = document.querySelectorAll("body > .ui-dialog .ui-dialog-content");
+                        if (d.length) {
+                            AGO.Init.activeOverlay = {
+                                element: d[d.length - 1].id,
+                                page: DOM.getAttribute(d[d.length - 1], null, "data-page").toLowerCase()
+                            };
                         }
-                    )
-                ), AGO.Init.activeOverlay && AGO.Init.activeOverlay.element && c === AGO.Init.activeOverlay.page && (d = document.getElementById(AGO.Init.activeOverlay.element)
-                ) && b.Content(d, AGO.Init.activeOverlay.element, c, a.url, a.para)
-            ) : (b = AGO[OBJ.get(AGO.App.Content, c)]
-            ) && "function" === typeof b.Content && b.Content(c, a.url, a.para, a.response)
-        )
+                    }
+
+                    if (AGO.Init.activeOverlay && AGO.Init.activeOverlay.element && page === AGO.Init.activeOverlay.page && (d = document.getElementById(AGO.Init.activeOverlay.element)))
+                        targetPAGE.Content(d, AGO.Init.activeOverlay.element, page, para.url, para.para);
+                }
+            } else if (targetPAGE = AGO[OBJ.get(AGO.App.Content, page)]) {
+                "function" === typeof targetPAGE.Content && targetPAGE.Content(page, para.url, para.para, para.response, para.data)
+            }
+        }
     }, Overlay: function (a, b) {
         var c, d;
         5 < AGO.Init.status && a && (d = DOM.getAttribute(a, null, "data-page").toLowerCase(), AGO.Init.activeOverlay = {
