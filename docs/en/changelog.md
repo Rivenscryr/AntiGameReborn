@@ -1,3 +1,8 @@
+---
+redirect_from: "/changelog/"
+lang: en
+---
+
 ## Changelog
 ### Version 6.8.3.3
 * [Polishing] Added option to choose function galaxy icon in coords box (AGR Menu -> Main view)

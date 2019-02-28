@@ -13,6 +13,12 @@
   border: 1px solid rgb(5,41,78);
 }
 
+#header a.lang {
+  position: absolute;
+  right: 25px;
+  line-height: 50px;
+}
+
 section #title {
   max-width: 463px;
   margin: 0 auto 30px;
@@ -38,12 +44,12 @@ section #title .title p {
   text-align: left;
 }
 
-section #navigation nav {
+section #navigation div {
   margin-bottom: 10px;
   text-align: center;
 }
 
-section #navigation nav a {
+section #navigation div a {
   margin-right: 25px;
 }
 

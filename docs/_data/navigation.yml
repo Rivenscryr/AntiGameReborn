@@ -1,0 +1,15 @@
+pages:
+  - de:
+      - title: Home
+        url:
+      - title: Dokumentation
+        url: docs
+      - title: Changelog
+        url: changelog
+  - en:
+      - title: Home
+        url:
+      - title: Documentation
+        url: docs
+      - title: Changelog
+        url: changelog
