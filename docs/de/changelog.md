@@ -4,7 +4,7 @@ page: changelog
 ---
 
 ## Changelog
-## Version 6.8.5
+### Version 6.8.5
 * [Feature] Spionagetabelle wird nun beim umblättern erweitern (muss im Menü 
 aktiviert werden)
 * [Bugfix/Polishing] Laden von Buddys/Allymitgliedern im Teilen-Popup verbessert

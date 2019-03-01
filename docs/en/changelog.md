@@ -5,7 +5,7 @@ page: changelog
 ---
 
 ## Changelog
-## Version 6.8.5
+### Version 6.8.5
 * [Feature] Spy table is now extended when browsing through pages
 * [Bugfix/Polishing] Improved loading buddies/alliance members into the shareReport
 overlay
