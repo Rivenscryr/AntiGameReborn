@@ -2563,7 +2563,19 @@ AGB.Tools = {
                         position: position
                     },
                     ships: {}
-                }]
+                }],
+            settings: {
+                speed_fleet: AGB.Uni.Get(player, "speedFleet"),
+                galaxies: AGB.Uni.Get(player, "galaxies"),
+                systems: AGB.Uni.Get(player, "systems"),
+                rapid_fire: AGB.Uni.Get(player, "rapidFire"),
+                def_to_tF: AGB.Uni.Get(player, "defToTF"),
+                debris_factor: AGB.Uni.Get(player, "debrisFactor"),
+                repair_factor: AGB.Uni.Get(player, "repairFactor"),
+                donut_galaxy: AGB.Uni.Get(player, "donutGalaxy"),
+                donut_system: AGB.Uni.Get(player, "donutSystem"),
+                global_deuterium_save_factor: AGB.Uni.Get(player, "globalDeuteriumSaveFactor")
+            }
         };
 
         OBJ.iterate(a.Ships, function (id) {
@@ -2572,7 +2584,7 @@ AGB.Tools = {
         );
 
         let prefillTechs = window.btoa(JSON.stringify(playerTechs));
-        let url = "https://trashsim.universeview.be/" + AGB.Com.Get(a.abbrCom, "trashsim") + "#prefill=" + prefillTechs;
+        let url = "https://trashsim.universeview.be/" + AGB.Com.Get(a.abbrCom, "trashsim") + (a.api ? "?SR_KEY=" + a.api : "") + "#prefill=" + prefillTechs;
         a.href = url;
     }
 };
