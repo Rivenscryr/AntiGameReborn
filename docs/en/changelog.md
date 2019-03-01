@@ -5,6 +5,22 @@ page: changelog
 ---
 
 ## Changelog
+## Version 6.8.5
+* [Feature] Spy table is now extended when browsing through pages
+* [Bugfix/Polishing] Improved loading buddies/alliance members into the shareReport
+overlay
+* [Feature] Added button to delete reports with defense over a limit
+* [Feature] Native TrashSim support
+* [Polishing] TrashSim link in the panel prefills your own techs, ships and
+universe settings
+* [Bugfix] Negative age in the spy table
+* [Feature] Bonus cargo capacity from Hyperspace Tech should be considered correctly
+(please test and report errors)
+* [Polishing] Reworked and updated links in AGR menu (homepage, support threads,
+Discord link, donations)
+* [Polishing] TrashSim buttons in espionage reports now have the correct language
+* [Polishing] Added TrashSim button to the full espionage report overlay
+
 ### Version 6.8.3.3
 * [Polishing] Added option to choose function galaxy icon in coords box (AGR Menu -> Main view)
 * [Misc] Updated DOMPurify library to latest version

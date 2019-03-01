@@ -14,7 +14,7 @@ angezeigt, mit der man alle Berichte sehr bequem sortieren und filtern kann.
 Simulator bereits ausgefüllt ist.
 * Praktische Listen, zu denen man Spieler, Allianzen oder einzelne Planeten
 hinzufügen kann. Jede Liste kann im Aussehen individuell angepasst werden und
-nach Wunsch gefärbt werden, um effektiv eure Ziele im Auge behalten zu können
+nach Wunsch gefärbt werden, um eure Ziele effizient im Auge behalten zu können.
 * Routinen für häufig ausgeführte Tätigkeiten können erstellt werden, wie z.B. für
 das Saven der Fleet oder das Zusammenziehen von Rohstoffen. Damit können diese
 mit geringstem Zeitaufwand durchgeführt werden.
@@ -47,5 +47,5 @@ Link zum Discord: [discord.gg/sb72AFN](https://discord.gg/sb72AFN)
 
 # Spenden
 Wenn ihr meine Arbeit unterstützen möchtet, sind Spenden gerne gesehen
-und können [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=E7ZA3C9PX3ZWN&source=url)
+und können über [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=E7ZA3C9PX3ZWN&source=url)
 getätigt werden.

@@ -401,6 +401,7 @@
     "M37": "Flottenlimit zum Verbergen oder L\u00f6schen (x1000)",
     "M51": "Zeige Spionagetabelle",
     "M53": "Verwende verk\u00fcrztes Zahlenformat",
+    "M54": "Erweitere Spionagetabelle beim Blättern",
     "M70": "Kampfberichte",
     "M74": "Farben von Kampfberichten ausbessern",
     "M80": "L\u00f6sche angezeigte oder markierte Nachrichten mit dem Betreff $subject",

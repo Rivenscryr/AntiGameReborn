@@ -413,6 +413,7 @@
     "M37": "Fleet limit to hide or delete (x1000)",
     "M51": "Show spy table",
     "M53": "Use short number format",
+    "M54": "Extend spy table when browsing pages",
     "M70": "Combat reports",
     "M74": "Fix colour of Combat reports",
     "M80": "Delete shown or marked messages with subject $subject",

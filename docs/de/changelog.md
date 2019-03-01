@@ -4,6 +4,24 @@ page: changelog
 ---
 
 ## Changelog
+## Version 6.8.5
+* [Feature] Spionagetabelle wird nun beim umblättern erweitern (muss im Menü 
+aktiviert werden)
+* [Bugfix/Polishing] Laden von Buddys/Allymitgliedern im Teilen-Popup verbessert
+* [Feature] Button zum Löschen von Berichten mit Verteidigung über einer bestimmten
+Grenze hinzugefügt
+* [Feature] Nativer TrashSim-Support
+* [Polishing] TrashSim-Link im Panel füllt eigene Techs + Schiffe + Uni-Settings
+automatisch aus
+* [Bugfix] Negative Zeit in der Spionagetabelle
+* [Feature] Bonus-Lagerkapazität von der Hyperspacetechnik sollte nun überall
+berücksichtigt werden (bitte Fehler unbedingt melden)
+* [Polishing] Die Links im AGR-Menü wurden überarbeitet und aktualisiert (Homepage, 
+Support-Threads, Discord-Link, Spenden)
+* [Polishing] Beim Klick auf den TrashSim-Button in Spioberichten wird automatisch
+die korrekte Sprache gewählt
+* [Polishing] TrashSim-Button im Vollbericht-Popup
+
 ### Version 6.8.3.3
 * [Polishing] Option hinzugefügt für Funktion des Galaxie-Icons in der Koords-Box (AGR-Menü -> Hauptansicht)
 * [Misc] DOMPurify Library auf die neuste Version geupdatet
