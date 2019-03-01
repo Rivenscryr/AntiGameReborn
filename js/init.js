@@ -162,27 +162,27 @@ AGO.Init = {
             }
         )
     }, Content: function (para) {
-        let d;
+        let overlay;
         if (5 < AGO.Init.status && para && para.page) {
             let page = para.page;
             let targetPAGE;
-            if(targetPAGE = AGO[OBJ.get(AGO.App.Overlay, page)]) {
+            if (targetPAGE = AGO[OBJ.get(AGO.App.Overlay, page)]) {
                 if ("function" === typeof targetPAGE.Content) {
                     if (!AGO.Init.activeOverlay) {
-                        d = document.querySelectorAll("body > .ui-dialog .ui-dialog-content");
-                        if (d.length) {
+                        overlay = document.querySelectorAll("body > .ui-dialog .ui-dialog-content");
+                        if (overlay.length) {
                             AGO.Init.activeOverlay = {
-                                element: d[d.length - 1].id,
-                                page: DOM.getAttribute(d[d.length - 1], null, "data-page").toLowerCase()
+                                element: overlay[overlay.length - 1].id,
+                                page: DOM.getAttribute(overlay[overlay.length - 1], null, "data-page").toLowerCase()
                             };
                         }
                     }
 
-                    if (AGO.Init.activeOverlay && AGO.Init.activeOverlay.element && page === AGO.Init.activeOverlay.page && (d = document.getElementById(AGO.Init.activeOverlay.element)))
-                        targetPAGE.Content(d, AGO.Init.activeOverlay.element, page, para.url, para.para);
+                    if (AGO.Init.activeOverlay && AGO.Init.activeOverlay.element && page === AGO.Init.activeOverlay.page && (overlay = document.getElementById(AGO.Init.activeOverlay.element)))
+                        targetPAGE.Content(overlay, AGO.Init.activeOverlay.element, page, para.url, para.para);
                 }
             } else if (targetPAGE = AGO[OBJ.get(AGO.App.Content, page)]) {
-                "function" === typeof targetPAGE.Content && targetPAGE.Content(page, para.url, para.para, para.response, para.data)
+                "function" === typeof targetPAGE.Content && targetPAGE.Content(page, para.url, para.para, para.response)
             }
         }
     }, Overlay: function (a, b) {
@@ -586,7 +586,8 @@ AGO.App = {
         buddies: "Buddies",
         notices: "Notices",
         search: "Search",
-        sharereportoverlay: "ShareReport"
+        sharereportoverlay: "ShareReport",
+        messages: "Messages"
     },
     Content: {
         resources: "Resources",

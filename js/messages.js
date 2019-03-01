@@ -39,11 +39,8 @@ AGO.Messages = {
         AGO.Data.setStorage(AGO.App.keyPlayer + "_SPY_TABLE_DATA", AGO.Messages.spyTableData);
     },
 
-    Content: function (page, url, para, response, data) {
-        if (STR.getParameter("action", para) === "103") {
-            for (let msgID in data)
-                data[msgID] && AGO.Messages.deleteMessage(msgID);
-        }
+    Content: function (content) {
+        $(content).find(".detail_msg").length && $(content).find(".detail_msg").data("messageType") === 10 && AGO.Messages.addActButtons("probeReport", content);
     },
 
     Ready: function () {
@@ -178,7 +175,7 @@ AGO.Messages = {
         AGO.Messages.sortSpyReports(AGO.Messages.spyTableData.sortSequence);
         AGO.Messages.shrinkSpyReports(this, tabContent);
         if (!OBJ.isEmpty(AGO.Messages.spyReports) && AGO.Option.is('M51')) AGO.Messages.showSpyReportOverview(this, tabContent);
-        AGO.Messages.addActButtons(this, tabContent);
+        AGO.Messages.addActButtons();
     },
 
     onViewFavorites: function (tabContent) {
@@ -197,7 +194,7 @@ AGO.Messages = {
         AGO.Messages.sortSpyReports(AGO.Messages.spyTableData.sortSequence);
         AGO.Messages.shrinkSpyReports(this, tabContent);
         if (!OBJ.isEmpty(AGO.Messages.spyReports) && AGO.Option.is('M51')) AGO.Messages.showSpyReportOverview(this, tabContent);
-        AGO.Messages.addActButtons(this, tabContent);
+        AGO.Messages.addActButtons();
     },
 
     reviseContent: function (tab, tabContent) {
@@ -225,50 +222,48 @@ AGO.Messages = {
         }
     },
 
-    addActButtons: function (tab, tabContent) {
-        var playerTechs = {
-            0:
-                [{
-                    research: {
-                        109: {level: AGO.Units.Data['109']},
-                        110: {level: AGO.Units.Data['110']},
-                        111: {level: AGO.Units.Data['111']},
-                        115: {level: AGO.Units.Data['115']},
-                        117: {level: AGO.Units.Data['117']},
-                        118: {level: AGO.Units.Data['118']}
-                    }, planet: {
-                        galaxy: AGO.Acc.galaxy,
-                        system: AGO.Acc.system,
-                        position: AGO.Acc.position
-                    }
-                }]
-        };
+    addActButtons: function (overlay, content) {
+        if (!overlay) {
+            OBJ.iterate(AGO.Messages.visibleMessages, function (id) {
+                var message = AGO.Messages.visibleMessages[id];
+                if (DOM.query('.compacting', message)) {
+                    var txtLink = DOM.query('.msg_actions .txt_link', message);
+                    var divActBtns = document.createElement('div');
+                    divActBtns.classList.add('ago_act_buttons');
+                    DOM.query('.msg_actions', message).insertBefore(divActBtns, txtLink);
 
-        var prefillTechs = window.btoa(JSON.stringify(playerTechs));
-        OBJ.iterate(AGO.Messages.visibleMessages, function (id) {
-            var message = AGO.Messages.visibleMessages[id];
-            if (DOM.query('.compacting', message)) {
-                var txtLink = DOM.query('.msg_actions .txt_link', message);
-                var divActBtns = document.createElement('div');
-                divActBtns.classList.add('ago_act_buttons');
-                DOM.query('.msg_actions', message).insertBefore(divActBtns, txtLink);
+                    var trashBtn = document.createElement('a');
+                    trashBtn.classList.add('icon_nf_link', 'fleft');
+                    trashBtn.href = "javascript:void(0);";
+                    trashBtn.onclick = function () {
+                        AGO.Tools.Action({
+                            id: "T5D",
+                            api: message.dataset.apiKey
+                        });
+                    };
+                    var trashIcon = document.createElement('span');
+                    trashIcon.classList.add('icon_nf', 'icon_trashsim', 'tooltip', 'js_hideTipOnMobile');
+                    trashIcon.title = 'TrashSim';
+                    trashBtn.appendChild(trashIcon);
+                    divActBtns.appendChild(trashBtn);
+                }
+            });
+        } else if (overlay === "probeReport" && content) {
+            let data = AGO.Messages.parseDetailedReport(content);
 
-                var trashBtn = document.createElement('a');
-                trashBtn.classList.add('icon_nf_link', 'fleft');
-                trashBtn.href = "javascript:void(0);";
-                trashBtn.onclick = function () {
-                    AGO.Tools.Action({
-                        id: "T5D",
-                        api: message.dataset.apiKey
-                    });
-                };
-                var trashIcon = document.createElement('span');
-                trashIcon.classList.add('icon_nf', 'icon_trashsim', 'tooltip', 'js_hideTipOnMobile');
-                trashIcon.title = 'TrashSim';
-                trashBtn.appendChild(trashIcon);
-                divActBtns.appendChild(trashBtn);
-            }
-        });
+            $(content).find(".msg_actions").append(
+                $("<div>", { class: "ago_act_buttons" }).append(
+                    $("<a>", { class: "icon_nf_link fleft", href: "javascript:void(0);" }).append(
+                        $("<span>", { class: "icon_nf icon_trashsim tooltip js_hideTipOnMobile", title: "TrashSim" })
+                    ).click(function () {
+                        AGO.Tools.Action({
+                            id: "T5D",
+                            Task: data
+                        });
+                    })
+                )
+            );
+        }
     },
 
     toggleFoldMessage: function (message, e) {
@@ -514,6 +509,7 @@ AGO.Messages = {
             var p = {};
             OBJ.copy(AGO.Messages.spyReports[AGO.Messages.spyReportsKeys[id]], p);
             var message = document.getElementById('m' + p.msgId);
+            AGO.Messages.visibleMessages[p.msgId] && (DOM.query(".js_actionKill", message).onclick = function () { AGO.Messages.deleteMessage(p.msgId) });
 
             var player = '' + (p.honorRank !== '' ? '<span class="honorRank ' + p.honorRank + '">&nbsp;</span>' : '') + '<span class="status_abbr_' + p.status + '">' + (p.playerName || '') + '</span>';
 
@@ -642,7 +638,9 @@ AGO.Messages = {
             'width': 16,
             'src': 'https://gf3.geo.gfsrv.net/cdne3/3f9884806436537bdec305aa26fc60.gif'
         }));
-        AGO.Messages.parseDetailedReport(p.msgId, function (data) {
+        AGO.Messages.fetchDetailedReport(p.msgId).then(data => {
+            data = AGO.Messages.parseDetailedReport(data);
+            console.log(data);
             $('.spyTableDetails').empty();
             $('<div>', {'class': 'detailsTitle'}).appendTo('.spyTableDetails').text(AGO.Label.get('I27'));
             $('<div>', {'class': 'detailsContent', 'style': 'width: 90%;'}).appendTo('.spyTableDetails').append(
@@ -784,34 +782,53 @@ AGO.Messages = {
         DOM.query('.summaryFleet').textContent = AGO.Option.is('M53') ? STR.shortNumber(sumFleet, 1) : STR.formatNumber(sumFleet);
     },
 
-    parseDetailedReport: function (msgid, callback) {
-        $.get(AGO.Uni.url + '/game/index.php', {page: 'messages', messageId: msgid, ajax: 1}).done(function (data) {
-            var d = new Object();
-            d.units = {};
-            d.metal = NMR.parseIntFormat($(data).find('.resource_list_el').eq(0).attr('title'));
-            d.crystal = NMR.parseIntFormat($(data).find('.resource_list_el').eq(1).attr('title'));
-            d.deuterium = NMR.parseIntFormat($(data).find('.resource_list_el').eq(2).attr('title'));
+    fetchDetailedReport: async function (msgid) {
+        let data = await $.get(AGO.Uni.url + '/game/index.php', {page: 'messages', messageId: msgid, ajax: 1});
+        return data;
+    },
 
-            var reportLevels = $(data).find('ul.detail_list');
-            var levelsMap = {resources: 0, ships: 1, repairorders: 1, defense: 1, buildings: 0, research: 1};
-            for (var i = 0; i < reportLevels.length; i++) {
-                var level = reportLevels[i].dataset.type;
-                if (!levelsMap[level]) continue;
-                d['label_' + level] = reportLevels.eq(i).prev().find('.title_txt').text();
+    parseDetailedReport: function (data) {
+        let d = {};
+        d.units = {};
+        d.metal = NMR.parseIntFormat($(data).find('.resource_list_el').eq(0).attr('title'));
+        d.crystal = NMR.parseIntFormat($(data).find('.resource_list_el').eq(1).attr('title'));
+        d.deuterium = NMR.parseIntFormat($(data).find('.resource_list_el').eq(2).attr('title'));
 
-                var t = new Object();
-                var levelData = $(data).find('ul.detail_list[data-type=' + level + ']');
-                for (var j = 0; j < levelData.find('li.detail_list_el').length; j++) {
-                    var item = levelData.find('span.detail_list_txt').eq(j).text();
-                    var itemCount = levelData.find('span.fright').eq(j).text();
-                    t[AGO.Item.getByName(item)] = NMR.parseIntFormat(itemCount);
-                }
+        d.coords = {
+            galaxy: 0,
+            system: 0,
+            position: 0
+        };
 
-                if (level !== 'research') d.units[level] = t;
-                else d[level] = t;
+        let coords = $(data).find(".detail_msg_head .msg_title").text().match(/\d{1,2}:\d{1,3}:\d{1,2}/);
+        if (coords.length) {
+            coords = coords[0].split(":");
+            d.coords = {
+                galaxy: +coords[0],
+                system: +coords[1],
+                position: +coords[2]
+            };
+        }
+
+        var reportLevels = $(data).find('ul.detail_list');
+        var levelsMap = {resources: 0, ships: 1, repairorders: 1, defense: 1, buildings: 0, research: 1};
+        for (var i = 0; i < reportLevels.length; i++) {
+            var level = reportLevels[i].dataset.type;
+            if (!levelsMap[level]) continue;
+            d['label_' + level] = reportLevels.eq(i).prev().find('.title_txt').text();
+
+            var t = new Object();
+            var levelData = $(data).find('ul.detail_list[data-type=' + level + ']');
+            for (var j = 0; j < levelData.find('li.detail_list_el').length; j++) {
+                var item = levelData.find('span.detail_list_txt').eq(j).text();
+                var itemCount = levelData.find('span.fright').eq(j).text();
+                t[AGO.Item.getByName(item)] = NMR.parseIntFormat(itemCount);
             }
-            callback(d);
-        });
+
+            if (level !== 'research') d.units[level] = t;
+            else d[level] = t;
+        }
+        return d;
     },
 
     onViewFleetsCombat: function (tabContent) {

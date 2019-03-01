@@ -203,15 +203,14 @@ var AGO = {
                 )
             }
         );
-        $(document).ajaxSuccess(function (b, a, c, d) {
+        $(document).ajaxSuccess(function (b, a, c) {
             b = decodeURIComponent(c.url || "").replace(/\?/g, "&").split("&page=")[1];
             b = (b || "").toLowerCase().split("&")[0].split("#")[0];
             AGO.message("Init", "Content", {
                 page: b,
                 url: c.url,
                 para: c.data,
-                response: "fetcheventbox" === b || "minifleet" === b ? a.responseText || "" : "",
-                data: d
+                response: "fetcheventbox" === b || "minifleet" === b ? a.responseText || "" : ""
             });
         });
     }, Tooltip: function () {

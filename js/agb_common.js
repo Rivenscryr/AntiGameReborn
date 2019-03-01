@@ -2546,24 +2546,23 @@ AGB.Tools = {
         let player = AGB.App.getPlayer(a, "copy");
         let [galaxy, system, position] = a.coords.split(":");
 
-        let playerTechs = {
-            0:
-                [{
-                    research: {
-                        109: {level: AGB.Units.Get(player, "account", "109")},
-                        110: {level: AGB.Units.Get(player, "account", "110")},
-                        111: {level: AGB.Units.Get(player, "account", "111")},
-                        115: {level: AGB.Units.Get(player, "account", "115")},
-                        117: {level: AGB.Units.Get(player, "account", "117")},
-                        118: {level: AGB.Units.Get(player, "account", "118")}
-                    },
-                    planet: {
-                        galaxy: galaxy,
-                        system: system,
-                        position: position
-                    },
-                    ships: {}
-                }],
+        let prefillTechs = {
+            0: [{
+                research: {
+                    109: { level: AGB.Units.Get(player, "account", "109") },
+                    110: { level: AGB.Units.Get(player, "account", "110") },
+                    111: { level: AGB.Units.Get(player, "account", "111") },
+                    115: { level: AGB.Units.Get(player, "account", "115") },
+                    117: { level: AGB.Units.Get(player, "account", "117") },
+                    118: { level: AGB.Units.Get(player, "account", "118") }
+                },
+                planet: {
+                    galaxy: galaxy,
+                    system: system,
+                    position: position
+                },
+                ships: {}
+            }],
             settings: {
                 speed_fleet: AGB.Uni.Get(player, "speedFleet"),
                 galaxies: AGB.Uni.Get(player, "galaxies"),
@@ -2578,12 +2577,38 @@ AGB.Tools = {
             }
         };
 
-        OBJ.iterate(a.Ships, function (id) {
-                a.Ships[id] && (playerTechs[0][0].ships[id] = { count: a.Ships[id] });
-            }
-        );
+        OBJ.iterate(a.Ships, id => {
+            a.Ships[id] && (prefillTechs[0][0].ships[id] = { count: a.Ships[id] });
+        });
 
-        let prefillTechs = window.btoa(JSON.stringify(playerTechs));
+        if (a.Task) {
+            let types = { ships: "ships", defense: "defence" };
+
+            let data = a.Task;
+            prefillTechs[1] = [{
+                resources: {
+                    metal: data.metal,
+                    crystal: data.crystal,
+                    deuterium: data.deuterium
+                },
+                research: {},
+                ships: {},
+                defence: {},
+                planet: data.coords
+            }];
+
+            OBJ.iterate(data.research, id => {
+                prefillTechs[1][0].research[id] = { level: data.research[id] };
+            });
+
+            OBJ.iterate(data.units, type => {
+                OBJ.iterate(data.units[type], id => {
+                    prefillTechs[1][0][types[type]][id] = { count: data.units[type][id] };
+                });
+            });
+        }
+
+        prefillTechs = window.btoa(JSON.stringify(prefillTechs));
         let url = "https://trashsim.universeview.be/" + AGB.Com.Get(a.abbrCom, "trashsim") + (a.api ? "?SR_KEY=" + a.api : "") + "#prefill=" + prefillTechs;
         a.href = url;
     }
