@@ -69,6 +69,13 @@ HTML.css = function (a, b, c) {
 };
 AGO.Menu = {
     status: 1,
+    supportThreads: {
+        "EN": "https://board.en.ogame.gameforge.com/index.php/Thread/802175-AntiGameReborn/",
+        "DE": "https://board.de.ogame.gameforge.com/index.php/Thread/204809-AntiGameReborn/",
+        "US": "https://board.us.ogame.gameforge.com/index.php/Thread/91843-AntiGameReborn-the-rebirth-of-AntiGame/",
+        "FR": "https://board.fr.ogame.gameforge.com/index.php/Thread/714692-AntiGameReborn-the-rebirth-of-AntiGame/",
+        "default": "https://board.origin.ogame.gameforge.com/index.php/Thread/11134-AntiGameReborn/"
+    },
     selectHighlight1: {
         0: "-",
         1: "H01",
@@ -154,14 +161,16 @@ AGO.Menu = {
         return !0
     },
     Init: function () {
-        2 > AGO.Menu.status && (AGO.Menu.status = 2, AGO.Menu.updatePath = AGO.isChrome ? AGO.App.beta ? "https://antigame.de/antigame/scripts/antigameorigin_beta.crx" : "https://chrome.google.com/webstore/detail/ago-v6/mhfbpacbhjchkjeopjfgdhckepclcfll" : AGO.App.beta ? "https://antigame.de/antigame/scripts/antigameorigin_beta.xpi" : "https://antigame.de/antigame/scripts/antigameorigin.xpi", AGO.Styles.setFile("menu"),
-                AGO.Para.Init(function () {
-                        AGO.Menu.lang = AGO.Para.get("A10") || AGO.Uni.lang;
-                        AGO.Label.InitMenu();
-                        AGO.Menu.Show()
-                    }
-                )
-        )
+        if (2 > AGO.Menu.status) {
+            AGO.Menu.status = 2;
+            AGO.Menu.updatePath = AGO.isChrome ? AGO.App.beta ? "https://antigame.de/antigame/scripts/antigameorigin_beta.crx" : "https://chrome.google.com/webstore/detail/ago-v6/mhfbpacbhjchkjeopjfgdhckepclcfll" : AGO.App.beta ? "https://antigame.de/antigame/scripts/antigameorigin_beta.xpi" : "https://antigame.de/antigame/scripts/antigameorigin.xpi";
+            AGO.Styles.setFile("menu");
+            AGO.Para.Init(function () {
+                AGO.Menu.lang = AGO.Para.get("A10") || AGO.Uni.lang;
+                AGO.Label.InitMenu();
+                AGO.Menu.Show()
+            });
+    }
     },
     Hide: function (a) {
         var b;
@@ -904,7 +913,12 @@ AGO.Menu.Show = function (a) {
         ), b("A11", "", "A83", 0, "", "", {action: "disable"}), AGO.Menu.appendSection("A30"), d("A31"), d("A32", "", "", 2), d("A34"), AGO.Menu.appendSection("A50"), b("A53", "", "", 0, "ago_menu_action", "", AGO.isFirefox ? AGO.Menu.updatePath : {action: "install"}, "_self"), d("S44", "S41", "", 2, "ago_menu_action"), b("A52", "", "", 0, "ago_menu_action", "", "https://antigame.de/home.php?page=changelog" +
             (AGO.App.beta ? "&beta" : ""
             )
-        ), b("A51", "", "A51", 0, "", "", "https://antigame.de/home.php?lang=" + AGO.Menu.lang.toLowerCase()), b("A55", "", "A55", 0, "", "", "http://board.origin.ogame.de/board203/"), b("A54", "", "A54", 0, "", "", "http://board.origin.ogame.de/board176/"), b("A56", "", "A57", 0, "", "", "https://antigame.de/antigame/translations/?lang=" + AGO.Menu.lang.toLowerCase()), b("S50", "", "S40", 0, "", "", "http://board.origin.ogame.de/board183/"), AGO.Menu.appendTab("Data"), AGO.Menu.appendSection("D00", "A80"), b("D01", "", "D0B",
+        ), b("A51", "", "A51", 0, "", "", "https://rivenscryr.github.io/AntiGameReborn/" + (AGO.Menu.lang === "DE" ? "de" : "en") + "/"),
+            b("A55", "", "A55", 0, "", "", "https://rivenscryr.github.io/AntiGameReborn/" + (AGO.Menu.lang === "DE" ? "de" : "en") + "/docs/"),
+            b("A54", "", "A54", 0, "", "", AGO.Menu.supportThreads[AGO.Menu.lang] ? AGO.Menu.supportThreads[AGO.Menu.lang] : AGO.Menu.supportThreads["default"]),
+            b("A58", "", "A58", 0, "", "", "https://discord.gg/sb72AFN"),
+            b("A59", "", "A60", 0, "", "", "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=E7ZA3C9PX3ZWN&source=url"),
+            AGO.Menu.appendTab("Data"), AGO.Menu.appendSection("D00", "A80"), b("D01", "", "D0B",
             0, "", "", {action: "update"}
         ), e(12), g("D10", "", {
                 X0: " - ",
