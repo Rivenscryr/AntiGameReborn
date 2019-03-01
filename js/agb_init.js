@@ -931,7 +931,9 @@ AGB.Uni = {
         topScore: 0,
         donutGalaxy: 0,
         donutSystem: 0,
+        probeCargo: 0,
         globalDeuteriumSaveFactor: 1,
+        cargoHyperspaceTechMultiplier: 2,
         name: ""
     },
     Init: function (a, b) {
