@@ -467,6 +467,7 @@ AGO.Messages = {
     showSpyReportOverview: function (tab, tabContent) {
         var contentWrap = DOM.query('.tab_ctn', tabContent) || tabContent;
         if ($('#agoSpyReportOverview').length) $('#agoSpyReportOverview').remove();
+        if (!AGO.Messages.spyReportsKeys.length) return;
         var tableWrap = DOM.appendDIV(null, '');
         tableWrap.id = 'agoSpyReportOverview';
         contentWrap.insertBefore(tableWrap, contentWrap.firstChild);
