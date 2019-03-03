@@ -96,6 +96,7 @@ AGO.Fleet1 = {
                     status: c.ships ? 3 : 0
                 };
                 a.preferShip = AGO.Option.is("FA2") ? "202" : "203";
+                console.log(a);
                 break;
             case 4:
                 a = PAGE[4] = {

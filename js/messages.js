@@ -596,7 +596,20 @@ AGO.Messages = {
             var aAttack = DOM.appendA(cellActions);
             aAttack.classList.add('spyTableIcon');
             aAttack.classList.add('icon_attack');
-            aAttack.href = '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3' + (AGO.Option.is('FA2') ? '&am202=' + p.sc : '&am203=' + p.lc);
+            let shipSetting = AGO.Option.get("FA2");
+            let ship = "0";
+            let shipsToSend = 0;
+            let resToPlunder = parseInt(p.loot)
+            var percentCargos = 1 + AGO.Option.get('FA3') / 100;
+            switch (shipSetting) {
+                case 0: ship = "203"; shipsToSend = p.lc; break;
+                case 1: ship = "202"; shipsToSend = p.sc; break;
+                case 2: ship = "210"; 
+                    shipsToSend = Math.ceil(resToPlunder / AGO.Ogame.getShipCapacity("210") * percentCargos);
+                break;
+                default: "203";
+            }
+            aAttack.href = '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am' + ship + "=" + shipsToSend;
             aAttack.textContent = 'A';
             AGO.Option.is('M16') ? aAttack.target = 'ago_fleet_attacks' : 0;
             p.attacking === "1" && aAttack.classList.add('attacking');
