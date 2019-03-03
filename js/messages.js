@@ -401,7 +401,6 @@ AGO.Messages = {
 
                 p.date = AGO.Time.convertLocal(DOM.getText('.msg_head .msg_date', message));
                 p.age = AGO.Time.ogameTime - AGO.Time.parse(DOM.getText('.msg_head .msg_date', message)).getTime();
-                p.age = p.age >= 0 ? p.age : 0;
 
                 OBJ.copy(p, message.dataset);
                 if (AGO.Option.is('M20')) AGO.Messages.reviseMessage(message);
@@ -549,7 +548,7 @@ AGO.Messages = {
             var spanAge = document.createElement('span');
             spanAge.classList.add('tooltipRight');
             spanAge.title = p.date;
-            spanAge.textContent = AGO.Time.formatTime(p.age / 1000, true);
+            spanAge.textContent = AGO.Time.formatTime((p.age >= 0 ? p.age : 0) / 1000, true);
             cellAge.appendChild(spanAge);
 
             var cellPlayer = DOM.appendTD(row);
