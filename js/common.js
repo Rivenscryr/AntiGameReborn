@@ -505,7 +505,8 @@ AGO.Ogame = {
             ) * (c / 10 + 1)
         ) * AGO.Uni.globalDeuteriumSaveFactor) : 0
     }, getShipCapacity: function (a) {
-        return Math.round(AGO.Item[a].capacity * (1 + (AGO.Units.get("114") || 0) * (AGO.Uni.cargoHyperspaceTechMultiplier / 100)));
+        let capacity = "210" === a && AGO.Uni.probeCargo ? AGO.Uni.probeCargo : AGO.Item[a].capacity;
+        return Math.round(capacity * (1 + (AGO.Units.get("114") || 0) * (AGO.Uni.cargoHyperspaceTechMultiplier / 100)) * 10) / 10;
     }, getShipSpeed: function (a) {
         AGO.Ogame.initShipSpeed && (AGO.Ogame.initShipSpeed(), AGO.Ogame.initShipSpeed = null);
         return AGO.Item[a].speed

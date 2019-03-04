@@ -606,7 +606,17 @@ AGO.Messages = {
             var aAttack = DOM.appendA(cellActions);
             aAttack.classList.add('spyTableIcon');
             aAttack.classList.add('icon_attack');
-            aAttack.href = '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3' + (AGO.Option.is('FA2') ? '&am202=' + p.sc : '&am203=' + p.lc);
+            let shipSetting = AGO.Option.get("FA2");
+            let ship = "0";
+            let shipsToSend = 0;
+            let speedSetting = AGO.Option.get("FA4", 10);
+            switch (shipSetting) {
+                default:
+                case 0: ship = "203"; shipsToSend = p.lc; break;
+                case 1: ship = "202"; shipsToSend = p.sc; break;
+                case 2: ship = "210"; shipsToSend = p.sc * 1000; break;
+            }
+            aAttack.href = '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am' + ship + "=" + shipsToSend + (shipSetting === 2 ? "&speed=" + speedSetting : "");
             aAttack.textContent = 'A';
             AGO.Option.is('M16') ? aAttack.target = 'ago_fleet_attacks' : 0;
             p.attacking === "1" && aAttack.classList.add('attacking');
@@ -626,7 +636,6 @@ AGO.Messages = {
             AGO.Messages.refreshSummary();
         }
     },
-
     tableAddDetails: function (e, p) {
         var row = $('#t_' + p.msgId);
 
@@ -640,7 +649,7 @@ AGO.Messages = {
             return;
         }
 
-        $('#t_' + p.msgId).attr('details', '1');
+        row.attr('details', '1');
 
         $('<tr>', {'id': 'd_' + p.msgId}).addClass('row').insertAfter('#t_' + p.msgId)
             .append($('<td>', {'class': 'spyTableDetails', 'colspan': '7'}));
@@ -652,7 +661,6 @@ AGO.Messages = {
         }));
         AGO.Messages.fetchDetailedReport(p.msgId).then(data => {
             data = AGO.Messages.parseDetailedReport(data);
-            console.log(data);
             $('.spyTableDetails').empty();
             $('<div>', {'class': 'detailsTitle'}).appendTo('.spyTableDetails').text(AGO.Label.get('I27'));
             $('<div>', {'class': 'detailsContent', 'style': 'width: 90%;'}).appendTo('.spyTableDetails').append(
@@ -669,25 +677,45 @@ AGO.Messages = {
                 var percentCargos = 1 + AGO.Option.get('FA3') / 100;
                 for (var f = totalRes * p.plunder, i = 1; f > (AGO.Option.get('M36') * 1E3); (totalRes = totalRes - f, f = totalRes * p.plunder, i++)) {
                     var totalLC = Math.ceil(f / AGO.Ogame.getShipCapacity("203") * percentCargos),
-                        totalSC = Math.ceil(f / AGO.Ogame.getShipCapacity("202") * percentCargos);
+                        totalSC = Math.ceil(f / AGO.Ogame.getShipCapacity("202") * percentCargos),
+                        totalProbe = Math.ceil(f / AGO.Ogame.getShipCapacity("210") * percentCargos);
+                    let widths = AGO.Uni.probeCargo > 0 ? [12, 22, 5, 15, 7, 18] : [15, 25, 10, 20, 0, 0];
+                    let scLinkFloat = "none";
+                    let spanProbesLabel = "";
+                    let spanProbesCount = "";
+                    if (AGO.Uni.probeCargo > 0) {
+                        let speedSetting = AGO.Option.get("FA4");
+                        spanProbesLabel = $('<span>', {'style': 'float: left; width: ' + widths[4] + '%;'}).text(AGO.Label.get('K210'));
+                        spanProbesCount = $('<span>', {'style': 'float: none; width: ' + widths[5] + '%;'}).append(
+                            $('<a>', {
+                                'class': 'txt_link',
+                                'target': AGO.Option.is("M16") ? 'ago_fleet_attacks' : '',
+                                'href': '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am210=' + totalProbe  + "&speed=" + speedSetting
+                            }).text(AGO.Messages.formatNumber(totalProbe))
+                        );
+                        scLinkFloat = "left";
+                    }
+
                     $('.detailsContent').last().append(
                         $('<div>', {'style': 'margin: auto; width: 100%; text-align: left;'}).append(
-                            $('<span>', {'style': 'float: left; width: 15%;'}).text(AGO.Label.get('M24') + (i == 1 ? '' : ' ' + i)),
-                            $('<span>', {'style': 'float: left; width: 25%; color: #ff9600'}).text(AGO.Messages.formatNumber(f)),
-                            $('<span>', {'style': 'float: left; width: 10%;'}).text(AGO.Label.get('K203')),
-                            $('<span>', {'style': 'float: left; width: 20%;'}).append(
+                            $('<span>', {'style': 'float: left; width: ' + widths[0] + '%;'}).text(AGO.Label.get('M24') + (i == 1 ? '' : ' ' + i)),
+                            $('<span>', {'style': 'float: left; width: ' + widths[1] + '%; color: #ff9600'}).text(AGO.Messages.formatNumber(f)),
+                            $('<span>', {'style': 'float: left; width: ' + widths[2] + '%;'}).text(AGO.Label.get('K203')),
+                            $('<span>', {'style': 'float: left; width: ' + widths[3] + '%;'}).append(
                                 $('<a>', {
                                     'class': 'txt_link',
+                                    'target': AGO.Option.is("M16") ? 'ago_fleet_attacks' : '',
                                     'href': '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am203=' + totalLC
                                 }).text(AGO.Messages.formatNumber(totalLC))
                             ),
-                            $('<span>', {'style': 'float: left; width: 10%;'}).text(AGO.Label.get('K202')),
-                            $('<span>', {'style': 'float: none; width: 20%;'}).append(
+                            $('<span>', {'style': 'float: left; width: ' + widths[2] + '%;'}).text(AGO.Label.get('K202')),
+                            $('<span>', {'style': 'float: ' + scLinkFloat + '; width: ' + widths[3] + '%;'}).append(
                                 $('<a>', {
                                     'class': 'txt_link',
+                                    'target': AGO.Option.is("M16") ? 'ago_fleet_attacks' : '',
                                     'href': '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am202=' + totalSC
                                 }).text(AGO.Messages.formatNumber(totalSC))
-                            )
+                            ), spanProbesLabel, spanProbesCount
                         )
                     );
                 }
