@@ -630,7 +630,6 @@ AGO.Fleet1 = {
         e = h = f = f = c = b = null
     },
     Display: function () {
-        AGO.Uni.probeCargo = 5;
         function a(a, b) {
             var d = !a || 0 > b ? "" : a >= b ? "ago_color_green" : "ago_color_palered";
             a = Math.round(a);
