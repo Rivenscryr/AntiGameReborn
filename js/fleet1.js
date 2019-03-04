@@ -56,25 +56,6 @@ AGO.Fleet1 = {
             ), e.mission = PAGE.Mission.check(e.mission), PAGE.Next = OBJ.create(e), PAGE.Next.mission = 0, PAGE.Mini = AGO.Task.splitActive(AGO.Option.get("F31", -1), 2, 0), PAGE[1] = {status: e.mission && !e.routine ? 1 : 0}, PAGE.Init(2), PAGE.Init(3),
                 PAGE.Init(4), PAGE.Init(5), PAGE.Init(6), PAGE.Init(7), PAGE.Init(10), e.calculator = AGO.Fleet.Get("Current", "Calculator"), e.calculator = PAGE.getRoutine(e.routine) ? e.routine : 1 === e.mission ? 3 : 8 === e.mission ? 4 : e.mission || e.resources ? 2 : PAGE.getRoutine(e.calculator) ? e.calculator : 2, AGO.Background.Set("Fleet_Task", ""), AGO.Fleet.Set("Current", "Task1", "")
         );
-        // Default speed FA4 parameter if routine 3 (farming)
-        if (AGO.Fleet1.Para.routine == 3) {
-            let speedSetting = AGO.Option.get("FA4");
-            let setSpeedTo = 10;
-            switch (speedSetting) {
-                case 0: setSpeedTo = 10; break;
-                case 1: setSpeedTo = 9; break;
-                case 2: setSpeedTo = 8; break;
-                case 3: setSpeedTo = 7; break;
-                case 4: setSpeedTo = 6; break;
-                case 5: setSpeedTo = 5; break;
-                case 6: setSpeedTo = 4; break;
-                case 7: setSpeedTo = 3; break;
-                case 8: setSpeedTo = 2; break;
-                case 9: setSpeedTo = 1; break;
-            }
-
-            PAGE.Para.speed = setSpeedTo;
-        }
         
         
         a = e = c = h = f = f = h = h = b = null

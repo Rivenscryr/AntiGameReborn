@@ -1038,7 +1038,7 @@ AGO.Menu.Show = function (a) {
                 30: "30 %",
                 40: "40 %",
                 50: "50 %"
-            }),g("FA4", "", {
+            }), (AGO.Uni.probeCargo > 0) ? g("FA4", "", {
                 0: "100 %",
                 1: "90 %",
                 2: "80 %",
@@ -1050,7 +1050,7 @@ AGO.Menu.Show = function (a) {
                 8: "20 %",
                 9: "10 %"
             }
-        ),AGO.Menu.appendSection("FH0",
+        ) : null,AGO.Menu.appendSection("FH0",
             "", "F00", {1: "A91", 2: "A99", 3: "F06"}
         ),AGO.Menu.appendSection("F80", "", "F00", {
                 0: " - ",
