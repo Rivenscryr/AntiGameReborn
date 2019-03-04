@@ -1061,7 +1061,7 @@ AGO.Panel = {
                             214: 0
                         }, OBJ.iterate(x, function (a) {
                                 r = {action: 10};
-                                r[a] = Math.ceil(h.resources / AGO.Item[a].capacity);
+                                r[a] = Math.ceil(h.resources / AGO.Ogame.getShipCapacity(a));
                                 u = DOM.appendLI(s, {
                                         "ago-data": JSON.stringify({
                                                 message: {

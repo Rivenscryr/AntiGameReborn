@@ -416,7 +416,7 @@ AGO.Building = {
                         "class": "ago_items_resource_cargo tooltipRel tooltipClose tooltipRight",
                         rel: "ago_items_resource_cargo"
                     }, p, 11
-                ), DOM.appendSPAN(h, "ago_items_resource_value", Math.ceil(m / AGO.Item[p].capacity),
+                ), DOM.appendSPAN(h, "ago_items_resource_value", Math.ceil(m / AGO.Ogame.getShipCapacity(p)),
                     3
                 ), e = DOM.appendDIV(d, {
                         "class": "htmlTooltip",
@@ -431,7 +431,7 @@ AGO.Building = {
                                 )
                             }, a, 11
                         );
-                        DOM.appendSPAN(h, "ago_items_resource_value", Math.ceil(m / AGO.Item[a].capacity), 3)
+                        DOM.appendSPAN(h, "ago_items_resource_value", Math.ceil(m / AGO.Ogame.getShipCapacity(a)), 3)
                     }
                 )
             ), DOM.replaceChildren(c, d), c = d = e = g = h = null
