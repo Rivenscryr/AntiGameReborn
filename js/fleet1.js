@@ -57,7 +57,7 @@ AGO.Fleet1 = {
                 PAGE.Init(4), PAGE.Init(5), PAGE.Init(6), PAGE.Init(7), PAGE.Init(10), e.calculator = AGO.Fleet.Get("Current", "Calculator"), e.calculator = PAGE.getRoutine(e.routine) ? e.routine : 1 === e.mission ? 3 : 8 === e.mission ? 4 : e.mission || e.resources ? 2 : PAGE.getRoutine(e.calculator) ? e.calculator : 2, AGO.Background.Set("Fleet_Task", ""), AGO.Fleet.Set("Current", "Task1", "")
         );
         // Default speed FA4 parameter if routine 3 (farming)
-        if (AGO.Fleet1.Para.routine) {
+        if (AGO.Fleet1.Para.routine == 3) {
             let speedSetting = AGO.Option.get("FA4");
             let setSpeedTo = 10;
             switch (speedSetting) {
