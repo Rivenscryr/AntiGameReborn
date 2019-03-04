@@ -5,7 +5,6 @@ AGO.Fleet1 = {
     },
     Read: function () {
         var a, e, h, f, c, b;
-        var urlParams = new URLSearchParams(window.location.search);
         e = AGO.Fleet1.Para = {};
         a = AGO.Units.Data;
         a.ships = a.shipsCivil = a.shipsCombat = a.capacity = 0;
@@ -49,7 +48,7 @@ AGO.Fleet1 = {
             ) : (h = AGO.Background.Get("Fleet_Task", 6) || AGO.Fleet.Get("Current", "Task1", 6)
             ) && OBJ.copy(OBJ.parse(h),
                 e
-            ), AGO.Task.updateResources(e), AGO.Task.updateShips(e), a["210"] && (urlParams.get('routine') == 3 ? PAGE.Mission[5] = 1: PAGE.Mission[6] = 1
+            ), AGO.Task.updateResources(e), AGO.Task.updateShips(e), a["210"] && (AGO.Fleet1.Para.routine == 3 ? PAGE.Mission[5] = 1: PAGE.Mission[6] = 1
             ), a["208"] && (PAGE.Mission[7] = 1
             ), a["209"] && (PAGE.Mission[8] = PAGE.Type[2] = 1
             ), a["214"] && (PAGE.Mission[9] = 1
@@ -58,7 +57,7 @@ AGO.Fleet1 = {
                 PAGE.Init(4), PAGE.Init(5), PAGE.Init(6), PAGE.Init(7), PAGE.Init(10), e.calculator = AGO.Fleet.Get("Current", "Calculator"), e.calculator = PAGE.getRoutine(e.routine) ? e.routine : 1 === e.mission ? 3 : 8 === e.mission ? 4 : e.mission || e.resources ? 2 : PAGE.getRoutine(e.calculator) ? e.calculator : 2, AGO.Background.Set("Fleet_Task", ""), AGO.Fleet.Set("Current", "Task1", "")
         );
         // Default speed FA4 parameter if routine 3 (farming)
-        if (urlParams.get('routine') == 3) {
+        if (AGO.Fleet1.Para.routine) {
             let speedSetting = AGO.Option.get("FA4");
             let setSpeedTo = 10;
             switch (speedSetting) {
