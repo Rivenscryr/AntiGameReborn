@@ -48,7 +48,7 @@ AGO.Fleet1 = {
             ) : (h = AGO.Background.Get("Fleet_Task", 6) || AGO.Fleet.Get("Current", "Task1", 6)
             ) && OBJ.copy(OBJ.parse(h),
                 e
-            ), AGO.Task.updateResources(e), AGO.Task.updateShips(e), a["210"] && (AGO.Fleet1.Para.routine == 3 ? PAGE.Mission[1] = 1: PAGE.Mission[6] = 1
+            ), AGO.Task.updateResources(e), AGO.Task.updateShips(e), a["210"] && (PAGE.Para.routine == 3 ? PAGE.Mission[1] = 1: PAGE.Mission[6] = 1
             ), a["208"] && (PAGE.Mission[7] = 1
             ), a["209"] && (PAGE.Mission[8] = PAGE.Type[2] = 1
             ), a["214"] && (PAGE.Mission[9] = 1
@@ -630,8 +630,10 @@ AGO.Fleet1 = {
         e = h = f = f = c = b = null
     },
     Display: function () {
+        AGO.Uni.probeCargo = 5;
         function a(a, b) {
             var d = !a || 0 > b ? "" : a >= b ? "ago_color_green" : "ago_color_palered";
+            a = Math.round(a);
             DOM.updateText("ago_info_capacity", "id", a, 3);
             DOM.updateClass("ago_info_capacity", "id", d)
         }
