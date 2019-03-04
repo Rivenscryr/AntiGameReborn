@@ -683,6 +683,7 @@ AGO.Messages = {
                                 $('<span>', {'style': 'float: left; width: 10%;'}).append(
                                     $('<a>', {
                                         'class': 'txt_link',
+                                        'target': (AGO.Option.is("M16")) ? '_blank' : '',
                                         'href': '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am203=' + totalLC
                                     }).text(AGO.Messages.formatNumber(totalLC))
                                 ),
@@ -690,6 +691,7 @@ AGO.Messages = {
                                 $('<span>', {'style': 'float: left; width: 10%;'}).append(
                                     $('<a>', {
                                         'class': 'txt_link',
+                                        'target': (AGO.Option.is("M16")) ? '_blank' : '',
                                         'href': '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am202=' + totalSC
                                     }).text(AGO.Messages.formatNumber(totalSC))
                                 ),
@@ -697,6 +699,7 @@ AGO.Messages = {
                                 $('<span>', {'style': 'float: none; width: 20%;'}).append(
                                     $('<a>', {
                                         'class': 'txt_link',
+                                        'target': (AGO.Option.is("M16")) ? '_blank' : '',
                                         'href': '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am210=' + totalProbe
                                     }).text(AGO.Messages.formatNumber(totalProbe))
                                 )
@@ -711,6 +714,7 @@ AGO.Messages = {
                                 $('<span>', {'style': 'float: left; width: 20%;'}).append(
                                     $('<a>', {
                                         'class': 'txt_link',
+                                        'target': (AGO.Option.is("M16")) ? '_blank' : '',
                                         'href': '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am203=' + totalLC
                                     }).text(AGO.Messages.formatNumber(totalLC))
                                 ),
@@ -718,6 +722,7 @@ AGO.Messages = {
                                 $('<span>', {'style': 'float: none; width: 20%;'}).append(
                                     $('<a>', {
                                         'class': 'txt_link',
+                                        'target': (AGO.Option.is("M16")) ? '_blank' : '',
                                         'href': '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am202=' + totalSC
                                     }).text(AGO.Messages.formatNumber(totalSC))
                                 )
