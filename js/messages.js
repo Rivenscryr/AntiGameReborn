@@ -507,6 +507,7 @@ AGO.Messages = {
             OBJ.copy(AGO.Messages.spyReports[AGO.Messages.spyReportsKeys[id]], p);
             var message = document.getElementById('m' + p.msgId);
             AGO.Messages.visibleMessages[p.msgId] && (DOM.query(".js_actionKill", message).onclick = function () {
+                AGO.Messages.ajaxDelete(p.msgId);
                 AGO.Messages.deleteMessage(p.msgId);
                 $("#t_" + p.msgId).remove();
                 $("#d_" + p.msgId).remove();
