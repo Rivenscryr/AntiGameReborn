@@ -6,23 +6,21 @@ page: changelog
 
 ## Changelog
 ### Version 6.8.5
-* [Feature] Spy table is now extended when browsing through pages
-* [Bugfix/Polishing] Improved loading buddies/alliance members into the shareReport
-overlay
-* [Feature] Added button to delete reports with defense over a limit
-* [Feature] Native TrashSim support
-* [Polishing] TrashSim link in the panel prefills your own techs, ships and
-universe settings
-* [Bugfix] Negative age in the spy table
-* [Feature] Bonus cargo capacity from Hyperspace Tech should be considered correctly
-(please test and report errors)
-* [Polishing] Reworked and updated links in AGR menu (homepage, support threads,
-Discord link, donations)
-* [Polishing] TrashSim buttons in espionage reports now have the correct language
-* [Polishing] Added TrashSim button to the full espionage report overlay
+* [Feature] La table des espions est maintenant étendue lors de la navigation dans les pages
+* [Bugfix/Polishing] Amélioration du chargement des amis/membres de l'alliance dans le partage.
+* [Feature] Ajout du bouton pour supprimer les rapports avec une défense supérieur à une limite
+* [Feature] Support natif de TrashSim 
+* [Polishing] Le lien TrashSim prérempli vos technos, vaisseaux et les parmètres de l'univers
+* [Bugfix] Age négatif dans le tableau d'espionnage
+* [Feature] Le bonus sur la capacité de transport provenant de la technologie Hyperespace devrait être pris en compte correctement
+(tester et remonter les erreurs s'il vous plait)
+* [Polishing] Modification et mise à jour des liens dans le menu AGR (page d'accueil, topic de support,
+lien Discord, donations)
+* [Polishing] Le bouton TrashSim dans le rapport d'espionnage est dans la bonne langue
+* [Polishing] Ajout du bouton TrashSim au rapport d'espionnage complet
 
 ### Version 6.8.3.3
-* [Polishing] Added option to choose function galaxy icon in coords box (AGR Menu -> Main view)
+* [Polishing] Ajout d'une option pour choisir l'icône de la fonction galaxie dans la boîte de coordonnées (Menu AGR -> Vue principale)
 * [Misc] Mise à jour de la bibliothèque DOMPurify vers la dernière version
 
 ### Version 6.8.3.2
@@ -31,57 +29,57 @@ Discord link, donations)
 * [Polishing] Désactive le raccourci Ctrl + flèche dans les champs textes
 * [Polishing] Ajout de l'option pour désactiver le raccourci Ctrl + flèche
 * [Bugfix] Routine de collecte ne fonctionne plus après un déménagement
-* [Bugfix] Data gets corrupted if there are buildings in queue in empire view
-* [Feature] Buddies and alliance members are shown in share report overlay
+* [Bugfix] Les données sont corrompues s'il y a des bâtiments en file d'attente en vue empire.
+* [Feature] Les amis et les membres de l'alliance sont représentés dans le partage de rapport.
 * [Bugfix] Lanx range dans les univers circulaires
-* [Feature] The galaxy icon (top left) in coords box cycles through coords
+* [Feature] L'icône de la galaxie (en haut à gauche) dans la boîte des coordonnées fait défiler les coordonnées.
 
 ### Version 6.8.3.1
-* [Bugfix] Firefox didn't get along with the workaround for Chrome bug
-* [Bugfix] AGR broke when using a jumpgate if AGR didn't have the jumpgate levels yet
+* [Bugfix] Firefox ne s'entendait pas avec la solution de contournement pour le bug Chrome
+* [Bugfix] AGR ne fonctionnait plus lors de l'utilisation d'une porte de saut si AGR n'avait pas encore les niveaux de la porte de saut.
 
 ### Version 6.8.3
-* [Polishing] Started unminifying code
-* [Feature] Added base frame for native TrashSim support
-* [Polishing] Removed non-functional Scripts button/fair play policy/version check completely
-* [Bugfix] Wrong calculation of max. buildable units (affecting x10 button)
-* [Feature/Bugfix] Correct calculation of jump gate cooldowns with level higher than 1
-* [Feature] Ability to scroll through planets/moons with Ctrl + Arrow keys
-* [Bugfix] Temporary workaround for Chrome 71 bug
-* [Feature] Added 30/40/50% to "Send more ships" option
-* [Bugfix] Removed non-functional Chatbar options
+* [Polishing] Commencé à déminifier le code
+* [Feature] Ajout d'un cadre de base pour le support natif de TrashSim
+* [Polishing] Suppression des scripts non fonctionnels bouton/politique de fair-play/vérification complète de la version
+* [Bugfix] Mauvais calcul du nombre maximum d'unités pouvant être construites (affectant le bouton x10)
+* [Feature/Bugfix] Calcul correct des temps de recharge des portes de saut avec un niveau supérieur à 1
+* [Feature] Possibilité de faire défiler les planètes/lune avec les touches Ctrl + Flèche
+* [Bugfix] Solution de contournement temporaire pour le bug de Chrome 71
+* [Feature] Ajouté 30/40/50% à l'option "Envoyer plus de vaisseaux
+* [Bugfix] Suppression des options non fonctionnelles de la barre de dialogue
 
 ### Version 6.8.0.1
 * [Feature] Bouton x10 button dans Chantier spatial et Défense
 
 ### Version 6.8.0
 * [Misc] Extension renommée en AntiGameReborn
-* [Bugfix] The spy table now works fully with UniverseView installed
-* [Bugfix] Fixed a bug that occured when using the alternative redirection when sending fleets
+* [Bugfix] La table d'espionnage fonctionne maintenant complètement avec UniverseView installé.
+* [Bugfix] Correction d'un bogue survenu lors de l'utilisation de la redirection alternative lors de l'envoi de flottes.
 
 ### Version 6.7.2.3
 * [Polishing] Sanitized innerHTML assignments
-* [Polishing] donutGalaxy and probing from Galaxy view improvement
-* [Feature] Redirection after sending a fleet can be changed to "movement" (AGO Menu -> Fleets)
+* [Polishing] Amélioration pour les univers circulaires et sondage depuis la page Galaxie
+* [Feature] La redirection après l'envoi d'une flotte peut être changée en "mouvement" (Menu AGO -> Flottes)
 
 ### Version 6.7.2.1
 * [Bugfix] Hotfix pour Firefox
 * [Bugfix] La capacité de chargement sur la page flotte 2 est maintenant affichée correctement (et non comme NaN)
-* [Bugfix] The speed adjustment when probing from galaxy view now recognizes donut unis correctly (again)
+* [Bugfix] L'ajustement de la vitesse lors du sondage à partir de la vue de la galaxie reconnaît maintenant correctement les univers circulaires  (à nouveau) 
 
 ### Version 6.7.2
-* [Bugfix] OGame not recognizing fleet after using auto-switch planets on Collect and Fleetsave routines
-* [Bugfix] Not being able to send a fleet after auto-switch of planets
-* [Bugfix/Polishing] Some optimizations and small bugfixes
-* [Feature] Added research to the detailed report view in the spy table (https://i.imgur.com/C5ORpwX.png)
-* [Feature] Added spy table to Favorites and Shared spy reports
-* [Feature] Merchant button is highlighted if there is a new item in Import/Export
-* [Bugfix] Fix for galaxy shortcuts; using AGO shortcuts now goes through systems/galaxies one by one
-* [Bugfix] Global deuterium save factor is now implemented in the Deuterium consumption calculation
-* [Bugfix] Fix for using AGO together with UniverseView
-* [Bugfix] Fix for fleet selection for amounts >10 million
+* [Bugfix] OGame ne reconnaît pas la flotte après l'utilisation du changement automatique des planètes sur les routines de collectes et de sauvetage de flotte
+* [Bugfix] Ne pas être capable d'envoyer une flotte après le changement automatique des planètes
+* [Bugfix/Polishing] Quelques optimisations et petites corrections de bugs
+* [Feature] Ajouté la recherche à la vue détaillée du rapport dans le tableau d'espionnage (https://i.imgur.com/C5ORpwX.png)
+* [Feature] Ajout d'une table d'espionnage aux Favoris et rapports d'espionnage partagés
+* [Feature] Le bouton Marchand est mis en surbrillance s'il y a un nouvel élément dans Import/Export.
+* [Bugfix] Correction des raccourcis pour les galaxies ; l'utilisation des raccourcis AGO passe maintenant par les systèmes/galaxies un par un
+* [Bugfix] Le facteur global d'économie de deutérium est maintenant implémenté dans le calcul de la consommation de deutérium.
+* [Bugfix] Correction de l'utilisation de l'AGO avec UniverseView
+* [Bugfix] Correction pour la sélection de flotte pour des montants >10 millions
 
 ### Version 6.7.0
 * [Bugfix] Correction de la vue Empire
 * [Bugfix] Les noms des mines sont affichés correctement (pas en tant que Géologue, etc.)
-* [Feature] Spying out of the messages page also has the same speed adjustment as the galaxy view
+* [Feature] Espionner depuis la page des message a également le même ajustement de vitesse que celui de la vue galaxie
