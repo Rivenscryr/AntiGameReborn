@@ -611,11 +611,12 @@ AGO.Messages = {
             let ship = "0";
             let shipsToSend = 0;
             let speedSetting = AGO.Option.get("FA4", 10);
+            let percentCargos = 1 + AGO.Option.get('FA3') / 100;
             switch (shipSetting) {
                 default:
                 case 0: ship = "203"; shipsToSend = p.lc; break;
                 case 1: ship = "202"; shipsToSend = p.sc; break;
-                case 2: ship = "210"; shipsToSend = p.sc * 1000; break;
+                case 2: ship = "210"; shipsToSend = Math.ceil(p.loot / AGO.Ogame.getShipCapacity("210") * percentCargos); break;
             }
             aAttack.href = '/game/index.php?page=fleet1&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am' + ship + "=" + shipsToSend + (shipSetting === 2 ? "&speed=" + speedSetting : "");
             aAttack.textContent = 'A';
