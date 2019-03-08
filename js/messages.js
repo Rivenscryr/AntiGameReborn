@@ -66,12 +66,12 @@ AGO.Messages = {
                             AGO.Messages.visibleMessages[message.dataset.msgId] = message;
                             AGO.Messages.allMessages[message.dataset.msgId] = message;
                         });
-                        AGO.Messages.addButtons(tab, content);
 
                         if (typeof AGO.Messages[AGO.Messages.messageTabEvents[tab.id]] === 'function') {
                             AGO.Messages[AGO.Messages.messageTabEvents[tab.id]].call(tab, content);
                         }
 
+                        AGO.Messages.addButtons(tab, content);
                         AGO.Messages.reviseContent();
                         break;
                     }
@@ -89,10 +89,10 @@ AGO.Messages = {
     },
 
     addButtons: function (tab, tabContent) {
-        tabContent = DOM.query('.tab_ctn', tabContent) || tabContent.firstChild;
+        let tabInner = DOM.query('.tab_inner', tabContent);
         var divButtons = DOM.appendDIV(null, 'agoButtons');
         divButtons.id = 'agoButtons';
-        tabContent.insertBefore(divButtons, DOM.query('.tab_inner', tabContent));
+
         var divContent = '<table class="anti_msg_buttons" style="table-layout: fixed;"><tr>';
 
         if (AGO.Messages.messageTabEvents[tab.id] === 'onViewFleetsEsp') {
@@ -108,6 +108,12 @@ AGO.Messages = {
         divContent += '</tr></table>';
 
         divButtons.appendChild(DOM.parse(divContent));
+
+        tabInner.parentNode.insertBefore(divButtons, tabInner);
+
+        let spyTable;
+        if (spyTable = DOM.query("#agoSpyReportOverview", tabContent))
+            spyTable.parentNode.insertBefore(divButtons.cloneNode(true), spyTable);
 
         DOM.iterate(DOM.queryAll('.anti_msg_buttons tr td input', tabContent), function addListenerBtns(e) {
             e.addEventListener('click', function (e) {
@@ -464,12 +470,12 @@ AGO.Messages = {
     },
 
     showSpyReportOverview: function (tab, tabContent) {
-        var contentWrap = DOM.query('.tab_ctn', tabContent) || tabContent;
+        let tabInnerParent = DOM.query(".tab_inner", tabContent).parentNode;
         if ($('#agoSpyReportOverview').length) $('#agoSpyReportOverview').remove();
         if (!AGO.Messages.spyReportsKeys.length) return;
         var tableWrap = DOM.appendDIV(null, '');
         tableWrap.id = 'agoSpyReportOverview';
-        contentWrap.insertBefore(tableWrap, contentWrap.firstChild);
+        tabInnerParent.parentNode.insertBefore(tableWrap, tabInnerParent);
         //$('#agoButtons').clone(true, true).insertBefore('#agoSpyReportOverview');
 
         var table = DOM.parse('' +
