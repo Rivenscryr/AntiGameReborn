@@ -7,6 +7,9 @@ if (-1 < window.navigator.userAgent.indexOf("Firefox")) {
     AGO.isChrome = true;
 }
 
+if (-1 < window.navigator.userAgent.indexOf("OPR/"))
+    AGO.isOpera = true;
+
 AGO.context = 0;
 AGO.Page = {
     Messages: function (a, b) {
