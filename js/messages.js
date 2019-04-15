@@ -364,6 +364,7 @@ AGO.Messages = {
                 p.galaxy = p.coords.split(':')[0];
                 p.system = p.coords.split(':')[1];
                 p.position = p.coords.split(':')[2];
+                p.distance = AGO.Ogame.getFleetDistanceFromCurrentLocation(p.coords);
                 p.isMoon = DOM.query('.msg_head .msg_title .moon', message) ? 1 : 0;
                 p.activityColor = DOM.getAttribute('.msg_content font', message, 'color', '');
                 p.attacking = DOM.query('.icon_attack img', message) ? 1 : 0;
@@ -429,6 +430,7 @@ AGO.Messages = {
     },
 
     sortSpyReports: function (by) {
+        let distanceBool = AGO.Option.get("M38", 2);
         if (AGO.Messages.spyTableData.sortSequence != by) {
             switch (by) {
                 case "coord":
@@ -458,6 +460,19 @@ AGO.Messages = {
                 var textB = AGO.Messages.spyReports[b][by].toUpperCase();
                 return (textB < textA) ? -1 : (textB > textA) ? 1 : 0;
             } else if (by === 'coord') {
+                if (distanceBool) {
+                    let result = AGO.Panel.sortByDistance(AGO.Messages.spyReports[a], AGO.Messages.spyReports[b]);
+                    if (result != 0) {
+                        return result;
+                    } else {
+                        if (AGO.Messages.spyTableData.sortDesc === true) {
+                            return AGO.Panel.sortByCoord(AGO.Messages.spyReports[a], AGO.Messages.spyReports[b]);
+                        } else {
+                            return AGO.Panel.sortByCoord(AGO.Messages.spyReports[b], AGO.Messages.spyReports[a]);
+                        }
+                        
+                    }
+                } 
                 var galaxyA = AGO.Messages.spyReports[a]['galaxy'];
                 var galaxyB = AGO.Messages.spyReports[b]['galaxy'];
                 var systemA = AGO.Messages.spyReports[a]['system'];

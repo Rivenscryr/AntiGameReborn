@@ -692,6 +692,8 @@ AGO.Panel = {
                 case "Target":
                     e("I82", "", {tab: b}, {page: "Main", role: "Display"});
                     e("I83", "", {tab: b}, {page: "Main", role: "Display"});
+                    e("I86", "I86", {tab: b}, "", 2 === AGO.Option.get("I86", 2));
+                    e("I87", "I87", {tab: b}, "", 2 === AGO.Option.get("I87", 2));
                     break;
                 case "Tools":
                     e("T01", "", {tab: b}), e("", "T05")
@@ -1217,10 +1219,12 @@ AGO.Panel = {
         var e, f, g, h;
         h = AGO.Option.get("I84", 2);
         g = AGO.Option.get("I85", 2);
+        distanceSort = AGO.Option.get("I87", 2);
+        filterOutRange = AGO.Option.get("I86", 2);
         2 === h && 10 > g && (h = 1
         );
         e = DOM.appendTR(a);
-        f = DOM.appendTD(e, "ago_panel_overview_coords", ["", "\u2207", "\u2207 " + g][h]);
+        f = DOM.appendTD(e, "ago_panel_overview_coords", ["", "\u2207", "\u2206"][h]);
         DOM.setData(f, null, {
                 action: {
                     action: "sort",
@@ -1228,34 +1232,130 @@ AGO.Panel = {
                 }
             }
         );
-        f = DOM.appendTD(e, "ago_panel_overview_name", h ? "" : "\u2207");
-        DOM.setData(f, null, {action: {action: "sort", tab: "Target", value: 0}});
+        f = DOM.appendTD(e, "ago_panel_overview_name", ["\u2207", "", "", "\u2206"][h]);
+        DOM.setData(f, null, {action: {action: "sort", tab: "Target", value: 0 === h ? 3 : 0}});
         f = DOM.appendTD(e, "ago_panel_overview_count");
         DOM.appendA(f, "icon icon_delete", "", {action: {action: "icon", tab: "Target", icon: "remove"}});
+        var list = [];
         OBJ.iterateArray(c, function (c) {
                 if (OBJ.is(c)) {
-                    var e, f, l;
-                    l = STR.check(c.coords).split(":");
-                    if (2 > h || AGO.Acc.galaxy === +l[0] && NMR.isMinMax(+l[1], AGO.Acc.system - g, AGO.Acc.system + g)) {
-                        l = +l[3] || 1, f = d === c.id ? HTML.classType(l) :
-                            "", e = {
-                            tab: "Target",
-                            data: b,
-                            action: {action: "toggle", tab: "Target", token: b, id: c.id}
-                        }, e = DOM.appendTR(a, f, e), DOM.appendTD(e, "ago_panel_overview_coords", AGO.Task.cutCoords(c.coords)), f = DOM.appendTD(e, "ago_panel_overview_name"), 1 < l && DOM.appendIMG(f, HTML.urlTypeIcon(l), "11px"), c.time ? DOM.appendTEXT(f, c.time, 17) : DOM.appendTEXT(f, c.name), f = DOM.appendTD(e, "ago_panel_overview_count"), "remove" === AGO.Panel.Get("Target", "icon", 6) && (e = {
-                                message: {
-                                    page: "Token", role: "Action", data: {
-                                        action: "remove", tab: "Target", token: b,
-                                        id: c.id
-                                    }
-                                }
-                            }, DOM.appendA(f, "icon icon_delete", "", e)
-                        )
-                    }
+                    c.distance = AGO.Ogame.getFleetDistanceFromCurrentLocation(c.coords);
+                    list.push(c);
                 }
             }
         );
+
+        switch(h) {
+            case 0: list.sort(function(a, b){
+                let result = 0;
+                result = AGO.Panel.sortByName(a, b);
+                if (result === 0) {
+                    result = AGO.Panel.sortByCoord(a, b);
+                }
+                return result;
+            }); break;
+            case 1: list.sort(function(a, b){
+                let result = 0;
+                if (distanceSort) {
+                    result = AGO.Panel.sortByDistance(a, b);
+                    if (result === 0) {
+                        result = AGO.Panel.sortByCoord(a, b);
+                    }
+                } else {
+                    result = AGO.Panel.sortByCoord(a, b);
+                }
+                return result;
+            }); break;
+            case 2: list.sort(function(a, b){
+                let result = 0;
+                if (distanceSort) {
+                    result = AGO.Panel.sortByDistance(b, a);
+                    if (result === 0) {
+                        result = AGO.Panel.sortByCoord(a, b);
+                    }
+                } else {
+                    result = AGO.Panel.sortByCoord(b, a);
+                }
+                return result;
+            }); break;
+            case 3: list.sort(function(a, b){
+                let result = 0;
+                result = AGO.Panel.sortByName(b, a);
+                if (result === 0) {
+                    result = AGO.Panel.sortByCoord(a, b);
+                }
+                return result;
+            }); break;
+            
+            break;
+        }
+
+        for (var listToPage = 0; listToPage < list.length; listToPage++) {
+            var e, f, l;
+            l = STR.check(c.coords).split(":");
+            if (filterOutRange !== 1 || AGO.Acc.galaxy === +l[0] && NMR.isMinMax(+l[1], AGO.Acc.system - g, AGO.Acc.system + g)) {
+                l = +l[3] || 1, f = d === list[listToPage].id ? HTML.classType(l) :
+                    "", e = {
+                    tab: "Target",
+                    data: b,
+                    action: {action: "toggle", tab: "Target", token: b, id: list[listToPage].id}
+                }, e = DOM.appendTR(a, f, e), DOM.appendTD(e, "ago_panel_overview_coords", AGO.Task.cutCoords(list[listToPage].coords)), f = DOM.appendTD(e, "ago_panel_overview_name"), 1 < l && DOM.appendIMG(f, HTML.urlTypeIcon(l), "11px"), list[listToPage].time ? DOM.appendTEXT(f, list[listToPage].time, 17) : DOM.appendTEXT(f, list[listToPage].name), f = DOM.appendTD(e, "ago_panel_overview_count"), "remove" === AGO.Panel.Get("Target", "icon", 6) && (e = {
+                        message: {
+                            page: "Token", role: "Action", data: {
+                                action: "remove", tab: "Target", token: b,
+                                id: list[listToPage].id
+                            }
+                        }
+                    }, DOM.appendA(f, "icon icon_delete", "", e)
+                )
+            }
+        }
+
         2 > DOM.hasChildren(a) && DOM.setStyleDisplay(a)
+    }, sortByName: function (a, b) {
+        let str1 = a.name.toLowerCase();
+        let str2 = b.name.toLowerCase();
+        return str1.localeCompare(str2);
+    }, sortByCoord: function (a, b) {
+        l1 = STR.check(a.coords).split(":");
+        l2 = STR.check(b.coords).split(":");
+
+        // Galaxy
+        if (l1[0]*1 < l2[0]*1) {
+            return -1;
+        } else if (l1[0]*1 > l2[0]*1) {
+            return 1;
+        }
+        // System
+        if (l1[1]*1 < l2[1]*1) {
+            return -1;
+        } else if (l1[1]*1 > l2[1]*1) {
+            return 1;
+        }
+        // Position
+        if (l1[2]*1 < l2[2]*1) {
+            return -1;
+        } else if (l1[2]*1 > l2[2]*1) {
+            return 1;
+        } 
+        // Planet or moon
+        if (l1[3]*1 < l2[3]*1) {
+            return -1;
+        } else if (l1[3]*1 > l2[3]*1) {
+            return 1;
+        }
+
+        // Failed to compare coords, return 0
+        return 0;
+    }, sortByDistance: function (a, b) {
+        if (a.distance < b.distance) {
+            return 1;
+        }
+        if (a.distance > b.distance) {
+            return -1;
+        }
+
+        return 0;
     }, parseTarget: function (a) {
         a && a.target && ("dblclick" === a.type ? a.target.value = "" : (a = AGO.Task.parseTarget(a.target.value), (a.coords || a.time
                 ) && AGO.Token.Action({

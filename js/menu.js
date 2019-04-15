@@ -995,7 +995,7 @@ AGO.Menu.Show = function (a) {
                 "I03",
                 "I04"
             ], "I03"
-        ),d("I05"),AGO.Menu.appendSection("I80"),d("I81"),d("I82", "", "", 2),d("I83"),d("I85"),AGO.Menu.appendSection("O50"),d("O51"),d("O53"),d("O52"),d("O54"),d("O55"), /* AGO.Menu.appendSection("O60"),d("O61"), */ AGO.Menu.appendSection("O70"), g("O71", "", ["O72", "O73"]), AGO.Menu.appendTab("Buildings"),AGO.Menu.appendSection("A80"),d("B01"),d("B02"),d("B31"),g("B35", "", [
+        ),d("I05"),AGO.Menu.appendSection("I80"),d("I81"),d("I82", "", "", 2),d("I83"),d("I85"),d("I87"),AGO.Menu.appendSection("O50"),d("O51"),d("O53"),d("O52"),d("O54"),d("O55"), /* AGO.Menu.appendSection("O60"),d("O61"), */ AGO.Menu.appendSection("O70"), g("O71", "", ["O72", "O73"]), AGO.Menu.appendTab("Buildings"),AGO.Menu.appendSection("A80"),d("B01"),d("B02"),d("B31"),g("B35", "", [
                 "L091",
                 "L092",
                 "L093"
@@ -1091,7 +1091,7 @@ AGO.Menu.Show = function (a) {
         ),d("G43"),d("G44"),d("G51"),d("G58"),AGO.Menu.appendSection("G30"),d("G31"),d("G32"),d("G33"),d("G34"),d("G35"),v("G38", "G38", "S"),AGO.Menu.appendSection("G20"),d("G21"),AGO.Menu.appendTab("Messages"),AGO.Menu.appendSection("M00", "A80"),d("M04"),d("M05", "", "", 2),d("M06", "", "", 2),d("M88", "M80", "", 2),d("M89", "M80",
             "", 2
         ),d("M90", "M80", "", 2),AGO.Menu.appendSection("M70", "", "M00"),d("M74"),AGO.Menu.appendSection("M10", "", "M00"),d("M51"),d("M53", "", "", 2),d("M54", "", "", 2),d("M12"
-        ),d("M16"),d("M14"),d("M20"),/*d("M28", "", "", 2),*/d("M30"),d("M36", "", "", 2),d("M37", "", "", 2),DOM.setStyleDisplay("#inhalt", t),DOM.setStyleDisplay("#buttonz", t),(m = t.querySelector("#ago_menu")
+        ),d("M16"),d("M14"),d("M20"),/*d("M28", "", "", 2),*/d("M30"),d("M36", "", "", 2),d("M37", "", "", 2),d("M38"),DOM.setStyleDisplay("#inhalt", t),DOM.setStyleDisplay("#buttonz", t),(m = t.querySelector("#ago_menu")
         ) && m.parentNode.removeChild(m),DOM.prependChild(t, AGO.Menu.menuNode),a = a ? a : AGO.Notify.problem ? "General" : AGO.Menu.updateCounter ?
             "Data" : "overview" === AGO.App.page ? "Main" : VAL.check(AGO.App.page, "resources", "resourcesettings", "station", "research", "shipyard", "defense") ? "Buildings" : VAL.check(AGO.App.page, "fleet1", "fleet2", "fleet3") ? "Fleet" : "movement" === AGO.App.page ? "Events" : "galaxy" === AGO.App.page ? "Other" : "messages" === AGO.App.page ? "Messages" : "",AGO.Menu.Display({tab: a}),AGO.Menu.status = 8,t = m = null
     }
