@@ -1218,7 +1218,7 @@ AGO.Panel = {
     }, appendTarget: function (a, b, d, c) {
         var e, f, g, h;
         h = AGO.Option.get("I84", 2);
-        g = AGO.Option.get("I85", 2);
+        g = AGO.Option.get("I88", 2);
         distanceSort = AGO.Option.get("I87", 2);
         filterOutRange = AGO.Option.get("I86", 2);
         2 === h && 10 > g && (h = 1
@@ -1292,8 +1292,8 @@ AGO.Panel = {
 
         for (var listToPage = 0; listToPage < list.length; listToPage++) {
             var e, f, l;
-            l = STR.check(c.coords).split(":");
-            if (filterOutRange !== 1 || AGO.Acc.galaxy === +l[0] && NMR.isMinMax(+l[1], AGO.Acc.system - g, AGO.Acc.system + g)) {
+            l = STR.check(list[listToPage].coords).split(":");
+            if (filterOutRange === 0 || list[listToPage].distance < g) {
                 l = +l[3] || 1, f = d === list[listToPage].id ? HTML.classType(l) :
                     "", e = {
                     tab: "Target",
