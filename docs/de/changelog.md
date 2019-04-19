@@ -4,6 +4,21 @@ page: changelog
 ---
 
 ## Changelog
+### Version 6.8.5.3
+* [Polishing] Hyperspacetech-Unterstützung in TrashSim-Links
+
+### Version 6.8.5.2
+* [Feature] Spiosonden können nun neben GTs und KTs als Standardschiff gewählt werden zum Angreifen
+* [Feature] Spiotabelle unterstützt jetzt Sonden in Spioraid-Unis
+* [Feature] Standardgeschwindigkeit für Sonden wählbar (Danke an @Horcon für diese 3 Features)
+* [Bugfix] Buttons im Nachrichtenmenü entfernen jetzt wie gehabt die gewünschten Nachrichten
+* [Polishing] Löschen von Nachrichten verbessert
+* [Polishing] Hyperraumtechnik ist jetzt eine "nützliche" Forschung
+* [Bugfix] Berichte mit negativem Alter wurden falsch sortiert
+* [Bugfix] Benötigte Transporter im Konstruktionen-Tab und in der Detailansicht von Forschungen/Gebäuden berücksichtigen jetzt Hyperraumtechnik
+* [Polishing] Buttons zum Filtern von Berichten werden jetzt auch über der Spiotabelle angezeigt
+* [Bugfix] Spionieren aus der Spiotabelle funktioniert jetzt wieder in Opera
+
 ### Version 6.8.5
 * [Feature] Spionagetabelle wird nun beim umblättern erweitern (muss im Menü 
 aktiviert werden)
