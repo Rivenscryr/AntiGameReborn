@@ -2552,6 +2552,7 @@ AGB.Tools = {
                     109: { level: AGB.Units.Get(player, "account", "109") },
                     110: { level: AGB.Units.Get(player, "account", "110") },
                     111: { level: AGB.Units.Get(player, "account", "111") },
+                    114: { level: AGB.Units.Get(player, "account", "114") },
                     115: { level: AGB.Units.Get(player, "account", "115") },
                     117: { level: AGB.Units.Get(player, "account", "117") },
                     118: { level: AGB.Units.Get(player, "account", "118") }
