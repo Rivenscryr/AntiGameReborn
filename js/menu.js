@@ -914,7 +914,7 @@ AGO.Menu.Show = function (a) {
             (AGO.App.beta ? "&beta" : ""
             )
         ), b("A51", "", "A51", 0, "", "", "https://rivenscryr.github.io/AntiGameReborn/" + (AGO.Menu.lang === "DE" ? "de" : "en") + "/"),
-            b("A55", "", "A55", 0, "", "", "https://rivenscryr.github.io/AntiGameReborn/" + (AGO.Menu.lang === "DE" ? "de" : "en") + "/docs/"),
+            b("A55", "", "A55", 0, "", "", "https://rivenscryr.github.io/AntiGameReborn/" + (AGO.Menu.lang === "DE" ? "de" : "en") + "/docs"),
             b("A54", "", "A54", 0, "", "", AGO.Menu.supportThreads[AGO.Menu.lang] ? AGO.Menu.supportThreads[AGO.Menu.lang] : AGO.Menu.supportThreads["default"]),
             b("A58", "", "A58", 0, "", "", "https://discord.gg/sb72AFN"),
             b("A59", "", "A60", 0, "", "", "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=E7ZA3C9PX3ZWN&source=url"),
