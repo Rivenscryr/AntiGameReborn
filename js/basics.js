@@ -942,6 +942,74 @@ var DOM = {
             matches.push(match[index]);
         return matches;
     }
+}, SORT = {
+    byName: function (a, b) {
+        let str1 = a.name.toLowerCase();
+        let str2 = b.name.toLowerCase();
+        return str1.localeCompare(str2);
+    }, byCoord: function (a, b) {
+        let l1 = STR.check(a.coords).split(":").map(Number);
+        let l2 = STR.check(b.coords).split(":").map(Number);
+
+        // Galaxy
+        if (l1[0] < l2[0]) {
+            return -1;
+        } else if (l1[0] > l2[0]) {
+            return 1;
+        }
+        // System
+        if (l1[1] < l2[1]) {
+            return -1;
+        } else if (l1[1] > l2[1]) {
+            return 1;
+        }
+        // Position
+        if (l1[2] < l2[2]) {
+            return -1;
+        } else if (l1[2] > l2[2]) {
+            return 1;
+        } 
+        // Planet or moon
+        if (l1[3] < l2[3]) {
+            return -1;
+        } else if (l1[3] > l2[3]) {
+            return 1;
+        }
+
+        // Failed to compare coords, return 0
+        return 0;
+    }, byDistance: function (a, b) {
+        // Extract coords from text-based coordinate and map into a number
+        let l1 = STR.check(a.coords).split(":").map(Number);
+        let l2 = STR.check(b.coords).split(":").map(Number);
+
+        // Convert into objects that getFleetDistance recognizes
+        let obj1 = {
+            galaxy: l1[0],
+            system: l1[1],
+            position: l1[2]
+        };
+
+        let obj2 = {
+            galaxy: l2[0],
+            system: l2[1],
+            position: l2[2]
+        };
+
+        // Calculate distance from current position
+        let d1 = AGO.Ogame.getFleetDistance(obj1);
+        let d2 = AGO.Ogame.getFleetDistance(obj2);
+
+        // Return depending on comparison result
+        if (d1 < d2) {
+            return 1;
+        }
+        if (d1 > d2) {
+            return -1;
+        }
+
+        return 0;
+    }
 };
 
 Node.prototype.hasClass = function (selector) {

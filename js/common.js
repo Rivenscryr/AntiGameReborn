@@ -477,6 +477,11 @@ AGO.Item = {
 AGO.Ogame = {
     getFleetDistance: function (a, b) {
         var c;
+        !b && (b = {
+            galaxy: AGO.Acc.galaxy,
+            system: AGO.Acc.system,
+            position: AGO.Acc.position
+        });
         if (OBJ.is(a) && OBJ.is(b)) {
             if (c = Math.abs(a.galaxy - b.galaxy)) {
                 if (AGO.Uni.donutGalaxy)
@@ -493,23 +498,6 @@ AGO.Ogame = {
             }
         }
         return 5
-    }, getFleetDistanceFromCurrentLocation: function (a) {
-        let l;
-        l = STR.check(a).split(":");
-
-        let targetCoord = {
-            galaxy: l[0]*1,
-            system: l[1]*1,
-            position: l[2]*1
-        };
-
-        let currentCoord = {
-            galaxy: AGO.Acc.galaxy,
-            system: AGO.Acc.system,
-            position: AGO.Acc.position
-        };
-
-        return this.getFleetDistance(currentCoord, targetCoord);
     }, getFleetDuration: function (a, b, c) {
         return a in AGO.Item.Ship && b ? Math.round((35E3 / (c || 10
             ) * Math.sqrt(10 * b / AGO.Ogame.getShipSpeed(a)) + 10

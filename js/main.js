@@ -1217,10 +1217,10 @@ AGO.Panel = {
         )
     }, appendTarget: function (a, b, d, c) {
         var e, f, g, h;
-        h = AGO.Option.get("I84", 2);
-        g = AGO.Option.get("I88", 2);
-        distanceSort = AGO.Option.get("I87", 2);
-        filterOutRange = AGO.Option.get("I86", 2);
+        h = AGO.Option.get("I84", 2); // Internal variable that sets what sorting is used
+        g = AGO.Option.get("I85", 2); // Range filter system number (<500 for some reason)
+        distanceSort = AGO.Option.get("I87", 2); // Sort coords by distance instead setting
+        filterOutRange = AGO.Option.get("I86", 2); // Enable/disable the range filter
         2 === h && 10 > g && (h = 1
         );
         e = DOM.appendTR(a);
@@ -1239,50 +1239,59 @@ AGO.Panel = {
         var list = [];
         OBJ.iterateArray(c, function (c) {
                 if (OBJ.is(c)) {
-                    c.distance = AGO.Ogame.getFleetDistanceFromCurrentLocation(c.coords);
+                    // Push all of the target objects into a list
                     list.push(c);
                 }
             }
         );
 
+        // Depending on setting I84 (sort desc/asc on coord/name)
         switch(h) {
+            // Descending name
             case 0: list.sort(function(a, b){
                 let result = 0;
-                result = AGO.Panel.sortByName(a, b);
+                result = SORT.byName(a, b);
                 if (result === 0) {
-                    result = AGO.Panel.sortByCoord(a, b);
+                    result = SORT.byCoord(a, b);
                 }
                 return result;
             }); break;
+            // Descending coord/distance
             case 1: list.sort(function(a, b){
                 let result = 0;
+                // If distance sort, then distance and then coord to make it look good
                 if (distanceSort) {
-                    result = AGO.Panel.sortByDistance(a, b);
+                    result = SORT.byDistance(a, b);
                     if (result === 0) {
-                        result = AGO.Panel.sortByCoord(a, b);
+                        result = SORT.byCoord(a, b);
                     }
                 } else {
-                    result = AGO.Panel.sortByCoord(a, b);
+                    // If not then just coord
+                    result = SORT.byCoord(a, b);
                 }
                 return result;
             }); break;
+            // Ascending coord/distance
             case 2: list.sort(function(a, b){
                 let result = 0;
+                // If distance sort, then distance and then coord to make it look good
                 if (distanceSort) {
-                    result = AGO.Panel.sortByDistance(b, a);
+                    result = SORT.byDistance(b, a);
                     if (result === 0) {
-                        result = AGO.Panel.sortByCoord(a, b);
+                        result = SORT.byCoord(a, b);
                     }
                 } else {
-                    result = AGO.Panel.sortByCoord(b, a);
+                    // If not then just coord
+                    result = SORT.byCoord(b, a);
                 }
                 return result;
             }); break;
+            // Ascending name
             case 3: list.sort(function(a, b){
                 let result = 0;
-                result = AGO.Panel.sortByName(b, a);
+                result = SORT.byName(b, a);
                 if (result === 0) {
-                    result = AGO.Panel.sortByCoord(a, b);
+                    result = SORT.byCoord(a, b);
                 }
                 return result;
             }); break;
@@ -1290,10 +1299,19 @@ AGO.Panel = {
             break;
         }
 
+        // For all elements in the list
         for (var listToPage = 0; listToPage < list.length; listToPage++) {
             var e, f, l;
-            l = STR.check(list[listToPage].coords).split(":");
-            if (filterOutRange === 0 || list[listToPage].distance < g) {
+            // Extract coords into an int array, convert into a getFleetDistance-compatible object
+            l = STR.check(list[listToPage].coords).split(":").map(Number);
+            let obj1 = {
+                galaxy: l[0],
+                system: l[1],
+                position: l[2]
+            };
+            
+            // If range filter is disabled, or element is in the same galaxy and within "g" system distance from current position
+            if (filterOutRange === 0 || (l[0] === AGO.Acc.galaxy && AGO.Ogame.getFleetDistance(obj1) < (95 * g + 2700))) {
                 l = +l[3] || 1, f = d === list[listToPage].id ? HTML.classType(l) :
                     "", e = {
                     tab: "Target",
@@ -1312,50 +1330,6 @@ AGO.Panel = {
         }
 
         2 > DOM.hasChildren(a) && DOM.setStyleDisplay(a)
-    }, sortByName: function (a, b) {
-        let str1 = a.name.toLowerCase();
-        let str2 = b.name.toLowerCase();
-        return str1.localeCompare(str2);
-    }, sortByCoord: function (a, b) {
-        l1 = STR.check(a.coords).split(":");
-        l2 = STR.check(b.coords).split(":");
-
-        // Galaxy
-        if (l1[0]*1 < l2[0]*1) {
-            return -1;
-        } else if (l1[0]*1 > l2[0]*1) {
-            return 1;
-        }
-        // System
-        if (l1[1]*1 < l2[1]*1) {
-            return -1;
-        } else if (l1[1]*1 > l2[1]*1) {
-            return 1;
-        }
-        // Position
-        if (l1[2]*1 < l2[2]*1) {
-            return -1;
-        } else if (l1[2]*1 > l2[2]*1) {
-            return 1;
-        } 
-        // Planet or moon
-        if (l1[3]*1 < l2[3]*1) {
-            return -1;
-        } else if (l1[3]*1 > l2[3]*1) {
-            return 1;
-        }
-
-        // Failed to compare coords, return 0
-        return 0;
-    }, sortByDistance: function (a, b) {
-        if (a.distance < b.distance) {
-            return 1;
-        }
-        if (a.distance > b.distance) {
-            return -1;
-        }
-
-        return 0;
     }, parseTarget: function (a) {
         a && a.target && ("dblclick" === a.type ? a.target.value = "" : (a = AGO.Task.parseTarget(a.target.value), (a.coords || a.time
                 ) && AGO.Token.Action({

@@ -364,7 +364,6 @@ AGO.Messages = {
                 p.galaxy = p.coords.split(':')[0];
                 p.system = p.coords.split(':')[1];
                 p.position = p.coords.split(':')[2];
-                p.distance = AGO.Ogame.getFleetDistanceFromCurrentLocation(p.coords);
                 p.isMoon = DOM.query('.msg_head .msg_title .moon', message) ? 1 : 0;
                 p.activityColor = DOM.getAttribute('.msg_content font', message, 'color', '');
                 p.attacking = DOM.query('.icon_attack img', message) ? 1 : 0;
@@ -460,19 +459,26 @@ AGO.Messages = {
                 var textB = AGO.Messages.spyReports[b][by].toUpperCase();
                 return (textB < textA) ? -1 : (textB > textA) ? 1 : 0;
             } else if (by === 'coord') {
+                // If the sort by distance setting is on
                 if (distanceBool) {
-                    let result = AGO.Panel.sortByDistance(AGO.Messages.spyReports[a], AGO.Messages.spyReports[b]);
+                    // Sort by distance
+                    let result = SORT.byDistance(AGO.Messages.spyReports[a], AGO.Messages.spyReports[b]);
+                    // If the distance is not equal, then just return, otherwise sort by coord
                     if (result != 0) {
                         return result;
                     } else {
-                        if (AGO.Messages.spyTableData.sortDesc === true) {
-                            return AGO.Panel.sortByCoord(AGO.Messages.spyReports[a], AGO.Messages.spyReports[b]);
+                        // When sorting by distance, coords should come up in ascending order (1,2,3,4...)
+                        // if the distance is the same, it looks better and makes sure the coordinates aren't all mixed together
+                        // Need to basically un-flip the sort because it's normally flipped up above right after sort function start
+                        if (AGO.Messages.spyTableData.sortDesc) {
+                            return SORT.byCoord(AGO.Messages.spyReports[a], AGO.Messages.spyReports[b]);
                         } else {
-                            return AGO.Panel.sortByCoord(AGO.Messages.spyReports[b], AGO.Messages.spyReports[a]);
+                            return SORT.byCoord(AGO.Messages.spyReports[b], AGO.Messages.spyReports[a]);
                         }
                         
                     }
                 } 
+                // If sort by distance is not set, use the old code
                 var galaxyA = AGO.Messages.spyReports[a]['galaxy'];
                 var galaxyB = AGO.Messages.spyReports[b]['galaxy'];
                 var systemA = AGO.Messages.spyReports[a]['system'];

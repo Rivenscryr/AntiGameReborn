@@ -995,7 +995,7 @@ AGO.Menu.Show = function (a) {
                 "I03",
                 "I04"
             ], "I03"
-        ),d("I05"),AGO.Menu.appendSection("I80"),d("I81"),d("I82", "", "", 2),d("I83"),d("I88"),d("I87"),AGO.Menu.appendSection("O50"),d("O51"),d("O53"),d("O52"),d("O54"),d("O55"), /* AGO.Menu.appendSection("O60"),d("O61"), */ AGO.Menu.appendSection("O70"), g("O71", "", ["O72", "O73"]), AGO.Menu.appendTab("Buildings"),AGO.Menu.appendSection("A80"),d("B01"),d("B02"),d("B31"),g("B35", "", [
+        ),d("I05"),AGO.Menu.appendSection("I80"),d("I81"),d("I82", "", "", 2),d("I83"),d("I85"),d("I87"),AGO.Menu.appendSection("O50"),d("O51"),d("O53"),d("O52"),d("O54"),d("O55"), /* AGO.Menu.appendSection("O60"),d("O61"), */ AGO.Menu.appendSection("O70"), g("O71", "", ["O72", "O73"]), AGO.Menu.appendTab("Buildings"),AGO.Menu.appendSection("A80"),d("B01"),d("B02"),d("B31"),g("B35", "", [
                 "L091",
                 "L092",
                 "L093"
