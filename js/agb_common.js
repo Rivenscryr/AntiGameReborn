@@ -1580,18 +1580,20 @@ AGB.Token = {
                 if ("Target" === f && a.sort.type) {
                     g.listToken.sort(function (a, b) {
                         let compare;
+                        let niceLookingDistanceSort = true;
                         a = (OBJ.get(a, "coords") || "").split(":");
                         b = (OBJ.get(b, "coords") || "").split(":");
                         if (sortByDist) {
                             let dist1 = getDistance(a);
                             let dist2 = getDistance(b);
                             compare = dist1 < dist2 ? -1 : dist1 > dist2 ? 1 : 0;
+                            0 === compare && (niceLookingDistanceSort = false);
                             0 === compare && (compare = +a[0] < +b[0] ? -1 : +a[0] > +b[0] ? 1 : +a[1] < +b[1] ? -1 : +a[1] > +b[1] ? 1 : +a[2] < +b[2] ? -1 : +a[2] > +b[2] ? 1 : 0);
                         } else {
                             compare = +a[0] < +b[0] ? -1 : +a[0] > +b[0] ? 1 : +a[1] < +b[1] ? -1 : +a[1] > +b[1] ? 1 : +a[2] < +b[2] ? -1 : +a[2] > +b[2] ? 1 : 0;
                         }
-
-                        if (2 === sortType || 4 === sortType)
+                        
+                        if ((2 === sortType || 4 === sortType) && niceLookingDistanceSort)
                             compare = compare * -1;
 
                         return compare;
