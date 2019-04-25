@@ -1221,16 +1221,19 @@ AGO.Panel = {
         )
     }, appendTarget: function (a, b, d, c) {
         var e, f, g, h;
-        h = AGO.Option.get("I84", 2); // Internal variable that sets what sorting is used
+        h = AGO.Option.get("I84", 2); // Internal variable that sets what sorting is used f
+                                      // old: 0 = name, 1 = coords, 2 = coords + range filter
+                                      // new: 0 = name, 1 = coords/distance ASC, 2 = coords/distance DESC,
+                                      //      3 = coords/distance ASC + range filter,
+                                      //      4 = coords/distance DESC + range filter
         g = AGO.Option.get("I85", 2); // Range filter system number
-        let distanceSort = AGO.Option.get("I87", 2); // Sort coords by distance instead setting
         2 === h && 10 > g && (h = 1);
         e = DOM.appendTR(a);
-        f = DOM.appendTD(e, "ago_panel_overview_coords", ["", "\u2207", "\u2207 " + g][h]);
+        f = DOM.appendTD(e, "ago_panel_overview_coords", ["", "\u2206", "\u2207", "\u2206 " + g, "\u2207 " + g][h]);
         DOM.setData(f, null, {
                 action: {
                     action: "sort",
-                    tab: "Target", value: 1 === h ? 2 : 1
+                    tab: "Target", value: [1, 2, 3, 4, 1][h]
                 }
             }
         );
@@ -1244,10 +1247,9 @@ AGO.Panel = {
                     var e, f, l;
                     l = STR.check(c.coords).split(":");
                     // Entry is appended if
-                    // a) range filter is off (2 > h),
-                    // b) sorting by distance is off and entry is within the given range filter, or
-                    // c) sorting by distance is on and entry is within the distance of given range filter
-                    if (2 > h || !distanceSort && AGO.Acc.galaxy === +l[0] && NMR.isMinMax(+l[1], AGO.Acc.system - g, AGO.Acc.system + g) || distanceSort && AGO.Ogame.getFleetDistance({galaxy: +l[0], system: +l[1], position: +l[2]}) < (95 * g + 2700)) {
+                    // a) range filter is off (3 > h), or
+                    // b) entry is within the given range filter
+                    if (3 > h || AGO.Ogame.getFleetDistance({galaxy: +l[0], system: +l[1], position: +l[2]}) <= (95 * g + 2700)) {
                         l = +l[3] || 1, f = d === c.id ? HTML.classType(l) :
                             "", e = {
                             tab: "Target",

@@ -1573,20 +1573,28 @@ AGB.Token = {
                 OBJ.iterateArray(d[f][a.token], function (b) {
                     (b = AGB.Token.get(c, f, a.token, b)) && g.listToken.push(b)
                 });
-                
+
                 // Actual sorting happens here
                 let sortByDist = a.sort.distance;
+                let sortType = a.sort.type;
                 if ("Target" === f && a.sort.type) {
                     g.listToken.sort(function (a, b) {
+                        let compare;
                         a = (OBJ.get(a, "coords") || "").split(":");
                         b = (OBJ.get(b, "coords") || "").split(":");
                         if (sortByDist) {
                             a = getDistance(a);
                             b = getDistance(b);
-                            return a < b ? -1 : a > b ? 1 : 0;
+                            compare = a < b ? -1 : a > b ? 1 : 0;
+                            0 === compare && (compare = +a[0] < +b[0] ? -1 : +a[0] > +b[0] ? 1 : +a[1] < +b[1] ? -1 : +a[1] > +b[1] ? 1 : +a[2] < +b[2] ? -1 : +a[2] > +b[2] ? 1 : 0);
                         } else {
-                            return +a[0] < +b[0] ? -1 : +a[0] > +b[0] ? 1 : +a[1] < +b[1] ? -1 : +a[1] > +b[1] ? 1 : +a[2] < +b[2] ? -1 : +a[2] > +b[2] ? 1 : 0
+                            compare = +a[0] < +b[0] ? -1 : +a[0] > +b[0] ? 1 : +a[1] < +b[1] ? -1 : +a[1] > +b[1] ? 1 : +a[2] < +b[2] ? -1 : +a[2] > +b[2] ? 1 : 0;
                         }
+
+                        if (2 === sortType || 4 === sortType)
+                            compare = compare * -1;
+
+                        return compare;
                     });
                 } else {
                     g.listToken.sort(function (a, b) {
