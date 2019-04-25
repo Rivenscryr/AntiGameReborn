@@ -1583,9 +1583,9 @@ AGB.Token = {
                         a = (OBJ.get(a, "coords") || "").split(":");
                         b = (OBJ.get(b, "coords") || "").split(":");
                         if (sortByDist) {
-                            a = getDistance(a);
-                            b = getDistance(b);
-                            compare = a < b ? -1 : a > b ? 1 : 0;
+                            let dist1 = getDistance(a);
+                            let dist2 = getDistance(b);
+                            compare = dist1 < dist2 ? -1 : dist1 > dist2 ? 1 : 0;
                             0 === compare && (compare = +a[0] < +b[0] ? -1 : +a[0] > +b[0] ? 1 : +a[1] < +b[1] ? -1 : +a[1] > +b[1] ? 1 : +a[2] < +b[2] ? -1 : +a[2] > +b[2] ? 1 : 0);
                         } else {
                             compare = +a[0] < +b[0] ? -1 : +a[0] > +b[0] ? 1 : +a[1] < +b[1] ? -1 : +a[1] > +b[1] ? 1 : +a[2] < +b[2] ? -1 : +a[2] > +b[2] ? 1 : 0;
