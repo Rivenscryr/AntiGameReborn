@@ -1575,23 +1575,32 @@ AGB.Token = {
                 });
 
                 // Actual sorting happens here
-                let sortByDist = a.sort.distance;
+                // sortType:
+                //      0 = name, 1 = coords/distance ASC, 2 = coords/distance DESC,
+                //      3 = coords/distance ASC + range filter,
+                //      4 = coords/distance DESC + range filter
                 let sortType = a.sort.type;
+                let sortByDist = a.sort.distance;
                 if ("Target" === f && a.sort.type) {
                     g.listToken.sort(function (a, b) {
                         let compare;
+                        let niceLookingDistanceSort = true;
                         a = (OBJ.get(a, "coords") || "").split(":");
                         b = (OBJ.get(b, "coords") || "").split(":");
                         if (sortByDist) {
                             let dist1 = getDistance(a);
                             let dist2 = getDistance(b);
                             compare = dist1 < dist2 ? -1 : dist1 > dist2 ? 1 : 0;
+
+                            // If distance is same, sort by coords instead
+                            0 === compare && (niceLookingDistanceSort = false);
                             0 === compare && (compare = +a[0] < +b[0] ? -1 : +a[0] > +b[0] ? 1 : +a[1] < +b[1] ? -1 : +a[1] > +b[1] ? 1 : +a[2] < +b[2] ? -1 : +a[2] > +b[2] ? 1 : 0);
                         } else {
                             compare = +a[0] < +b[0] ? -1 : +a[0] > +b[0] ? 1 : +a[1] < +b[1] ? -1 : +a[1] > +b[1] ? 1 : +a[2] < +b[2] ? -1 : +a[2] > +b[2] ? 1 : 0;
                         }
 
-                        if (2 === sortType || 4 === sortType)
+                        // if sorting is DESC, flip the result
+                        if ((2 === sortType || 4 === sortType) && niceLookingDistanceSort)
                             compare = compare * -1;
 
                         return compare;
