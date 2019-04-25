@@ -692,8 +692,7 @@ AGO.Panel = {
                 case "Target":
                     e("I82", "", {tab: b}, {page: "Main", role: "Display"});
                     e("I83", "", {tab: b}, {page: "Main", role: "Display"});
-                    e("I86", "I86", {tab: b}, "", 2 === AGO.Option.get("I86", 2));
-                    e("I87", "I87", {tab: b}, "", 2 === AGO.Option.get("I87", 2));
+                    e("I87", "", {tab: b}, {page: "Main", role: "Display"});
                     break;
                 case "Tools":
                     e("T01", "", {tab: b}), e("", "T05")
@@ -1127,11 +1126,16 @@ AGO.Panel = {
                 }
             ), f.appendChild(g)
         );
-        OBJ.get(c, "tab") === b ? e(c) : AGB.message("Token", "List", {
-                tab: b,
-                token: +d || 0, sort: AGO.Option.get("I84")
-            }, e
-        )
+        // Target list is requested here and it is cached; changed it so the cached data is ignored if a planet
+        // change occurs. Also sort includes the type (0 = name, 1 = coords, 2 = coords + range filter) and if the
+        // sorting should be based on distance instead of coords. For calculating the distance from current planet
+        // we also need to pass the current account data to the background process.
+        OBJ.get(c, "tab") === b && !STR.getParameter("cp", document.location.href) ? e(c) : AGB.message("Token", "List", {
+            tab: b,
+            token: +d || 0,
+            sort: { type: AGO.Option.get("I84"), distance: AGO.Option.get("I87") },
+            acc: AGO.Acc
+        }, e);
     }, appendToken: function (a, b, d, c) {
         var e;
         OBJ.iterate(c, function (f) {
@@ -1218,13 +1222,11 @@ AGO.Panel = {
     }, appendTarget: function (a, b, d, c) {
         var e, f, g, h;
         h = AGO.Option.get("I84", 2); // Internal variable that sets what sorting is used
-        g = AGO.Option.get("I85", 2); // Range filter system number (<500 for some reason)
-        distanceSort = AGO.Option.get("I87", 2); // Sort coords by distance instead setting
-        filterOutRange = AGO.Option.get("I86", 2); // Enable/disable the range filter
-        2 === h && 10 > g && (h = 1
-        );
+        g = AGO.Option.get("I85", 2); // Range filter system number
+        let distanceSort = AGO.Option.get("I87", 2); // Sort coords by distance instead setting
+        2 === h && 10 > g && (h = 1);
         e = DOM.appendTR(a);
-        f = DOM.appendTD(e, "ago_panel_overview_coords", ["", "\u2207", "\u2206"][h]);
+        f = DOM.appendTD(e, "ago_panel_overview_coords", ["", "\u2207", "\u2207 " + g][h]);
         DOM.setData(f, null, {
                 action: {
                     action: "sort",
@@ -1232,102 +1234,38 @@ AGO.Panel = {
                 }
             }
         );
-        f = DOM.appendTD(e, "ago_panel_overview_name", ["\u2207", "", "", "\u2206"][h]);
-        DOM.setData(f, null, {action: {action: "sort", tab: "Target", value: 0 === h ? 3 : 0}});
+        f = DOM.appendTD(e, "ago_panel_overview_name", h ? "" : "\u2207");
+        DOM.setData(f, null, {action: {action: "sort", tab: "Target", value: 0}});
         f = DOM.appendTD(e, "ago_panel_overview_count");
         DOM.appendA(f, "icon icon_delete", "", {action: {action: "icon", tab: "Target", icon: "remove"}});
-        var list = [];
+
         OBJ.iterateArray(c, function (c) {
                 if (OBJ.is(c)) {
-                    // Push all of the target objects into a list
-                    list.push(c);
+                    var e, f, l;
+                    l = STR.check(c.coords).split(":");
+                    // Entry is appended if
+                    // a) range filter is off (2 > h),
+                    // b) sorting by distance is off and entry is within the given range filter, or
+                    // c) sorting by distance is on and entry is within the distance of given range filter
+                    if (2 > h || !distanceSort && AGO.Acc.galaxy === +l[0] && NMR.isMinMax(+l[1], AGO.Acc.system - g, AGO.Acc.system + g) || distanceSort && AGO.Ogame.getFleetDistance({galaxy: +l[0], system: +l[1], position: +l[2]}) < (95 * g + 2700)) {
+                        l = +l[3] || 1, f = d === c.id ? HTML.classType(l) :
+                            "", e = {
+                            tab: "Target",
+                            data: b,
+                            action: {action: "toggle", tab: "Target", token: b, id: c.id}
+                        }, e = DOM.appendTR(a, f, e), DOM.appendTD(e, "ago_panel_overview_coords", AGO.Task.cutCoords(c.coords)), f = DOM.appendTD(e, "ago_panel_overview_name"), 1 < l && DOM.appendIMG(f, HTML.urlTypeIcon(l), "11px"), c.time ? DOM.appendTEXT(f, c.time, 17) : DOM.appendTEXT(f, c.name), f = DOM.appendTD(e, "ago_panel_overview_count"), "remove" === AGO.Panel.Get("Target", "icon", 6) && (e = {
+                                message: {
+                                    page: "Token", role: "Action", data: {
+                                        action: "remove", tab: "Target", token: b,
+                                        id: c.id
+                                    }
+                                }
+                            }, DOM.appendA(f, "icon icon_delete", "", e)
+                        )
+                    }
                 }
             }
         );
-
-        // Depending on setting I84 (sort desc/asc on coord/name)
-        switch(h) {
-            // Descending name
-            case 0: list.sort(function(a, b){
-                let result = 0;
-                result = SORT.byName(a, b);
-                if (result === 0) {
-                    result = SORT.byCoord(a, b);
-                }
-                return result;
-            }); break;
-            // Descending coord/distance
-            case 1: list.sort(function(a, b){
-                let result = 0;
-                // If distance sort, then distance and then coord to make it look good
-                if (distanceSort) {
-                    result = SORT.byDistance(a, b);
-                    if (result === 0) {
-                        result = SORT.byCoord(a, b);
-                    }
-                } else {
-                    // If not then just coord
-                    result = SORT.byCoord(a, b);
-                }
-                return result;
-            }); break;
-            // Ascending coord/distance
-            case 2: list.sort(function(a, b){
-                let result = 0;
-                // If distance sort, then distance and then coord to make it look good
-                if (distanceSort) {
-                    result = SORT.byDistance(b, a);
-                    if (result === 0) {
-                        result = SORT.byCoord(a, b);
-                    }
-                } else {
-                    // If not then just coord
-                    result = SORT.byCoord(b, a);
-                }
-                return result;
-            }); break;
-            // Ascending name
-            case 3: list.sort(function(a, b){
-                let result = 0;
-                result = SORT.byName(b, a);
-                if (result === 0) {
-                    result = SORT.byCoord(a, b);
-                }
-                return result;
-            }); break;
-            
-            break;
-        }
-
-        // For all elements in the list
-        for (var listToPage = 0; listToPage < list.length; listToPage++) {
-            var e, f, l;
-            // Extract coords into an int array, convert into a getFleetDistance-compatible object
-            l = STR.check(list[listToPage].coords).split(":").map(Number);
-            let obj1 = {
-                galaxy: l[0],
-                system: l[1],
-                position: l[2]
-            };
-            
-            // If range filter is disabled, or element is in the same galaxy and within "g" system distance from current position
-            if (filterOutRange === 0 || (l[0] === AGO.Acc.galaxy && AGO.Ogame.getFleetDistance(obj1) < (95 * g + 2700))) {
-                l = +l[3] || 1, f = d === list[listToPage].id ? HTML.classType(l) :
-                    "", e = {
-                    tab: "Target",
-                    data: b,
-                    action: {action: "toggle", tab: "Target", token: b, id: list[listToPage].id}
-                }, e = DOM.appendTR(a, f, e), DOM.appendTD(e, "ago_panel_overview_coords", AGO.Task.cutCoords(list[listToPage].coords)), f = DOM.appendTD(e, "ago_panel_overview_name"), 1 < l && DOM.appendIMG(f, HTML.urlTypeIcon(l), "11px"), list[listToPage].time ? DOM.appendTEXT(f, list[listToPage].time, 17) : DOM.appendTEXT(f, list[listToPage].name), f = DOM.appendTD(e, "ago_panel_overview_count"), "remove" === AGO.Panel.Get("Target", "icon", 6) && (e = {
-                        message: {
-                            page: "Token", role: "Action", data: {
-                                action: "remove", tab: "Target", token: b,
-                                id: list[listToPage].id
-                            }
-                        }
-                    }, DOM.appendA(f, "icon icon_delete", "", e)
-                )
-            }
-        }
 
         2 > DOM.hasChildren(a) && DOM.setStyleDisplay(a)
     }, parseTarget: function (a) {
