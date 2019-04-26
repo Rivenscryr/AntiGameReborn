@@ -1127,9 +1127,10 @@ AGO.Panel = {
             ), f.appendChild(g)
         );
         // Target list is requested here and it is cached; changed it so the cached data is ignored if a planet
-        // change occurs. Also sort includes the type (0 = name, 1 = coords, 2 = coords + range filter) and if the
-        // sorting should be based on distance instead of coords. For calculating the distance from current planet
-        // we also need to pass the current account data to the background process.
+        // change occurs. Also sort includes the type (0 = name, 1 = coords ASC, 2 = coords DESC, 3 = coords ASC +
+        // range filter, 4 = coords DESC + range filter) and if the sorting should be based on distance instead of
+        // coords. For calculating the distance from current planet we also need to pass the current account data to
+        // the background process.
         OBJ.get(c, "tab") === b && !STR.getParameter("cp", document.location.href) ? e(c) : AGB.message("Token", "List", {
             tab: b,
             token: +d || 0,
