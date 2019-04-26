@@ -430,8 +430,8 @@ AGO.Messages = {
     },
 
     sortSpyReports: function (by) {
-        let distanceBool = AGO.Option.get("M38", 2);
-        if (AGO.Messages.spyTableData.sortSequence != by) {
+        let sortByDistance = AGO.Option.get("M38", 1);
+        if (AGO.Messages.spyTableData.sortSequence !== by) {
             switch (by) {
                 case "coord":
                 case "age":
@@ -460,7 +460,7 @@ AGO.Messages = {
                 return SORT.byString(AGO.Messages.spyReports[a][by], AGO.Messages.spyReports[b][by]);
             } else if (by === 'coord') {
                 // If the sort by distance setting is on
-                if (distanceBool) {
+                if (sortByDistance) {
                     // Sort by distance
                     let result = SORT.byDistance(AGO.Messages.spyReports[a].coords, AGO.Messages.spyReports[b].coords);
                     // If the distance is not equal, then just return, otherwise sort by coord
@@ -468,8 +468,9 @@ AGO.Messages = {
                         return result;
                     } else {
                         // When sorting by distance, coords should come up in ascending order (1,2,3,4...)
-                        // if the distance is the same, it looks better and makes sure the coordinates aren't all mixed together
-                        // Need to basically un-flip the sort because it's normally flipped up above right after sort function start
+                        // if the distance is the same, it looks better and makes sure the coordinates aren't all mixed
+                        // together. Need to basically un-flip the sort because it's normally flipped up above right
+                        // after sort function start
                         result = SORT.byCoord(AGO.Messages.spyReports[a].coords, AGO.Messages.spyReports[b].coords);
                         if (AGO.Messages.spyTableData.sortDesc) {
                             return result * -1;
