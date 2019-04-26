@@ -943,72 +943,75 @@ var DOM = {
         return matches;
     }
 }, SORT = {
-    byName: function (a, b) {
-        let str1 = a.name.toLowerCase();
-        let str2 = b.name.toLowerCase();
-        return str1.localeCompare(str2);
-    }, byCoord: function (a, b) {
-        let l1 = STR.check(a.coords).split(":").map(Number);
-        let l2 = STR.check(b.coords).split(":").map(Number);
+    byString: function (a, b) {
+        a = a.toLowerCase();
+        b = b.toLowerCase();
+        return a.localeCompare(b);
+    },
+    byNumber: function (a, b) {
+        if (+a < +b)
+            return -1;
+        else if (+a > +b)
+            return 1;
+        else
+            return 0;
+    },
+    byCoord: function (a, b) {
+        a = STR.check(a).split(":").map(Number);
+        b = STR.check(b).split(":").map(Number);
 
         // Galaxy
-        if (l1[0] < l2[0]) {
+        if (a[0] < b[0]) {
             return -1;
-        } else if (l1[0] > l2[0]) {
+        } else if (a[0] > b[0]) {
             return 1;
         }
         // System
-        if (l1[1] < l2[1]) {
+        if (a[1] < b[1]) {
             return -1;
-        } else if (l1[1] > l2[1]) {
+        } else if (a[1] > b[1]) {
             return 1;
         }
         // Position
-        if (l1[2] < l2[2]) {
+        if (a[2] < b[2]) {
             return -1;
-        } else if (l1[2] > l2[2]) {
+        } else if (a[2] > b[2]) {
             return 1;
         } 
         // Planet or moon
-        if (l1[3] < l2[3]) {
+        if (a[3] < b[3]) {
             return -1;
-        } else if (l1[3] > l2[3]) {
+        } else if (a[3] > b[3]) {
             return 1;
         }
 
         // Failed to compare coords, return 0
         return 0;
-    }, byDistance: function (a, b) {
+    },
+    byDistance: function (a, b) {
         // Extract coords from text-based coordinate and map into a number
-        let l1 = STR.check(a.coords).split(":").map(Number);
-        let l2 = STR.check(b.coords).split(":").map(Number);
+        a = STR.check(a).split(":").map(Number);
+        b = STR.check(b).split(":").map(Number);
 
         // Convert into objects that getFleetDistance recognizes
-        let obj1 = {
-            galaxy: l1[0],
-            system: l1[1],
-            position: l1[2]
+        a = {
+            galaxy: a[0],
+            system: a[1],
+            position: a[2]
         };
 
-        let obj2 = {
-            galaxy: l2[0],
-            system: l2[1],
-            position: l2[2]
+        b = {
+            galaxy: b[0],
+            system: b[1],
+            position: b[2]
         };
 
         // Calculate distance from current position
-        let d1 = AGO.Ogame.getFleetDistance(obj1);
-        let d2 = AGO.Ogame.getFleetDistance(obj2);
+        a = AGO.Ogame.getFleetDistance(a);
+        b = AGO.Ogame.getFleetDistance(b);
 
         // Return depending on comparison result
-        if (d1 < d2) {
-            return 1;
-        }
-        if (d1 > d2) {
-            return -1;
-        }
-
-        return 0;
+        return SORT.byNumber(a, b);
     }
 };
 
