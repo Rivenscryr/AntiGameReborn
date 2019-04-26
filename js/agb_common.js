@@ -17,7 +17,6 @@ AGB.Option = {
         D81: [0, 2],
         O03: [0, 4],
         I02: [0, 9],
-        I85: [0, 500],
         F02: [0, 3],
         F70: [0, 3],
         F80: [0, 3],
@@ -1516,48 +1515,106 @@ AGB.Token = {
         e = AGB.App.getPlayer(a);
         f = AGB.Token.getTab(a);
         c = AGB.Token.Data[e];
-        f && OBJ.is(c) && (AGB.Token.Sort[e] || (AGB.Token.Sort[e] = {}
-            ), d = AGB.Token.Sort[e], d[f] || (d[f] = {}, OBJ.iterate(c[f], function (a) {
-                        if ("version" !== a && "changed" !== a) {
-                            var b;
-                            b = STR.check(c[f][a]).split("|")[0];
-                            41 <= b && 79 >= b && (d[f][b] ? d[f][b].push(a) : d[f][b] = [a]
-                            )
+
+        // Data of the account making the request, includes coords of current planet
+        let acc = a.acc;
+
+        // Added function to calculate distance
+        function getDistance (a, b) {
+            let uni = AGB.Uni.Data[e];
+
+            !b && (b = [acc.galaxy, acc.system, acc.position]);
+
+            let c;
+            if (c = Math.abs(+a[0] - +b[0])) {
+                if (uni.donutGalaxy)
+                    c = c > Math.floor(uni.galaxies / 2) ? Math.abs(c - uni.galaxies) : c;
+                return 2E4 * c;
+            }
+            if (c = Math.abs(+a[1] - +b[1])) {
+                if (uni.donutSystem)
+                    c = c > Math.floor(uni.systems / 2) ? Math.abs(c - uni.systems) : c;
+                return 95 * c + 2700;
+            }
+            if (c = Math.abs(+a[2] - +b[2])) {
+                return 5 * c + 1E3;
+            }
+            return 5
+        }
+
+        if (f && OBJ.is(c)) {
+            AGB.Token.Sort[e] || (AGB.Token.Sort[e] = {});
+            d = AGB.Token.Sort[e];
+            if (!d[f]) {
+                d[f] = {};
+                OBJ.iterate(c[f], function (a) {
+                    if ("version" !== a && "changed" !== a) {
+                        var b;
+                        b = STR.check(c[f][a]).split("|")[0];
+                        41 <= b && 79 >= b && (d[f][b] ? d[f][b].push(a) : d[f][b] = [a])
+                    }
+                });
+                OBJ.iterate(c.Current, function (a) {
+                    if ("version" !== a && "changed" !== a) {
+                        var b;
+                        b = STR.check(c.Current[a]).split("|")[0];
+                        a[0] === f[0] && 81 <= b && 89 >= b && (a = a.slice(1), d[f][b] ? d[f][b].push(a) : d[f][b] = [a])
+                    }
+                });
+            }
+
+            g = {tab: f, token: a.token, listTab: {}, listToken: []};
+
+            OBJ.iterate(d[f], function (a) {
+                g.listTab[a] = d[f][a].length
+            });
+
+            if (a.token) {
+                OBJ.iterateArray(d[f][a.token], function (b) {
+                    (b = AGB.Token.get(c, f, a.token, b)) && g.listToken.push(b)
+                });
+
+                // Actual sorting happens here
+                // sortType:
+                //      0 = name, 1 = coords/distance ASC, 2 = coords/distance DESC,
+                //      3 = coords/distance ASC + range filter,
+                //      4 = coords/distance DESC + range filter
+                let sortType = a.sort.type;
+                let sortByDist = a.sort.distance;
+                if ("Target" === f && a.sort.type) {
+                    g.listToken.sort(function (a, b) {
+                        let compare;
+                        let niceLookingDistanceSort = true;
+                        a = (OBJ.get(a, "coords") || "").split(":");
+                        b = (OBJ.get(b, "coords") || "").split(":");
+                        if (sortByDist) {
+                            let dist1 = getDistance(a);
+                            let dist2 = getDistance(b);
+                            compare = dist1 < dist2 ? -1 : dist1 > dist2 ? 1 : 0;
+
+                            // If distance is same, sort by coords instead
+                            0 === compare && (niceLookingDistanceSort = false);
+                            0 === compare && (compare = +a[0] < +b[0] ? -1 : +a[0] > +b[0] ? 1 : +a[1] < +b[1] ? -1 : +a[1] > +b[1] ? 1 : +a[2] < +b[2] ? -1 : +a[2] > +b[2] ? 1 : 0);
+                        } else {
+                            compare = +a[0] < +b[0] ? -1 : +a[0] > +b[0] ? 1 : +a[1] < +b[1] ? -1 : +a[1] > +b[1] ? 1 : +a[2] < +b[2] ? -1 : +a[2] > +b[2] ? 1 : 0;
                         }
-                    }
-                ), OBJ.iterate(c.Current,
-                    function (a) {
-                        if ("version" !== a && "changed" !== a) {
-                            var b;
-                            b = STR.check(c.Current[a]).split("|")[0];
-                            a[0] === f[0] && 81 <= b && 89 >= b && (a = a.slice(1), d[f][b] ? d[f][b].push(a) : d[f][b] = [a]
-                            )
-                        }
-                    }
-                )
-            ), g = {tab: f, token: a.token, listTab: {}, listToken: []}, OBJ.iterate(d[f], function (a) {
-                    g.listTab[a] = d[f][a].length
-                }
-            ), a.token && (OBJ.iterateArray(d[f][a.token], function (b) {
-                        (b = AGB.Token.get(c, f, a.token, b)
-                        ) && g.listToken.push(b)
-                    }
-                ), "Target" === f && a.sort ? g.listToken.sort(function (a, b) {
-                        var c = (OBJ.get(a, "coords") || ""
-                        ).split(":"), d = (OBJ.get(b, "coords") ||
-                            ""
-                        ).split(":");
-                        return +c[0] < +d[0] ? -1 : +c[0] > +d[0] ? 1 : +c[1] < +d[1] ? -1 : +c[1] > +d[1] ? 1 : +c[2] < +d[2] ? -1 : +c[2] > +d[2] ? 1 : 0
-                    }
-                ) : g.listToken.sort(function (a, b) {
+
+                        // if sorting is DESC, flip the result
+                        if ((2 === sortType || 4 === sortType) && niceLookingDistanceSort)
+                            compare = compare * -1;
+
+                        return compare;
+                    });
+                } else {
+                    g.listToken.sort(function (a, b) {
                         var c = (OBJ.get(a, "name") || ""
                         ).toLowerCase(), d = (OBJ.get(b, "name") || ""
                         ).toLowerCase();
                         return c < d ? -1 : c === d ? 0 : 1
-                    }
-                )
-            )
-        );
+                    });
+                }
+            }
+        }
         AGB.Panel.Cache(a, g);
         b && b(g)
     }, Get: function (a, b) {

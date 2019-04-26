@@ -692,6 +692,7 @@ AGO.Panel = {
                 case "Target":
                     e("I82", "", {tab: b}, {page: "Main", role: "Display"});
                     e("I83", "", {tab: b}, {page: "Main", role: "Display"});
+                    e("I87", "", {tab: b}, {page: "Main", role: "Display"});
                     break;
                 case "Tools":
                     e("T01", "", {tab: b}), e("", "T05")
@@ -1125,11 +1126,17 @@ AGO.Panel = {
                 }
             ), f.appendChild(g)
         );
-        OBJ.get(c, "tab") === b ? e(c) : AGB.message("Token", "List", {
-                tab: b,
-                token: +d || 0, sort: AGO.Option.get("I84")
-            }, e
-        )
+        // Target list is requested here and it is cached; changed it so the cached data is ignored if a planet
+        // change occurs. Also sort includes the type (0 = name, 1 = coords ASC, 2 = coords DESC, 3 = coords ASC +
+        // range filter, 4 = coords DESC + range filter) and if the sorting should be based on distance instead of
+        // coords. For calculating the distance from current planet we also need to pass the current account data to
+        // the background process.
+        OBJ.get(c, "tab") === b && !STR.getParameter("cp", document.location.href) ? e(c) : AGB.message("Token", "List", {
+            tab: b,
+            token: +d || 0,
+            sort: { type: AGO.Option.get("I84"), distance: AGO.Option.get("I87") },
+            acc: AGO.Acc
+        }, e);
     }, appendToken: function (a, b, d, c) {
         var e;
         OBJ.iterate(c, function (f) {
@@ -1215,16 +1222,19 @@ AGO.Panel = {
         )
     }, appendTarget: function (a, b, d, c) {
         var e, f, g, h;
-        h = AGO.Option.get("I84", 2);
-        g = AGO.Option.get("I85", 2);
-        2 === h && 10 > g && (h = 1
-        );
+        h = AGO.Option.get("I84", 2); // Internal variable that sets what sorting is used f
+                                      // old: 0 = name, 1 = coords, 2 = coords + range filter
+                                      // new: 0 = name, 1 = coords/distance ASC, 2 = coords/distance DESC,
+                                      //      3 = coords/distance ASC + range filter,
+                                      //      4 = coords/distance DESC + range filter
+        g = AGO.Option.get("I85", 2); // Range filter system number
+        2 === h && 10 > g && (h = 1);
         e = DOM.appendTR(a);
-        f = DOM.appendTD(e, "ago_panel_overview_coords", ["", "\u2207", "\u2207 " + g][h]);
+        f = DOM.appendTD(e, "ago_panel_overview_coords", ["", "\u2206", "\u2207", "\u2206 " + g, "\u2207 " + g][h]);
         DOM.setData(f, null, {
                 action: {
                     action: "sort",
-                    tab: "Target", value: 1 === h ? 2 : 1
+                    tab: "Target", value: [1, 2, 3, 4, 1][h]
                 }
             }
         );
@@ -1232,11 +1242,15 @@ AGO.Panel = {
         DOM.setData(f, null, {action: {action: "sort", tab: "Target", value: 0}});
         f = DOM.appendTD(e, "ago_panel_overview_count");
         DOM.appendA(f, "icon icon_delete", "", {action: {action: "icon", tab: "Target", icon: "remove"}});
+
         OBJ.iterateArray(c, function (c) {
                 if (OBJ.is(c)) {
                     var e, f, l;
                     l = STR.check(c.coords).split(":");
-                    if (2 > h || AGO.Acc.galaxy === +l[0] && NMR.isMinMax(+l[1], AGO.Acc.system - g, AGO.Acc.system + g)) {
+                    // Entry is appended if
+                    // a) range filter is off (3 > h), or
+                    // b) entry is within the given range filter
+                    if (3 > h || AGO.Ogame.getFleetDistance({galaxy: +l[0], system: +l[1], position: +l[2]}) <= (95 * g + 2700)) {
                         l = +l[3] || 1, f = d === c.id ? HTML.classType(l) :
                             "", e = {
                             tab: "Target",
@@ -1255,6 +1269,7 @@ AGO.Panel = {
                 }
             }
         );
+
         2 > DOM.hasChildren(a) && DOM.setStyleDisplay(a)
     }, parseTarget: function (a) {
         a && a.target && ("dblclick" === a.type ? a.target.value = "" : (a = AGO.Task.parseTarget(a.target.value), (a.coords || a.time

@@ -477,6 +477,11 @@ AGO.Item = {
 AGO.Ogame = {
     getFleetDistance: function (a, b) {
         var c;
+        !b && (b = {
+            galaxy: AGO.Acc.galaxy,
+            system: AGO.Acc.system,
+            position: AGO.Acc.position
+        });
         if (OBJ.is(a) && OBJ.is(b)) {
             if (c = Math.abs(a.galaxy - b.galaxy)) {
                 if (AGO.Uni.donutGalaxy)
