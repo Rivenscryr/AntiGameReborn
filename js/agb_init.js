@@ -38,7 +38,7 @@ AGB.App = {
         "kb.un1matr1x.de": 1,
         "savekb.de": 1,
         "drago-sim.com": 1,
-        "ogniter.org": 1,
+        "mmorpg-stat.eu": 1,
         "infuza.com": 1,
         "savecr.com": 1
     },
@@ -635,16 +635,6 @@ AGB.Data = {
 };
 AGB.Com = {
     Data: {
-        AE: {
-            infuzaServer: "ae.ogame.org",
-            websim: "en",
-            osimulate: "ae",
-            dragosim: "english",
-            warriders: "",
-            infuza: "fr",
-            ogniter: "en",
-            trashsim: "en"
-        },
         AR: {
             infuzaServer: "ogame.com.ar",
             websim: "sp",
@@ -652,7 +642,7 @@ AGB.Com = {
             dragosim: "spanish",
             warriders: "",
             infuza: "es",
-            ogniter: "ar",
+            mmorpgStat: "7",
             trashsim: "es"
         },
         BA: {
@@ -662,7 +652,7 @@ AGB.Com = {
             dragosim: "bosnian",
             warriders: "",
             infuza: "en",
-            ogniter: "yu",
+            mmorpgStat: "27",
             trashsim: "hr"
         },
         BR: {
@@ -672,12 +662,12 @@ AGB.Com = {
             dragosim: "brazilian",
             warriders: "",
             infuza: "pt",
-            ogniter: "br",
+            mmorpgStat: "13",
             trashsim: "pt-BR"
         },
         CZ: {
             infuzaServer: "ogame.cz",
-            websim: "cz", osimulate: "cz", dragosim: "czech", warriders: "", infuza: "cs", ogniter: "cz",
+            websim: "cz", osimulate: "cz", dragosim: "czech", warriders: "", infuza: "cs", mmorpgStat: "17",
             trashsim: "cs"
         },
         DE: {
@@ -687,7 +677,7 @@ AGB.Com = {
             dragosim: "german",
             warriders: "de",
             infuza: "de",
-            ogniter: "de",
+            mmorpgStat: "1",
             trashsim: "de"
         },
         DK: {
@@ -697,7 +687,7 @@ AGB.Com = {
             dragosim: "danish",
             warriders: "",
             infuza: "da",
-            ogniter: "dk",
+            mmorpgStat: "21",
             trashsim: "da"
         },
         EN: {
@@ -707,12 +697,12 @@ AGB.Com = {
             dragosim: "english",
             warriders: "org",
             infuza: "en",
-            ogniter: "en",
+            mmorpgStat: "2",
             trashsim: "en"
         },
         ES: {
             infuzaServer: "ogame.com.es", websim: "sp", osimulate: "es", dragosim: "spanish",
-            warriders: "es", infuza: "es", ogniter: "es",
+            warriders: "es", infuza: "es", mmorpgStat: "3",
             trashsim: "es"
         },
         FI: {
@@ -722,7 +712,7 @@ AGB.Com = {
             dragosim: "english",
             warriders: "",
             infuza: "en",
-            ogniter: "fi",
+            mmorpgStat: "10",
             trashsim: "sv"
         },
         FR: {
@@ -732,7 +722,7 @@ AGB.Com = {
             dragosim: "french",
             warriders: "fr",
             infuza: "fr",
-            ogniter: "fr",
+            mmorpgStat: "0",
             trashsim: "fr"
         },
         GR: {
@@ -742,7 +732,7 @@ AGB.Com = {
             dragosim: "greek",
             warriders: "",
             infuza: "en",
-            ogniter: "gr",
+            mmorpgStat: "12",
             trashsim: "el"
         },
         HR: {
@@ -752,12 +742,12 @@ AGB.Com = {
             dragosim: "english",
             warriders: "",
             infuza: "en",
-            ogniter: "hr",
+            mmorpgStat: "15",
             trashsim: "hr"
         },
         HU: {
             infuzaServer: "ogame.hu",
-            websim: "hu", osimulate: "hu", dragosim: "hungarian", warriders: "", infuza: "hu", ogniter: "hu",
+            websim: "hu", osimulate: "hu", dragosim: "hungarian", warriders: "", infuza: "hu", mmorpgStat: "25",
             trashsim: "hu"
         },
         IT: {
@@ -767,7 +757,7 @@ AGB.Com = {
             dragosim: "italian",
             warriders: "",
             infuza: "it",
-            ogniter: "it",
+            mmorpgStat: "5",
             trashsim: "it"
         },
         JP: {
@@ -777,7 +767,7 @@ AGB.Com = {
             dragosim: "english",
             warriders: "",
             infuza: "en",
-            ogniter: "jp",
+            mmorpgStat: "26",
             trashsim: "en"
         },
         MX: {
@@ -787,12 +777,12 @@ AGB.Com = {
             dragosim: "spanish",
             warriders: "",
             infuza: "es",
-            ogniter: "mx",
+            mmorpgStat: "8",
             trashsim: "es"
         },
         NL: {
             infuzaServer: "ogame.nl", websim: "nl", osimulate: "nl", dragosim: "dutch",
-            warriders: "", infuza: "nl", ogniter: "nl",
+            warriders: "", infuza: "nl", mmorpgStat: "14",
             trashsim: "nl"
         },
         NO: {
@@ -802,7 +792,7 @@ AGB.Com = {
             dragosim: "english",
             warriders: "",
             infuza: "en",
-            ogniter: "no",
+            mmorpgStat: "22",
             trashsim: "en"
         },
         PL: {
@@ -812,7 +802,7 @@ AGB.Com = {
             dragosim: "polish",
             warriders: "pl",
             infuza: "pl",
-            ogniter: "pl",
+            mmorpgStat: "4",
             trashsim: "pl"
         },
         PT: {
@@ -822,7 +812,7 @@ AGB.Com = {
             dragosim: "portuguese",
             warriders: "",
             infuza: "pt",
-            ogniter: "pt",
+            mmorpgStat: "20",
             trashsim: "pt"
         },
         RO: {
@@ -832,12 +822,12 @@ AGB.Com = {
             dragosim: "romanian",
             warriders: "",
             infuza: "ro",
-            ogniter: "ro",
+            mmorpgStat: "18",
             trashsim: "ro"
         },
         RU: {
             infuzaServer: "ogame.ru",
-            websim: "ru", osimulate: "ru", dragosim: "russian", warriders: "", infuza: "ru", ogniter: "ru",
+            websim: "ru", osimulate: "ru", dragosim: "russian", warriders: "", infuza: "ru", mmorpgStat: "6",
             trashsim: "ru"
         },
         SE: {
@@ -847,7 +837,7 @@ AGB.Com = {
             dragosim: "swedish",
             warriders: "",
             infuza: "sv",
-            ogniter: "se",
+            mmorpgStat: "23",
             trashsim: "sv"
         },
         SI: {
@@ -857,7 +847,7 @@ AGB.Com = {
             dragosim: "english",
             warriders: "",
             infuza: "en",
-            ogniter: "si",
+            mmorpgStat: "24",
             trashsim: "en"
         },
         SK: {
@@ -867,12 +857,12 @@ AGB.Com = {
             dragosim: "slovak",
             warriders: "",
             infuza: "en",
-            ogniter: "sk",
+            mmorpgStat: "16",
             trashsim: "en"
         },
         TR: {
             infuzaServer: "tr.ogame.org", websim: "tr", osimulate: "tr", dragosim: "turkish",
-            warriders: "", infuza: "en", ogniter: "tr",
+            warriders: "", infuza: "en", mmorpgStat: "9",
             trashsim: "tr"
         },
         TW: {
@@ -882,7 +872,7 @@ AGB.Com = {
             dragosim: "taiwanese",
             warriders: "",
             infuza: "en",
-            ogniter: "tw",
+            mmorpgStat: "11",
             trashsim: "zh"
         },
         US: {
@@ -892,7 +882,7 @@ AGB.Com = {
             dragosim: "english",
             warriders: "us",
             infuza: "en",
-            ogniter: "us",
+            mmorpgStat: "19",
             trashsim: "en"
         },
         ORIGIN: {
@@ -902,7 +892,7 @@ AGB.Com = {
             dragosim: "english",
             warriders: "",
             infuza: "en",
-            ogniter: "en",
+            mmorpgStat: "en",
             trashsim: "en"
         }
     }, Get: function (a, b) {

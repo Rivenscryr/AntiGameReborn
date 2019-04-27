@@ -2327,7 +2327,7 @@ AGB.Tools = {
             a.searchTargetCoords = AGB.Task.cutCoords(a.searchTargetCoords);
             switch (a.id) {
                 case "T1A":
-                    AGB.Tools.createOgniter(a);
+                    AGB.Tools.createMmorpgStat(a);
                     break;
                 case "T1B":
                     AGB.Tools.createInfuza(a);
@@ -2388,12 +2388,13 @@ AGB.Tools = {
         a.href = "http://www.infuza.com/" + AGB.Com.Get(a.abbrCom, "infuza") + "/Search?server=" +
             AGB.Com.Get(a.abbrCom, "infuzaServer") + encodeURI(b)
     },
-    createOgniter: function (a) {
+    createMmorpgStat: function (a) {
+        console.log(a);
         var b;
-        b = "Alliance" === a.tab ? "/alliance/" + (a.searchAlliance || ""
-        ) : "Player" === a.tab ? "/player/" + (a.searchPlayer || ""
-        ) : "";
-        a.href = "http://www.ogniter.org/" + AGB.Com.Get(a.abbrCom, "ogniter") + "/" + AGB.Com.Get(a.abbrCom, "ogniter") + NMR.parseIntAbs(a.abbrUni) + encodeURI(b)
+        b = "Alliance" === a.tab ? "0_fiche_alliance.php?ftr=" + (a.searchAlliance || "") + ".all"
+        : "Player" === a.tab ? "0_fiche_joueur.php?ftr=" + (a.searchPlayer || "") + ".dat"
+        : "";
+        a.href = "http://www.mmorpg-stat.eu/" + encodeURI(b) + "&pays=" + AGB.Com.Get(a.abbrCom, "mmorpgStat") + "&univers=_" +  NMR.parseIntAbs(a.abbrUni)
     },
     createCumulative: function (a) {
         var b, c;
