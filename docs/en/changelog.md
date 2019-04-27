@@ -5,6 +5,21 @@ page: changelog
 ---
 
 ## Changelog
+### Version 6.8.5.3
+* [Polishing] Hyperspace Tech support in TrashSim links
+
+### Version 6.8.5.2
+* [Feature] Probes can now be selected as default ship for attacking besides LC and SC
+* [Feature] The spy table now supports probes for looting in probe raiding unis
+* [Feature] Default fleet speed can be selected for attacking with probes (thanks to @Horcon for these 3 features)
+* [Bugfix] Buttons in messages now properly delete messages
+* [Polishing] Improved message deletion
+* [Polishing] Changed Hyperspace tech to useful tech
+* [Bugfix] Wrong sorting of reports with negative age
+* [Bugfix] Fixed needed cargo calculation in Contructions tab and detail view of researches/buildings
+* [Polishing] Added buttons in messages to top of the spy table
+* [Bugfix] Probing from the spy table works again in Opera
+
 ### Version 6.8.5
 * [Feature] Spy table is now extended when browsing through pages
 * [Bugfix/Polishing] Improved loading buddies/alliance members into the shareReport

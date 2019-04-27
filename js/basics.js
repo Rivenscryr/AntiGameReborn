@@ -942,6 +942,77 @@ var DOM = {
             matches.push(match[index]);
         return matches;
     }
+}, SORT = {
+    byString: function (a, b) {
+        a = a.toLowerCase();
+        b = b.toLowerCase();
+        return a.localeCompare(b);
+    },
+    byNumber: function (a, b) {
+        if (+a < +b)
+            return -1;
+        else if (+a > +b)
+            return 1;
+        else
+            return 0;
+    },
+    byCoord: function (a, b) {
+        a = STR.check(a).split(":").map(Number);
+        b = STR.check(b).split(":").map(Number);
+
+        // Galaxy
+        if (a[0] < b[0]) {
+            return -1;
+        } else if (a[0] > b[0]) {
+            return 1;
+        }
+        // System
+        if (a[1] < b[1]) {
+            return -1;
+        } else if (a[1] > b[1]) {
+            return 1;
+        }
+        // Position
+        if (a[2] < b[2]) {
+            return -1;
+        } else if (a[2] > b[2]) {
+            return 1;
+        } 
+        // Planet or moon
+        if (a[3] < b[3]) {
+            return -1;
+        } else if (a[3] > b[3]) {
+            return 1;
+        }
+
+        // Failed to compare coords, return 0
+        return 0;
+    },
+    byDistance: function (a, b) {
+        // Extract coords from text-based coordinate and map into a number
+        a = STR.check(a).split(":").map(Number);
+        b = STR.check(b).split(":").map(Number);
+
+        // Convert into objects that getFleetDistance recognizes
+        a = {
+            galaxy: a[0],
+            system: a[1],
+            position: a[2]
+        };
+
+        b = {
+            galaxy: b[0],
+            system: b[1],
+            position: b[2]
+        };
+
+        // Calculate distance from current position
+        a = AGO.Ogame.getFleetDistance(a);
+        b = AGO.Ogame.getFleetDistance(b);
+
+        // Return depending on comparison result
+        return SORT.byNumber(a, b);
+    }
 };
 
 Node.prototype.hasClass = function (selector) {

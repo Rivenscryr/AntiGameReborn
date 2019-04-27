@@ -200,7 +200,7 @@ AGO.Styles = {
         var a;
         a = document.createDocumentFragment();
         AGO.Styles.Sheet = DOM.append(a, "style", {type: "text/css", media: "screen"});
-        (AGO.App.Ogame || window.location.href.indexOf("component=empire") > -1) && OBJ.is(AGO.Styles.Data) && (OBJ.get(AGO.Styles.Data.Page,
+        AGO.App.Ogame && OBJ.is(AGO.Styles.Data) && (OBJ.get(AGO.Styles.Data.Page,
                 "improve"
             ) && ("overview" === AGO.App.page && 1 !== AGO.Acc.type || DOM.extendClass(document.body, null, "ago_improve")
             ), AGO.Styles.set(AGO.Styles.Data.Styles)
@@ -477,6 +477,11 @@ AGO.Item = {
 AGO.Ogame = {
     getFleetDistance: function (a, b) {
         var c;
+        !b && (b = {
+            galaxy: AGO.Acc.galaxy,
+            system: AGO.Acc.system,
+            position: AGO.Acc.position
+        });
         if (OBJ.is(a) && OBJ.is(b)) {
             if (c = Math.abs(a.galaxy - b.galaxy)) {
                 if (AGO.Uni.donutGalaxy)
@@ -634,8 +639,7 @@ AGO.Ogame = {
     },
     getJumpgateCooldown: function (moonID) {
         let level = AGO.Units.Data.Moons && AGO.Units.Data.Moons[moonID] && AGO.Units.Data.Moons[moonID][43] ? AGO.Units.Data.Moons[moonID][43] : 1;
-        let cooldown = Math.round((14.9206 * Math.pow(level, 2) - 453.016 * level + 4038.1) / AGO.Uni.speedFleet);
-        return cooldown;
+        return Math.round((14.9206 * Math.pow(level, 2) - 453.016 * level + 4038.1) / AGO.Uni.speedFleet);
     }
 };
 AGO.Units = {

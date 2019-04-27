@@ -365,6 +365,7 @@ AGO.Messages = {
                 p.system = p.coords.split(':')[1];
                 p.position = p.coords.split(':')[2];
                 p.isMoon = DOM.query('.msg_head .msg_title .moon', message) ? 1 : 0;
+                p.coords += p.isMoon ? ":3" : ":1";
                 p.activityColor = DOM.getAttribute('.msg_content font', message, 'color', '');
                 p.attacking = DOM.query('.icon_attack img', message) ? 1 : 0;
 
@@ -429,7 +430,8 @@ AGO.Messages = {
     },
 
     sortSpyReports: function (by) {
-        if (AGO.Messages.spyTableData.sortSequence != by) {
+        let sortByDistance = AGO.Option.get("M38", 1);
+        if (AGO.Messages.spyTableData.sortSequence !== by) {
             switch (by) {
                 case "coord":
                 case "age":
@@ -449,22 +451,37 @@ AGO.Messages = {
         AGO.Messages.spyReportsKeys = Object.keys(AGO.Messages.spyReports);
 
         AGO.Messages.spyReportsKeys.sort(function (a, b) {
-            if (!AGO.Messages.spyTableData.sortDesc) b = [a, a = b][0];
+            // Default sorting of SORT functions is ascending, if sortDesc is true, a and b are flipped
+            if (AGO.Messages.spyTableData.sortDesc) b = [a, a = b][0];
 
             if (['loot', 'age', 'fleet', 'defense'].indexOf(by) > -1)
-                return AGO.Messages.spyReports[b][by] - AGO.Messages.spyReports[a][by];
+                return SORT.byNumber(AGO.Messages.spyReports[a][by], AGO.Messages.spyReports[b][by]);
             else if (by === 'playerName') {
-                var textA = AGO.Messages.spyReports[a][by].toUpperCase();
-                var textB = AGO.Messages.spyReports[b][by].toUpperCase();
-                return (textB < textA) ? -1 : (textB > textA) ? 1 : 0;
+                return SORT.byString(AGO.Messages.spyReports[a][by], AGO.Messages.spyReports[b][by]);
             } else if (by === 'coord') {
-                var galaxyA = AGO.Messages.spyReports[a]['galaxy'];
-                var galaxyB = AGO.Messages.spyReports[b]['galaxy'];
-                var systemA = AGO.Messages.spyReports[a]['system'];
-                var systemB = AGO.Messages.spyReports[b]['system'];
-                var positionA = AGO.Messages.spyReports[a]['position'];
-                var positionB = AGO.Messages.spyReports[b]['position'];
-                return galaxyB - galaxyA || systemB - systemA || positionB - positionA;
+                // If the sort by distance setting is on
+                if (sortByDistance) {
+                    // Sort by distance
+                    let result = SORT.byDistance(AGO.Messages.spyReports[a].coords, AGO.Messages.spyReports[b].coords);
+                    // If the distance is not equal, then just return, otherwise sort by coord
+                    if (result !== 0) {
+                        return result;
+                    } else {
+                        // When sorting by distance, coords should come up in ascending order (1,2,3,4...)
+                        // if the distance is the same, it looks better and makes sure the coordinates aren't all mixed
+                        // together. Need to basically un-flip the sort because it's normally flipped up above right
+                        // after sort function start
+                        result = SORT.byCoord(AGO.Messages.spyReports[a].coords, AGO.Messages.spyReports[b].coords);
+                        if (AGO.Messages.spyTableData.sortDesc) {
+                            return result * -1;
+                        } else {
+                            return result;
+                        }
+                        
+                    }
+                } 
+                // If sort by distance is not set, use the old code
+                return SORT.byCoord(AGO.Messages.spyReports[a].coords, AGO.Messages.spyReports[b].coords);
             }
         });
         AGO.Messages.Save();
@@ -539,7 +556,7 @@ AGO.Messages = {
             var linkCoords = document.createElement('a');
             linkCoords.classList.add('txt_link');
             linkCoords.href = '#m' + p.msgId;
-            DOM.innerHTML(linkCoords, null, (p.coords + (p.isMoon === '1' ? ' <figure class="planetIcon moon tooltip js_hideTipOnMobile" title=""></figure>' : '')));
+            DOM.innerHTML(linkCoords, null, (p.galaxy + ":" + p.system + ":" + p.position + (p.isMoon === '1' ? ' <figure class="planetIcon moon tooltip js_hideTipOnMobile" title=""></figure>' : '')));
             linkCoords.onclick = function () {
                 message.classList.add('highlighted');
                 document.addEventListener('click', function toggleHighlight(e) {
