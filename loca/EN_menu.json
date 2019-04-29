@@ -68,6 +68,7 @@
     "ATR": "Preferred resource",
     "ATS": "Preferred combat ship",
     "ATT": "Range for random system selection",
+    "ATF": "Variable distance (number of systems)",
     "B00": "Buildings &amp; Constructions",
     "B01": "Show resource production summary in Overview",
     "B02": "Show finish time",

@@ -1097,6 +1097,16 @@ AGO.Menu.Show = function (a) {
     }
 };
 AGO.Menu.showTask = function (a) {
+    // Here the little popup for each task is created. The tasks have a mode consisting of letters each of which
+    // represents a set of settings:
+    // T = task (coords, mission, speed etc.)
+    // R = resources
+    // S = ships
+    // C = collect
+    // F = fleetsave
+    // E = expedition
+    // P = coord selection is limited to own coords
+
     function b() {
         var a;
         a = DOM.getValue("#ago_menu_edit_mission", q, 2);
@@ -1206,7 +1216,7 @@ AGO.Menu.showTask = function (a) {
             "ago_menu_edit", function () {
                 AGO.Menu.hideTask({action: "save"})
             }
-        ), l = document.createDocumentFragment(), u = DOM.appendTABLE(l), u = DOM.append(u, "colgroup"), DOM.append(u, "col", null, {width: "240px"}), DOM.append(u, "col", null, {width: "150px"}), u = u.parentNode, c(), 0 <= t.indexOf("T") && (d("AT4", 0 <= t.indexOf("P")), 0 <= t.indexOf("E") ? (g("ATT", "detail2"), k("AT6", "mission", s.mission, {15: "LM15"}, "ago_menu_edit_hidden")
+        ), l = document.createDocumentFragment(), u = DOM.appendTABLE(l), u = DOM.append(u, "colgroup"), DOM.append(u, "col", null, {width: "240px"}), DOM.append(u, "col", null, {width: "150px"}), u = u.parentNode, c(), 0 <= t.indexOf("T") && (d("AT4", 0 <= t.indexOf("P")), 0 <= t.indexOf("F") && g("ATF", "detail2"), 0 <= t.indexOf("E") ? (g("ATT", "detail2"), k("AT6", "mission", s.mission, {15: "LM15"}, "ago_menu_edit_hidden")
             ) : (k("AT5", "type", s.type, [" - ", "L081", "L082", "L083"]), m = 0 <= t.indexOf("C") ? {
                     0: " - ",
                     3: "LM03",

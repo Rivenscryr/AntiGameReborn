@@ -142,6 +142,7 @@ AGO.Fleet1 = {
                 k.group = 2;
                 k.mode = AGO.Option.get("F90");
                 k.label = AGO.Label.get("F90");
+                k.detail2 && (k.system += k.detail2);
                 e && (e = 1 === e ? "::::2:1::::1" : "", AGO.Fleet.Set("Routine", {Save: e})
                 );
                 l = AGO.Task.split(AGO.Fleet.Get("Routine", "Save", 6), 0);
