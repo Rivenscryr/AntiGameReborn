@@ -38,7 +38,7 @@ AGB.App = {
         "kb.un1matr1x.de": 1,
         "savekb.de": 1,
         "drago-sim.com": 1,
-        "mmorpg-stat.eu": 1,
+        "mmorpg-stat.eu": 0,
         "infuza.com": 1,
         "savecr.com": 1
     },
