@@ -1008,24 +1008,24 @@ AGO.Task = {
         if (OBJ.is(a)) {
             c =
                 [
-                    a.galaxy,
-                    a.system,
-                    a.position,
-                    a.type,
-                    a.mission,
-                    a.speed,
-                    a.holdingtime,
-                    a.expeditiontime,
-                    a.union,
-                    a.routine,
-                    a.name,
-                    a.detail,
-                    a.detail2,
-                    a.preferCargo,
-                    a.preferShip,
-                    a.arrival
+                    a.galaxy || "",
+                    a.system || "",
+                    a.position || "",
+                    a.type || "",
+                    a.mission || "",
+                    a.speed || "",
+                    a.holdingtime || "",
+                    a.expeditiontime || "",
+                    a.union || "",
+                    a.routine || "",
+                    a.name || "",
+                    a.detail || "",
+                    a.detail2 || "",
+                    a.preferCargo || "",
+                    a.preferShip || "",
+                    a.arrival || ""
                 ];
-            1 <= b && (c[16] = a.metal, c[17] = a.crystal, c[18] = a.deuterium, c[19] = a.preferResource || "", c[20] = a.timeResource || ""
+            1 <= b && (c[16] = a.metal || "", c[17] = a.crystal || "", c[18] = a.deuterium || "", c[19] = a.preferResource || "", c[20] = a.timeResource || ""
             );
             if (2 <= b) {
                 for (c[21] = a.timeShip || "", d = 22; 35 >= d; d++) {
