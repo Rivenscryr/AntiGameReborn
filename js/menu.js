@@ -1154,7 +1154,7 @@ AGO.Menu.showTask = function (a) {
         c = DOM.appendTR(u);
         DOM.appendTD(c, "ago_menu_edit_label", a, 10);
         c = DOM.appendTD(c, "ago_menu_edit_input");
-        DOM.append(c, "input", {id: "ago_menu_edit_" + b, type: "text", value: STR.check(s[b])})
+        DOM.append(c, "input", {id: "ago_menu_edit_" + b, type: "text", value: Array.isArray(s[b]) ? s[b][0] : STR.check(s[b])})
     }
 
     function d(a, b) {
@@ -1300,8 +1300,12 @@ AGO.Menu.hideTask = function (a) {
                 for (d = 0; d < f.length; d++) {
                     g = DOM.getAttribute(f[d],
                         null, "id", 7
-                    ).split("_")[3], "coords" === g ? (g = DOM.getValue(f[d], null, 7), AGO.Task.updateCoordsType(e, g), e.detail = "active" === g ? "active" : ""
-                    ) : g && (e[g] = DOM.getValue(f[d], null, 2)
+                    ).split("_")[3], "coords" === g ? (g = DOM.getValue(f[d], null, 7), AGO.Task.updateCoordsType(e, g), e.detail = "active" === g ? "active" : "") 
+                    // For detail2, remaining resources and remaining ships, the value is set to [0] if it is set explicitly to 0
+                    // This way we can distinguish explicitly set 0s from values that are simply left empty
+                    // #TODO: Maybe think of a better solution
+                    : "detail2 metal crystal deuterium".split(" ").indexOf(g) > -1 || !isNaN(g) ? e[g] = DOM.getValue(f[d], null, 7) === "0" ? [0] : DOM.getValue(f[d], null, 2)
+                    : g && (e[g] = DOM.getValue(f[d], null, 2)
                     );
                 }
                 5 !== e.mission && (e.holdingtime = 0

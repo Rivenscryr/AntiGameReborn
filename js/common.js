@@ -949,7 +949,7 @@ AGO.Task = {
             a = AGO.Task.split(e.standard, b, -1);
             b = AGO.Task.split(e[AGO.Acc.coordstype], b, -1);
             for (f in b) {
-                b[f] && (a[f] = d || "string" === typeof b[f] ? b[f] : Math.max(b[f], 0)
+                b[f] && (b[f] = Array.isArray(b[f]) ? b[f][0] : b[f], a[f] = d || "string" === typeof b[f] ? b[f] : Math.max(b[f], 0)
                 );
             }
             AGO.Task.updateCoords(a, c);
@@ -979,20 +979,23 @@ AGO.Task = {
             routine: +d[9] || 0,
             name: d[10] || "",
             detail: d[11] || "",
-            detail2: +d[12] || 0,
+            detail2: +d[12] > 0 ? +d[12] : d[12] === "0" ? [0] : 0,
             preferCargo: d[13] || "",
             preferShip: d[14] || "",
             arrival: +d[15] || 0
         };
         0 <= c && AGO.Task.updateCoords(a, c);
-        1 <= b && (a.metal = +d[16] || 0, a.crystal = +d[17] || 0, a.deuterium =
-                +d[18] || 0, a.preferResource = +d[19] || 0, a.timeResource = +d[20] || 0, a.resources = a.metal + a.crystal + a.deuterium
+        1 <= b && (a.metal = +d[16] > 0 ? +d[16] : d[16] === "0" ? [0] : 0, 
+                   a.crystal = +d[17] > 0 ? +d[17] : d[17] === "0" ? [0] : 0, 
+                   a.deuterium = +d[18] > 0 ? +d[18] : d[18] === "0" ? [0] : 0, 
+                   a.preferResource = +d[19] || 0, a.timeResource = +d[20] || 0, 
+                   a.resources = +a.metal + +a.crystal + +a.deuterium
         );
         if (2 <= b) {
             for (a.ships = 0, a.shipsCivil = 0, a.shipsCombat = 0, a.timeShip = +d[21] || 0, e = 22; 35 >= e; e++) {
-                c = String(e + 180), b = +d[e] || 0, (a[c] = b
-                ) && "212" !== c && (a.ships += b, c in AGO.Item.ShipCivil && (a.shipsCivil += b
-                    ), c in AGO.Item.ShipCombat && (a.shipsCombat += b
+                c = String(e + 180), b = +d[e] > 0 ? +d[e] : d[e] === "0" ? [0] : 0, (a[c] = b
+                ) && "212" !== c && (a.ships += +b, c in AGO.Item.ShipCivil && (a.shipsCivil += +b
+                    ), c in AGO.Item.ShipCombat && (a.shipsCombat += +b
                     )
                 );
             }
