@@ -1579,9 +1579,9 @@ AGB.Token = {
                 //      0 = name, 1 = coords/distance ASC, 2 = coords/distance DESC,
                 //      3 = coords/distance ASC + range filter,
                 //      4 = coords/distance DESC + range filter
-                let sortType = a.sort.type;
-                let sortByDist = a.sort.distance;
                 if ("Target" === f && a.sort.type) {
+                    let sortType = a.sort.type;
+                    let sortByDist = a.sort.distance;
                     g.listToken.sort(function (a, b) {
                         let compare;
                         let niceLookingDistanceSort = true;
