@@ -1,7 +1,7 @@
 {
-  "name": "AntiGameReborn",
+  "name": "AntiGameReborn Beta",
   "short_name": "AGR",
-  "version": "6.8.5.4",
+  "version": "6.8.5.5",
   "description": "AGR - the other OGame experience for all communities.",
   "default_locale": "en",
   "manifest_version": 2,

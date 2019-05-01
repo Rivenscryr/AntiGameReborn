@@ -163,7 +163,7 @@ AGO.Menu = {
     Init: function () {
         if (2 > AGO.Menu.status) {
             AGO.Menu.status = 2;
-            AGO.Menu.updatePath = AGO.isChrome ? AGO.App.beta ? "https://antigame.de/antigame/scripts/antigameorigin_beta.crx" : "https://chrome.google.com/webstore/detail/ago-v6/mhfbpacbhjchkjeopjfgdhckepclcfll" : AGO.App.beta ? "https://antigame.de/antigame/scripts/antigameorigin_beta.xpi" : "https://antigame.de/antigame/scripts/antigameorigin.xpi";
+            AGO.Menu.updatePath = AGO.isChrome ? AGO.App.beta ? "https://chrome.google.com/webstore/detail/bfgilpifjmbcphbokhpjamjppfhfgacc" : "https://chrome.google.com/webstore/detail/ago-v6/mhfbpacbhjchkjeopjfgdhckepclcfll" : AGO.App.beta ? "https://antigame.de/antigame/scripts/antigameorigin_beta.xpi" : "https://antigame.de/antigame/scripts/antigameorigin.xpi";
             AGO.Styles.setFile("menu");
             AGO.Para.Init(function () {
                 AGO.Menu.lang = AGO.Para.get("A10") || AGO.Uni.lang;
