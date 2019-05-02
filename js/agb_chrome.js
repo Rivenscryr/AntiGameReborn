@@ -96,20 +96,24 @@ AGB.Storage = {
         let storageType, data;
         if (OBJ.is(para)) {
             storageType = para.sync ? "sync" : "local";
+
             if (para.key) {
                 data = {};
                 data[para.key] = para.data;
             } else {
                 data = para.data;
-                if (OBJ.is(data) && Object.keys(data).length) {
-                    if (callback)
-                        chrome.storage[storageType].set(data, function () {
-                            callback(chrome.runtime.lastError ? -1 : 1)
-                        });
-                    else
-                        chrome.storage[storageType].set(data);
+            }
+
+            if (OBJ.is(data) && Object.keys(data).length) {
+                if (callback) {
+                    chrome.storage[storageType].set(data, function () {
+                        callback(chrome.runtime.lastError ? -1 : 1)
+                    });
+                } else {
+                    chrome.storage[storageType].set(data);
                 }
             }
+
         }
     },
     Get: function (para, callback) {
