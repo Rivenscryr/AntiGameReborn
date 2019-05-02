@@ -2389,7 +2389,6 @@ AGB.Tools = {
             AGB.Com.Get(a.abbrCom, "infuzaServer") + encodeURI(b)
     },
     createMmorpgStat: function (a) {
-        console.log(a);
         var b;
         b = "Alliance" === a.tab ? "0_fiche_alliance.php?ftr=" + (a.searchAlliance || "") + ".all"
         : "Player" === a.tab ? "0_fiche_joueur.php?ftr=" + (a.searchPlayer || "") + ".dat"
