@@ -846,16 +846,27 @@ AGO.Messages = {
     },
 
     refreshSummary: function () {
-        var c, sumLoot = 0,
+        var c, 
+            sumLoot = 0, 
+            sumMetal = 0, 
+            sumCrystal = 0, 
+            sumDeut = 0,
             sumFleet = 0;
 
         OBJ.iterate(AGO.Messages.spyReports, function (id) {
             sumLoot += parseInt(AGO.Messages.spyReports[id].loot);
+            // Sum up the individual parts of the loot, multiply with plunder ratio to get the correct numbers
+            sumMetal += parseInt(AGO.Messages.spyReports[id].metal * AGO.Messages.spyReports[id].plunder);
+            sumCrystal += parseInt(AGO.Messages.spyReports[id].crystal * AGO.Messages.spyReports[id].plunder);
+            sumDeut += parseInt(AGO.Messages.spyReports[id].deut * AGO.Messages.spyReports[id].plunder);
             sumFleet += parseInt(((c = AGO.Messages.spyReports[id].fleet) > -1 ? c : 0));
         });
 
         if (DOM.query("#agoSpyReportOverview .summary")) {
             DOM.query('.summaryCount').textContent = Object.keys(AGO.Messages.spyReports).length;
+            DOM.query('.summaryLoot').classList.add('tooltipCustom'); // Adds the tooltip to the item
+            // Title is shown as tooltip when hovering the mouse over the number (code grabbed from the table code)
+            DOM.query('.summaryLoot').title = AGO.Label.get('L091') + ': ' + STR.formatNumber(Math.round(sumMetal)) + '<br />' + AGO.Label.get('L092') + ': ' + STR.formatNumber(Math.round(sumCrystal)) + '<br />' + AGO.Label.get('L093') + ': ' + STR.formatNumber(Math.round(sumDeut));
             DOM.query('.summaryLoot').textContent = AGO.Option.is('M53') ? STR.shortNumber(sumLoot, 1) : STR.formatNumber(sumLoot);
             DOM.query('.summaryFleet').textContent = AGO.Option.is('M53') ? STR.shortNumber(sumFleet, 1) : STR.formatNumber(sumFleet);
         }
