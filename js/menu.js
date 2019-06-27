@@ -468,7 +468,7 @@ AGO.Menu = {
                             acc: "D11",
                             ago: "D12"
                         }[a];
-                        a && b && (b = "AntiGameOrigin \n \n " + AGO.Label.get("D10") +
+                        a && b && (b = "AntiGameReborn \n \n " + AGO.Label.get("D10") +
                                 "\n \n " + ("ago" === a ? "" : AGO.Uni.lang + " " + AGO.Uni.abbr + " " + AGO.Acc.name + "\n \n "
                                 ) + AGO.Label.get(b) + ("DataBase" === a ? "\n \n - " + AGO.Label.get("D19") : ""
                                 ), window.confirm(b) ? AGO.Data.Remove(a) : AGB.message("Data", "List", {filter: "ago" === a ? "" : AGO.App.keyPlayer})
@@ -480,7 +480,7 @@ AGO.Menu = {
                         AGO.Init.Messages("Menu", "Display", {tab: "Data"});
                         break;
                     case "disable":
-                        window.confirm("AntiGameOrigin \n \n " +
+                        window.confirm("AntiGameReborn \n \n " +
                             AGO.Label.get("A11") + "\n \n" + AGO.Label.get("a11").replace(/\[BR\]/g, "")
                         ) && AGO.App.Save({disabled: !0})
                 }
