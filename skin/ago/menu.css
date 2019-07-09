@@ -93,8 +93,8 @@ a.ago_menu_button {
 }
 
 .ago_menu_header_button {
-    padding: 20px 0;
-    height: 20px
+    padding: 10px 0 25px;
+    height: 30px
 }
 
 .ago_menu_header_button table {
@@ -104,7 +104,6 @@ a.ago_menu_button {
 
 .ago_menu_header_button form {
     display: inline-block;
-    margin: -18px 28px 12px 6px;
 }
 
 #ago_menu .ago_menu_header_button a.ago_menu_button {

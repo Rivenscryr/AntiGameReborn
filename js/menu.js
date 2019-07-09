@@ -531,10 +531,18 @@ AGO.Menu = {
         );
         DOM.appendSPAN(b, "ago_color_limeorange", "by RiV- / based on the work of Francolino");
         b = DOM.appendDIV(a, "ago_menu_header_button");
-        a = DOM.appendTABLE(b, null, null, [434, 220]);
+        a = DOM.appendTABLE(b, null, null, [216, 227, 216]);
         a = DOM.appendTR(a);
         b = DOM.appendTD(a);
         AGO.Menu.appendButton(b, "AM2", "AM2", {message: {page: "Menu", role: "Hide"}});
+        b = DOM.appendTD(a, { style: "text-align: center;" });
+        DOM.innerHTML(b, null, "<form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\">\n" +
+            "<input type=\"hidden\" name=\"cmd\" value=\"_s-xclick\" />\n" +
+            "<input type=\"hidden\" name=\"hosted_button_id\" value=\"E7ZA3C9PX3ZWN\" />\n" +
+            "<input type=\"image\" src=\"https://www.paypalobjects.com/" + (AGO.Menu.lang === "DE" ? "de_DE/DE" : "en_US/DK") + "/i/btn/btn_donateCC_LG.gif\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Donate with PayPal button\" />\n" +
+            "<img alt=\"\" border=\"0\" src=\"https://www.paypal.com/en_DE/i/scr/pixel.gif\" width=\"1\" height=\"1\" />\n" +
+            "</form>\n");
+        DOM.query("form", b).setAttribute("target", "_blank");
         b = DOM.appendTD(a);
         AGO.Menu.appendButton(b, "AM3", "AM3", {message: {page: "Menu", role: "Hide", data: "save"}});
         AGO.Menu.contentNode = DOM.appendDIV(AGO.Menu.menuNode, {id: "ago_menu_content"})
