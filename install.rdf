@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>riv@umadbro.org</em:id>
-    <em:version>6.8.6</em:version>
+    <em:version>6.8.8</em:version>
     <em:type>2</em:type>
    
     <!-- Angaben zu unterstützten Anwendungsversionen --> 
@@ -18,7 +18,7 @@
     </em:targetApplication>
    
     <!-- Sichtbare Daten -->
-    <em:name>AntiGameReborn Beta</em:name>
+    <em:name>AntiGameReborn</em:name>
     <em:description>AGR - the other OGame experience for all communities.</em:description>
     <em:creator>RiV- / based on the work of Francolino</em:creator>
   </Description>      
