@@ -206,6 +206,7 @@ AGO.Messages = {
                 var spanTime = DOM.query('.msg_head .msg_date', AGO.Messages.visibleMessages[msgId]);
                 var msgTime = DOM.getText(spanTime);
                 spanTime.textContent = AGO.Time.convertLocal(msgTime);
+                spanTime.setAttribute('data-ago-server-time', msgTime);
             }
         });
     },

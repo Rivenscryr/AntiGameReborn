@@ -93,7 +93,7 @@ AGO.Fleet3 = {
                     DOM.setStyleDisplay(f.parentNode), h = DOM.getTextChild(f.parentNode), DOM.appendSPAN(d, "ago_fleet_label", h), DOM.appendSPAN(d, "ago_fleet_duration");
                 }
                 if (f = b.querySelector("#arrivalTime")) {
-                    f.textContent = AGO.Time.convertLocal(f.textContent, "[H]:[i]:[s]"), DOM.setStyleDisplay(f.parentNode.parentNode), DOM.appendSPAN(d, "ago_fleet_name", DOM.getTextChild(f.parentNode.parentNode)), g = DOM.appendSPAN(d, "ago_fleet_arrival"), g.appendChild(f);
+                    f.setAttribute('data-ago-server-time', f.textContent), f.textContent = AGO.Time.convertLocal(f.textContent, "[H]:[i]:[s]"), DOM.setStyleDisplay(f.parentNode.parentNode), DOM.appendSPAN(d, "ago_fleet_name", DOM.getTextChild(f.parentNode.parentNode)), g = DOM.appendSPAN(d, "ago_fleet_arrival"), g.appendChild(f);
                 }
                 d = DOM.appendDIV(c, {
                         "class": "ago_fleet_details",
