@@ -204,7 +204,8 @@ var AGO = {
             }
         );
         $(document).ajaxSuccess(function (b, a, c) {
-            b = decodeURIComponent(c.url || "").replace(/\?/g, "&").split("&page=")[1];
+            b = decodeURIComponent(c.url || "").replace(/\?/g, "&");
+            b = b.split(b.indexOf("&component=") > -1 ? "&component=" : "&page=")[1];
             b = (b || "").toLowerCase().split("&")[0].split("#")[0];
             AGO.message("Init", "Content", {
                 page: b,

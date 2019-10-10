@@ -200,9 +200,7 @@ AGO.Styles = {
         var a;
         a = document.createDocumentFragment();
         AGO.Styles.Sheet = DOM.append(a, "style", {type: "text/css", media: "screen"});
-        AGO.App.Ogame && OBJ.is(AGO.Styles.Data) && (OBJ.get(AGO.Styles.Data.Page,
-                "improve"
-            ) && ("overview" === AGO.App.page && 1 !== AGO.Acc.type || DOM.extendClass(document.body, null, "ago_improve")
+        AGO.App.Ogame && OBJ.is(AGO.Styles.Data) && (OBJ.get(AGO.Styles.Data.Page, "improve") && ("overview" === AGO.App.page && 1 !== AGO.Acc.type || DOM.extendClass(document.body, null, "ago_improve")
             ), AGO.Styles.set(AGO.Styles.Data.Styles)
         );
         document.head.appendChild(a)
@@ -401,6 +399,10 @@ AGO.Item = {
         capacity: 750,
         consumption: 250
     },
+    216: {metal: 6E3, crystal: 6E3, deuterium: 2E3, retreat: 0},
+    217: {metal: 2E3, crystal: 2E3, deuterium: 1E3, retreat: 0},
+    218: {metal: 85E3, crystal: 55E3, deuterium: 2E4, retreat: 16E4},
+    219: {metal: 8E3, crystal: 15E3, deuterium: 8E3, retreat: 31E3},
     401: {metal: 2E3, crystal: 0, deuterium: 0, retreat: 2E3},
     402: {metal: 1500, crystal: 500, deuterium: 0, retreat: 2E3},
     403: {metal: 6E3, crystal: 2E3, deuterium: 0, retreat: 8E3},

@@ -578,13 +578,21 @@ var DOM = {
         if (a = DOM.query(a, b)) {
             a.style.color = c || ""
         }
-    }, setStyleDisplay: function (a,
-                                  b, c
-    ) {
+    },
+    setStyleDisplay: function (a, b, c) {
         if (a = DOM.query(a, b)) {
             a.style.display = c || "none"
         }
-    }, updateStyle: function (a, b, c, d) {
+    },
+    setStyleDisplayChildren: function (a, b, c) {
+        console.log(a);
+        if (a = DOM.query(a, b)) {
+            for (let i = 0; i < a.children.length; i++) {
+                a.children[i].style.display = c || "none";
+            }
+        }
+    },
+    updateStyle: function (a, b, c, d) {
         return (a = DOM.query(a, b)
         ) && a.style[c] !== (d || ""
         ) ? (a.style[c] = d || "", a
@@ -689,8 +697,7 @@ var DOM = {
         );
         return a ? a + "" : ""
     }, setValue: function (a, b) {
-        b && (a = 1 === b ? Boolean(a) : 7 === b ? STR.trim(a) : 8 === b ? STR.zero(a) : -2 === b ? JSON.stringify(a || {}) : a
-        );
+        b && (a = 1 === b ? Boolean(a) : 7 === b ? STR.trim(a) : 8 === b ? STR.zero(a) : -2 === b ? JSON.stringify(a || {}) : a);
         return a ? a + "" : ""
     }, urlImage: function (a) {
         return AGO.App.pathSkin + "ago/images/" + a

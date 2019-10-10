@@ -164,6 +164,8 @@ AGO.Init = {
     Read: function () {
         if (2 === AGO.Init.status) {
             if (AGO[AGO.App.Page]) {
+                AGO.App.hasMCO = DOM.query("#characterclass") && true;
+                AGO.App.isVersion7 && DOM.extendClass(document.body, null, "ago_v7");
                 AGO.Init.status = 4;
                 PAGE = AGO.Page = AGO[AGO.App.Page];
                 if (AGO.App.Ogame) {
@@ -424,26 +426,33 @@ AGO.Init = {
                 )
             }, c.send(null)
         )
-    }, Script: function (a) {
-        var b, c;
+    }, Script: function (type) {
         if (!AGO.Init.ogameScript) {
-            b = DOM.queryAll("#box > script", document.getElementById("boxBG"));
-            for (c = 0; c < b.length; c++) {
-                if (!b[c].src && -1 < (b[c].innerHTML || ""
-                ).indexOf("var session")) {
-                    AGO.Init.ogameScript = b[c];
-                    break
+            let scriptElements = AGO.App.isVersion7 ? DOM.queryAll("#resourcesbarcomponent > script") : DOM.queryAll("#box > script", document.getElementById("boxBG"));
+            for (let i = 0; i < scriptElements.length; i++) {
+                if (!scriptElements[i].src && -1 < (scriptElements[i].innerHTML || "").indexOf("reloadResources")) {
+                    AGO.Init.ogameScript = scriptElements[i];
+                    break;
                 }
             }
             AGO.Init.ogameScript = AGO.Init.ogameScript || -1
         }
-        b = "";
-        return OBJ.is(AGO.Init.ogameScript) &&
-        (b = AGO.Init.ogameScript.innerHTML || "", "production" === a
-        ) ? (a = b.indexOf("initAjaxResourcebox"), 0 < a && (a = b.indexOf("{", a + 30), c = b.indexOf("function", a), c > a
-            ) ? (c = b.lastIndexOf("}", b.lastIndexOf("}", c) - 1), b.slice(a, c + 1) || ""
-            ) : ""
-        ) : b
+
+        let start, end, scriptText;
+        scriptText = AGO.Init.ogameScript.innerHTML;
+        if (OBJ.is(AGO.Init.ogameScript) && "production" === type) {
+            start = scriptText.indexOf("reloadResources");
+            if (0 < start) {
+                start = scriptText.indexOf("{", start);
+                end = scriptText.indexOf(");", start);
+                if (end > start)
+                    return scriptText.slice(start, end) || ""
+                else
+                    return "";
+            }
+        } else {
+            return scriptText;
+        }
     }
 };
 AGO.Background = {
@@ -756,7 +765,8 @@ AGO.App = {
     // These are the apps linked to background AJAX calls. As far as defined the Content functions of these apps
     // are called on a successful AJAX call. See AGO.Init.Content().
     Content: {
-        resources: "Resources",
+        resources: "Resources", // #MCO
+        technologydetails: "Resources",
         station: "Station",
         traderoverview: "Trader",
         research: "Research",
@@ -787,15 +797,30 @@ AGO.App = {
         AGO.Uni.domain = document.location.hostname.toLowerCase();
         AGO.Uni.url = document.location.protocol + "//" + AGO.Uni.domain;
 
+
         if (document.location.href.match(/https:\/\/.+\.ogame.gameforge.com\/game\/index\.php\?+.*page=*/i)) {
             let page = STR.getParameter("page", document.location.href).toLowerCase();
-            AGO.App.page = page === "standalone" ? STR.getParameter("component", document.location.href).toLowerCase() : page;
+            AGO.App.page = page === "standalone" || page === "ingame" ? STR.getParameter("component", document.location.href).toLowerCase() : page;
+
+            if (page === "ingame") {
+                switch (AGO.App.page) {
+                    case "supplies":
+                        AGO.App.page = "resources";
+                        break;
+                    case "facilities":
+                        AGO.App.page = "station";
+                        break;
+                    case "defenses":
+                        AGO.App.page = "defense";
+                        break;
+                }
+            }
 
             // if planet is changed while on fleet2 or fleet3, user lands on fleet1 page even though url shows page=fleet2/3
             if (0 === AGO.App.page.indexOf("fleet") && STR.getParameter("cp", document.location.href))
                 AGO.App.page = "fleet1";
 
-            AGO.Uni.path = document.location.href.split("?")[0] + "?page=";
+            AGO.Uni.path = document.location.href.split("?")[0] + ("ingame" === page ? "?page=ingame&component=" : "?page="); // #MCO
 
             let domainParts = AGO.Uni.domain.split(".");
             let serverParts = (domainParts[0] || "").split("-");
@@ -870,6 +895,7 @@ AGO.App = {
                 }
             }
         }
+        AGO.App.isVersion7 = NMR.parseVersion(AGO.App.versionOGame) >= 7000000;
         AGO.App.init = true;
         AGO.App.mode = AGO.App.twice ? 0 : 2 === AGO.App.mode ? 2 : AGO.Acc.playerId && AGO.Acc.session ? 4 : 3;
         if (4 <= AGO.App.mode) {

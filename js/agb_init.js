@@ -5,7 +5,8 @@ AGB.App = {
     Player: {},
     Page: {
         overview: {page: "Overview", js: ["pages"], css: "pages"},
-        resources: {page: "Resources", js: ["pages"], css: "pages"},
+        resources: {page: "Resources", js: ["pages"], css: "pages"}, // #MCO
+        supplies: {page: "Resources", js: ["pages"], css: "pages"},
         resourcesettings: {page: "ResourcesSettings", js: ["pages"], css: "pages"},
         station: {page: "Station", js: ["pages"], css: "pages"},
         traderoverview: {page: "Trader", js: ["pages"], css: "pages"},

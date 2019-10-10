@@ -161,6 +161,10 @@
     line-height: 18px
 }
 
+.ago_v7.ago_improve #technologydetails .information .ago_items_compact > li {
+    margin-bottom: 5px;
+}
+
 .ago_improve .production_info .time {
     display: inline-block;
     padding: 0;
@@ -280,6 +284,37 @@
     bottom: 0
 }
 
+.ago_v7.ago_improve #technologydetails .description .txt_box {
+    width: 605px;
+    height: 45px;
+    left: 34px;
+}
+
+.ago_v7.ago_improve #technologydetails .description {
+    height: unset;
+    bottom: 0px;
+    top: unset;
+}
+
+.ago_v7.ago_improve #technologydetails .description.ago_storage {
+    height: unset;
+    bottom: -9px;
+    top: unset;
+}
+
+.ago_v7.ago_improve #technologydetails .description.ago_storage a.btn {
+    right: 15px;
+    position: absolute;
+}
+
+.ago_v7.ago_improve #technologydetails .amortisation {
+    height: 42px;
+}
+
+.ago_v7.ago_improve #research #technologydetails_content, .ago_v7.ago_improve #shipyard #technologydetails_content, .ago_v7.ago_improve #defense #technologydetails_content {
+    height: 260px;
+}
+
 .ago_improve #description .txt_box.tech_den {
     margin: 0
 }
@@ -290,6 +325,16 @@
     background: 0 0;
     left: 5px;
     bottom: 10px
+}
+
+.ago_v7.ago_improve .technology_tree {
+    min-width: 32px;
+    height: 32px;
+    background: 0 0 !important;
+    left: 5px !important;
+    top: unset !important;
+    bottom: 14px;
+    font-size: 0 !important;
 }
 
 .ago_improve .techtree_img, .ago_improve .techtree_img_disabled {
@@ -308,15 +353,38 @@
     top: 64px
 }
 
+.ago_mode_name #technologies li time.countdown {
+    top: unset;
+    bottom: 15px;
+}
+
 .ago_items_text {
     position: absolute;
-    top: 4px;
-    right: 2px;
+    top: 0px;
+    right: 0px;
     max-width: 70px;
     height: auto;
     padding: 2px 3px;
     text-align: right;
     overflow: hidden
+}
+
+li[data-status=active] .ago_items_text, #producers .ago_items_text, #storages .ago_items_text, #facilities .ago_items_text {
+    top: 14px;
+}
+
+#producers .ago_items_text, #facilities .ago_items_text {
+    max-width: 92px;
+}
+
+#producers .ago_items_textName, #facilities .ago_items_textName {
+    width: 90px;
+}
+
+.ago_improve .technology .icon .targetamount {
+    width: 95%;
+    font-size: 10px;
+    padding-right: 2px;
 }
 
 #resources .ago_items_text, #station .ago_items_text, #station-moon .ago_items_text, #research .ago_items_text, .construction .ago_items_text {
@@ -335,11 +403,8 @@
 
 .ago_items_textCount {
     font-size: 11px;
-    top: 48px !important
-}
-
-#resources #building .ago_items_text {
-    max-width: 92px
+    top: unset !important;
+    bottom: 15px;
 }
 
 #resources #building .ago_items_textName {
@@ -441,19 +506,18 @@
     font-size: 11px
 }
 
-#shipyard.ago_improve .x10 .build-it, #defense.ago_improve .x10 .build-it {
+.ago_improve .x10 .build-it {
     background-size: 425px;
     height: 41px;
 }
 
-#shipyard.ago_improve .x10 .build-it span, #defense.ago_improve .x10 .build-it span {
+.ago_improve .x10 .build-it span {
     width: 110px;
     height: 41px;
     font-size: 14px;
 }
 
-#shipyard.ago_improve .x10 .build-it:hover, #shipyard.ago_improve .x10 .build-it:active,
-#defense.ago_improve .x10 .build-it:hover, #defense.ago_improve .x10 .build-it:active {
+.ago_improve .x10 .build-it:hover, .ago_improve .x10 .build-it:active {
     background-position: 0 -41px !important;
     color: #fff;
 }

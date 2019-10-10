@@ -1260,7 +1260,8 @@ AGB.Construction = {
                         var m;
                         if (m = OBJ.get(AGB.Item.Info[c], a)) {
                             for (l = e; l <= f; l++) {
-                                b[a] += Math.floor(m * Math.pow(d, l - 1));
+                                let nextLevelRes = Math.floor(m * Math.pow(d, l - 1));
+                                b[a] += "124" === c ? Math.round(nextLevelRes / 100) * 100 : nextLevelRes;
                             }
                             h[a] = b[a];
                             g && (b[a] = Math.floor(b[a] - b[a] / 100 * g)

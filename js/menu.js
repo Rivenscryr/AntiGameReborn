@@ -179,8 +179,10 @@ AGO.Menu = {
             ), b.parentNode.removeChild(b);
         }
         AGO.Menu.status = 2;
-        if (DOM.query("#inhalt")) DOM.setStyleDisplay("inhalt", "id", "block");
-        else if (DOM.query("#buttonz")) DOM.setStyleDisplay("buttonz", "id", "block");
+        if (AGO.App.page === "messages" || !AGO.App.isVersion7)
+            DOM.setStyleDisplayChildren("contentWrapper", "id", "block");
+        else
+            DOM.setStyleDisplayChildren("middle", "id", "block");
     },
     Save: function () {
         OBJ.iterate(AGO.Para.Info, function (a) {
@@ -897,7 +899,7 @@ AGO.Menu.Show = function (a) {
     }
 
     var t, m;
-    if (t = document.getElementById("contentWrapper")) {
+    if (t = document.getElementById(AGO.App.page === "messages" || !AGO.App.isVersion7 ? "contentWrapper" : "middle")) {
         AGO.Menu.status = 5, AGO.Menu.appendHeader(),
             AGO.Menu.appendTab("General"), AGO.Notify.Problem[17] && (AGO.Menu.appendSection("S80"), b("S81", "", "A51", 0, "", "", "https://antigame.de/home.php?lang=" + AGO.Menu.lang.toLowerCase()), e(12), AGO.Menu.appendRowContent(AGO.Label.get("S82"), null, 0, "", "#008000"), e(6), AGO.Menu.appendRowContent(AGO.Label.get("S83"), null, 0, "", "#008000"), e(6), AGO.Menu.appendRowContent(AGO.Label.get("S84"), null, 0, "", "#008000"), e(6), AGO.Menu.appendRowContent(AGO.Label.get("S85"), null, 0, "", "#008000")
         ), 5 <= AGO.Notify.problem && (AGO.Menu.appendSection("S40"),
@@ -1099,7 +1101,7 @@ AGO.Menu.Show = function (a) {
         ),d("G43"),d("G44"),d("G51"),d("G58"),AGO.Menu.appendSection("G30"),d("G31"),d("G32"),d("G33"),d("G34"),d("G35"),v("G38", "G38", "S"),AGO.Menu.appendSection("G20"),d("G21"),AGO.Menu.appendTab("Messages"),AGO.Menu.appendSection("M00", "A80"),d("M04"),d("M05", "", "", 2),d("M06", "", "", 2),d("M88", "M80", "", 2),d("M89", "M80",
             "", 2
         ),d("M90", "M80", "", 2),AGO.Menu.appendSection("M70", "", "M00"),d("M74"),AGO.Menu.appendSection("M10", "", "M00"),d("M51"),d("M53", "", "", 2),d("M54", "", "", 2),d("M12"
-        ),d("M16"),d("M14"),d("M20"),/*d("M28", "", "", 2),*/d("M30"),d("M36", "", "", 2),d("M37", "", "", 2),d("M38"),DOM.setStyleDisplay("#inhalt", t),DOM.setStyleDisplay("#buttonz", t),(m = t.querySelector("#ago_menu")
+        ),d("M16"),d("M14"),d("M20"),/*d("M28", "", "", 2),*/d("M30"),d("M36", "", "", 2),d("M37", "", "", 2),d("M38"), AGO.App.page === "messages" || !AGO.App.isVersion7 ? DOM.setStyleDisplayChildren("#contentWrapper") : DOM.setStyleDisplayChildren("#middle"),(m = t.querySelector("#ago_menu")
         ) && m.parentNode.removeChild(m),DOM.prependChild(t, AGO.Menu.menuNode),a = a ? a : AGO.Notify.problem ? "General" : AGO.Menu.updateCounter ?
             "Data" : "overview" === AGO.App.page ? "Main" : VAL.check(AGO.App.page, "resources", "resourcesettings", "station", "research", "shipyard", "defense") ? "Buildings" : VAL.check(AGO.App.page, "fleet1", "fleet2", "fleet3") ? "Fleet" : "movement" === AGO.App.page ? "Events" : "galaxy" === AGO.App.page ? "Other" : "messages" === AGO.App.page ? "Messages" : "",AGO.Menu.Display({tab: a}),AGO.Menu.status = 8,t = m = null
     }

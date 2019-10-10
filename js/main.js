@@ -517,7 +517,7 @@ AGO.Panel = {
     },
     Show: function () {
         var a, b, d, c, e, f;
-        if (a = document.getElementById("box")) {
+        if (a = AGO.App.isVersion7 ? document.getElementById("pageContent") : document.getElementById("box")) {
             b = document.createDocumentFragment(), d = (AGO.Panel.left < AGO.Panel.slideLeft ? "ago_panel_slide " : ""
             ) + (OBJ.get(AGO.Styles.classVisible, AGO.Option.get("I02", 2)) || ""
             ), d = DOM.appendDIV(b, {
