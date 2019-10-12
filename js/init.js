@@ -165,7 +165,7 @@ AGO.Init = {
         if (2 === AGO.Init.status) {
             if (AGO[AGO.App.Page]) {
                 AGO.App.hasMCO = DOM.query("#characterclass") && true;
-                AGO.App.isVersion7 && DOM.extendClass(document.body, null, "ago_v7");
+                AGO.Option.set("isVersion7", AGO.App.isVersion7);
                 AGO.Init.status = 4;
                 PAGE = AGO.Page = AGO[AGO.App.Page];
                 if (AGO.App.Ogame) {
@@ -895,6 +895,7 @@ AGO.App = {
                 }
             }
         }
+
         AGO.App.isVersion7 = NMR.parseVersion(AGO.App.versionOGame) >= 7000000;
         AGO.App.init = true;
         AGO.App.mode = AGO.App.twice ? 0 : 2 === AGO.App.mode ? 2 : AGO.Acc.playerId && AGO.Acc.session ? 4 : 3;

@@ -84,9 +84,9 @@ AGO.Notify = {
     }
 };
 AGO.Option = {
-    Data: {}, Start: function () {
-        3 <= AGO.App.mode && (AGO.Option.Data = AGO.Data.getStorage(AGO.App.keyPlayer + "_Option", "JSON")
-        )
+    Data: {},
+    Start: function () {
+        3 <= AGO.App.mode && (AGO.Option.Data = AGO.Data.getStorage(AGO.App.keyPlayer + "_Option", "JSON"))
     }, Init: function (a) {
         AGO.Option.Data = OBJ.is(a) ? a : {};
         AGO.Init.mobile = AGO.Option.is("U51") && (AGO.isMobile || 1 < AGO.Option.get("U51", 2)
@@ -97,7 +97,7 @@ AGO.Option = {
     }, Save: function () {
         AGO.Data.setStorage(AGO.App.keyPlayer + "_Option", {
                 O04: AGO.Option.is("O04"), U31: AGO.Option.is("U31"),
-                U32: AGO.Option.isAnd("U31", "U32")
+                U32: AGO.Option.isAnd("U31", "U32"), isVersion7: AGO.App.isVersion7
             }
         )
     }, set: function (a, b, c) {
@@ -170,9 +170,10 @@ AGO.Styles = {
     classType: ["", "ago_color_planet", "ago_color_debris", "ago_color_moon"],
     classVisible: "ago_visible_hide ago_visible_hide ago_visible_weakest ago_visible_weaker ago_visible_weak ago_visible_middle ago_visible_strong ago_visible_stronger ago_visible_strongest ago_visible_show".split(" "),
     classFleet: " ago_color_hostile ago_color_neutral ago_color_own ago_color_reverse ago_color_friend ago_color_enemy".split(" "),
+    forVersion7: "pages".split(" "),
     Start: function () {
         function a(a) {
-            return a ? '@import url("' + AGO.App.pathSkin + "ago/" + a + '.css' + (AGO.App.beta ? '?' + (new Date()).getTime() : '') + '");' : ""
+            return a ? '@import url("' + AGO.App.pathSkin + "ago/" + (AGO.Option.is("isVersion7") && AGO.Styles.forVersion7.indexOf(a) > -1 ? a + ".v7" : a) + '.css' + (AGO.App.beta ? '?' + (new Date()).getTime() : '') + '");' : ""
         }
 
         var b, c, d = [];
