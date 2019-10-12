@@ -147,9 +147,9 @@
     background: #32495a
 }
 
-.ago_improve .production_info {
-    padding: 0 0 0 11px;
-    min-width: 265px;
+.ago_improve ul.narrow {
+    padding: 0;
+    min-width: 280px;
     max-width: 330px;
     width: auto;
     height: 88px;
@@ -157,15 +157,15 @@
     top: 110px
 }
 
-.ago_improve .production_info.ago_items_compact {
-    line-height: 18px
+.ago_improve ul.narrow.ago_items_compact {
+    line-height: 13px
 }
 
-.ago_v7.ago_improve #technologydetails .information .ago_items_compact > li {
+.ago_v7.ago_improve #technologydetails .information ul.narrow > li {
     margin-bottom: 5px;
 }
 
-.ago_improve .production_info .time {
+.ago_improve ul.narrow .value {
     display: inline-block;
     padding: 0;
     width: auto !important;
@@ -174,12 +174,15 @@
     float: right
 }
 
-.ago_improve .production_info #ago_items_production.time, .ago_improve .production_info #ago_items_energy.time, .ago_improve .production_info #ago_items_number.time, .ago_improve .production_info #ago_items_detail.time {
+.ago_improve ul.narrow #ago_items_production.value,
+.ago_improve ul.narrow #ago_items_energy.value,
+.ago_improve ul.narrow #ago_items_number.value,
+.ago_improve ul.narrow #ago_items_detail.value {
     width: auto !important;
-    min-width: 120px
+    min-width: 130px
 }
 
-.ago_improve .production_info .time span {
+.ago_improve ul.narrow .value span {
     padding: 0 4px;
     float: left
 }
@@ -189,17 +192,17 @@
     float: right
 }
 
-.ago_improve .production_info .time[ago-data] {
+.ago_improve ul.narrow .value[ago-data] {
     cursor: pointer;
     border-radius: 3px
 }
 
-.ago_improve .production_info .time[ago-data]:hover {
+.ago_improve ul.narrow .value[ago-data]:hover {
     color: #cfcbc2;
     background: #32495a
 }
 
-.ago_improve .production_info .undermark {
+.ago_improve ul.narrow .undermark {
     color: #00b000 !important
 }
 
@@ -214,29 +217,39 @@
     right: 11px
 }
 
-.ago_improve .demolish_link {
-    top: 162px
+.ago_improve .downgrade {
+    top: 162px !important
 }
 
-.ago_improve .demolish_link .label {
-    display: none
+.ago_improve .downgrade .label {
+    display: none !important
 }
 
-.ago_improve .costs_wrap {
+.ago_improve .costs {
     float: none;
-    position: absolute
+    top: unset !important;
 }
 
-.ago_improve .costs_wrap .costs_info {
+.ago_improve .costs .costs_info {
     height: 24px
 }
 
 .ago_improve .build-it_wrap {
     margin: 0;
     min-width: 204px;
+    height: 79px;
     float: none;
     position: absolute;
-    right: 11px
+    right: 8px;
+    bottom: unset;
+    top: 21px;
+    text-align: right;
+}
+.ago_improve .build-it_wrap button.upgrade {
+    position: absolute;
+    top: unset !important;
+    bottom: 0px;
+    right: 0px !important;
 }
 
 .ago_improve .premium_info {
@@ -261,18 +274,18 @@
     right: 11px
 }
 
-.ago_improve .enter .maxlink_wrap {
-    width: 100%;
-    height: 100%;
-    background: 0 0;
-    padding: 0
+.ago_improve .information .build_amount {
+    background: 0 0 !important;
+    padding: 0 !important;
+    top: 156px !important;
+    right: 11px !important
 }
 
 .ago_improve .enter .amount_input {
     float: right
 }
 
-.ago_improve .enter .amount, .ago_improve .enter .maxlink_wrap .maxlink_arrow, .ago_improve .enter .maxlink_wrap #maxlink {
+.ago_improve .information .build_amount > label, .ago_improve .information .build_amount .maximum {
     display: none
 }
 
@@ -300,11 +313,6 @@
     height: unset;
     bottom: -9px;
     top: unset;
-}
-
-.ago_v7.ago_improve #technologydetails .description.ago_storage a.btn {
-    right: 15px;
-    position: absolute;
 }
 
 .ago_v7.ago_improve #technologydetails .amortisation {

@@ -925,6 +925,7 @@ AGB.Uni = {
         probeCargo: 0,
         globalDeuteriumSaveFactor: 1,
         cargoHyperspaceTechMultiplier: 2,
+        resourceBuggyEnergyConsumptionPerUnit: 50,
         name: ""
     },
     Init: function (a, b) {

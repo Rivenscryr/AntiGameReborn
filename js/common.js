@@ -399,10 +399,36 @@ AGO.Item = {
         capacity: 750,
         consumption: 250
     },
-    216: {metal: 6E3, crystal: 6E3, deuterium: 2E3, retreat: 0},
-    217: {metal: 2E3, crystal: 2E3, deuterium: 1E3, retreat: 0},
-    218: {metal: 85E3, crystal: 55E3, deuterium: 2E4, retreat: 16E4},
-    219: {metal: 8E3, crystal: 15E3, deuterium: 8E3, retreat: 31E3},
+    217: {
+        metal: 2E3,
+        crystal: 2E3,
+        deuterium: 1E3,
+        retreat: 0,
+        drive: 0,
+        speed: 0,
+        capacity: 0,
+        consumption: 0
+    },
+    218: {
+        metal: 85E3,
+        crystal: 55E3,
+        deuterium: 2E4,
+        retreat: 16E4,
+        drive: "118",
+        speed: 7E3,
+        capacity: 1E4,
+        consumption: 900
+    },
+    219: {
+        metal: 8E3,
+        crystal: 15E3,
+        deuterium: 8E3,
+        retreat: 31E3,
+        drive: "118",
+        speed: 12E3,
+        capacity: 1E4,
+        consumption: 300
+    },
     401: {metal: 2E3, crystal: 0, deuterium: 0, retreat: 2E3},
     402: {metal: 1500, crystal: 500, deuterium: 0, retreat: 2E3},
     403: {metal: 6E3, crystal: 2E3, deuterium: 0, retreat: 8E3},
@@ -429,13 +455,13 @@ AGO.Item = {
         212: 3,
         213: 2,
         214: 2,
-        215: 2
+        215: 2,
+        217: 1,
+        218: 2,
+        219: 2
     },
-    ShipCivil: {
-        202: 1, 203: 1,
-        208: 1, 209: 1, 210: 1
-    },
-    ShipCombat: {204: 2, 205: 2, 206: 2, 207: 2, 215: 2, 211: 2, 213: 2, 214: 2},
+    ShipCivil: {202: 1, 203: 1, 208: 1, 209: 1, 210: 1, 217: 1},
+    ShipCombat: {204: 2, 205: 2, 206: 2, 207: 2, 215: 2, 211: 2, 213: 2, 214: 2, 218: 2, 219: 2},
     ShipTransport: {203: 1, 202: 1, 209: 1, 214: 1},
     Defense: {401: 1, 402: 1, 403: 1, 404: 1, 405: 1, 406: 1, 407: 1, 408: 1, 502: 2, 503: 2},
     Resource: {metal: "091", crystal: "092", deuterium: "093"},
@@ -533,7 +559,7 @@ AGO.Ogame = {
         )
     }, getDebris: function (a, b) {
         var c, d, e, f, g;
-        var h = {}
+        var h = {};
         OBJ.copy(a, h);
         c = {metal: 0, crystal: 0};
         if (OBJ.is(h)) {
@@ -559,8 +585,7 @@ AGO.Ogame = {
     }, getConsumptionEnergy: function (a, b) {
         var c;
         "1" === a ? Math.pow(1.1, b) : "2" === a ? Math.pow(1.1, b) : "3" === a && Math.pow(1.1, b);
-        return (c = "1" === a || "2" === a ? 10 : "3" === a ? 20 : 0
-        ) && 0 <= b ? Math.floor(c * b * Math.pow(1.1, b)) : 0
+        return (c = "1" === a || "2" === a ? 10 : "3" === a ? 20 : 0) && 0 <= b ? Math.floor(c * b * Math.pow(1.1, b)) : 0
     }, getProductionEnergy: function (a, b) {
         var c, d;
         c = "4" === a ? 20 * b * Math.pow(1.1, b) : "12" === a ? 30 * b * Math.pow(1.05 + .01 * AGO.Units.get("113"), b) : "212" === a ? Math.round(Math.floor((AGO.Planets.Get("active", "temp") + 40 + 140

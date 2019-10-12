@@ -94,9 +94,11 @@ AGO.Overview = {
     }
 };
 AGO.Building = {
-    Data: {}, Messages: function (a, b) {
+    Data: {},
+    Messages: function (a, b) {
         "Display" === a ? AGO.Building.Display() : "Action" === a && AGO.Building.Action(b)
-    }, Read: function () {
+    },
+    Read: function () {
         if (AGO.App.isVersion7) {
             let techs, techLevel, techID;
             techs = document.querySelectorAll(".maincontent #technologies li");
@@ -111,31 +113,35 @@ AGO.Building = {
             for (d = 0; d < a.length; d++) {
                 b = a[d].querySelector('.buildingimg a[id^="details"]'), (c = AGO.Item.valid(DOM.getAttribute(b, null, "ref", 7))
                 ) && AGO.Units.set(c, DOM.getTextChild(".ecke .level", b, 3));
-                console.log(c, DOM.getTextChild(".ecke .level", b, 3));
             }
         }
 
         OBJ.set(AGO.Units.Data, "page", AGO.App.page);
         "research" === AGO.App.page && AGO.Notify.set("Problem", -12);
-    }, Run: function () {
+    },
+    Run: function () {
         AGO.Option.is("B00") && (AGO.Building.enabled = true);
         AGO.Building.Show();
         AGO.Building.showConstructions()
-    }, Interactive: function () {
+    },
+    Interactive: function () {
         AGO.Building.displayConstructions()
-    }, onKeydown: function (a) {
+    },
+    onKeydown: function (a) {
         if (12 !== a.inputType) {
             if (65 === a.keyCode || 77 === a.keyCode) {
-                return DOM.click("#detail .ago_items_shortcut #ago_items_number[ago-data]"), !1;
+                return DOM.click("#detail .ago_items_shortcut #ago_items_number[ago-data]"), false;
             }
             if (81 === a.keyCode) {
-                return DOM.setValue("#detail #number", null, "", 0, "click"), !1
+                return DOM.setValue("#detail #number", null, "", 0, "click"), false
             }
         }
-        return 11 !== a.inputType || 38 !== a.keyCode && 40 !== a.keyCode || "number" !== a.target.id ? !0 : DOM.changeInput(a, a.target)
-    }, Show: function () {
+
+        return 11 !== a.inputType || 38 !== a.keyCode && 40 !== a.keyCode || "number" !== a.target.id ? true : DOM.changeInput(a, a.target)
+    },
+    Show: function () {
         if (AGO.App.isVersion7) {
-            let mainContent, b, e, g, h, f, k;
+            let mainContent;
             // B21: Show name or details over images
             let showName = VAL.check(AGO.Option.get("B21", 2), 1, 3);
             let showDetails = VAL.check(AGO.Option.get("B21", 2), 2, 3);
@@ -161,15 +167,15 @@ AGO.Building = {
                                 DOM.appendSPAN(spanSprite, "ago_items_textName ago_items_text ago_text_background", techLabel);
                             }
 
-                            console.log(techButtons[k].dataset);
                             if (!(showDetails && techButtons[k].dataset.status === "on" && AGO.Option.is("commander")) || targetLevel && showName || !VAL.check(AGO.App.page, "shipyard", "defense") && "212" !== techID) {
 
                             } else {
-                                let e = (AGO.Units.get("metal") || 1) / (AGO.Item[techID].metal || 0);
-                                let g = (AGO.Units.get("crystal") || 1) / (AGO.Item[techID].crystal || 0);
-                                let h = (AGO.Units.get("deuterium") || 1) / (AGO.Item[techID].deuterium || 0);
-                                (e = STR.formatNumber(Math.floor(Math.min(Math.min(e, g), h)))) && VAL.check(techID, "407", "408") && (e = 1);
-                                DOM.appendSPAN(spanSprite, "ago_items_textCount ago_items_text ago_text_background", e);
+                                let maxForMet = (AGO.Units.get("metal") || 1) / (AGO.Item[techID].metal || 0);
+                                let maxForCrys = (AGO.Units.get("crystal") || 1) / (AGO.Item[techID].crystal || 0);
+                                let maxForDeut = (AGO.Units.get("deuterium") || 1) / (AGO.Item[techID].deuterium || 0);
+                                let maxPossible = STR.formatNumber(Math.floor(Math.min(Math.min(maxForMet, maxForCrys), maxForDeut)));
+                                maxPossible && VAL.check(techID, "407", "408") && (maxPossible = 1);
+                                DOM.appendSPAN(spanSprite, "ago_items_textCount ago_items_text ago_text_background", maxPossible);
                             }
 
                             if (VAL.check(AGO.App.page, "shipyard", "defense") && techButtons[k].dataset.status === "active") {
@@ -222,7 +228,7 @@ AGO.Building = {
             if (label) {
                 fragment = DOM.appendLI(fragment, className);
                 DOM.append(fragment, "strong").textContent = label;
-                let span = DOM.appendSPAN(fragment, {"class": "time", id: id});
+                let span = DOM.appendSPAN(fragment, {"class": "value", id: id});
                 DOM.appendSPAN(span);
             }
         }
@@ -283,8 +289,8 @@ AGO.Building = {
                         (labelText = DOM.getTextChild(labelChild)) && DOM.updateTextChild(labelChild, null, labelText.slice(0, 32));
                     });
 
-                    if (AGO.Option.is("commander")) {
-                        VAL.check(techID, "1", "2", "3", "212") && DOM.addClass(prodInfo, null, "ago_items_compact");
+                    if (AGO.Option.is("commander") && VAL.check(techID, "1", "2", "3", "212", "217")) {
+                        DOM.addClass(prodInfo, null, "ago_items_compact");
                     }
 
                     DOM.set("li.build_duration .value", prodInfo, {
@@ -298,20 +304,24 @@ AGO.Building = {
 
                     let docFrag = document.createDocumentFragment();
 
-                    if (VAL.check(techID, "1", "2", "3")) {
-                        let amortisationDIV = DOM.appendDIV(null, "capacity amortisation");
-                        DOM.append(amortisationDIV, "p").textContent = AGO.Label.get("B19");
-                        DOM.appendSPAN(amortisationDIV, {class: "description"});
-                        DOM.prependChild(description, amortisationDIV);
+                    if (VAL.check(techID, "1", "2", "3", "217")) {
+                        if (VAL.check(techID, "1", "2", "3")) {
+                            let amortisationDIV = DOM.appendDIV(null, "capacity amortisation");
+                            DOM.append(amortisationDIV, "p").textContent = AGO.Label.get("B19");
+                            DOM.appendSPAN(amortisationDIV, {class: "description"});
+                            DOM.prependChild(description, amortisationDIV);
+                        }
 
                         if (energy) {
                             DOM.setAttribute(energy, null, "id", "ago_items_energy");
                             DOM.appendSPAN(energy, "undermark");
 
-                            let prodFragment = document.createDocumentFragment();
-                            // Production
-                            fillFragment(prodFragment, AGO.Label.get("B17"), "ago_items_production");
-                            DOM.before(energy.parentNode, prodFragment);
+                            if (VAL.check(techID, "1", "2", "3")) {
+                                let prodFragment = document.createDocumentFragment();
+                                // Production
+                                fillFragment(prodFragment, AGO.Label.get("B17"), "ago_items_production");
+                                DOM.before(energy.parentNode, prodFragment);
+                            }
 
                             // Solar satellites needed
                             fillFragment(docFrag, AGO.Label.get("212", 1), "ago_items_number");
@@ -384,7 +394,7 @@ AGO.Building = {
                 }
                 b = a.querySelector("ul.production_info");
                 f = AGO.Item.valid(DOM.getValue('input[name="type"]', e, 7));
-                b && f && (AGO.Building.Data[f] ? (console.log(AGO.Building.Data[f]), 200 < f && "212" !== f && DOM.setValue("#number", a, AGO.Building.Data[f].level)) : (AGO.Building.Data[f] = {
+                b && f && (AGO.Building.Data[f] ? (200 < f && "212" !== f && DOM.setValue("#number", a, AGO.Building.Data[f].level)) : (AGO.Building.Data[f] = {
                             type: AGO.Acc.type,
                             id: f,
                             time: AGO.Time.parseFormatedTime(DOM.getTextChild("li:first-child .time", b))
@@ -442,47 +452,104 @@ AGO.Building = {
     },
     Display: function () {
         if (AGO.App.isVersion7) {
-            let a, b, c, d, e;
-            a = document.getElementById("technologydetails");
-            c = AGO.Item.valid(a.dataset.technologyId);
-            if (AGO.Building.enabled && a && c) {
-                if (b = OBJ.create(AGO.Building.Task), delete AGO.Building.Task, b.id === c && (200 < c ? "level" in b && DOM.setValue("#number", a, b.level) : ("level" in b && (AGO.Building.Data[c].level = b.level
-                        ), "increase" in
-                        b && (AGO.Building.Data[c].increase = b.increase
-                        ), "range" in b && (AGO.Building.Data[c].range = b.range
-                        )
-                    )
-                ), 200 < c && (AGO.Building.Data[c].level = DOM.getValue("#number", a, 2)
-                ), b = OBJ.create(AGO.Building.Data[c]), AGO.Building.updateConstruction(b), AGO.Task.updateResources(b), AGO.Task.updateStandardUnits(b), 0 > b.increase ? (b.difference = Math.max(b.level + b.increase + 1, 0), b.current = Math.max(b.level + b.increase - b.range, 0)
-                ) : 0 < b.increase ? (b.difference = Math.max(b.level + b.increase - 1, 0), b.current = b.level + b.increase + b.range
-                ) : b.current =
-                    b.difference = b.level, AGO.Building.updateSummary(b), b.duration && (DOM.updateText("ago_items_duration", "id", b.duration, 19), DOM.updateText("ago_items_finish", "id", AGO.Time.format(AGO.Time.getFinishTime(b.duration)))
-                ), VAL.check(c, "1", "2", "3")) {
-                    e = AGO.Ogame.getConsumptionEnergy(c, b.current) - AGO.Ogame.getConsumptionEnergy(c, b.difference), d = AGO.Units.get("energy") - e, AGO.Building.updateValue("ago_items_energy", e, d), e = 0 <= d ? 0 : Math.ceil(-d / AGO.Ogame.getProductionEnergy("212", 1)), d = "[" + AGO.Label.get("K072").toLowerCase() +
-                        ". " + e + "]", AGO.Building.updateValue("ago_items_number", "", d, {
-                            type: "task",
-                            tab: "212",
-                            data: e
-                        }
-                    ), e = AGO.Ogame.getProductionResources(c, b.current), d = e - AGO.Ogame.getProductionResources(c, b.difference), AGO.Building.updateValue("ago_items_production", e, d), d = AGO.Ogame.getAmortisation(c, b, d), DOM.updateText("#remainingresources", a, d, 19);
-                } else if (VAL.check(c, "4", "12")) {
-                    e = AGO.Ogame.getProductionEnergy(c, b.current), d = e - AGO.Ogame.getProductionEnergy(c, b.difference), AGO.Building.updateValue("ago_items_production", e,
-                        d
-                    ), "12" === c && (e = AGO.Ogame.getConsumptionDeuterium(c, b.current), d = e - AGO.Ogame.getConsumptionDeuterium(c, b.difference), AGO.Building.updateValue("ago_items_detail", e, d)
-                    );
-                } else if ("212" === c) {
-                    e = AGO.Ogame.getProductionEnergy(c, b.level + AGO.Units.get("212")), d = AGO.Ogame.getProductionEnergy(c, b.level), AGO.Building.updateValue("ago_items_production", e, d), 0 > AGO.Units.get("energy") ? (d = Math.ceil(AGO.Units.get("energy") + AGO.Ogame.getProductionEnergy("212", b.level)), e = Math.abs(AGO.Units.get("energy")), AGO.Building.updateValue("ago_items_energy",
-                            e, d
-                        ), e = Math.ceil(Math.abs(AGO.Units.get("energy")) / AGO.Ogame.getProductionEnergy("212", 1)), d = "[" + AGO.Label.get("K072").toLowerCase() + ". " + e + "]", b = {
-                            type: "task",
-                            tab: "212",
-                            data: e
-                        }
-                    ) : d = b = "", AGO.Building.updateValue("ago_items_number", AGO.Building.Data[c].level + AGO.Units.get(c), d, b);
-                } else if (VAL.check(c, "22", "23", "24")) {
-                    e = AGO.Ogame.getStorageCapacity(b.current), d = e - AGO.Ogame.getStorageCapacity(b.difference), AGO.Building.updateValue("ago_items_detail", e, d);
-                } else if ("42" === c) {
-                    e = b.current * b.current;
+            let d, e;
+            let wrapper = document.getElementById("technologydetails");
+            let techID = AGO.Item.valid(wrapper.dataset.technologyId);
+
+            if (AGO.Building.enabled && wrapper && techID) {
+                let task = OBJ.create(AGO.Building.Task);
+                delete AGO.Building.Task;
+
+                if (task.id === techID) {
+                    if (200 < techID) {
+                        "level" in task && DOM.setValue("#build_amount", wrapper, task.level)
+                    } else {
+                        "level" in task && (AGO.Building.Data[techID].level = task.level);
+                        "increase" in task && (AGO.Building.Data[techID].increase = task.increase);
+                        "range" in task && (AGO.Building.Data[techID].range = task.range);
+                    }
+                }
+
+                200 < techID && (AGO.Building.Data[techID].level = DOM.getValue("#build_amount", wrapper, 2));
+
+                let tech = OBJ.create(AGO.Building.Data[techID]);
+                AGO.Building.updateConstruction(tech);
+                AGO.Task.updateResources(tech);
+                AGO.Task.updateStandardUnits(tech);
+
+                if (0 > tech.increase) {
+                    tech.difference = Math.max(tech.level + tech.increase + 1, 0);
+                    tech.current = Math.max(tech.level + tech.increase - tech.range, 0);
+                } else if (0 < tech.increase) {
+                    tech.difference = Math.max(tech.level + tech.increase - 1, 0);
+                    tech.current = tech.level + tech.increase + tech.range;
+                } else {
+                    tech.current = tech.difference = tech.level;
+                }
+
+                AGO.Building.updateSummary(tech);
+
+                if (tech.duration) {
+                    DOM.updateText("ago_items_duration", "id", tech.duration, 19);
+                    DOM.updateText("ago_items_finish", "id", AGO.Time.format(AGO.Time.getFinishTime(tech.duration)));
+                }
+
+                if (VAL.check(techID, "1", "2", "3")) {
+                    let energyConsumption = AGO.Ogame.getConsumptionEnergy(techID, tech.current) - AGO.Ogame.getConsumptionEnergy(techID, tech.difference);
+                    let energyLeft = AGO.Units.get("energy") - energyConsumption;
+                    AGO.Building.updateValue("ago_items_energy", energyConsumption, energyLeft);
+
+                    let solSatsNeeded = 0 <= energyLeft ? 0 : Math.ceil(-energyLeft / AGO.Ogame.getProductionEnergy("212", 1));
+                    let solSatsText = "[" + AGO.Label.get("K072").toLowerCase() + ". " + solSatsNeeded + "]";
+                    AGO.Building.updateValue("ago_items_number", "", solSatsText, {type: "task", tab: "212", data: solSatsNeeded});
+
+                    let currentProd = AGO.Ogame.getProductionResources(techID, tech.current);
+                    let deltaProd = currentProd - AGO.Ogame.getProductionResources(techID, tech.difference);
+                    AGO.Building.updateValue("ago_items_production", currentProd, deltaProd);
+
+                    let amortisation = AGO.Ogame.getAmortisation(techID, tech, deltaProd);
+                    DOM.updateText(".amortisation .description", wrapper, amortisation, 19);
+                }
+                else if (VAL.check(techID, "4", "12")) {
+                    let energyProd = AGO.Ogame.getProductionEnergy(techID, tech.current);
+                    let deltaEnergy = energyProd - AGO.Ogame.getProductionEnergy(techID, tech.difference);
+                    AGO.Building.updateValue("ago_items_production", energyProd, deltaEnergy);
+
+                    if ("12" === techID) {
+                        let deutConsumption = AGO.Ogame.getConsumptionDeuterium(techID, tech.current);
+                        let consumptionDelta = deutConsumption - AGO.Ogame.getConsumptionDeuterium(techID, tech.difference);
+                        AGO.Building.updateValue("ago_items_detail", deutConsumption, consumptionDelta);
+                    }
+                }
+                else if ("212" === techID) {
+                    let newTotalSatEnergy = AGO.Ogame.getProductionEnergy(techID, tech.level + AGO.Units.get("212"));
+                    let thisSatEnergy = AGO.Ogame.getProductionEnergy(techID, tech.level);
+                    AGO.Building.updateValue("ago_items_production", newTotalSatEnergy, thisSatEnergy);
+
+                    let neededText, neededData;
+                    if (0 > AGO.Units.get("energy")) {
+                        let newTotalEnergy = Math.ceil(AGO.Units.get("energy") + AGO.Ogame.getProductionEnergy("212", tech.level));
+                        let currentEnergy = Math.abs(AGO.Units.get("energy"));
+                        AGO.Building.updateValue("ago_items_energy", currentEnergy, newTotalEnergy);
+
+                        let newTotalSatEnergy = Math.ceil(Math.abs(AGO.Units.get("energy")) / AGO.Ogame.getProductionEnergy("212", 1));
+                        let neededText = "[" + AGO.Label.get("K072").toLowerCase() + ". " + newTotalSatEnergy + "]";
+                        neededData = {type: "task", tab: "212", data: newTotalSatEnergy};
+                    } else {
+                        neededText = neededData = "";
+                    }
+
+                    AGO.Building.updateValue("ago_items_number", AGO.Building.Data[techID].level + AGO.Units.get(techID), neededText, neededData);
+                }
+                else if ("217" === techID) {
+                    let energyConsumption = AGO.Uni.resourceBuggyEnergyConsumptionPerUnit * tech.level;
+                    AGO.Building.updateValue("ago_items_energy", energyConsumption);
+                }
+                else if (VAL.check(techID, "22", "23", "24")) {
+                    e = AGO.Ogame.getStorageCapacity(tech.current), d = e - AGO.Ogame.getStorageCapacity(tech.difference), AGO.Building.updateValue("ago_items_detail", e, d);
+                }
+                else if ("42" === techID) {
+                    e = tech.current * tech.current;
                     let lower = AGO.Acc.system - e + 1;
                     lower = lower < 1 && AGO.Uni.donutSystem ? AGO.Uni.systems - Math.abs(lower) : Math.max(lower, 1);
                     lower = e > AGO.Uni.systems/2 ? 1 : lower;
@@ -491,13 +558,14 @@ AGO.Building = {
                     higher = e > AGO.Uni.systems/2 ? AGO.Uni.systems : higher;
                     d = e ? "(" + AGO.Acc.galaxy + ":" + lower + " - " + AGO.Acc.galaxy + ":" + higher + ")" : "";
                     AGO.Building.updateValue("ago_items_detail", e, d);
-                } else if (200 < c) {
-                    if (c in AGO.Item.Ship || AGO.Uni.defToTF && c in AGO.Item.Defense) {
-                        b = {}, b[c] = Math.max(AGO.Building.Data[c].level, 1), b = AGO.Ogame.getDebris(b, !0), d = "(" + Math.min(Math.floor(b.total / 1E4) / 10, 20) + "%)", AGO.Building.updateValue("ago_items_detail", b.total, d);
+                }
+                else if (200 < techID) {
+                    if (techID in AGO.Item.Ship || AGO.Uni.defToTF && techID in AGO.Item.Defense) {
+                        tech = {}, tech[techID] = Math.max(AGO.Building.Data[techID].level, 1), tech = AGO.Ogame.getDebris(tech, !0), d = "(" + Math.min(Math.floor(tech.total / 1E4) / 10, 20) + "%)", AGO.Building.updateValue("ago_items_detail", tech.total, d);
                     }
-                    b = (d = DOM.getText("#maxlink", a, 7)
-                    ) ? {type: "task", tab: c, data: NMR.parseIntAbs(d)} : null;
-                    AGO.Building.updateValue("ago_items_number", AGO.Building.Data[c].level + AGO.Units.get(c), d, b)
+                    tech = (d = DOM.getText("#maxlink", wrapper, 7)
+                    ) ? {type: "task", tab: techID, data: NMR.parseIntAbs(d)} : null;
+                    AGO.Building.updateValue("ago_items_number", AGO.Building.Data[techID].level + AGO.Units.get(techID), d, tech)
                 }
             }
         } else {
@@ -724,10 +792,14 @@ AGO.Building = {
         }
     }, updateValue: function (a, b, c, d) {
         if (a = document.getElementById(a)) {
-            "string" === typeof b ? DOM.updateTextChild(a, null, b) : DOM.updateTextChild(a, null, b || "0", b ? 4 : 0), d && DOM.setData(a, null, d), "string" === typeof c ? DOM.updateText("span", a, c) : (b = c ? (0 < c ? "(+" : "("
-                ) + STR.formatNumber(Math.ceil(c), !0) + ")" : "(0)", (b = DOM.updateText("span", a, b)
-                ) && DOM.updateClass(b, null, HTML.classStatus(c))
-            )
+            "string" === typeof b ? DOM.updateTextChild(a, null, b) : DOM.updateTextChild(a, null, b || "0", b ? 4 : 0);
+            d && DOM.setData(a, null, d);
+            if ("string" === typeof c) {
+                DOM.updateText("span", a, c)
+            } else {
+                b = c ? (0 < c ? "(+" : "(") + STR.formatNumber(Math.ceil(c), !0) + ")" : "(0)";
+                (b = DOM.updateText("span", a, b)) && DOM.updateClass(b, null, HTML.classStatus(c))
+            }
         }
     }, Action: function (a) {
         var b;

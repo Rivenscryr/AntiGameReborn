@@ -446,7 +446,7 @@ AGO.Init = {
                 start = scriptText.indexOf("{", start);
                 end = scriptText.indexOf(");", start);
                 if (end > start)
-                    return scriptText.slice(start, end) || ""
+                    return scriptText.slice(start, end) || "";
                 else
                     return "";
             }
@@ -959,7 +959,8 @@ AGO.Uni = {
     donutSystem: 0,
     probeCargo: 0,
     globalDeuteriumSaveFactor: 1,
-    cargoHyperspaceTechMultiplier: 2
+    cargoHyperspaceTechMultiplier: 2,
+    resourceBuggyEnergyConsumptionPerUnit: 50
 };
 AGO.Acc = {name: "", coords: "", type: 0, playerId: "", planetId: "", session: "", timestamp: 0};
 AGO.Data = {

@@ -8,7 +8,7 @@ AGB.Manager = {
         AGB.Config.beta = -1 < AGB.Config.name.indexOf("Alpha") ? 2 : -1 < AGB.Config.name.indexOf("Beta") ? 1 : 0;
 
         if (AGB.DataBase)
-            AGB.DataBase.Start(window)
+            AGB.DataBase.Start(window);
         else
             AGB.DataBase = {};
 
