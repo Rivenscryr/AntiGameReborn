@@ -295,16 +295,20 @@
     left: 34px;
 }
 
-.ago_improve #technologydetails .description {
+.ago_improve #technologydetails > .description {
     height: unset;
     bottom: 0px;
     top: unset;
 }
 
-.ago_improve #technologydetails .description.ago_storage {
+.ago_improve #technologydetails > .description.ago_storage {
     height: unset;
     bottom: -9px;
     top: unset;
+}
+
+.ago_improve #technologydetails .capacity > .description {
+    font-size: 10px;
 }
 
 .ago_improve #technologydetails .amortisation {
@@ -365,16 +369,15 @@ li[data-status=active] .ago_items_text, #producers .ago_items_text, #storages .a
     top: 14px;
 }
 
-#producers .ago_items_text, #facilities .ago_items_text {
-    max-width: 92px;
+#producers .ago_items_text, #facilities .ago_items_text, #defense .ago_items_text {
+    max-width: 90px;
 }
 
-#producers .ago_items_textName, #facilities .ago_items_textName {
+#producers .ago_items_textName, #facilities .ago_items_textName, #defense .ago_items_textName {
     width: 90px;
 }
 
 .ago_improve .technology .icon .targetamount {
-    width: 95%;
     font-size: 10px;
     padding-right: 2px;
 }

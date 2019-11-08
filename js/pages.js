@@ -1,27 +1,26 @@
 AGO.Overview = {
     Messages: function (a, b) {
         AGO.dummy = a + b
-    }, Run: function () {
-        AGO.Option.is("B01") && (AGO.Overview.enabled = !0, AGO.Overview.improve = 1 === AGO.Acc.type
-        );
+    },
+    Run: function () {
+        AGO.Option.is("B01") && (AGO.Overview.enabled = true, AGO.Overview.improve = 1 === AGO.Acc.type);
         AGO.Overview.Show();
         AGO.Building.showConstructions()
-    }, Interactive: function () {
+    },
+    Interactive: function () {
         AGO.Units.activeProduction();
         AGO.Overview.Timer();
         AGO.Building.displayConstructions()
-    }, Complete: function () {
+    },
+    Complete: function () {
         window.setTimeout(function () {
-                var a = document.getElementById("Rentabilite_mines");
-                a && DOM.updateAttribute(a.parentNode, null, "ago-status", 1, 8) && DOM.set(a.parentNode, null,
-                    null, null, {
-                        click: function () {
-                            DOM.addEvents("ordre_table", "id", {click: AGO.Overview.infocompte})
-                        }
-                    }
-                )
-            }, 500
-        )
+            var a = document.getElementById("Rentabilite_mines");
+            a && DOM.updateAttribute(a.parentNode, null, "ago-status", 1, 8) && DOM.set(a.parentNode, null, null, null, {
+                click: function () {
+                    DOM.addEvents("ordre_table", "id", {click: AGO.Overview.infocompte})
+                }
+            })
+        }, 500);
     }, infocompte: function (a) {
         a && a.target && (a = DOM.getData(a.target, null, 2), OBJ.is(a) && (a.id = a.id + "", a.level = 0, a.type = 1, a.coords = AGO.Task.trimCoords(a.coords), AGO.Task.updateCoords(a, 2, AGO.Task.splitCoords(a.coords)), AGO.Init.Messages("Panel", "Action", {
                         action: "set",
@@ -34,17 +33,19 @@ AGO.Overview = {
     }, onKeydown: function (a) {
         if (!a.inputType && !a.cached) {
             if (13 === a.keyCode) {
-                return document.location.href = AGO.Uni.path + "overview",
-                    !1;
+                return document.location.href = AGO.Uni.path + "overview", false;
             }
             if (32 === a.keyCode) {
-                return DOM.click("#planet #moon a, #planet #planet_as_moon a"), a.preventDefault(), !1
+                return DOM.click("#planet #moon a, #planet #planet_as_moon a"), a.preventDefault(), false;
             }
         }
-        return !0
-    }, Show: function () {
+        return true;
+    },
+    Show: function () {
         var a, b, c, d;
-        AGO.Option.is("B02") && DOM.extendClass("inhalt", "id", "ago_mode_construction");
+        // B02: Show finish time
+        // TODO: Finish times are not shown yet
+        AGO.Option.is("B02") && DOM.extendClass(AGO.App.isVersion7 ? "middle" : "inhalt", "id", "ago_mode_construction");
         if (a = document.getElementById("detailWrapper")) {
             AGO.Overview.enabled && (a = a.querySelector("#planetDetails table tbody")
             ) && 1 === AGO.Acc.type && (b = document.createDocumentFragment(), OBJ.iterate(AGO.Item.Resource, function (a) {
@@ -129,15 +130,20 @@ AGO.Building = {
     },
     onKeydown: function (a) {
         if (12 !== a.inputType) {
+            // A or M
             if (65 === a.keyCode || 77 === a.keyCode) {
-                return DOM.click("#detail .ago_items_shortcut #ago_items_number[ago-data]"), false;
+                AGO.App.isVersion7 ? DOM.click("#technologydetails .ago_items_shortcut #ago_items_number[ago-data]") : DOM.click("#detail .ago_items_shortcut #ago_items_number[ago-data]");
+                return false;
             }
+
+            // Q
             if (81 === a.keyCode) {
-                return DOM.setValue("#detail #number", null, "", 0, "click"), false
+                AGO.App.isVersion7 ? DOM.setValue("#technologydetails #build_amount", null, "", 0, "click") : DOM.setValue("#detail #number", null, "", 0, "click");
+                return false;
             }
         }
 
-        return 11 !== a.inputType || 38 !== a.keyCode && 40 !== a.keyCode || "number" !== a.target.id ? true : DOM.changeInput(a, a.target)
+        return 11 !== a.inputType || 38 !== a.keyCode && 40 !== a.keyCode || (AGO.App.isVersion7 && "build_amount" !== a.target.id || "number" !== a.target.id) ? true : DOM.changeInput(a, a.target)
     },
     Show: function () {
         if (AGO.App.isVersion7) {
@@ -167,6 +173,7 @@ AGO.Building = {
                                 DOM.appendSPAN(spanSprite, "ago_items_textName ago_items_text ago_text_background", techLabel);
                             }
 
+                            // TODO: fix this shit
                             if (!(showDetails && techButtons[k].dataset.status === "on" && AGO.Option.is("commander")) || targetLevel && showName || !VAL.check(AGO.App.page, "shipyard", "defense") && "212" !== techID) {
 
                             } else {
@@ -180,11 +187,14 @@ AGO.Building = {
 
                             if (VAL.check(AGO.App.page, "shipyard", "defense") && techButtons[k].dataset.status === "active") {
                                 let targetAmountSpan = DOM.query(".targetamount", spanSprite);
+                                let newWidth = Math.min(targetAmountSpan.dataset.value.length * 8 + 5, 75);
+                                targetAmountSpan.style.width = newWidth + "px";
                                 let targetAmount = STR.formatNumber(targetAmountSpan.dataset.value);
                                 DOM.setText(targetAmountSpan, null, targetAmount);
                             }
 
                             // B04: Show unnecessary and useful research levels
+                            // TODO: workaround greyscale filter somehow
                             if (AGO.Option.is("B04") && "research" === AGO.App.page) {
                                 if (Math.abs(AGO.Item.Research[techID]) > AGO.Units.get(techID))
                                     DOM.addClass(".level", spanSprite, "ago_color_palered");
@@ -205,7 +215,7 @@ AGO.Building = {
                 ) + (AGO.Option.is("B02") ? " ago_mode_construction" : ""
                 ), DOM.extendClass(a, null, b), a = a.querySelectorAll("#buttonz li"), k = 0; k < a.length; k++) {
                     if (b = a[k].querySelector('.buildingimg a[id^="details"]'), f = AGO.Item.valid(DOM.getAttribute(b, null, "ref", 7))) {
-                        g = DOM.getTextChild(".eckeoben span", b, 3), console.log(g), AGO.Building.enabled && (0 < g && g < AGO.Units.get(f) && 200 > +f &&
+                        g = DOM.getTextChild(".eckeoben span", b, 3), AGO.Building.enabled && (0 < g && g < AGO.Units.get(f) && 200 > +f &&
                             (DOM.updateClass(".eckeoben span", b, "overmark"), DOM.addClass(".timeLink span", b.parentNode, "overmark")
                             ), c && (e = DOM.getText("span.textlabel", b, 7) || AGO.Label.get(f, 11), DOM.appendSPAN(b, "ago_items_textName ago_items_text ago_text_background", e)
                             ), !(d && DOM.hasClass(a[k], null, "on") && AGO.Option.is("commander")
@@ -227,8 +237,8 @@ AGO.Building = {
         function fillFragment (fragment, label, id, className) {
             if (label) {
                 fragment = DOM.appendLI(fragment, className);
-                DOM.append(fragment, "strong").textContent = label;
-                let span = DOM.appendSPAN(fragment, {"class": AGO.isVersion7 ? "value" : "time", id: id});
+                DOM.append(fragment, "strong").textContent = label + ":";
+                let span = DOM.appendSPAN(fragment, {"class": AGO.App.isVersion7 ? "value" : "time", id: id});
                 DOM.appendSPAN(span);
             }
         }
@@ -545,26 +555,34 @@ AGO.Building = {
                     AGO.Building.updateValue("ago_items_energy", energyConsumption, newTotalEnergy);
                 }
                 else if (VAL.check(techID, "22", "23", "24")) {
-                    e = AGO.Ogame.getStorageCapacity(tech.current), d = e - AGO.Ogame.getStorageCapacity(tech.difference), AGO.Building.updateValue("ago_items_detail", e, d);
+                    // Current means currently shown level, not currently built level
+                    let currentStorage = AGO.Ogame.getStorageCapacity(tech.current);
+                    let difference = currentStorage - AGO.Ogame.getStorageCapacity(tech.difference);
+                    AGO.Building.updateValue("ago_items_detail", currentStorage, difference);
                 }
                 else if ("42" === techID) {
-                    e = tech.current * tech.current;
-                    let lower = AGO.Acc.system - e + 1;
+                    let range = tech.current * tech.current;
+                    let lower = AGO.Acc.system - range + 1;
                     lower = lower < 1 && AGO.Uni.donutSystem ? AGO.Uni.systems - Math.abs(lower) : Math.max(lower, 1);
-                    lower = e > AGO.Uni.systems/2 ? 1 : lower;
-                    let higher = AGO.Acc.system + e - 1;
+                    lower = range > AGO.Uni.systems/2 && AGO.Uni.donutSystem ? 1 : lower;
+                    let higher = AGO.Acc.system + range - 1;
                     higher = higher > AGO.Uni.systems && AGO.Uni.donutSystem ? higher - AGO.Uni.systems : Math.min(higher, AGO.Uni.systems);
-                    higher = e > AGO.Uni.systems/2 ? AGO.Uni.systems : higher;
-                    d = e ? "(" + AGO.Acc.galaxy + ":" + lower + " - " + AGO.Acc.galaxy + ":" + higher + ")" : "";
-                    AGO.Building.updateValue("ago_items_detail", e, d);
+                    higher = range > AGO.Uni.systems/2 && AGO.Uni.donutSystem ? AGO.Uni.systems : higher;
+                    let rangeCoords = range ? "(" + AGO.Acc.galaxy + ":" + lower + " - " + AGO.Acc.galaxy + ":" + higher + ")" : "";
+                    AGO.Building.updateValue("ago_items_detail", range, rangeCoords);
                 }
                 else if (200 < techID) {
                     if (techID in AGO.Item.Ship || AGO.Uni.defToTF && techID in AGO.Item.Defense) {
-                        tech = {}, tech[techID] = Math.max(AGO.Building.Data[techID].level, 1), tech = AGO.Ogame.getDebris(tech, !0), d = "(" + Math.min(Math.floor(tech.total / 1E4) / 10, 20) + "%)", AGO.Building.updateValue("ago_items_detail", tech.total, d);
+                        let fleet = {};
+                        fleet[techID] = Math.max(AGO.Building.Data[techID].level, 1);
+
+                        let debris = AGO.Ogame.getDebris(fleet, true);
+                        let moonChance = "(" + Math.min(Math.floor(debris.total / 1E4) / 10, 20) + "%)";
+                        AGO.Building.updateValue("ago_items_detail", debris.total, moonChance);
                     }
-                    tech = (d = DOM.getText("#maxlink", wrapper, 7)
-                    ) ? {type: "task", tab: techID, data: NMR.parseIntAbs(d)} : null;
-                    AGO.Building.updateValue("ago_items_number", AGO.Building.Data[techID].level + AGO.Units.get(techID), d, tech)
+                    
+                    let maxString, data = (maxString = DOM.getText("button.maximum", wrapper, 7)) ? {type: "task", tab: techID, data: NMR.parseIntAbs(maxString)} : null;
+                    AGO.Building.updateValue("ago_items_number", AGO.Building.Data[techID].level + AGO.Units.get(techID), maxString, data);
                 }
             }
         } else {
@@ -629,8 +647,8 @@ AGO.Building = {
         }
     },
     checkInput: function () {
-        let number = DOM.getValue("input#build_amount", null, 2) || 1;
-        let type = DOM.query("#technologydetails").dataset.technology;
+        let number = (AGO.App.isVersion7 ? DOM.getValue("input#build_amount", null, 2) : DOM.getValue("#number", null, 2)) || 1;
+        let type = AGO.App.isVersion7 ? DOM.query("#technologydetails").dataset.technology : DOM.getValue("input[name=type]");
 
         if (type) {
             let maxMet, maxCrys, maxDeut, maxUnits;
@@ -650,12 +668,11 @@ AGO.Building = {
         let docFrag = document.createDocumentFragment();
         let buildButton = DOM.appendA(docFrag, {class: "build-it", id: "build-x10"}, null, {iteration: 0});
         DOM.appendSPAN(buildButton, null, "x10");
-        console.log(DOM.query("button.upgrade"));
-        DOM.after(DOM.query("button.upgrade"), docFrag);
+        DOM.after(AGO.App.isVersion7 ? DOM.query("button.upgrade") : DOM.query(".build-it"), docFrag);
         DOM.addEvents("#build-x10", null, {
             click: function doBuild() {
                 DOM.query("#build-x10").removeEventListener("click", doBuild);
-                let number = DOM.getValue("#number", null, 2);
+                let number = AGO.App.isVersion7 ? DOM.getValue("input#build_amount", null, 2) : DOM.getValue("#number", null, 2);
                 let type = DOM.getValue("input[name=type]");
                 let token = DOM.getValue("input[name=token]");
 
@@ -789,7 +806,8 @@ AGO.Building = {
                 )
             ), DOM.replaceChildren(c, d), c = d = e = g = h = null
         }
-    }, updateValue: function (a, b, c, d) {
+    },
+    updateValue: function (a, b, c, d) {
         if (a = document.getElementById(a)) {
             "string" === typeof b ? DOM.updateTextChild(a, null, b) : DOM.updateTextChild(a, null, b || "0", b ? 4 : 0);
             d && DOM.setData(a, null, d);
@@ -821,31 +839,64 @@ AGO.Building = {
             let data = DOM.getData(e.target, null, 2);
             "task" === data.type && AGO.Building.Action({id: data.tab, level: +data.data});
         }
-    }, clickSummary: function (a) {
-        var b, c;
-        if (a && a.target) {
-            if (c = DOM.getValue('#detail input[name="type"]', null, 7), a = DOM.getData(a.target, null, 2), OBJ.is(a.message) &&
-            AGO.Init.Messages(a.message.page, a.message.role, a.message.data), "setting" === a.type) {
-                AGO.Option.set(a.data, AGO.Option.is(a.data) ? 0 : 1, 1), AGO.Building.Display();
-            } else if (c && AGO.Building.Data[c]) {
-                if (200 > c) {
-                    if (b = {increase: 1, decrease: -1}[a.type] || 0) {
-                        AGO.Building.Data[c].increase += b;
+    },
+    clickSummary: function (a) {
+        if (AGO.App.isVersion7) {
+            var b, c;
+            if (a && a.target) {
+                c = DOM.query('#technologydetails').dataset.technologyId;
+                a = DOM.getData(a.target, null, 2);
+                OBJ.is(a.message) && AGO.Init.Messages(a.message.page, a.message.role, a.message.data);
+                if ("setting" === a.type) {
+                    AGO.Option.set(a.data, AGO.Option.is(a.data) ? 0 : 1, 1);
+                    AGO.Building.Display();
+                } else if (c && AGO.Building.Data[c]) {
+                    if (200 > c) {
+                        if (b = {increase: 1, decrease: -1}[a.type] || 0) {
+                            AGO.Building.Data[c].increase += b;
+                        }
+                        (b = {increaseRange: 1, decreaseRange: -1}[a.type] || 0
+                        ) && AGO.Building.Data[c].increase && (AGO.Building.Data[c].range += b
+                        )
+                    } else if (b = {
+                        increase: 1,
+                        decrease: -1,
+                        increaseRange: 10,
+                        decreaseRange: -10
+                    }[a.type] || 0) {
+                        AGO.Building.Data[c].level = Math.max(AGO.Building.Data[c].level +
+                            b, 1
+                        ), DOM.setValue("#build_amount", null, AGO.Building.Data[c].level, 8);
                     }
-                    (b = {increaseRange: 1, decreaseRange: -1}[a.type] || 0
-                    ) && AGO.Building.Data[c].increase && (AGO.Building.Data[c].range += b
-                    )
-                } else if (b = {
-                    increase: 1,
-                    decrease: -1,
-                    increaseRange: 10,
-                    decreaseRange: -10
-                }[a.type] || 0) {
-                    AGO.Building.Data[c].level = Math.max(AGO.Building.Data[c].level +
-                        b, 1
-                    ), DOM.setValue("#detail #number", null, AGO.Building.Data[c].level, 8);
+                    AGO.Building.Display()
                 }
-                AGO.Building.Display()
+            }
+        } else {
+            var b, c;
+            if (a && a.target) {
+                if (c = DOM.getValue('#detail input[name="type"]', null, 7), a = DOM.getData(a.target, null, 2), OBJ.is(a.message) &&
+                AGO.Init.Messages(a.message.page, a.message.role, a.message.data), "setting" === a.type) {
+                    AGO.Option.set(a.data, AGO.Option.is(a.data) ? 0 : 1, 1), AGO.Building.Display();
+                } else if (c && AGO.Building.Data[c]) {
+                    if (200 > c) {
+                        if (b = {increase: 1, decrease: -1}[a.type] || 0) {
+                            AGO.Building.Data[c].increase += b;
+                        }
+                        (b = {increaseRange: 1, decreaseRange: -1}[a.type] || 0
+                        ) && AGO.Building.Data[c].increase && (AGO.Building.Data[c].range += b
+                        )
+                    } else if (b = {
+                        increase: 1,
+                        decrease: -1,
+                        increaseRange: 10,
+                        decreaseRange: -10
+                    }[a.type] || 0) {
+                        AGO.Building.Data[c].level = Math.max(AGO.Building.Data[c].level +
+                            b, 1
+                        ), DOM.setValue("#detail #number", null, AGO.Building.Data[c].level, 8);
+                    }
+                    AGO.Building.Display()
+                }
             }
         }
     }, showConstructions: function () {
@@ -987,7 +1038,6 @@ AGO.Trader = {
         DOM.disableAutocomplete()
     },
     Ready: function () {
-        console.log("test");
         DOM.addObserver(DOM.query("#inhalt"), {childList: true}, function (mutations) {
             for (let i = 0; i < mutations.length; i++) {
                 let mutation = mutations[i];

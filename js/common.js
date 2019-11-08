@@ -170,7 +170,7 @@ AGO.Styles = {
     classType: ["", "ago_color_planet", "ago_color_debris", "ago_color_moon"],
     classVisible: "ago_visible_hide ago_visible_hide ago_visible_weakest ago_visible_weaker ago_visible_weak ago_visible_middle ago_visible_strong ago_visible_stronger ago_visible_strongest ago_visible_show".split(" "),
     classFleet: " ago_color_hostile ago_color_neutral ago_color_own ago_color_reverse ago_color_friend ago_color_enemy".split(" "),
-    forVersion7: "pages".split(" "),
+    forVersion7: "pages main".split(" "),
     Start: function () {
         function a(a) {
             return a ? '@import url("' + AGO.App.pathSkin + "ago/" + (AGO.Option.is("isVersion7") && AGO.Styles.forVersion7.indexOf(a) > -1 ? a + ".v7" : a) + '.css' + (AGO.App.beta ? '?' + (new Date()).getTime() : '') + '");' : ""
@@ -730,11 +730,14 @@ AGO.Units = {
     }, activeProduction: function () {
         var a;
         a = OBJ.parse(AGO.Init.Script("production"));
-        OBJ.iterate(AGO.Item.ResourceEnergy, function (b) {
-                a[b] && OBJ.is(a[b].resources) && (AGO.Units.Data[b + "Storage"] = +a[b].resources.max || 0, AGO.Units.Data[b + "Production"] = +a[b].resources.production || 0
-                )
-            }
-        )
+        if (AGO.App.isVersion7)
+            OBJ.iterate(AGO.Item.ResourceEnergy, function (b) {
+                a[b] && (AGO.Units.Data[b + "Storage"] = +a[b].max || 0, AGO.Units.Data[b + "Production"] = +a[b].production || 0)
+            });
+        else
+            OBJ.iterate(AGO.Item.ResourceEnergy, function (b) {
+                a[b] && OBJ.is(a[b].resources) && (AGO.Units.Data[b + "Storage"] = +a[b].resources.max || 0, AGO.Units.Data[b + "Production"] = +a[b].resources.production || 0)
+            });
     }
 };
 AGO.Time = {
