@@ -653,7 +653,7 @@ AGO.Messages = {
                 case 1: ship = "202"; shipsToSend = p.sc; break;
                 case 2: ship = "210"; shipsToSend = p.probes; break;
             }
-            aAttack.href = '/game/index.php?' + (AGO.App.isVersion7 ? 'page=ingame&component=fleetdispatch' : 'page=fleetdispatch') + '&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am' + ship + "=" + shipsToSend + (shipSetting === 2 ? "&speed=" + speedSetting : "");
+            aAttack.href = '/game/index.php?' + (AGO.App.isVersion7 ? 'page=ingame&component=fleetdispatch' : 'page=fleet1') + '&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am' + ship + "=" + shipsToSend + (shipSetting === 2 ? "&speed=" + speedSetting : "");
             aAttack.textContent = 'A';
             AGO.Option.is('M16') ? aAttack.target = 'ago_fleet_attacks' : 0;
             p.attacking === "1" && aAttack.classList.add('attacking');
@@ -727,7 +727,7 @@ AGO.Messages = {
                             $('<a>', {
                                 'class': 'txt_link',
                                 'target': AGO.Option.is("M16") ? 'ago_fleet_attacks' : '',
-                                'href': '/game/index.php?' + (AGO.App.isVersion7 ? 'page=ingame&component=fleetdispatch' : 'page=fleetdispatch') + '&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am210=' + totalProbe  + "&speed=" + speedSetting
+                                'href': '/game/index.php?' + (AGO.App.isVersion7 ? 'page=ingame&component=fleetdispatch' : 'page=fleet1') + '&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am210=' + totalProbe  + "&speed=" + speedSetting
                             }).text(AGO.Messages.formatNumber(totalProbe))
                         );
                         scLinkFloat = "left";
@@ -742,7 +742,7 @@ AGO.Messages = {
                                 $('<a>', {
                                     'class': 'txt_link',
                                     'target': AGO.Option.is("M16") ? 'ago_fleet_attacks' : '',
-                                    'href': '/game/index.php?' + (AGO.App.isVersion7 ? 'page=ingame&component=fleetdispatch' : 'page=fleetdispatch') + '&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am203=' + totalLC
+                                    'href': '/game/index.php?' + (AGO.App.isVersion7 ? 'page=ingame&component=fleetdispatch' : 'page=fleet1') + '&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am203=' + totalLC
                                 }).text(AGO.Messages.formatNumber(totalLC))
                             ),
                             $('<span>', {'style': 'float: left; width: ' + widths[2] + '%;'}).text(AGO.Label.get('K202')),
@@ -750,7 +750,7 @@ AGO.Messages = {
                                 $('<a>', {
                                     'class': 'txt_link',
                                     'target': AGO.Option.is("M16") ? 'ago_fleet_attacks' : '',
-                                    'href': '/game/index.php?' + (AGO.App.isVersion7 ? 'page=ingame&component=fleetdispatch' : 'page=fleetdispatch') + '&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am202=' + totalSC
+                                    'href': '/game/index.php?' + (AGO.App.isVersion7 ? 'page=ingame&component=fleetdispatch' : 'page=fleet1') + '&galaxy=' + p.galaxy + '&system=' + p.system + '&position=' + p.position + '&type=' + (p.isMoon === '1' ? '3' : '1') + '&routine=3&am202=' + totalSC
                                 }).text(AGO.Messages.formatNumber(totalSC))
                             ), spanProbesLabel, spanProbesCount
                         )
