@@ -257,9 +257,7 @@ AGB.Label = {
                 energy: "094"
             }, OBJ.iterate(f,
                 function (a) {
-                    OBJ.is(d[a]) && (b["L" + f[a]] = (STR.check(d[a].tooltip).split("|")[0] || ""
-                        ).trim() || a
-                    )
+                    OBJ.is(d[a]) && (b["L" + f[a]] = (STR.check(d[a].tooltip).split("|")[0].replace(":", "") || "").trim() || a);
                 }
             ), AGB.Core.Log("Update   - Label    : " + b.KU0B + ":" + b.KU0M + ":" + b.KU0K + " - " + b.KD0Y + ":" + b.KD0W + ":" + b.KD0D + " - " + b.KD0H + ":" + b.KD0M + ":" + b.KD0S, !0), AGB.Data.setStorage(c, "Label", "Loca", b), OBJ.copy(b, AGB.Label.Data[c]), AGB.Item.Init(a)
         )

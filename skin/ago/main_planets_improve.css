@@ -195,8 +195,8 @@
 #rechts #myPlanets div.smallplanet a.moonlink {
     width: 48px;
     height: 52px;
-    left: 100px;
-    top: 0;
+    left: 100px !important;
+    top: 0 !important;
     padding: 4px 0 0
 }
 
@@ -214,13 +214,13 @@
 }
 
 #rechts #myPlanets div.smallplanet a.constructionIcon {
-    left: 4px;
-    top: 2px
+    left: 4px !important;
+    top: 2px !important
 }
 
 #rechts #myPlanets div.smallplanet a.constructionIcon.moon {
-    left: 133px;
-    top: 36px
+    left: 133px !important;
+    top: 36px !important
 }
 
 #rechts #myPlanets .ago_planets_cooldown {
