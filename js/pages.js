@@ -259,7 +259,7 @@ AGO.Building = {
                     AGO.Option.is("B11") && DOM.replaceChildren(techSpriteDiv, DOM.create("div", {id: "ago_items_resource"}, null, {click: AGO.Building.clickSummary}));
                 }
 
-                let prodInfo = content.querySelector("div.information ul.narrow");
+                let prodInfo = content.querySelector("div.information ul");
                 let techID = AGO.Item.valid(DOM.query("#technologydetails").dataset.technologyId);
 
                 if (prodInfo && techID) {
@@ -386,7 +386,7 @@ AGO.Building = {
                 });
 
                 AGO.Option.is("B20") && (AGO.App.page === "shipyard" || AGO.App.page === "defense") && AGO.Building.checkInput();
-                DOM.addEventsAll(".content .information ul.narrow", null, {click: AGO.Building.clickInfo});
+                DOM.addEventsAll(".content .information ul", null, {click: AGO.Building.clickInfo});
                 DOM.disableActiveElement();
                 DOM.disableAutocomplete();
             }

@@ -1,7 +1,8 @@
 .ago_improve #planetdata {
     margin-top: 7px;
     margin-right: 5px;
-    height: 217px
+    height: 217px;
+    width: 370px;
 }
 
 .ago_improve #planetdata .overlay {
@@ -147,7 +148,7 @@
     background: #32495a
 }
 
-.ago_improve ul.narrow {
+.ago_improve div.information > ul {
     padding: 0;
     min-width: 280px;
     max-width: 330px;
@@ -157,15 +158,15 @@
     top: 110px
 }
 
-.ago_improve ul.narrow.ago_items_compact {
+.ago_improve div.information > ul.ago_items_compact {
     line-height: 13px
 }
 
-.ago_improve #technologydetails .information ul.narrow > li {
+.ago_improve #technologydetails div.information > ul > li {
     margin-bottom: 5px;
 }
 
-.ago_improve ul.narrow .value {
+.ago_improve div.information > ul .value {
     display: inline-block;
     padding: 0;
     width: auto !important;
@@ -174,15 +175,15 @@
     float: right
 }
 
-.ago_improve ul.narrow #ago_items_production.value,
-.ago_improve ul.narrow #ago_items_energy.value,
-.ago_improve ul.narrow #ago_items_number.value,
-.ago_improve ul.narrow #ago_items_detail.value {
+.ago_improve div.information > ul #ago_items_production.value,
+.ago_improve div.information > ul #ago_items_energy.value,
+.ago_improve div.information > ul #ago_items_number.value,
+.ago_improve div.information > ul #ago_items_detail.value {
     width: auto !important;
     min-width: 130px
 }
 
-.ago_improve ul.narrow .value span {
+.ago_improve div.information > ul .value span {
     padding: 0 4px;
     float: left
 }
@@ -192,17 +193,17 @@
     float: right
 }
 
-.ago_improve ul.narrow .value[ago-data] {
+.ago_improve div.information > ul .value[ago-data] {
     cursor: pointer;
     border-radius: 3px
 }
 
-.ago_improve ul.narrow .value[ago-data]:hover {
+.ago_improve div.information > ul .value[ago-data]:hover {
     color: #cfcbc2;
     background: #32495a
 }
 
-.ago_improve ul.narrow .undermark {
+.ago_improve div.information > ul .undermark {
     color: #00b000 !important
 }
 

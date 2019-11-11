@@ -177,25 +177,40 @@ AGO.Styles = {
         }
 
         var b, c, d = [];
-        3 <= AGO.App.mode && AGO.App.keyPlayer && (document.documentElement.style.overflowY = "scroll", c = AGO.Data.getStorage(AGO.App.keyPlayer + "_Styles", "JSON"), "Color" in c && (AGO.Styles.status = 1, AGO.Styles.Data = c, OBJ.is(c.colorType) && (AGO.Styles.colorType = c.colorType
-                ), OBJ.is(c.Page) || (c.Page = {}
-                ), b = AGO.App.page, OBJ.is(c[b]) && ("file" in c[b] && (c.Page.file = c[b].file
-                    ), "improve" in c[b] && (c.Page.improve = c[b].improve
-                    ),
-                    "events" in c[b] && (c.Page.events = c[b].events
-                    )
-                ), c.Events && (AGO.Events.modeBehavior = +c.Page.events || 0, AGO.Events.modeBehaviorAbove = VAL.check(AGO.Events.modeBehavior, 1, 2, 5, 6), AGO.Events.modeBehavior && (AGO.Events.modeBehaviorAbove ? d.push("#eventboxContent:not(:first-child){display:none;}") : d.push("#eventboxContent:first-child{display:none;}"), 5 > AGO.Events.modeBehavior && d.push("#eventboxContent, #eventboxContent #eventListWrap{ display: none; }")
-                    )
-                ), c.Styles = d.join(""), b = document.createDocumentFragment(),
-                    DOM.append(b, "style", {
-                            type: "text/css",
-                            media: "screen"
-                        }
-                    ).textContent = a(c.Main) + a(c.Planets) + a(c.Events) + a(c.Page.file) + a(c.Mobile) + (c.Skin || ""
-                    ) + (c.Color || ""
-                    ), AGO.isFirefox && document.head && 3 > AGO.App.beta ? DOM.appendChild(document.head, b) : DOM.prependChild(document.documentElement, b), window.setTimeout(AGO.Styles.preload, 5)
-            )
-        )
+        if (3 <= AGO.App.mode && AGO.App.keyPlayer) {
+            document.documentElement.style.overflowY = "scroll";
+            c = AGO.Data.getStorage(AGO.App.keyPlayer + "_Styles", "JSON");
+            console.log(AGO.Data.getStorage(AGO.App.keyPlayer + "_Styles", "JSON"));
+
+            if ("Color" in c) {
+                AGO.Styles.status = 1;
+                AGO.Styles.Data = c;
+                OBJ.is(c.colorType) && (AGO.Styles.colorType = c.colorType);
+                OBJ.is(c.Page) || (c.Page = {});
+                b = AGO.App.page;
+
+                if (OBJ.is(c[b])) {
+                    "file" in c[b] && (c.Page.file = c[b].file);
+                    "improve" in c[b] && (c.Page.improve = c[b].improve);
+                    "events" in c[b] && (c.Page.events = c[b].events);
+                }
+
+                if (c.Events) {
+                    AGO.Events.modeBehavior = +c.Page.events || 0;
+                    AGO.Events.modeBehaviorAbove = VAL.check(AGO.Events.modeBehavior, 1, 2, 5, 6);
+                    if (AGO.Events.modeBehavior) {
+                        AGO.Events.modeBehaviorAbove ? d.push("#eventboxContent:not(:first-child){display:none;}") : d.push("#eventboxContent:first-child{display:none;}");
+                        5 > AGO.Events.modeBehavior && d.push("#eventboxContent, #eventboxContent #eventListWrap{ display: none; }");
+                    }
+                }
+
+                c.Styles = d.join("");
+                b = document.createDocumentFragment();
+                DOM.append(b, "style", {type: "text/css", media: "screen"}).textContent = a(c.Main) + a(c.Planets) + a(c.Events) + a(c.Page.file) + a(c.Mobile) + (c.Skin || "") + (c.Color || "");
+                AGO.isFirefox && document.head && 3 > AGO.App.beta ? DOM.appendChild(document.head, b) : DOM.prependChild(document.documentElement, b);
+                window.setTimeout(AGO.Styles.preload, 5);
+            }
+        }
     },
     Init: function () {
         var a;

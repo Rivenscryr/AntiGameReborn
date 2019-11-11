@@ -320,6 +320,7 @@ AGB.Styles = {
             c("research", "B00", "B00", "");
             c("shipyard", "B00", "B00", "E48");
             c("defense", "B00", "B00", "E48");
+            c("fleetdispatch", "F00", "", "E42");
             c("fleet1", "F00", "", "E42");
             c("fleet2", "F00", "", "E43");
             c("fleet3", "F00", "", "E44");
