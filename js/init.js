@@ -817,7 +817,8 @@ AGO.App = {
             }
 
             // if planet is changed while on fleet2 or fleet3, user lands on fleet1 page even though url shows page=fleet2/3
-            if (0 === AGO.App.page.indexOf("fleet") && STR.getParameter("cp", document.location.href))
+            // TODO: Fix for fleetdispatch
+            if (0 === AGO.App.page.indexOf("fleet") && -1 === AGO.App.page.indexOf("fleetdispatch") && STR.getParameter("cp", document.location.href))
                 AGO.App.page = "fleet1";
 
             AGO.Uni.path = document.location.href.split("?")[0] + ("ingame" === page ? "?page=ingame&component=" : "?page="); // #MCO

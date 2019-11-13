@@ -14,7 +14,7 @@ AGB.App = {
         techtree: {page: "Techtree", js: ["pages"], css: "pages"},
         shipyard: {page: "Shipyard", js: ["pages"], css: "pages"},
         defense: {page: "Defense", js: ["pages"], css: "pages"},
-        fleetdispatch: {page: "Fleet1", js: ["fleet1"], css: "pages_fleet1"},
+        //fleetdispatch: {page: "Fleet1", js: ["fleetdispatch"], css: "pages_fleetdispatch"},
         fleet1: {page: "Fleet1", js: ["fleet1"], css: "pages_fleet1"},
         fleet2: {page: "Fleet2", js: ["fleet2"], css: "pages_fleet2"},
         fleet3: {page: "Fleet3", js: ["fleet3"], css: "pages_fleet3"},
