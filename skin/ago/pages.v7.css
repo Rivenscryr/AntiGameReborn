@@ -523,6 +523,14 @@ li[data-status=active] .ago_items_text, #producers .ago_items_text, #storages .a
     width: 640px;
 }
 
+#shipyard #technologies.ago_center #technologies_civil {
+    order: 0;
+}
+
+#shipyard #technologies.ago_center #technologies_battle {
+    order: 1;
+}
+
 #shipyard #technologies.ago_center #technologies_battle h3::after {
     background: url("https://gf2.geo.gfsrv.net/cdn1d/80db96934a5b82ce002f839cd85a44.png");
 }
@@ -539,6 +547,11 @@ li[data-status=active] .ago_items_text, #producers .ago_items_text, #storages .a
     width: 280px;
 }
 
-.ago_improve #shipyard #technologies .icons {
-    justify-content: space-evenly;
+.ago_improve #shipyard #technologies:not(.ago_center) #technologies_civil .icons {
+    width: 240px;
+    float: right;
+}
+
+.ago_improve #shipyard #technologies.ago_center .icons {
+    justify-content: center;
 }
