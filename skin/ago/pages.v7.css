@@ -148,7 +148,7 @@
     background: #32495a
 }
 
-.ago_improve div.information > ul {
+.ago_improve #technologydetails div.information > ul {
     padding: 0;
     min-width: 280px;
     max-width: 330px;
@@ -158,7 +158,7 @@
     top: 110px
 }
 
-.ago_improve div.information > ul.ago_items_compact {
+.ago_improve #technologydetails div.information > ul.ago_items_compact {
     line-height: 13px
 }
 
@@ -166,7 +166,7 @@
     margin-bottom: 5px;
 }
 
-.ago_improve div.information > ul .value {
+.ago_improve #technologydetails div.information > ul .value {
     display: inline-block;
     padding: 0;
     width: auto !important;
@@ -175,15 +175,15 @@
     float: right
 }
 
-.ago_improve div.information > ul #ago_items_production.value,
-.ago_improve div.information > ul #ago_items_energy.value,
-.ago_improve div.information > ul #ago_items_number.value,
-.ago_improve div.information > ul #ago_items_detail.value {
+.ago_improve #technologydetails div.information > ul #ago_items_production.value,
+.ago_improve #technologydetails div.information > ul #ago_items_energy.value,
+.ago_improve #technologydetails div.information > ul #ago_items_number.value,
+.ago_improve #technologydetails div.information > ul #ago_items_detail.value {
     width: auto !important;
     min-width: 130px
 }
 
-.ago_improve div.information > ul .value span {
+.ago_improve #technologydetails div.information > ul .value span {
     padding: 0 4px;
     float: left
 }
@@ -193,17 +193,17 @@
     float: right
 }
 
-.ago_improve div.information > ul .value[ago-data] {
+.ago_improve #technologydetails div.information > ul .value[ago-data] {
     cursor: pointer;
     border-radius: 3px
 }
 
-.ago_improve div.information > ul .value[ago-data]:hover {
+.ago_improve #technologydetails div.information > ul .value[ago-data]:hover {
     color: #cfcbc2;
     background: #32495a
 }
 
-.ago_improve div.information > ul .undermark {
+.ago_improve #technologydetails div.information > ul .undermark {
     color: #00b000 !important
 }
 
@@ -516,4 +516,29 @@ li[data-status=active] .ago_items_text, #producers .ago_items_text, #storages .a
 .ago_improve .x10 .build-it:hover, .ago_improve .x10 .build-it:active {
     background-position: 0 -41px !important;
     color: #fff;
+}
+
+#shipyard #technologies.ago_center #technologies_civil,
+#shipyard #technologies.ago_center #technologies_battle {
+    width: 640px;
+}
+
+#shipyard #technologies.ago_center #technologies_battle h3::after {
+    background: url("https://gf2.geo.gfsrv.net/cdn1d/80db96934a5b82ce002f839cd85a44.png");
+}
+
+#shipyard #technologies.ago_center #technologies_civil h3::before {
+    background: url("https://gf2.geo.gfsrv.net/cdn4a/127bd495b9325216af08a588ecc540.png");
+}
+
+.ago_improve #shipyard #technologies_battle {
+    width: 360px;
+}
+
+.ago_improve #shipyard #technologies_civil {
+    width: 280px;
+}
+
+.ago_improve #shipyard #technologies .icons {
+    justify-content: space-evenly;
 }
