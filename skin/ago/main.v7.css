@@ -3,6 +3,10 @@ body {
     overflow-y: unset !important;
 }
 
+div#banner_skyscraper {
+    left: 1020px !important;
+}
+
 .ago_color_white {
     color: #ffffff !important
 }

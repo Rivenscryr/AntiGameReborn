@@ -73,6 +73,7 @@
     "B01": "Show resource production summary in Overview",
     "B02": "Show finish time",
     "B04": "Show unnecessary and useful research levels",
+    "B05": "Center ships and split them horizontally in shipyard",
     "B11": "Show detailed resource information",
     "B12": "Show after next level, when already in construction",
     "B15": "Show transporter for total or missing resources",

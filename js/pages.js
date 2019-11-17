@@ -108,6 +108,10 @@ AGO.Building = {
                 techLevel = +techs[i].querySelector('.level, .amount').dataset.value;
                 techID && AGO.Units.set(techID, techLevel);
             }
+
+            if (AGO.App.page === "shipyard" && AGO.Option.is("B05")) {
+                document.querySelector("#shipyard #technologies").classList.add("ago_center")
+            }
         } else {
             var a, b, c, d;
             a = document.querySelectorAll("#inhalt #buttonz li");
