@@ -77,6 +77,9 @@ AGO.Jumpgate = {
         if (AGO.Option.is("G30") && !AGO.App.OgameMobile && DOM.updateAttribute(a, null, "ago-status",
             1, 8
         )) {
+            let separator = DOM.appendTR();
+            separator.style.height = "20px";
+            DOM.after(a.querySelectorAll("table.ship_selection_table tbody tr")[4], separator);
             AGO.Option.is("G31") && DOM.addClass(a, null, "ago_jumpgate_improve");
             AGO.Jumpgate.Mini = AGO.Task.splitActive(AGO.Option.get("G38", -1), 2, -1);
             AGO.Jumpgate.Maxi = {};
