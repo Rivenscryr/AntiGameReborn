@@ -555,3 +555,7 @@ li[data-status=active] .ago_items_text, #producers .ago_items_text, #storages .a
 .ago_improve #shipyard #technologies.ago_center .icons {
     justify-content: center;
 }
+
+.ago_improve .technology .icon .bonus:not(:empty) {
+    margin-left: 4px;
+}

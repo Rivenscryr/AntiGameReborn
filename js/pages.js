@@ -588,6 +588,11 @@ AGO.Building = {
                     let maxString, data = (maxString = DOM.getText("button.maximum", wrapper, 7)) ? {type: "task", tab: techID, data: NMR.parseIntAbs(maxString)} : null;
                     AGO.Building.updateValue("ago_items_number", AGO.Building.Data[techID].level + AGO.Units.get(techID), maxString, data);
                 }
+
+                let premiumButton;
+                if (premiumButton = DOM.query("a.build-it_premium", wrapper)) {
+                    DOM.before(premiumButton, DOM.append(null, "p", "premium_info"))
+                }
             }
         } else {
             var a, b, c, d, e;
