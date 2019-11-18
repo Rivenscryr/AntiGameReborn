@@ -43,11 +43,11 @@ AGO.Movement = {
                     }
                     if (c = a[e].querySelector(".absTime")) {
                         f = (c.textContent || ""
-                        ).split(" ")[0], c.textContent = AGO.Time.convertLocal(f, "[H]:[i]:[s]");
+                        ).split(" ")[0], c.setAttribute("original", f), c.textContent = AGO.Time.convertLocal(f, "[H]:[i]:[s]");
                     }
                     if (c = a[e].querySelector(".nextabsTime")) {
                         f = (c.textContent || ""
-                        ).split(" ")[0], c.textContent = AGO.Time.convertLocal(f, "[H]:[i]:[s]");
+                        ).split(" ")[0], c.setAttribute("original", f), c.textContent = AGO.Time.convertLocal(f, "[H]:[i]:[s]");
                     }
                     2 === g && a[e].querySelector("span.fedAttack") && DOM.setAttribute(".reversal .icon_link img", a[e], "src", HTML.urlImage("icon_return_red.png"))
                 }

@@ -1567,7 +1567,7 @@ AGO.Events = {
                         " ago_panel_add", b.fleetType = HTML.hasClass(c, "neutral") ? 2 : HTML.hasClass(c, "hostile") ? 1 : b.reverse ? 4 : 3;
                 } else if (HTML.hasClass(c, "arrivalTime")) {
                     c = (a.textContent || ""
-                    ).split(" ")[0], a.textContent = AGO.Time.convertLocal(c, "[H]:[i]:[s]");
+                    ).split(" ")[0], a.setAttribute("original", c), a.textContent = AGO.Time.convertLocal(c, "[H]:[i]:[s]");
                 } else if (HTML.hasClass(c, "missionFleet")) {
                     b.missionName = 2 <= b.unionType ? "" : b.unionType ? AGO.Label.get("LM02") : DOM.getAttribute("img", a, "title", 7).split("|")[1];
                 } else if (HTML.hasClass(c, "originFleet")) {

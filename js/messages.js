@@ -205,6 +205,7 @@ AGO.Messages = {
             if (AGO.Option.is('A31')) {
                 var spanTime = DOM.query('.msg_head .msg_date', AGO.Messages.visibleMessages[msgId]);
                 var msgTime = DOM.getText(spanTime);
+                spanTime.setAttribute("original", msgTime);
                 spanTime.textContent = AGO.Time.convertLocal(msgTime);
             }
         });

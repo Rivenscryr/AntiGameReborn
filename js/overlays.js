@@ -337,7 +337,7 @@ AGO.Phalanx = {
             } else if (HTML.hasClass(c, "arrivalTime")) {
                 c = (d.textContent ||
                     ""
-                ).split(" ")[0], d.textContent = AGO.Time.convertLocal(c, "[H]:[i]:[s]");
+                ).split(" ")[0], d.setAttribute("original", c), d.textContent = AGO.Time.convertLocal(c, "[H]:[i]:[s]");
             } else if (HTML.hasClass(c, "descFleet")) {
                 b.descFleet = (d.textContent || ""
                 ).trim(), 2 <= b.unionType && (d.textContent = ""
