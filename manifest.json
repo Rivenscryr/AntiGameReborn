@@ -8,7 +8,6 @@
   "permissions": [
     "unlimitedStorage",
     "storage",
-    "tabs",
     "http://*.ogame.gameforge.com/*",
     "https://*.ogame.gameforge.com/*"
   ],

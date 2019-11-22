@@ -180,7 +180,6 @@ AGO.Styles = {
         if (3 <= AGO.App.mode && AGO.App.keyPlayer) {
             document.documentElement.style.overflowY = "scroll";
             c = AGO.Data.getStorage(AGO.App.keyPlayer + "_Styles", "JSON");
-            console.log(AGO.Data.getStorage(AGO.App.keyPlayer + "_Styles", "JSON"));
 
             if ("Color" in c) {
                 AGO.Styles.status = 1;
@@ -745,12 +744,23 @@ AGO.Units = {
     }, activeProduction: function () {
         var a;
         a = OBJ.parse(AGO.Init.Script("production"));
-        if (AGO.App.isVersion7)
-            OBJ.iterate(AGO.Item.ResourceEnergy, function (b) {
-                a[b] && (AGO.Units.Data[b + "Storage"] = +a[b].max || 0, AGO.Units.Data[b + "Production"] = +a[b].production || 0)
+        if (AGO.App.isVersion7) {
+            let resources = a.resources;
+            let techs = a.techs;
+            let ids = {
+                metal: 1,
+                crystal: 2,
+                deuterium: 3
+            };
+
+            OBJ.iterate(AGO.Item.Resource, function (b) {
+                resources[b] && (AGO.Units.Data[b + "Storage"] = +resources[b].storage || 0, AGO.Units.Data[b + "Production"] = (+techs[ids[b]].production[b] || 0) - (techs["12"].consumption[b] || 0))
             });
+
+            console.log(AGO.Units.Data);
+        }
         else
-            OBJ.iterate(AGO.Item.ResourceEnergy, function (b) {
+            OBJ.iterate(AGO.Item.Resource, function (b) {
                 a[b] && OBJ.is(a[b].resources) && (AGO.Units.Data[b + "Storage"] = +a[b].resources.max || 0, AGO.Units.Data[b + "Production"] = +a[b].resources.production || 0)
             });
     }

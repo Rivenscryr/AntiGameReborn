@@ -248,19 +248,38 @@ AGB.Label = {
         )
     }, Update: function (a) {
         var b, c, d, e, f;
-        (c = AGB.App.getPlayer(a)
-        ) && OBJ.is(a.data) && (b = {},
-                d = OBJ.is(a.data.localization) ? a.data.localization : {}, e = OBJ.is(d.timeunits) && d.timeunits["short"] ? d.timeunits["short"] : {}, b.KU0S = d.thousandSeperator || ".", b.KU0C = "." === d.thousandSeperator ? "," : ".", b.KU0K = d.unitKilo || "k", b.KU0M = d.unitMega || "m", b.KU0B = d.unitMilliard || "b", b.KD0Y = e.year || "y", b.KD0W = e.week || "w", b.KD0D = e.day || "d", b.KD0H = e.hour || "h", b.KD0M = e.minute || "m", b.KD0S = e.second || "s", d = OBJ.is(a.data.production) ? a.data.production : {}, f = {
+        if((c = AGB.App.getPlayer(a)) && OBJ.is(a.data)) {
+            b = {};
+            d = OBJ.is(a.data.localization) ? a.data.localization : {};
+            e = OBJ.is(d.timeunits) && d.timeunits["short"] ? d.timeunits["short"] : {};
+            b.KU0S = d.thousandSeperator || ".";
+            b.KU0C = "." === d.thousandSeperator ? "," : ".";
+            b.KU0K = d.unitKilo || "k";
+            b.KU0M = d.unitMega || "m";
+            b.KU0B = d.unitMilliard || "b";
+            b.KD0Y = e.year || "y";
+            b.KD0W = e.week || "w";
+            b.KD0D = e.day || "d";
+            b.KD0H = e.hour || "h";
+            b.KD0M = e.minute || "m";
+            b.KD0S = e.second || "s";
+
+            // TODO: a.data.production.resources is for MCO, remove rest once MCO is out on all servers
+            d = OBJ.is(a.data.production) ? OBJ.is(a.data.production.resources) ? a.data.production.resources : a.data.production : {};
+            f = {
                 metal: "091",
                 crystal: "092",
                 deuterium: "093",
                 energy: "094"
-            }, OBJ.iterate(f,
-                function (a) {
-                    OBJ.is(d[a]) && (b["L" + f[a]] = (STR.check(d[a].tooltip).split("|")[0].replace(":", "") || "").trim() || a);
-                }
-            ), AGB.Core.Log("Update   - Label    : " + b.KU0B + ":" + b.KU0M + ":" + b.KU0K + " - " + b.KD0Y + ":" + b.KD0W + ":" + b.KD0D + " - " + b.KD0H + ":" + b.KD0M + ":" + b.KD0S, !0), AGB.Data.setStorage(c, "Label", "Loca", b), OBJ.copy(b, AGB.Label.Data[c]), AGB.Item.Init(a)
-        )
+            };
+            OBJ.iterate(f, function (a) {
+                OBJ.is(d[a]) && (b["L" + f[a]] = (STR.check(d[a].tooltip).split("|")[0].replace(":", "") || "").trim() || a);
+            });
+            AGB.Core.Log("Update   - Label    : " + b.KU0B + ":" + b.KU0M + ":" + b.KU0K + " - " + b.KD0Y + ":" + b.KD0W + ":" + b.KD0D + " - " + b.KD0H + ":" + b.KD0M + ":" + b.KD0S, !0);
+            AGB.Data.setStorage(c, "Label", "Loca", b);
+            OBJ.copy(b, AGB.Label.Data[c]);
+            AGB.Item.Init(a);
+        }
     }, Get: function (a, b, c) {
         return (a = AGB.App.getPlayer(a)
         ) && AGB.Label.Data[a] && b ? (c && (b = 1 === b.length ? "L00" + b : 2 === b.length ? "L0" + b : "L" + b
