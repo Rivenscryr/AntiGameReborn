@@ -1096,16 +1096,27 @@ AGO.Task = {
         return ""
     },
     updateCoords: function (a, b, c) {
-        OBJ.is(a) && (!c &&
-            AGO.Task.checkCoords(a.galaxy, a.system, a.position) ? a.coords = a.galaxy + ":" + a.system + ":" + a.position : OBJ.is(c) && AGO.Task.checkCoords(c.galaxy, c.system, c.position) ? (a.galaxy = c.galaxy, a.system = c.system, a.position = c.position, a.coords = a.galaxy + ":" + a.system + ":" + a.position
-            ) : b && (c || (c = a
-                ), 2 >= b ? (a.galaxy = 2 === b ? AGO.Acc.galaxy : 0, a.system = 2 === b ? AGO.Acc.system : 0, a.position = 2 === b ? AGO.Acc.position : 0
-                ) : (a.galaxy = NMR.isMinMax(c.galaxy, 1, AGO.Uni.galaxies) ? c.galaxy : 3 === b ? AGO.Acc.galaxy : 0, a.system = NMR.isMinMax(c.system, 1,
-                        AGO.Uni.systems
-                    ) ? c.system : 3 === b ? AGO.Acc.system : 0, a.position = NMR.isMinMax(c.position, 1, AGO.Uni.positions) ? c.position : 3 === b ? AGO.Acc.position : 0
-                ), a.coords = 1 === b ? "" : a.galaxy + ":" + a.system + ":" + a.position
-            ), a.owncoords = AGO.Planets.owncoords(a.coords, a.type), a.coordstype = a.coords && a.type ? a.coords + ":" + a.type : ""
-        )
+        if (OBJ.is(a)) {
+            if (!c && AGO.Task.checkCoords(a.galaxy, a.system, a.position)) {
+                a.coords = a.galaxy + ":" + a.system + ":" + a.position
+            } else if (OBJ.is(c) && AGO.Task.checkCoords(c.galaxy, c.system, c.position)) {
+                (a.galaxy = c.galaxy, a.system = c.system, a.position = c.position, a.coords = a.galaxy + ":" + a.system + ":" + a.position)
+            } else if (b) {
+                c || (c = a);
+                if (2 >= b) {
+                    a.galaxy = 2 === b ? AGO.Acc.galaxy : 0;
+                    a.system = 2 === b ? AGO.Acc.system : 0;
+                    a.position = 2 === b ? AGO.Acc.position : 0;
+                } else {
+                    a.galaxy = NMR.isMinMax(c.galaxy, 1, AGO.Uni.galaxies) ? c.galaxy : 3 === b ? AGO.Acc.galaxy : 0;
+                    a.system = NMR.isMinMax(c.system, 1, AGO.Uni.systems) ? c.system : 3 === b ? AGO.Acc.system : 0;
+                    a.position = NMR.isMinMax(c.position, 1, AGO.Uni.positions) ? c.position : 3 === b ? AGO.Acc.position : 0;
+                }
+                a.coords = 1 === b ? "" : a.galaxy + ":" + a.system + ":" + a.position;
+            }
+            a.owncoords = AGO.Planets.owncoords(a.coords, a.type);
+            a.coordstype = a.coords && a.type ? a.coords + ":" + a.type : "";
+        }
     },
     updateCoordsType: function (a, b) {
         var c;

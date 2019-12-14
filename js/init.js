@@ -164,11 +164,15 @@ AGO.Init = {
     Read: function () {
         if (2 === AGO.Init.status) {
             if (AGO[AGO.App.Page]) {
+                AGO.Init.status = 4;
+
                 AGO.App.hasMCO = DOM.query("#characterclass") && true;
                 AGO.Option.set("isVersion7", AGO.App.isVersion7);
-                AGO.Init.status = 4;
+
                 PAGE = AGO.Page = AGO[AGO.App.Page];
+
                 if (AGO.App.Ogame) {
+                    AGO.Global.Read();
                     AGO.Styles.Load();
                     AGO.Planets.Read();
                     if (AGO.Planets.status) {
@@ -699,6 +703,14 @@ AGO.Observer = {
     }
 };
 AGO.Global = {
+    Read: function () {
+        AGO.App.Ogame && AGO.Global.message({
+            role: "Read",
+            data: {
+                page: AGO.App.page
+            }
+        })
+    },
     Interactive: function () {
         AGO.App.Ogame && AGO.Global.message({
                 role: "Interactive", data: {

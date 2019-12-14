@@ -42,19 +42,37 @@
     display: none
 }
 
-#box #inhalt #planet, #box #inhalt #planet.shortHeader {
+#fleet1 #inhalt #planet, #fleet1 #inhalt #planet.shortHeader {
     background-image: url("https://gf1.geo.gfsrv.net/cdn99/5368907a3fd41c0a3a5bbf077fb24b.gif");
     height: auto !important;
     overflow: hidden;
     border-bottom: 2px solid #000000
 }
 
-#fleet1 #inhalt #planet > h2 {
+#fleet2 #inhalt #planet, #fleet2 #inhalt #planet.shortHeader,
+#fleet3 #inhalt #planet, #fleet3 #inhalt #planet.shortHeader {
+    background: url("images/summary_background.gif");
+    height: auto;
+    margin-bottom: 0;
+    overflow: hidden
+}
+
+#fleet2 #inhalt #planet.shortHeader,
+#fleet3 #inhalt #planet.shortHeader {
+    height: 72px
+}
+
+#inhalt #planet > h2 {
     float: right;
-    width: 430px;
-    font-size: 13px;
-    margin-left: 20px;
-    padding-top: 1px
+    width: 430px !important;
+    font-size: 13px !important;
+    margin-left: 20px !important;
+    padding-top: 1px !important
+}
+
+#fleet2 #inhalt #planet > h2,
+#fleet3 #inhalt #planet > h2 {
+    cursor: pointer
 }
 
 #fleet1 #inhalt #planet .toggleHeader {
@@ -821,7 +839,7 @@ a#ago_routine_10.on {
 }
 
 #fleet1 #inhalt #buttonz #battleships, #fleet1 #inhalt #buttonz #spacer, #fleet1 #inhalt #buttonz #civilships {
-    height: 236px
+    height: auto
 }
 
 #fleet1 #inhalt .allornonewrap {
@@ -880,10 +898,43 @@ a#ago_routine_10.on {
     right: 30px
 }
 
-#fleet1 #inhalt #buttonz input[type="text"] {
-    height: 15px;
-    line-height: 15px;
-    font-weight: 700
+#fleet1 #battleships {
+    width: 420px !important;
+}
+
+#fleet1 #civilships {
+    width: 250px !important;
+}
+
+#fleet1 #buttonz #technologies div > ul {
+    padding-top: 5px;
+}
+
+#fleetdispatchcomponent #buttonz #civilships ul {
+    padding-left: 0 !important;
+    padding-right: 10px !important;
+}
+
+#fleetdispatchcomponent #buttonz #battleships ul {
+    padding-left: 13px !important;
+    padding-right: 0 !important;
+}
+
+#fleet1 #technologies li > span.icon {
+    width: 78px;
+    height: 78px;
+}
+
+#fleet1 .technology.interactive {
+    margin-bottom: 30px
+}
+
+#fleet1 #inhalt #buttonz li > input[type="text"] {
+    height: 21px;
+    line-height: 22px;
+    font-weight: 700;
+    bottom: -22px;
+    width: 92%;
 }
 
 #fleet1 #inhalt #buttonz ul.ago_cargos {
@@ -893,7 +944,8 @@ a#ago_routine_10.on {
     float: right;
     width: 125px;
     height: auto;
-    padding: 0 25px 0 0
+    padding: 3px 25px 0 0;
+    display: block;
 }
 
 #fleet1 #inhalt #buttonz .ago_cargos li {
@@ -949,28 +1001,28 @@ a#ago_routine_10.on {
 
 .ago_items_text {
     position: absolute;
-    top: 4px;
-    right: 2px;
-    max-width: 70px;
+    top: 0px;
+    right: 0px;
+    max-width: 72px;
     height: auto;
-    padding: 2px 3px;
+    padding: 2px 2px;
     text-align: right;
     overflow: hidden
 }
 
 .ago_items_textName {
     font-size: 10px;
-    width: 70px
+    width: 72px
 }
 
 .ago_items_textInfo {
-    font-size: 11px;
-    top: 32px !important
+    font-size: 10px;
+    top: 28px !important
 }
 
 .ago_items_textCount {
-    font-size: 11px;
-    top: 48px !important
+    font-size: 10px;
+    top: 44px !important
 }
 
 .off .ago_items_text {
@@ -983,4 +1035,8 @@ a#ago_routine_10.on {
 
 .disabled .ago_items_text {
     color: #d43635
+}
+
+.ago_improve .show_fleet_apikey {
+    margin-top: 8px;
 }

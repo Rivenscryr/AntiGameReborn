@@ -6,6 +6,9 @@ window.addEventListener("ago_global", function (b) {
             a = {}
         }
         switch (a.role) {
+            case "Read":
+                AGO.Read(a.data);
+                break;
             case "Interactive":
                 AGO.Interactive(a.data);
                 break;
@@ -15,10 +18,12 @@ window.addEventListener("ago_global", function (b) {
             case "Data":
                 if (a.data) {
                     for (var d in a.data) {
-                        a.data.hasOwnProperty(d) && (AGO.Data[d] = a.data[d]
-                        );
+                        a.data.hasOwnProperty(d) && (AGO.Data[d] = a.data[d]);
                     }
                 }
+                break;
+            case "Fleet":
+                AGO.Fleet(a.data);
                 break;
             case "setProperty":
                 a.property && (window[a.property] = a.value
@@ -51,6 +56,18 @@ window.addEventListener("ago_global", function (b) {
                 break;
             case "Jumpgate":
                 AGO.Jumpgate();
+                break;
+            case "updateTarget":
+                window.fleetDispatcher.updateTarget();
+                break;
+            case "setTargetType":
+                window.fleetDispatcher.setTargetType(a.type);
+                break;
+            case "setMission":
+                window.fleetDispatcher.mission = a.mission;
+                break;
+            case "setSpeed":
+                $("#speedPercentage").data().percentageBarInstance.setValue(a.speed);
                 break;
             case "setMostShips":
                 a.data && window.setMaxIntInput("#jumpgateForm", a.data);
@@ -114,7 +131,25 @@ var AGO = {
         if (a) {
             return a.getAttribute("ago-data-" + b) || ""
         }
-    }, Interactive: function (b) {
+    },
+    Read: function (data) {
+        if (data.page === "fleetdispatch") {
+            let a = {
+                mission: window.mission,
+                galaxy: window.targetPlanet.galaxy,
+                system: window.targetPlanet.system,
+                position: window.targetPlanet.position,
+                type: window.targetPlanet.type,
+                speed: window.speed
+            };
+
+            a.planetName = a.type === 1 ? window.targetPlanet.name : "";
+            a.moonName = a.type === 3 ? window.targetPlanet.name : "";
+
+            AGO.message("Fleet1", "Global", a)
+        }
+    },
+    Interactive: function (b) {
         var a, c, d;
         AGO.Data = b || {};
         AGO.Tooltip();
