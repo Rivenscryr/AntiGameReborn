@@ -43,7 +43,7 @@ window.addEventListener("ago_global", function (b) {
                 );
                 break;
             case "reloadEvents":
-                $.get("/game/index.php?page=eventList&ajax=1", function (a) {
+                $.get("/game/index.php?page=componentOnly&component=eventList&action=fetchEventBox&ajax=1", function (a) {
                         $("#eventboxContent").html(a)
                     }
                 );
