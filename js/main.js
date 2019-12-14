@@ -1423,7 +1423,7 @@ AGO.Box = {
                                 data: f
                             }
                         }
-                    ).textContent = e.coords : DOM.appendA(c, {href: "index.php?page=galaxy" + g}).textContent = e.coords, VAL.check(AGO.App.page, "fleet1", "fleet2", "fleet3") ? (DOM.appendA(c, null, null, {
+                    ).textContent = e.coords : DOM.appendA(c, {href: "index.php?page=ingame&component=galaxy" + g}).textContent = e.coords, VAL.check(AGO.App.page, "fleet1", "fleet2", "fleet3") ? (DOM.appendA(c, null, null, {
                                 message: {
                                     page: "Page",
                                     role: "Action",
