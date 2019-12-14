@@ -57,6 +57,10 @@ window.addEventListener("ago_global", function (b) {
             case "Jumpgate":
                 AGO.Jumpgate();
                 break;
+            case "selectShip":
+                window.fleetDispatcher.selectShip(a.id, a.count);
+                window.fleetDispatcher.refresh();
+                break;
             case "updateTarget":
                 window.fleetDispatcher.updateTarget();
                 break;

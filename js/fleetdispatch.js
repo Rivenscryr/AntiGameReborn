@@ -9,7 +9,13 @@ AGO.Fleet1 = {
     Read: function () {
         console.log("Read");
         var a, e, h, f, c, b;
-        e = AGO.Fleet1.Para = {};
+        e = AGO.Fleet1.Para = {currentPage: "fleet1"};
+
+        DOM.addObserver(DOM.query("#fleetdispatchcomponent"), {childList: true, subtree: true, attributes: true, atrributeFilter: ['style']}, function (mutations) {
+            mutations.forEach(mutation => {
+                ["fleet1", "fleet2", "fleet3"].indexOf(mutation.target.id) > -1 && !mutation.target.style.length && (PAGE.Para.currentPage = mutation.target.id);
+            });
+        });
 
         a = AGO.Units.Data;
         a.ships = a.shipsCivil = a.shipsCombat = a.capacity = 0;
@@ -981,7 +987,7 @@ AGO.Fleet1 = {
                         d[b] = Math.min(c, g[b]);
                         d.ships += d[b];
                         c = c ? g[b] - c : 0;
-                        g[b] && DOM.updateValue("ship_" + b, "id", d[b], 0, "change");
+                        g[b] && AGO.Global.message({role: "selectShip", id: +b, count: d[b]});
                         DOM.updateText("anti_ship_" + b, "id", c, 2);
                         DOM.setStyleColor("anti_ship_" + b, "id", 0 > c ? "#E41615" : "#00B000")
                     }
@@ -1171,54 +1177,75 @@ AGO.Fleet1 = {
     },
     onKeydown: function (a) {
         if (document.activeElement.tagName in {'TEXTAREA': 1, 'INPUT': 1}) return;
-        if (13 ===
-            a.keyCode) {
-            return DOM.hasClass("continue", "id", "on") ? DOM.click("#continue.on") : (DOM.click("#ago_routine_" + PAGE.Para.calculator), 2 <= PAGE.getRoutine(PAGE.Para.calculator) && 2 <= PAGE.getRoutine(PAGE.Para.calculator, "status") && DOM.click("#continue.on")
-            ), !1;
+
+        if (PAGE.Para.currentPage === "fleet1") {
+            if (13 === a.keyCode) {
+                return DOM.hasClass("continueToFleet2", "id", "on") ? DOM.click("#continueToFleet2.on") : (DOM.click("#ago_routine_" + PAGE.Para.calculator), 2 <= PAGE.getRoutine(PAGE.Para.calculator) && 2 <= PAGE.getRoutine(PAGE.Para.calculator, "status") && DOM.click("#continueToFleet2.on")), !1;
+            }
+            if (12 !== a.inputType) {
+                if (65 === a.keyCode) {
+                    return DOM.click("#sendall"), !1;
+                }
+                if (77 === a.keyCode) {
+                    return DOM.click("span.send_most a"), !1;
+                }
+                if (81 === a.keyCode) {
+                    return DOM.click("span.send_none a"), !1;
+                }
+                if (84 === a.keyCode) {
+                    return DOM.click("#ago_routine_2"), !1;
+                }
+                if (82 ===
+                    a.keyCode) {
+                    return DOM.click("#ago_routine_4"), !1;
+                }
+                if (83 === a.keyCode) {
+                    return DOM.click("#ago_routine_5"), !1;
+                }
+                if (70 === a.keyCode) {
+                    return DOM.click("#ago_routine_6"), !1;
+                }
+                if (69 === a.keyCode) {
+                    return DOM.click("#ago_routine_7"), !1;
+                }
+                if (76 === a.keyCode) {
+                    return DOM.click("#ago_routine_10"), !1
+                }
+            }
+            return 11 !== a.inputType || 38 !== a.keyCode && 40 !== a.keyCode || !AGO.Item.Ship[STR.check(NMR.parseIntAbs(a.target.id))] && !HTML.hasClass(a.target.className, "ago_keys_arrows") ? !0 : DOM.changeInput(a, a.target)
+        } else if (PAGE.Para.currentPage === "fleet2") {
+            if (document.activeElement.classList.contains('chat_box_textarea')) return;
+            return 13 === a.keyCode ? (DOM.hasClass("continueToFleet3", "id", "on") && DOM.click("#continueToFleet3.on"), !1) : !0
+        } else if (PAGE.Para.currentPage === "fleet3") {
+            if (document.activeElement.classList.contains('chat_box_textarea')) return;
+            if (13 === a.keyCode) {
+                if (document.activeElement && "A" !== document.activeElement.nodeName && "INPUT" !== document.activeElement.nodeName) {
+                    return DOM.hasClass("sendFleet", "id", "on") && DOM.click("#sendFleet.on"), !1
+                }
+            } else {
+                if (65 === a.keyCode) {
+                    return DOM.click("#allresources"), !1;
+                }
+                if (77 === a.keyCode) {
+                    return DOM.click("#mostresources"), !1;
+                }
+                if (81 === a.keyCode) {
+                    return DOM.click("#noneresources"), !1
+                }
+            }
+            return !0
         }
-        if (12 !== a.inputType) {
-            if (65 === a.keyCode) {
-                return DOM.click("#sendall"), !1;
-            }
-            if (77 === a.keyCode) {
-                return DOM.click("span.send_most a"), !1;
-            }
-            if (81 === a.keyCode) {
-                return DOM.click("span.send_none a"), !1;
-            }
-            if (84 === a.keyCode) {
-                return DOM.click("#ago_routine_2"), !1;
-            }
-            if (82 ===
-                a.keyCode) {
-                return DOM.click("#ago_routine_4"), !1;
-            }
-            if (83 === a.keyCode) {
-                return DOM.click("#ago_routine_5"), !1;
-            }
-            if (70 === a.keyCode) {
-                return DOM.click("#ago_routine_6"), !1;
-            }
-            if (69 === a.keyCode) {
-                return DOM.click("#ago_routine_7"), !1;
-            }
-            if (76 === a.keyCode) {
-                return DOM.click("#ago_routine_10"), !1
-            }
-        }
-        return 11 !== a.inputType || 38 !== a.keyCode && 40 !== a.keyCode || !AGO.Item.Ship[STR.check(NMR.parseIntAbs(a.target.id))] && !HTML.hasClass(a.target.className, "ago_keys_arrows") ? !0 : DOM.changeInput(a, a.target)
     },
     onSwipe: function (a) {
-        "diagUp" ===
-        a && DOM.click("span.send_none a");
+        "diagUp" === a && DOM.click("span.send_none a");
         "diagDown" === a && DOM.click("span.send_most a");
-        "left" === a && DOM.click('#menuTable .menubutton[href*="page=fleet1"]');
+        "left" === a && DOM.click('#menuTable .menubutton[href*="page=fleetdispatch"]');
         if ("right" === a) {
             PAGE.onKeydown({keyCode: 13})
         }
     },
     onBriefing: function (a) {
-        7 <= AGO.Init.status && (a = DOM.getData(a.target, null, 5), "continue" === a.action ? DOM.hasClass("continue", "id", "on") || PAGE.Action({action: 12}) : a.action && PAGE.Action(a)
+        7 <= AGO.Init.status && (a = DOM.getData(a.target, null, 5), "continue" === a.action ? DOM.hasClass("continueToFleet2", "id", "on") || PAGE.Action({action: 12}) : a.action && PAGE.Action(a)
         )
     },
     onCalculator: function (a) {
@@ -1280,7 +1307,7 @@ AGO.Fleet1 = {
                             ) : 2 !== h.routine || PAGE.Next.ships || PAGE.Next.resources || (h.action = 22
                             )
                         ), PAGE.Action(h)
-                    ) : DOM.click("#continue.on")
+                    ) : DOM.click("#continueToFleet2.on")
                 )
             }
         }
@@ -1289,8 +1316,7 @@ AGO.Fleet1 = {
     },
     onShortcuts: function (a) {
         var e, h, f;
-        !(h = a && a.target ? a.type : ""
-        ) || 7 > AGO.Init.status || ("click" === h && a.currentTarget ? "ago_shortcuts_header" === a.currentTarget.className ? (e = 1 < DOM.getAttribute("ago_shortcuts", "id", "ago_display_status", 2) ? 1 : 2, DOM.setAttribute("ago_shortcuts", "id", "ago_display_status", e, 8), AGO.Option.set("F14", 2 !== e, 1)
+        !(h = a && a.target ? a.type : "") || 7 > AGO.Init.status || ("click" === h && a.currentTarget ? "ago_shortcuts_header" === a.currentTarget.className ? (e = 1 < DOM.getAttribute("ago_shortcuts", "id", "ago_display_status", 2) ? 1 : 2, DOM.setAttribute("ago_shortcuts", "id", "ago_display_status", e, 8), AGO.Option.set("F14", 2 !== e, 1)
             ) : (e = a.currentTarget.rel || "", DOM.hasClass(a.currentTarget.parentNode, null, "ago_shortcuts_own") && (f = "SPAN" === a.target.nodeName ? a.target.className : a.target.parentNode.className,
                         e += ":" + ("ago_shortcuts_moon" === f ? 3 : "ago_shortcuts_debris" === f ? 2 : 1
                         )
@@ -1313,7 +1339,6 @@ AGO.Fleet1 = {
     }
 };
 AGO.Task.updateShips = function (a, e) {
-    console.log(a, e);
     var h;
     OBJ.is(a) && (a.consumption = 1, a["212"] = 0, a.ships = a.shipsCivil = a.shipsCombat = a.capacity = a.expoints = a.minspeed = 0, OBJ.iterate(AGO.Item.Ship, function (e) {
                 var c;
