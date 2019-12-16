@@ -1045,7 +1045,7 @@ AGO.Panel = {
                             )
                         ), f(s, x, "I38", "I38", "always", "reduce", "colorize"), v = p.mode ? "ago_panel_content_header" : "ago_panel_content_header ago_panel_content_disabled", u = DOM.appendLI(s,
                             v
-                        ), B = AGO.Uni.path + "fleet1", OBJ.iterateFilter(p, function (a) {
+                        ), B = AGO.Uni.path + (AGO.App.isVersion7 ? 'fleetdispatch' : 'fleet1'), OBJ.iterateFilter(p, function (a) {
                                 B += STR.addParameter(a, p[a])
                             }, "galaxy system position type metal crystal deuterium routine".split(" ")
                         ), D = DOM.appendA(u, {
