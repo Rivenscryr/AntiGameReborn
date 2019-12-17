@@ -975,25 +975,25 @@ AGO.Time = {
     }
 };
 AGO.Task = {
-    Info: "galaxy system position type mission speed holdingtime expeditiontime union routine name detail detail2 preferCargo preferShip arrival metal crystal deuterium preferResource timeResource timeShip 202 203 204 205 206 207 208 209 210 211 212 213 214 215".split(" "),
+    Info: "galaxy system position type mission speed holdingtime expeditiontime union routine name detail detail2 preferCargo preferShip arrival, metal crystal deuterium preferResource timeResource timeShip".split(" "),
+    Ships: "202 203 204 205 206 207 208 209 210 211 212 213 214 215 217 218 219".split(" "),
     valid: function (a) {
         return STR.check(a).replace(/[\"\:]/g, "").trim()
     },
     create: function (a, b) {
         var c = {}, d;
         a = a || {};
-        for (d = 0; 15 >= d; d++) {
+        for (d = 0; d <= 15; d++) {
             c[AGO.Task.Info[d]] = 10 > d || 12 === d || 15 === d ? +a[AGO.Task.Info[d]] || 0 : a[AGO.Task.Info[d]] || "";
         }
         if (1 <= b) {
-            for (d =
-                     16; 20 >= d; d++) {
+            for (d = 16; d <= 20; d++) {
                 c[AGO.Task.Info[d]] = +a[AGO.Task.Info[d]] || 0;
             }
         }
         if (2 <= b) {
-            for (d = 21; 35 >= d; d++) {
-                c[AGO.Task.Info[d]] = +a[AGO.Task.Info[d]] || 0;
+            for (d = 0; d < AGO.Task.Ships.length; d++) {
+                c[AGO.Task.Ships[d]] = +a[AGO.Task.Ships[d]] || 0;
             }
         }
         return c
