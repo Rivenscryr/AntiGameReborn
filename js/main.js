@@ -1527,7 +1527,7 @@ AGO.Events = {
                 ), d = DOM.appendSPAN(d, "icon icon_reload ago_eventlist_reload"), AGO.Events.improve && (DOM.appendSPAN(c, "ago_display_arrow"), a.addEventListener("click", AGO.Events.toggleEvents, !1)
                 ), DOM.prependChild(a, c)
             );
-            a = b.querySelectorAll("table#eventContent > tbody > tr");
+            a = b.querySelectorAll("table#eventContent > tbody > tr.eventFleet"); // removed tr which was used strictly for horizantal spacing, restricting results to actual fleets
             for (d = 0; d < a.length; d++) {
                 c = NMR.parseIntAbs(a[d].getAttribute("data-mission-type")), HTML.hasClass(a[d].className, "allianceAttack") ? (g = STR.check(NMR.parseIntAbs(a[d].className)), f = "F" + g, h = 1
                 ) : HTML.hasClass(a[d].className, "partnerInfo") ? (g = STR.check(NMR.parseIntAbs(a[d].className)), f = DOM.getAttribute(".icon_movement span", a[d], "data-federation-user-id", 7), h = g === f ? 2 : 3
@@ -1589,7 +1589,21 @@ AGO.Events = {
                         a = c.title;
                         var e;
                         if (a) {
-                            for (a = a.split("<td>"), 2 <= b.unionType && AGO.Events.eData["F" + b.union] && (AGO.Events.eData["F" + b.union].fleets = (AGO.Events.eData["F" + b.union].fleets || 0
+                            // ships in div element
+                            z = a.split("<th")
+                            // loop through ships in shipment
+                            for (y = z[1].split("<tr>"), 2 <= b.unionType && AGO.Events.eData["F" + b.union] && (AGO.Events.eData["F" + b.union].fleets = (AGO.Events.eData["F" + b.union].fleets || 0) + 1), c = 0; c < y.length; c++) {
+                                x = y[c].trim().split(/(?:<\/?td.*>)(.*)(?:<\/td)/g)
+                                if (x.length < 4) {continue} // entry does not contain ship details
+                                ship = x[1]
+                                value = x[3]
+                                if (e = ship.replace(/\:/g, "").trim(), e = AGO.Item.getByName(e)) {
+                                    b[e] = NMR.parseIntAbs(value), b[e] && 2 <= b.unionType && AGO.Events.eData["F" + b.union] && (AGO.Events.eData["F" + b.union][e] = (AGO.Events.eData["F" + b.union][e] || 0) + b[e])
+                                }
+                            }
+
+                            // loop through resources in shipment
+                            for (a = z[2].split("<td>"), 2 <= b.unionType && AGO.Events.eData["F" + b.union] && (AGO.Events.eData["F" + b.union].fleets = (AGO.Events.eData["F" + b.union].fleets || 0
                                 ) + 1
                             ), c = 1; c < a.length; c++) {
                                 if (e = (a[c].split("</td>", 1)[0] || ""
