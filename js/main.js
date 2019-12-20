@@ -1514,48 +1514,94 @@ AGO.Events = {
         AGO.Events.last = 0;
         a = document.getElementById("eventboxContent");
         b = document.getElementById("eventListWrap");
-        if (AGO.Events.status && a && b && DOM.updateAttribute(b, null, "ago-status",
-            1, 8
-        )) {
+        if (AGO.Events.status && a && b && DOM.updateAttribute(b, null, "ago-status", 1, 8)) {
             AGO.Events.status = 2;
-            AGO.Events.enabled && (DOM.removeClass(a, null, "ago_eventlist_hide"), a = b.querySelector("#eventHeader")
-            ) && (c = document.createDocumentFragment(), d = DOM.appendA(c, null, {
+
+            if (AGO.Events.enabled) {
+                DOM.removeClass(a, null, "ago_eventlist_hide");
+
+                if (a = b.querySelector("#eventHeader")) {
+                    c = document.createDocumentFragment();
+                    d = DOM.appendA(c, null, {
                         click: function () {
                             AGO.Global.message({role: "reloadEvents"})
                         }
+                    });
+                    d = DOM.appendSPAN(d, "icon icon_reload ago_eventlist_reload");
+
+                    if (AGO.Events.improve) {
+                        DOM.appendSPAN(c, "ago_display_arrow");
+                        a.addEventListener("click", AGO.Events.toggleEvents, !1);
                     }
-                ), d = DOM.appendSPAN(d, "icon icon_reload ago_eventlist_reload"), AGO.Events.improve && (DOM.appendSPAN(c, "ago_display_arrow"), a.addEventListener("click", AGO.Events.toggleEvents, !1)
-                ), DOM.prependChild(a, c)
-            );
-            a = b.querySelectorAll("table#eventContent > tbody > tr.eventFleet"); // removed tr which was used strictly for horizantal spacing, restricting results to actual fleets
+
+                    DOM.prependChild(a, c);
+                }
+            }
+
+            a = b.querySelectorAll("table#eventContent > tbody > tr");
+
             for (d = 0; d < a.length; d++) {
-                c = NMR.parseIntAbs(a[d].getAttribute("data-mission-type")), HTML.hasClass(a[d].className, "allianceAttack") ? (g = STR.check(NMR.parseIntAbs(a[d].className)), f = "F" + g, h = 1
-                ) : HTML.hasClass(a[d].className, "partnerInfo") ? (g = STR.check(NMR.parseIntAbs(a[d].className)), f = DOM.getAttribute(".icon_movement span", a[d], "data-federation-user-id", 7), h = g === f ? 2 : 3
-                ) : (h = g = 0, f = STR.check(NMR.parseIntAbs(a[d].id))
-                ), AGO.Events.eData[f] = {
+                c = NMR.parseIntAbs(a[d].getAttribute("data-mission-type"));
+
+                if (HTML.hasClass(a[d].className, "allianceAttack")) {
+                    g = STR.check(NMR.parseIntAbs(a[d].className));
+                    f = "F" + g;
+                    h = 1
+                } else if (HTML.hasClass(a[d].className, "partnerInfo")) {
+                    g = STR.check(NMR.parseIntAbs(a[d].className));
+                    f = DOM.getAttribute(".icon_movement span", a[d], "data-federation-user-id", 7);
+                    h = g === f ? 2 : 3
+                } else {
+                    h = g = 0;
+                    f = STR.check(NMR.parseIntAbs(a[d].id));
+                }
+
+                AGO.Events.eData[f] = {
                     id: f,
                     mission: c,
                     arrival: +a[d].getAttribute("data-arrival-time") || 0,
-                    union: g ||
-                        "",
+                    union: g || "",
                     unionType: h || 0,
                     reverse: "true" === a[d].getAttribute("data-return-flight")
-                }, AGO.Events.modeColorMissions && AGO.Events.eData[f].reverse && (a[d].className += " ago_events_reverse"
-                ), a[d].addEventListener("click", AGO.Events.clickRow, !1), AGO.Events.parseRow(a[d], AGO.Events.eData[f]), 1 !== h && (AGO.Task.updateShips(AGO.Events.eData[f]), AGO.Task.updateResources(AGO.Events.eData[f]), 3 <= AGO.Events.eData[f].fleetType && 1 !== h && 4 !== c && (AGO.Events.eData[f].pair = AGO.Events.eData[f].reverse ? AGO.Events.eData[f - 1] ? AGO.Events.eData[f -
-                        1].pair : "" : (5 === c || 15 === c
-                        ) && AGO.Events.eData[f - 1] && AGO.Events.eData[f - 1].pair ? AGO.Events.eData[f - 1].pair : e++
-                    ), AGO.Events.improve && (AGO.Events.eData[f].pair && (a[d].setAttribute("ago-events-pair", AGO.Events.eData[f].pair), a[d].addEventListener("mouseover", AGO.Events.displayPair, !1), a[d].addEventListener("mouseout", AGO.Events.displayPair, !1)
-                        ), AGO.Events.createDetails(a[d], AGO.Events.eData[f])
-                    )
-                );
+                };
+
+                AGO.Events.modeColorMissions && AGO.Events.eData[f].reverse && (a[d].className += " ago_events_reverse");
+
+                a[d].addEventListener("click", AGO.Events.clickRow, !1);
+                AGO.Events.parseRow(a[d], AGO.Events.eData[f]);
+
+                if (1 !== h) {
+                    AGO.Task.updateShips(AGO.Events.eData[f]);
+                    AGO.Task.updateResources(AGO.Events.eData[f]);
+
+                    if (3 <= AGO.Events.eData[f].fleetType && 1 !== h && 4 !== c) {
+                        AGO.Events.eData[f].pair = AGO.Events.eData[f].reverse ? AGO.Events.eData[f - 1] ? AGO.Events.eData[f - 1].pair : "" : (5 === c || 15 === c) && AGO.Events.eData[f - 1] && AGO.Events.eData[f - 1].pair ? AGO.Events.eData[f - 1].pair : e++;
+                    }
+
+                    if (AGO.Events.improve) {
+                        if (AGO.Events.eData[f].pair) {
+                            a[d].setAttribute("ago-events-pair", AGO.Events.eData[f].pair);
+                            a[d].addEventListener("mouseover", AGO.Events.displayPair, !1);
+                            a[d].addEventListener("mouseout", AGO.Events.displayPair, !1);
+                        }
+
+                        AGO.Events.createDetails(a[d], AGO.Events.eData[f]);
+                    }
+                }
             }
+
             for (f in AGO.Events.eData) {
-                AGO.Events.eData.hasOwnProperty(f) && (1 === AGO.Events.eData[f].unionType && (AGO.Task.updateShips(AGO.Events.eData[f]),
-                            AGO.Task.updateResources(AGO.Events.eData[f]), AGO.Events.improve && AGO.Events.createDetails(b.querySelector("table#eventContent tr.union" + AGO.Events.eData[f].union), AGO.Events.eData[f])
-                    ), 2 === AGO.Events.eData[f].fleetType && 5 === AGO.Events.eData[f].mission && AGO.Events.eData[f - 1] && (AGO.Events.eData[f].nocalc = !0
-                    )
-                );
+                if (AGO.Events.eData.hasOwnProperty(f)) {
+                    if (1 === AGO.Events.eData[f].unionType) {
+                        AGO.Task.updateShips(AGO.Events.eData[f]);
+                        AGO.Task.updateResources(AGO.Events.eData[f]);
+                        AGO.Events.improve && AGO.Events.createDetails(b.querySelector("table#eventContent tr.union" + AGO.Events.eData[f].union), AGO.Events.eData[f]);
+                    }
+
+                    2 === AGO.Events.eData[f].fleetType && 5 === AGO.Events.eData[f].mission && AGO.Events.eData[f - 1] && (AGO.Events.eData[f].nocalc = !0)
+                }
             }
+
             a = b = a = d = a = c = null
         }
     },
