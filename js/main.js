@@ -1527,7 +1527,7 @@ AGO.Events = {
                 ), d = DOM.appendSPAN(d, "icon icon_reload ago_eventlist_reload"), AGO.Events.improve && (DOM.appendSPAN(c, "ago_display_arrow"), a.addEventListener("click", AGO.Events.toggleEvents, !1)
                 ), DOM.prependChild(a, c)
             );
-            a = b.querySelectorAll("table#eventContent > tbody > tr");
+            a = b.querySelectorAll("table#eventContent > tbody > tr.eventFleet"); // removed tr which was used strictly for horizantal spacing, restricting results to actual fleets
             for (d = 0; d < a.length; d++) {
                 c = NMR.parseIntAbs(a[d].getAttribute("data-mission-type")), HTML.hasClass(a[d].className, "allianceAttack") ? (g = STR.check(NMR.parseIntAbs(a[d].className)), f = "F" + g, h = 1
                 ) : HTML.hasClass(a[d].className, "partnerInfo") ? (g = STR.check(NMR.parseIntAbs(a[d].className)), f = DOM.getAttribute(".icon_movement span", a[d], "data-federation-user-id", 7), h = g === f ? 2 : 3
@@ -1558,66 +1558,75 @@ AGO.Events = {
             }
             a = b = a = d = a = c = null
         }
-    }, parseRow: function (a, b) {
+    },
+    parseRow: function (a, b) {
         DOM.iterateChildren(a, function (a) {
-                var c;
-                c = a.className;
-                if (HTML.hasClass(c, "countDown")) {
-                    DOM.addClass(a, null, HTML.classMission(b.mission)), a.className +=
-                        " ago_panel_add", b.fleetType = HTML.hasClass(c, "neutral") ? 2 : HTML.hasClass(c, "hostile") ? 1 : b.reverse ? 4 : 3;
-                } else if (HTML.hasClass(c, "arrivalTime")) {
-                    c = (a.textContent || ""
-                    ).split(" ")[0], a.setAttribute("original", c), a.textContent = AGO.Time.convertLocal(c, "[H]:[i]:[s]");
-                } else if (HTML.hasClass(c, "missionFleet")) {
-                    b.missionName = 2 <= b.unionType ? "" : b.unionType ? AGO.Label.get("LM02") : DOM.getAttribute("img", a, "title", 7).split("|")[1];
-                } else if (HTML.hasClass(c, "originFleet")) {
-                    if (c = a.querySelector("figure")) {
-                        b.typeOrigin = HTML.hasClass(c.className, "moon") ?
-                            3 : HTML.hasClass(c.className, "tf") ? 2 : 1
+            let c;
+            c = a.className;
+            if (HTML.hasClass(c, "countDown")) {
+                DOM.addClass(a, null, HTML.classMission(b.mission));
+                a.className += " ago_panel_add";
+                b.fleetType = HTML.hasClass(c, "neutral") ? 2 : HTML.hasClass(c, "hostile") ? 1 : b.reverse ? 4 : 3;
+            } else if (HTML.hasClass(c, "arrivalTime")) {
+                c = (a.textContent || "").split(" ")[0];
+                a.setAttribute("original", c);
+                a.textContent = AGO.Time.convertLocal(c, "[H]:[i]:[s]");
+            } else if (HTML.hasClass(c, "missionFleet")) {
+                b.missionName = 2 <= b.unionType ? "" : b.unionType ? AGO.Label.get("LM02") : DOM.getAttribute("img", a, "title", 7).split("|")[1];
+            } else if (HTML.hasClass(c, "originFleet")) {
+                if (c = a.querySelector("figure")) {
+                    b.typeOrigin = HTML.hasClass(c.className, "moon") ? 3 : HTML.hasClass(c.className, "tf") ? 2 : 1;
+                }
+            } else if (HTML.hasClass(c, "coordsOrigin")) {
+                if (c = a.querySelector("a")) {
+                    b.coordsOrigin = AGO.Task.trimCoords(c.textContent);
+                    b.owncoordsOrigin = AGO.Planets.owncoords(b.coordsOrigin, b.typeOrigin);
+                    if (b.owncoordsOrigin) {
+                        b.reverse || (5 === b.mission || 15 === b.mission) && AGO.Events.last === +b.id - 1 || (AGO.Events.last = Math.max(AGO.Events.last, +b.id || 0));
+                        DOM.addClass(c, null, AGO.Token.getClassSelection(b.typeOrigin));
+                        3 <= b.owncoordsOrigin && DOM.extendClass(a, null, AGO.Token.getClassHighlight(b.typeOrigin));
                     }
-                } else if (HTML.hasClass(c, "coordsOrigin")) {
-                    if (c = a.querySelector("a")) {
-                        b.coordsOrigin = AGO.Task.trimCoords(c.textContent), b.owncoordsOrigin = AGO.Planets.owncoords(b.coordsOrigin, b.typeOrigin), b.owncoordsOrigin && (b.reverse || (5 === b.mission || 15 === b.mission
-                            ) && AGO.Events.last === +b.id - 1 || (AGO.Events.last = Math.max(AGO.Events.last, +b.id || 0)
-                            ), DOM.addClass(c, null, AGO.Token.getClassSelection(b.typeOrigin)), 3 <= b.owncoordsOrigin && DOM.extendClass(a, null, AGO.Token.getClassHighlight(b.typeOrigin))
-                        )
-                    }
-                } else if (-1 <
-                    c.indexOf("icon_movement")) {
-                    if ((c = a.querySelector("span")
-                    ) && 1 !== b.unionType) {
-                        a = c.title;
-                        var e;
-                        if (a) {
-                            for (a = a.split("<td>"), 2 <= b.unionType && AGO.Events.eData["F" + b.union] && (AGO.Events.eData["F" + b.union].fleets = (AGO.Events.eData["F" + b.union].fleets || 0
-                                ) + 1
-                            ), c = 1; c < a.length; c++) {
-                                if (e = (a[c].split("</td>", 1)[0] || ""
-                                ).replace(/\:/g, "").trim(), e = AGO.Item.getByName(e)) {
-                                    b[e] = NMR.parseIntAbs(a[c].split(">", 3)[2]), b[e] && 2 <= b.unionType && AGO.Events.eData["F" + b.union] && (AGO.Events.eData["F" + b.union][e] = (AGO.Events.eData["F" +
-                                            b.union][e] || 0
-                                        ) + b[e]
-                                    )
+                }
+            } else if (-1 < c.indexOf("icon_movement")) {
+                if ((c = a.querySelector("span")) && 1 !== b.unionType) {
+                    a = c.title;
+                    var e;
+                    if (a) {
+                        a = a.split(/<td colspan="2">|<td>/);
+
+                        if (2 <= b.unionType && AGO.Events.eData["F" + b.union]) {
+                            AGO.Events.eData["F" + b.union].fleets = (AGO.Events.eData["F" + b.union].fleets || 0) + 1;
+                        }
+
+                        for (c = 1; c < a.length; c++) {
+                            e = (a[c].split("</td>", 1)[0] || "").replace(/\:/g, "").trim();
+                            if (e = AGO.Item.getByName(e)) {
+                                b[e] = NMR.parseIntAbs(a[c].split(">", 3)[2]);
+                                if (b[e] && 2 <= b.unionType && AGO.Events.eData["F" + b.union]) {
+                                    AGO.Events.eData["F" + b.union][e] = (AGO.Events.eData["F" + b.union][e] || 0) + b[e]
                                 }
                             }
                         }
                     }
-                } else if (HTML.hasClass(c, "destFleet")) {
-                    if (c = a.querySelector("figure")) {
-                        b.type = HTML.hasClass(c.className, "moon") ? 3 : HTML.hasClass(c.className, "tf") ? 2 : 1
-                    }
-                } else if (HTML.hasClass(c, "destCoords")) {
-                    if (c = a.querySelector("a")) {
-                        b.coords = AGO.Task.trimCoords(c.textContent), b.owncoords = AGO.Planets.owncoords(b.coords, b.type), b.owncoords && (DOM.addClass(c, null, AGO.Token.getClassSelection(b.type)), 3 <= b.owncoords && DOM.extendClass(a, null, AGO.Token.getClassHighlight(b.type))
-                        )
-                    }
-                } else {
-                    HTML.hasClass(c, "sendMail") &&
-                    (b.nick = DOM.getAttribute(DOM.getChildnodeByName(a, "A"), null, "title", 7)
-                    )
                 }
+            } else if (HTML.hasClass(c, "destFleet")) {
+                if (c = a.querySelector("figure")) {
+                    b.type = HTML.hasClass(c.className, "moon") ? 3 : HTML.hasClass(c.className, "tf") ? 2 : 1
+                }
+            } else if (HTML.hasClass(c, "destCoords")) {
+                if (c = a.querySelector("a")) {
+                    b.coords = AGO.Task.trimCoords(c.textContent);
+                    b.owncoords = AGO.Planets.owncoords(b.coords, b.type);
+
+                    if (b.owncoords) {
+                        DOM.addClass(c, null, AGO.Token.getClassSelection(b.type));
+                        3 <= b.owncoords && DOM.extendClass(a, null, AGO.Token.getClassHighlight(b.type));
+                    }
+                }
+            } else {
+                HTML.hasClass(c, "sendMail") && (b.nick = DOM.getAttribute(DOM.getChildnodeByName(a, "A"), null, "title", 7))
             }
-        )
+        });
     }, createDetails: function (a, b) {
         var d, c, e;
         1 === b.unionType && b.fleets && DOM.setText(".originFleet", a, b.fleets + " / 16");
