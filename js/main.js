@@ -1508,8 +1508,8 @@ AGO.Events = {
         AGO.Events.enabled && AGO.Events.modeBehavior && 5 > AGO.Events.modeBehavior && (DOM.setStyleDisplay("eventboxContent", "id"), AGO.Styles.set("#eventboxContent, #eventboxContent #eventListWrap { display: block; }")
         )
     }, Content: function () {
-        var a, b, d, c, e, f, g, h;
-        e = 1;
+        let a, b, d, missionType, pair, f, g, unionType;
+        pair = 1;
         AGO.Events.eData = {};
         AGO.Events.last = 0;
         a = document.getElementById("eventboxContent");
@@ -1521,13 +1521,13 @@ AGO.Events = {
                 DOM.removeClass(a, null, "ago_eventlist_hide");
 
                 if (a = b.querySelector("#eventHeader")) {
-                    c = document.createDocumentFragment();
+                    let c = document.createDocumentFragment();
                     d = DOM.appendA(c, null, {
                         click: function () {
                             AGO.Global.message({role: "reloadEvents"})
                         }
                     });
-                    d = DOM.appendSPAN(d, "icon icon_reload ago_eventlist_reload");
+                    DOM.appendSPAN(d, "icon icon_reload ago_eventlist_reload");
 
                     if (AGO.Events.improve) {
                         DOM.appendSPAN(c, "ago_display_arrow");
@@ -1541,27 +1541,27 @@ AGO.Events = {
             a = b.querySelectorAll("table#eventContent > tbody > tr");
 
             for (d = 0; d < a.length; d++) {
-                c = NMR.parseIntAbs(a[d].getAttribute("data-mission-type"));
+                missionType = NMR.parseIntAbs(a[d].getAttribute("data-mission-type"));
 
                 if (HTML.hasClass(a[d].className, "allianceAttack")) {
                     g = STR.check(NMR.parseIntAbs(a[d].className));
                     f = "F" + g;
-                    h = 1
+                    unionType = 1
                 } else if (HTML.hasClass(a[d].className, "partnerInfo")) {
                     g = STR.check(NMR.parseIntAbs(a[d].className));
                     f = DOM.getAttribute(".icon_movement span", a[d], "data-federation-user-id", 7);
-                    h = g === f ? 2 : 3
+                    unionType = g === f ? 2 : 3
                 } else {
-                    h = g = 0;
+                    unionType = g = 0;
                     f = STR.check(NMR.parseIntAbs(a[d].id));
                 }
 
                 AGO.Events.eData[f] = {
                     id: f,
-                    mission: c,
+                    mission: missionType,
                     arrival: +a[d].getAttribute("data-arrival-time") || 0,
                     union: g || "",
-                    unionType: h || 0,
+                    unionType: unionType || 0,
                     reverse: "true" === a[d].getAttribute("data-return-flight")
                 };
 
@@ -1570,12 +1570,12 @@ AGO.Events = {
                 a[d].addEventListener("click", AGO.Events.clickRow, !1);
                 AGO.Events.parseRow(a[d], AGO.Events.eData[f]);
 
-                if (1 !== h) {
+                if (1 !== unionType) {
                     AGO.Task.updateShips(AGO.Events.eData[f]);
                     AGO.Task.updateResources(AGO.Events.eData[f]);
 
-                    if (3 <= AGO.Events.eData[f].fleetType && 1 !== h && 4 !== c) {
-                        AGO.Events.eData[f].pair = AGO.Events.eData[f].reverse ? AGO.Events.eData[f - 1] ? AGO.Events.eData[f - 1].pair : "" : (5 === c || 15 === c) && AGO.Events.eData[f - 1] && AGO.Events.eData[f - 1].pair ? AGO.Events.eData[f - 1].pair : e++;
+                    if (3 <= AGO.Events.eData[f].fleetType && 1 !== unionType && 4 !== missionType) {
+                        AGO.Events.eData[f].pair = AGO.Events.eData[f].reverse ? AGO.Events.eData[f - 1] ? AGO.Events.eData[f - 1].pair : "" : (5 === missionType || 15 === missionType) && AGO.Events.eData[f - 1] && AGO.Events.eData[f - 1].pair ? AGO.Events.eData[f - 1].pair : pair++;
                     }
 
                     if (AGO.Events.improve) {
@@ -1602,7 +1602,7 @@ AGO.Events = {
                 }
             }
 
-            a = b = a = d = a = c = null
+            a = b = a = d = a = missionType = null
         }
     },
     parseRow: function (a, b) {
@@ -1612,7 +1612,9 @@ AGO.Events = {
             if (HTML.hasClass(c, "countDown")) {
                 DOM.addClass(a, null, HTML.classMission(b.mission));
                 a.className += " ago_panel_add";
-                b.fleetType = HTML.hasClass(c, "neutral") ? 2 : HTML.hasClass(c, "hostile") ? 1 : b.reverse ? 4 : 3;
+
+                let cdClassName = a.querySelector("span").className;
+                b.fleetType = HTML.hasClass(cdClassName, "neutral") ? 2 : HTML.hasClass(cdClassName, "hostile") ? 1 : b.reverse ? 4 : 3;
             } else if (HTML.hasClass(c, "arrivalTime")) {
                 c = (a.textContent || "").split(" ")[0];
                 a.setAttribute("original", c);
