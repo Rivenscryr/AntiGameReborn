@@ -1560,7 +1560,6 @@ AGO.Events = {
         }
     },
     parseRow: function (a, b) {
-        console.log(a, b);
         DOM.iterateChildren(a, function (a) {
             let c;
             c = a.className;
