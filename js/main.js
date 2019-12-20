@@ -1583,7 +1583,7 @@ AGO.Events = {
                         )
                     }
                 } else if (-1 <
-                    c.indexOf("icon_movement") && b.mission !== 16) {
+                    c.indexOf("icon_movement")) {
                     if ((c = a.querySelector("span")
                     ) && 1 !== b.unionType) {
                         a = c.title;
