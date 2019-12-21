@@ -30,6 +30,8 @@ AGO.Messages = {
         checkedMessages: []
     },
 
+    defaultProbeCount: 0,
+
     Load: function () {
         var a;
         OBJ.hasProperties(a = AGO.Data.getStorage(AGO.App.keyPlayer + "_SPY_TABLE_DATA", "JSON")) ? AGO.Messages.spyTableData = a : AGO.Data.setStorage(AGO.App.keyPlayer + "_SPY_TABLE_DATA", AGO.Messages.spyTableData);
@@ -355,6 +357,9 @@ AGO.Messages = {
             if (DOM.query('.compacting', message)) {
                 message.id = 'm' + message.dataset.msgId;
 
+                let defaultProbeCount = DOM.query(".icon_espionage", message).parentNode.getAttribute("onclick").split("(")[1].split(");")[0].split(",")[5];
+                AGO.Messages.defaultProbeCount = AGO.Messages.defaultProbeCount || defaultProbeCount;
+
                 var p = {};
                 p.apiKey = DOM.getAttribute('.icon_apikey', message, 'title', '').match(/sr-([-a-zA-Z0-9]+)/)[0];
                 p.playerName = STR.trim(DOM.query('[class^="status_abbr_"]', message).lastChild.data);
@@ -625,7 +630,7 @@ AGO.Messages = {
             //TO DO
             var aSpy = DOM.appendA(cellActions);
             aSpy.classList.add('spyTableIcon', 'icon', 'icon_eye');
-            aSpy.setAttribute('onclick', message.querySelector("span.icon_espionage").parentNode.getAttribute("onclick"));
+            aSpy.setAttribute('onclick', 'sendShipsWithPopup(6,' + p.galaxy + ',' + p.system + ',' + p.position + ',' + (p.isMoon === '1' ? '3' : '1') + ',' + AGO.Messages.defaultProbeCount + ');return false');
             aSpy.href = '#';
 
 
