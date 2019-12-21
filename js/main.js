@@ -1610,7 +1610,7 @@ AGO.Events = {
             let c;
             c = a.className;
             if (HTML.hasClass(c, "countDown")) {
-                DOM.addClass(a, null, HTML.classMission(b.mission));
+                DOM.addClass("span", a, HTML.classMission(b.mission));
                 a.className += " ago_panel_add";
 
                 let cdClassName = a.querySelector("span").className;
