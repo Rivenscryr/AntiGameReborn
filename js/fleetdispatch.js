@@ -14,6 +14,7 @@ AGO.Fleet1 = {
         DOM.addObserver(DOM.query("#fleetdispatchcomponent"), {childList: true, subtree: true, attributes: true, atrributeFilter: ['style']}, function (mutations) {
             mutations.forEach(mutation => {
                 ["fleet1", "fleet2", "fleet3"].indexOf(mutation.target.id) > -1 && !mutation.target.style.length && (PAGE.Para.currentPage = mutation.target.id);
+                if (PAGE.Para.currentPage == "fleet3" && !PAGE.Para.setFleet3Resurs) PAGE.setFleet3Resurs();
             });
         });
 
@@ -1336,7 +1337,12 @@ AGO.Fleet1 = {
                 PAGE.lastActive = ""
             }, 150
         )
-    }
+    },
+    setFleet3Resurs: function () {
+        a = PAGE.Next;
+        ["metal", "crystal", "deuterium"].forEach(r => DOM.setValue('input[name="'+r+'"]', DOM.query("#fleet3 #inhalt"), a[r], 8));
+        PAGE.Para.setFleet3Resurs = true;
+    }    
 };
 AGO.Task.updateShips = function (a, e) {
     var h;
