@@ -1508,116 +1508,173 @@ AGO.Events = {
         AGO.Events.enabled && AGO.Events.modeBehavior && 5 > AGO.Events.modeBehavior && (DOM.setStyleDisplay("eventboxContent", "id"), AGO.Styles.set("#eventboxContent, #eventboxContent #eventListWrap { display: block; }")
         )
     }, Content: function () {
-        var a, b, d, c, e, f, g, h;
-        e = 1;
+        let a, b, d, missionType, pair, f, g, unionType;
+        pair = 1;
         AGO.Events.eData = {};
         AGO.Events.last = 0;
         a = document.getElementById("eventboxContent");
         b = document.getElementById("eventListWrap");
-        if (AGO.Events.status && a && b && DOM.updateAttribute(b, null, "ago-status",
-            1, 8
-        )) {
+        if (AGO.Events.status && a && b && DOM.updateAttribute(b, null, "ago-status", 1, 8)) {
             AGO.Events.status = 2;
-            AGO.Events.enabled && (DOM.removeClass(a, null, "ago_eventlist_hide"), a = b.querySelector("#eventHeader")
-            ) && (c = document.createDocumentFragment(), d = DOM.appendA(c, null, {
+
+            if (AGO.Events.enabled) {
+                DOM.removeClass(a, null, "ago_eventlist_hide");
+
+                if (a = b.querySelector("#eventHeader")) {
+                    let c = document.createDocumentFragment();
+                    d = DOM.appendA(c, null, {
                         click: function () {
                             AGO.Global.message({role: "reloadEvents"})
                         }
+                    });
+                    DOM.appendSPAN(d, "icon icon_reload ago_eventlist_reload");
+
+                    if (AGO.Events.improve) {
+                        DOM.appendSPAN(c, "ago_display_arrow");
+                        a.addEventListener("click", AGO.Events.toggleEvents, !1);
                     }
-                ), d = DOM.appendSPAN(d, "icon icon_reload ago_eventlist_reload"), AGO.Events.improve && (DOM.appendSPAN(c, "ago_display_arrow"), a.addEventListener("click", AGO.Events.toggleEvents, !1)
-                ), DOM.prependChild(a, c)
-            );
+
+                    DOM.prependChild(a, c);
+                }
+            }
+
             a = b.querySelectorAll("table#eventContent > tbody > tr");
+
             for (d = 0; d < a.length; d++) {
-                c = NMR.parseIntAbs(a[d].getAttribute("data-mission-type")), HTML.hasClass(a[d].className, "allianceAttack") ? (g = STR.check(NMR.parseIntAbs(a[d].className)), f = "F" + g, h = 1
-                ) : HTML.hasClass(a[d].className, "partnerInfo") ? (g = STR.check(NMR.parseIntAbs(a[d].className)), f = DOM.getAttribute(".icon_movement span", a[d], "data-federation-user-id", 7), h = g === f ? 2 : 3
-                ) : (h = g = 0, f = STR.check(NMR.parseIntAbs(a[d].id))
-                ), AGO.Events.eData[f] = {
+                missionType = NMR.parseIntAbs(a[d].getAttribute("data-mission-type"));
+
+                if (HTML.hasClass(a[d].className, "allianceAttack")) {
+                    g = STR.check(NMR.parseIntAbs(a[d].className));
+                    f = "F" + g;
+                    unionType = 1
+                } else if (HTML.hasClass(a[d].className, "partnerInfo")) {
+                    g = STR.check(NMR.parseIntAbs(a[d].className));
+                    f = DOM.getAttribute(".icon_movement span", a[d], "data-federation-user-id", 7);
+                    unionType = g === f ? 2 : 3
+                } else {
+                    unionType = g = 0;
+                    f = STR.check(NMR.parseIntAbs(a[d].id));
+                }
+
+                AGO.Events.eData[f] = {
                     id: f,
-                    mission: c,
+                    mission: missionType,
                     arrival: +a[d].getAttribute("data-arrival-time") || 0,
-                    union: g ||
-                        "",
-                    unionType: h || 0,
+                    union: g || "",
+                    unionType: unionType || 0,
                     reverse: "true" === a[d].getAttribute("data-return-flight")
-                }, AGO.Events.modeColorMissions && AGO.Events.eData[f].reverse && (a[d].className += " ago_events_reverse"
-                ), a[d].addEventListener("click", AGO.Events.clickRow, !1), AGO.Events.parseRow(a[d], AGO.Events.eData[f]), 1 !== h && (AGO.Task.updateShips(AGO.Events.eData[f]), AGO.Task.updateResources(AGO.Events.eData[f]), 3 <= AGO.Events.eData[f].fleetType && 1 !== h && 4 !== c && (AGO.Events.eData[f].pair = AGO.Events.eData[f].reverse ? AGO.Events.eData[f - 1] ? AGO.Events.eData[f -
-                        1].pair : "" : (5 === c || 15 === c
-                        ) && AGO.Events.eData[f - 1] && AGO.Events.eData[f - 1].pair ? AGO.Events.eData[f - 1].pair : e++
-                    ), AGO.Events.improve && (AGO.Events.eData[f].pair && (a[d].setAttribute("ago-events-pair", AGO.Events.eData[f].pair), a[d].addEventListener("mouseover", AGO.Events.displayPair, !1), a[d].addEventListener("mouseout", AGO.Events.displayPair, !1)
-                        ), AGO.Events.createDetails(a[d], AGO.Events.eData[f])
-                    )
-                );
+                };
+
+                AGO.Events.modeColorMissions && AGO.Events.eData[f].reverse && (a[d].className += " ago_events_reverse");
+
+                a[d].addEventListener("click", AGO.Events.clickRow, !1);
+                AGO.Events.parseRow(a[d], AGO.Events.eData[f]);
+
+                if (1 !== unionType) {
+                    AGO.Task.updateShips(AGO.Events.eData[f]);
+                    AGO.Task.updateResources(AGO.Events.eData[f]);
+
+                    if (3 <= AGO.Events.eData[f].fleetType && 1 !== unionType && 4 !== missionType) {
+                        AGO.Events.eData[f].pair = AGO.Events.eData[f].reverse ? AGO.Events.eData[f - 1] ? AGO.Events.eData[f - 1].pair : "" : (5 === missionType || 15 === missionType) && AGO.Events.eData[f - 1] && AGO.Events.eData[f - 1].pair ? AGO.Events.eData[f - 1].pair : pair++;
+                    }
+
+                    if (AGO.Events.improve) {
+                        if (AGO.Events.eData[f].pair) {
+                            a[d].setAttribute("ago-events-pair", AGO.Events.eData[f].pair);
+                            a[d].addEventListener("mouseover", AGO.Events.displayPair, !1);
+                            a[d].addEventListener("mouseout", AGO.Events.displayPair, !1);
+                        }
+
+                        AGO.Events.createDetails(a[d], AGO.Events.eData[f]);
+                    }
+                }
             }
+
             for (f in AGO.Events.eData) {
-                AGO.Events.eData.hasOwnProperty(f) && (1 === AGO.Events.eData[f].unionType && (AGO.Task.updateShips(AGO.Events.eData[f]),
-                            AGO.Task.updateResources(AGO.Events.eData[f]), AGO.Events.improve && AGO.Events.createDetails(b.querySelector("table#eventContent tr.union" + AGO.Events.eData[f].union), AGO.Events.eData[f])
-                    ), 2 === AGO.Events.eData[f].fleetType && 5 === AGO.Events.eData[f].mission && AGO.Events.eData[f - 1] && (AGO.Events.eData[f].nocalc = !0
-                    )
-                );
+                if (AGO.Events.eData.hasOwnProperty(f)) {
+                    if (1 === AGO.Events.eData[f].unionType) {
+                        AGO.Task.updateShips(AGO.Events.eData[f]);
+                        AGO.Task.updateResources(AGO.Events.eData[f]);
+                        AGO.Events.improve && AGO.Events.createDetails(b.querySelector("table#eventContent tr.union" + AGO.Events.eData[f].union), AGO.Events.eData[f]);
+                    }
+
+                    2 === AGO.Events.eData[f].fleetType && 5 === AGO.Events.eData[f].mission && AGO.Events.eData[f - 1] && (AGO.Events.eData[f].nocalc = !0)
+                }
             }
-            a = b = a = d = a = c = null
+
+            a = b = a = d = a = missionType = null
         }
-    }, parseRow: function (a, b) {
+    },
+    parseRow: function (a, b) {
         DOM.iterateChildren(a, function (a) {
-                var c;
-                c = a.className;
-                if (HTML.hasClass(c, "countDown")) {
-                    DOM.addClass(a, null, HTML.classMission(b.mission)), a.className +=
-                        " ago_panel_add", b.fleetType = HTML.hasClass(c, "neutral") ? 2 : HTML.hasClass(c, "hostile") ? 1 : b.reverse ? 4 : 3;
-                } else if (HTML.hasClass(c, "arrivalTime")) {
-                    c = (a.textContent || ""
-                    ).split(" ")[0], a.setAttribute("original", c), a.textContent = AGO.Time.convertLocal(c, "[H]:[i]:[s]");
-                } else if (HTML.hasClass(c, "missionFleet")) {
-                    b.missionName = 2 <= b.unionType ? "" : b.unionType ? AGO.Label.get("LM02") : DOM.getAttribute("img", a, "title", 7).split("|")[1];
-                } else if (HTML.hasClass(c, "originFleet")) {
-                    if (c = a.querySelector("figure")) {
-                        b.typeOrigin = HTML.hasClass(c.className, "moon") ?
-                            3 : HTML.hasClass(c.className, "tf") ? 2 : 1
+            let c;
+            c = a.className;
+            if (HTML.hasClass(c, "countDown")) {
+                DOM.addClass("span", a, HTML.classMission(b.mission));
+                a.className += " ago_panel_add";
+
+                let cdClassName = a.querySelector("span").className;
+                b.fleetType = HTML.hasClass(cdClassName, "neutral") ? 2 : HTML.hasClass(cdClassName, "hostile") ? 1 : b.reverse ? 4 : 3;
+            } else if (HTML.hasClass(c, "arrivalTime")) {
+                c = (a.textContent || "").split(" ")[0];
+                a.setAttribute("original", c);
+                a.textContent = AGO.Time.convertLocal(c, "[H]:[i]:[s]");
+            } else if (HTML.hasClass(c, "missionFleet")) {
+                b.missionName = 2 <= b.unionType ? "" : b.unionType ? AGO.Label.get("LM02") : DOM.getAttribute("img", a, "title", 7).split("|")[1];
+            } else if (HTML.hasClass(c, "originFleet")) {
+                if (c = a.querySelector("figure")) {
+                    b.typeOrigin = HTML.hasClass(c.className, "moon") ? 3 : HTML.hasClass(c.className, "tf") ? 2 : 1;
+                }
+            } else if (HTML.hasClass(c, "coordsOrigin")) {
+                if (c = a.querySelector("a")) {
+                    b.coordsOrigin = AGO.Task.trimCoords(c.textContent);
+                    b.owncoordsOrigin = AGO.Planets.owncoords(b.coordsOrigin, b.typeOrigin);
+                    if (b.owncoordsOrigin) {
+                        b.reverse || (5 === b.mission || 15 === b.mission) && AGO.Events.last === +b.id - 1 || (AGO.Events.last = Math.max(AGO.Events.last, +b.id || 0));
+                        DOM.addClass(c, null, AGO.Token.getClassSelection(b.typeOrigin));
+                        3 <= b.owncoordsOrigin && DOM.extendClass(a, null, AGO.Token.getClassHighlight(b.typeOrigin));
                     }
-                } else if (HTML.hasClass(c, "coordsOrigin")) {
-                    if (c = a.querySelector("a")) {
-                        b.coordsOrigin = AGO.Task.trimCoords(c.textContent), b.owncoordsOrigin = AGO.Planets.owncoords(b.coordsOrigin, b.typeOrigin), b.owncoordsOrigin && (b.reverse || (5 === b.mission || 15 === b.mission
-                            ) && AGO.Events.last === +b.id - 1 || (AGO.Events.last = Math.max(AGO.Events.last, +b.id || 0)
-                            ), DOM.addClass(c, null, AGO.Token.getClassSelection(b.typeOrigin)), 3 <= b.owncoordsOrigin && DOM.extendClass(a, null, AGO.Token.getClassHighlight(b.typeOrigin))
-                        )
-                    }
-                } else if (-1 <
-                    c.indexOf("icon_movement")) {
-                    if ((c = a.querySelector("span")
-                    ) && 1 !== b.unionType) {
-                        a = c.title;
-                        var e;
-                        if (a) {
-                            for (a = a.split("<td>"), 2 <= b.unionType && AGO.Events.eData["F" + b.union] && (AGO.Events.eData["F" + b.union].fleets = (AGO.Events.eData["F" + b.union].fleets || 0
-                                ) + 1
-                            ), c = 1; c < a.length; c++) {
-                                if (e = (a[c].split("</td>", 1)[0] || ""
-                                ).replace(/\:/g, "").trim(), e = AGO.Item.getByName(e)) {
-                                    b[e] = NMR.parseIntAbs(a[c].split(">", 3)[2]), b[e] && 2 <= b.unionType && AGO.Events.eData["F" + b.union] && (AGO.Events.eData["F" + b.union][e] = (AGO.Events.eData["F" +
-                                            b.union][e] || 0
-                                        ) + b[e]
-                                    )
+                }
+            } else if (-1 < c.indexOf("icon_movement")) {
+                if ((c = a.querySelector("span")) && 1 !== b.unionType) {
+                    a = c.title;
+                    var e;
+                    if (a) {
+                        a = a.split(/<td colspan="2">|<td>/);
+
+                        if (2 <= b.unionType && AGO.Events.eData["F" + b.union]) {
+                            AGO.Events.eData["F" + b.union].fleets = (AGO.Events.eData["F" + b.union].fleets || 0) + 1;
+                        }
+
+                        for (c = 1; c < a.length; c++) {
+                            e = (a[c].split("</td>", 1)[0] || "").replace(/\:/g, "").trim();
+                            if (e = AGO.Item.getByName(e)) {
+                                b[e] = NMR.parseIntAbs(a[c].split(">", 3)[2]);
+                                if (b[e] && 2 <= b.unionType && AGO.Events.eData["F" + b.union]) {
+                                    AGO.Events.eData["F" + b.union][e] = (AGO.Events.eData["F" + b.union][e] || 0) + b[e]
                                 }
                             }
                         }
                     }
-                } else if (HTML.hasClass(c, "destFleet")) {
-                    if (c = a.querySelector("figure")) {
-                        b.type = HTML.hasClass(c.className, "moon") ? 3 : HTML.hasClass(c.className, "tf") ? 2 : 1
-                    }
-                } else if (HTML.hasClass(c, "destCoords")) {
-                    if (c = a.querySelector("a")) {
-                        b.coords = AGO.Task.trimCoords(c.textContent), b.owncoords = AGO.Planets.owncoords(b.coords, b.type), b.owncoords && (DOM.addClass(c, null, AGO.Token.getClassSelection(b.type)), 3 <= b.owncoords && DOM.extendClass(a, null, AGO.Token.getClassHighlight(b.type))
-                        )
-                    }
-                } else {
-                    HTML.hasClass(c, "sendMail") &&
-                    (b.nick = DOM.getAttribute(DOM.getChildnodeByName(a, "A"), null, "title", 7)
-                    )
                 }
+            } else if (HTML.hasClass(c, "destFleet")) {
+                if (c = a.querySelector("figure")) {
+                    b.type = HTML.hasClass(c.className, "moon") ? 3 : HTML.hasClass(c.className, "tf") ? 2 : 1
+                }
+            } else if (HTML.hasClass(c, "destCoords")) {
+                if (c = a.querySelector("a")) {
+                    b.coords = AGO.Task.trimCoords(c.textContent);
+                    b.owncoords = AGO.Planets.owncoords(b.coords, b.type);
+
+                    if (b.owncoords) {
+                        DOM.addClass(c, null, AGO.Token.getClassSelection(b.type));
+                        3 <= b.owncoords && DOM.extendClass(a, null, AGO.Token.getClassHighlight(b.type));
+                    }
+                }
+            } else {
+                HTML.hasClass(c, "sendMail") && (b.nick = DOM.getAttribute(DOM.getChildnodeByName(a, "A"), null, "title", 7))
             }
-        )
+        });
     }, createDetails: function (a, b) {
         var d, c, e;
         1 === b.unionType && b.fleets && DOM.setText(".originFleet", a, b.fleets + " / 16");
