@@ -281,6 +281,7 @@ var AGO = {
             l = !1;
             m = +AGO.Data.U62 || 0;
             g = AGO.Data.page;
+            console.log("c:", c, "e:", e)
             -1 < e.indexOf("ago_menu_help") ? (k = !0, m = Math.max(m, 5), f.hideOthers = !0, f.maxWidth = Math.max(Math.min(600, window.innerWidth - 30), 0), e.indexOf("ago_menu_help_label" > -1) ?
                     f.hook = {
                         target: "topleft",
@@ -326,6 +327,7 @@ var AGO = {
             l ? f.showOn = !1 : k && (f.showDelay =
                     Math.max(100 * m, 100)
             );
+            console.log("f:", f)
             return f
         }
     }, Jumpgate: function () {
