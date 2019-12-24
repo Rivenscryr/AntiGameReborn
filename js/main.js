@@ -1440,7 +1440,7 @@ AGO.Box = {
                                 }
                             ), DOM.appendIMG(c, HTML.urlTypeIcon(3, "a"), "14px")
                         )
-                    ) : (DOM.appendA(c, {href: "index.php?page=fleet1" + g + "&type=1"}).textContent = e.planetName, e.moonId && (c = DOM.appendA(c, {href: "index.php?page=fleet1" + g + "&type=3"}), DOM.appendIMG(c, HTML.urlTypeIcon(3, "a"), "14px")
+                    ) : (DOM.appendA(c, {href: "index.php?page=ingame&component=fleetdispatch" + g + "&type=1"}).textContent = e.planetName, e.moonId && (c = DOM.appendA(c, {href: "index.php?page=ingame&component=fleetdispatch" + g + "&type=3"}), DOM.appendIMG(c, HTML.urlTypeIcon(3, "a"), "14px")
                         )
                     );
                 }
