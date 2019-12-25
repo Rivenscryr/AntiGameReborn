@@ -1340,7 +1340,10 @@ AGO.Fleet1 = {
     },
     setFleet3Resurs: function () {
         a = PAGE.Next;
-        ["metal", "crystal", "deuterium"].forEach(r => DOM.setValue('input[name="'+r+'"]', DOM.query("#fleet3 #inhalt"), a[r], 8));
+        ["metal", "crystal", "deuterium"].forEach(r => {
+            DOM.setValue('input[name="'+r+'"]', DOM.query("#fleet3 #inhalt"), a[r], 8);
+            DOM.trigger('input[name="'+r+'"]', 0, "keyup");
+        });
         PAGE.Para.setFleet3Resurs = true;
     }    
 };
