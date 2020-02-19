@@ -273,10 +273,7 @@ AGO.Item = {
     21: {metal: 400, crystal: 200, deuterium: 100, factor: 2},
     22: {metal: 1E3, crystal: 0, deuterium: 0, factor: 2},
     23: {metal: 1E3, crystal: 500, deuterium: 0, factor: 2},
-    24: {
-        metal: 1E3,
-        crystal: 1E3, deuterium: 0, factor: 2
-    },
+    24: {metal: 1E3,crystal: 1E3, deuterium: 0, factor: 2},
     25: {metal: 2645, crystal: 0, deuterium: 0, factor: 2.3},
     26: {metal: 2645, crystal: 1322, deuterium: 0, factor: 2.3},
     27: {metal: 2645, crystal: 2645, deuterium: 0, factor: 2.3},
@@ -287,10 +284,7 @@ AGO.Item = {
     41: {metal: 2E4, crystal: 4E4, deuterium: 2E4, factor: 2},
     42: {metal: 2E4, crystal: 4E4, deuterium: 2E4, factor: 2},
     43: {metal: 2E6, crystal: 4E6, deuterium: 2E6, factor: 2},
-    44: {
-        metal: 2E4, crystal: 2E4,
-        deuterium: 1E3, factor: 2
-    },
+    44: {metal: 2E4, crystal: 2E4,deuterium: 1E3, factor: 2},
     106: {metal: 200, crystal: 1E3, deuterium: 200, factor: 2},
     108: {metal: 0, crystal: 400, deuterium: 600, factor: 2},
     109: {metal: 800, crystal: 200, deuterium: 0, factor: 2},
@@ -300,31 +294,34 @@ AGO.Item = {
     114: {metal: 0, crystal: 4E3, deuterium: 2E3, factor: 2},
     115: {metal: 400, crystal: 0, deuterium: 600, factor: 2},
     117: {metal: 2E3, crystal: 4E3, deuterium: 600, factor: 2},
-    118: {
-        metal: 1E4, crystal: 2E4, deuterium: 6E3,
-        factor: 2
-    },
+    118: {metal: 1E4, crystal: 2E4, deuterium: 6E3, factor: 2},
     120: {metal: 200, crystal: 100, deuterium: 0, factor: 2},
     121: {metal: 1E3, crystal: 300, deuterium: 100, factor: 2},
     122: {metal: 2E3, crystal: 4E3, deuterium: 1E3, factor: 2},
     123: {metal: 24E4, crystal: 4E5, deuterium: 16E4, factor: 2},
     124: {metal: 4E3, crystal: 8E3, deuterium: 4E3, factor: 1.75},
     199: {metal: 0, crystal: 0, deuterium: 0, factor: 3},
-    202: {
+    202: { /* PT */
         metal: 2E3,
         crystal: 2E3,
         deuterium: 0,
         retreat: 1E3,
         drive: "115",
-        speed: 5E3,
+        speed: 10E4,
         capacity: 5E3,
-        consumption: 10
+        consumption: 20
     },
-    203: {
-        metal: 6E3, crystal: 6E3, deuterium: 0, retreat: 3E3, drive: "115", speed: 7500, capacity: 25E3,
+    203: { /* GT */
+        metal: 6E3, 
+        crystal: 6E3, 
+        deuterium: 0, 
+        retreat: 3E3, 
+        drive: "115", 
+        speed: 7500, 
+        capacity: 25E3,
         consumption: 50
     },
-    204: {
+    204: { /* Ch Leg */
         metal: 3E3,
         crystal: 1E3,
         deuterium: 0,
@@ -334,7 +331,7 @@ AGO.Item = {
         capacity: 50,
         consumption: 20
     },
-    205: {
+    205: { /* Ch lourd */
         metal: 6E3,
         crystal: 4E3,
         deuterium: 0,
@@ -344,7 +341,7 @@ AGO.Item = {
         capacity: 100,
         consumption: 75
     },
-    206: {
+    206: { /* croiseur */
         metal: 2E4,
         crystal: 7E3,
         deuterium: 2E3,
@@ -354,7 +351,7 @@ AGO.Item = {
         capacity: 800,
         consumption: 300
     },
-    207: {
+    207: { /* VB */
         metal: 45E3,
         crystal: 15E3,
         deuterium: 0,
@@ -364,11 +361,17 @@ AGO.Item = {
         capacity: 1500,
         consumption: 500
     },
-    208: {
-        metal: 1E4, crystal: 2E4, deuterium: 1E4, retreat: 1E4, drive: "117", speed: 2500,
-        capacity: 7500, consumption: 1E3
+    208: {/* colo */
+        metal: 1E4, 
+        crystal: 2E4, 
+        deuterium: 1E4, 
+        retreat: 1E4, 
+        drive: "117", 
+        speed: 2500,
+        capacity: 7500, 
+        consumption: 1E3
     },
-    209: {
+    209: { /* recy */
         metal: 1E4,
         crystal: 6E3,
         deuterium: 2E3,
@@ -378,9 +381,18 @@ AGO.Item = {
         capacity: 2E4,
         consumption: 300
     },
-    210: {metal: 0, crystal: 1E3, deuterium: 0, retreat: 0, drive: "115", speed: 1E8, capacity: 0, consumption: 1},
-    211: {
-        metal: 5E4,
+    210: { /* sonde */
+        metal: 0, 
+        crystal: 1E3, 
+        deuterium: 0, 
+        retreat: 0, 
+        drive: "115", 
+        speed: 1E8, 
+        capacity: 0, 
+        consumption: 1
+    },
+    211: { /* bomb */
+        metal: 5E4, 
         crystal: 25E3,
         deuterium: 15E3,
         retreat: 9E4,
@@ -389,12 +401,26 @@ AGO.Item = {
         capacity: 500,
         consumption: 1E3
     },
-    212: {metal: 0, crystal: 2E3, deuterium: 500, retreat: 0, drive: 0, speed: 0, capacity: 0, consumption: 0},
-    213: {
-        metal: 6E4, crystal: 5E4, deuterium: 15E3, retreat: 125E3, drive: "118", speed: 5E3,
-        capacity: 2E3, consumption: 1E3
+    212: { /* sat sol */
+        metal: 0, 
+        crystal: 2E3, 
+        deuterium: 500, 
+        retreat: 0, 
+        drive: 0, 
+        speed: 0, 
+        capacity: 0, 
+        consumption: 0},
+    213: {/* destro */
+        metal: 6E4, 
+        crystal: 5E4, 
+        deuterium: 15E3, 
+        retreat: 125E3, 
+        drive: "118", 
+        speed: 5E3,
+        capacity: 2E3, 
+        consumption: 1E3
     },
-    214: {
+    214: { /* EDLM */
         metal: 5E6,
         crystal: 4E6,
         deuterium: 1E6,
@@ -404,7 +430,7 @@ AGO.Item = {
         capacity: 1E6,
         consumption: 1
     },
-    215: {
+    215: { /* traqueur */
         metal: 3E4,
         crystal: 4E4,
         deuterium: 15E3,
@@ -414,7 +440,7 @@ AGO.Item = {
         capacity: 750,
         consumption: 250
     },
-    217: {
+    217: { /* foreuse */
         metal: 2E3,
         crystal: 2E3,
         deuterium: 1E3,
@@ -424,7 +450,7 @@ AGO.Item = {
         capacity: 0,
         consumption: 0
     },
-    218: {
+    218: { /* reaper */
         metal: 85E3,
         crystal: 55E3,
         deuterium: 2E4,
@@ -434,7 +460,7 @@ AGO.Item = {
         capacity: 1E4,
         consumption: 900
     },
-    219: {
+    219: {/* pathfinder */
         metal: 8E3,
         crystal: 15E3,
         deuterium: 8E3,
@@ -444,16 +470,16 @@ AGO.Item = {
         capacity: 1E4,
         consumption: 300
     },
-    401: {metal: 2E3, crystal: 0, deuterium: 0, retreat: 2E3},
-    402: {metal: 1500, crystal: 500, deuterium: 0, retreat: 2E3},
-    403: {metal: 6E3, crystal: 2E3, deuterium: 0, retreat: 8E3},
-    404: {metal: 2E4, crystal: 15E3, deuterium: 2E3, retreat: 37E3},
-    405: {metal: 2E3, crystal: 6E3, deuterium: 0, retreat: 8E3},
-    406: {metal: 5E4, crystal: 5E4, deuterium: 3E4, retreat: 13E4},
-    407: {metal: 1E4, crystal: 1E4, deuterium: 0, retreat: 2E4},
-    408: {metal: 5E4, crystal: 5E4, deuterium: 0, retreat: 1E5},
-    502: {metal: 8E3, crystal: 0, deuterium: 2E3, retreat: 0},
-    503: {metal: 12500, crystal: 2500, deuterium: 1E4, retreat: 0},
+    401: {metal: 2E3, crystal: 0, deuterium: 0, retreat: 2E3}, /*LM*/
+    402: {metal: 1500, crystal: 500, deuterium: 0, retreat: 2E3},/*ArtLeg*/
+    403: {metal: 6E3, crystal: 2E3, deuterium: 0, retreat: 8E3},/*ArtLou*/
+    404: {metal: 2E4, crystal: 15E3, deuterium: 2E3, retreat: 37E3},/*Gauss*/
+    405: {metal: 5E3, crystal: 3E3, deuterium: 0, retreat: 8E3},/*Ion*/
+    406: {metal: 5E4, crystal: 5E4, deuterium: 3E4, retreat: 13E4},/*plasma*/
+    407: {metal: 1E4, crystal: 1E4, deuterium: 0, retreat: 2E4},/*PB*/
+    408: {metal: 5E4, crystal: 5E4, deuterium: 0, retreat: 1E5},/*GB*/
+    502: {metal: 8E3, crystal: 0, deuterium: 2E3, retreat: 0},/*Inter*/
+    503: {metal: 12500, crystal: 2500, deuterium: 1E4, retreat: 0}, /* Mip */
     Mining: {1: 1, 2: 1, 3: 1, 4: 1, 12: 1, 22: 1, 23: 1, 24: 1, 25: 1, 26: 1, 27: 1, 212: 1},
     Station: {14: 1, 15: 1, 21: 1, 31: 1, 33: 1, 34: 1, 36: 1, 41: 1, 42: 1, 43: 1, 44: 1},
     Ship: {
