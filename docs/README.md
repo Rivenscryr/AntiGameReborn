@@ -2,6 +2,8 @@
 
 This is the GitHub repository for the popular [OGame](https://ogame.gameforge.com) addon AntiGameReborn.
 
+**NOTE (19.02.2020):** This repository is outdated because I moved the project to a private repo. Do not make pull requests as they will be ignored. If you want to join the AGR team to work on it long term, hit me up on Discord.
+
 ### Installation
 
 [Download AntiGameReborn for Chrome / Opera](https://chrome.google.com/webstore/detail/mhfbpacbhjchkjeopjfgdhckepclcfll/)
