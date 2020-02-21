@@ -591,7 +591,9 @@ AGO.Building = {
 
                 let premiumButton;
                 if (premiumButton = DOM.query("a.build-it_premium", wrapper)) {
-                    DOM.before(premiumButton, DOM.append(null, "p", "premium_info"))
+                    if (premiumButton.parentNode.querySelectorAll("p.premium_info").length === 0) {
+                        DOM.before(premiumButton, DOM.append(null, "p", "premium_info"))
+                    }
                 }
             }
         } else {
