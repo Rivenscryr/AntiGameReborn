@@ -1,5 +1,0 @@
-Copyright (c) 2018 - AntiGameReborn by RiV- / based on the work of Francolino
-
-1. AntiGameReborn is not open source. Code changes are prohibited and it is strictly forbidden to distribute AntiGameReborn or modified versions.
-2. AntiGameReborn is for private use only.
-3. You use AntiGameReborn "as it is" on your own risk and please respect "fair play".
