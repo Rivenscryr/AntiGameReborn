@@ -2,6 +2,7 @@
 lang: de
 page: changelog
 layout: changelog
+title: Changelog
 ---
 ### Version 6.8.5.3
 * [Polishing] Hyperspacetech-Unterstützung in TrashSim-Links
