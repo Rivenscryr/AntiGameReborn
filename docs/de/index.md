@@ -7,7 +7,7 @@ title: Home
 Willkommen auf der Homepage von **AntiGameReborn**, dem beliebtesten Addon für das
 Browsergame OGame.
 
-AntiGameReborn biete eine Menge an nützlichen Funktionen für jede Spielweise:
+AntiGameReborn bietet eine Menge an nützlichen Funktionen für jede Spielweise:
 
 * Spionageberichte werden in den Nachrichten in einer übersichtlichen Tabelle
 angezeigt, mit der man alle Berichte sehr bequem sortieren und filtern kann.
