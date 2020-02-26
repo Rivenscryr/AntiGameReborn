@@ -1,0 +1,14 @@
+---
+layout: default
+---
+<h2 id="changelog">Changelog</h2>
+
+<ul>
+{% for version in site.data.versions %}
+  <li>
+    <a href="#{{ version.id }}">Version {{ version.number }}</a>
+  </li>
+{% endfor %}
+</ul>
+
+{{ content }}
