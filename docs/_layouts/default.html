@@ -35,11 +35,11 @@
           {% endif %}
         </nav>
         <div class="lang">
-          <a href="/AntiGameReborn/de/{{ page.page }}">DE</a>
+          <a href="/de/{{ page.page }}">DE</a>
           |
-          <a href="/AntiGameReborn/en/{{ page.page }}">EN</a>
+          <a href="/en/{{ page.page }}">EN</a>
           |
-          <a href="/AntiGameReborn/fr/{{ page.page }}">FR</a>
+          <a href="/fr/{{ page.page }}">FR</a>
         </div>
       </div><!-- end header -->
 
@@ -58,7 +58,7 @@
 
         <div id="navigation">
           {% for item in site.data.navigation.pages[page.lang] %}
-            <a href="/AntiGameReborn/{{ page.lang }}/{{ item.url }}">{{ item.title }}</a>
+            <a href="/{{ page.lang }}/{{ item.url }}">{{ item.title }}</a>
           {% endfor %}
         </div>
 
