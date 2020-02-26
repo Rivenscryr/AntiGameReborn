@@ -2,6 +2,8 @@
 redirect_from: "/changelog/"
 lang: fr
 page: changelog
+layout: changelog
+title: Changelog
 ---
 
 ## Changelog
