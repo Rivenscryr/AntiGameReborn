@@ -2,9 +2,8 @@
 redirect_from: "/changelog/"
 lang: en
 page: changelog
+layout: changelog
 ---
-
-## Changelog
 ### Version 6.8.5.3
 * [Polishing] Hyperspace Tech support in TrashSim links
 
