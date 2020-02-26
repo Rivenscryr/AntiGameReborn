@@ -2,6 +2,7 @@
 redirect_from: "/"
 lang: en
 page: 
+title: Home
 ---
 
 Welcome to the homepage of **AntiGameReborn**, the most popular addon for the 
