@@ -1,0 +1,59 @@
+- number: 7.1.0.2
+  id: version-7102
+
+- number: 7.1.0.1
+  id: version-7101
+
+- number: 7.1.0
+  id: version-710
+
+- number: 7.0.0.2
+  id: version-7002
+
+- number: 7.0.0.1
+  id: version-7001
+
+- number: 7.0.0
+  id: version-700
+  
+- number: 6.8.8
+  id: version-688
+
+- number: 6.8.5.3
+  id: version-6853
+
+- number: 6.8.5.2
+  id: version-6852
+
+- number: 6.8.5
+  id: version-685
+
+- number: 6.8.3.3
+  id: version-6833
+
+- number: 6.8.3.2
+  id: version-6832
+  
+- number: 6.8.3.1
+  id: version-6831
+  
+- number: 6.8.3
+  id: version-683
+  
+- number: 6.8.0.1
+  id: version-6801
+  
+- number: 6.8.0
+  id: version-680
+  
+- number: 6.7.2.3
+  id: version-6723
+  
+- number: 6.7.2.1
+  id: version-6721
+  
+- number: 6.7.2
+  id: version-672
+  
+- number: 6.7.0
+  id: version-670
