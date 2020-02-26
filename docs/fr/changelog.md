@@ -5,8 +5,6 @@ page: changelog
 layout: changelog
 title: Changelog
 ---
-
-## Changelog
 ### Version 6.8.5
 * [Feature] La table des espions est maintenant étendue lors de la navigation dans les pages
 * [Bugfix/Polishing] Amélioration du chargement des amis/membres de l'alliance dans le partage.
