@@ -5,6 +5,47 @@ page: changelog
 layout: changelog
 title: Changelog
 ---
+### Version 7.1.0.2
+* [Bugfix] Fix for broken spy table
+
+### Version 7.1.0.1
+* [Bugfix] "Transport" button in Constructions tab was leading to an error (unfortunately the resources are still not loaded automatically)
+* [Bugfix] Some fixes for event list parsing, still buggy though (thanks to @inc0 for helping out with this)
+* [Bugfix] Fixed probing from spy table sending only 1 probe
+
+### Version 7.1.0
+* [Feature] Option to center shipyard icons and separate horizontally
+* [Polishing] Civil ships and military ships are now separated visually in jumpgate overlay
+* [Bugfix] CSS fix for tech details overlay
+* [Bugfix] Fix planet overview / parsing resource production
+* [Bugfix] Fleet routines are semi-working, be careful when using those and double check your fleets; full functionality isn't recovered yet!
+* [Bugfix] Coords box doesn't lead to an error page anymore (thanks @l0rd)
+* [Bugfix] Fix for reloading eventlist manually
+
+### Version 7.0.0.2
+* [Bugfix] Stupidity.
+
+### Version 7.0.0.1
+* [Bugfix] Fixed planetlist CSS
+* [Bugfix] Fixed wrong links in spy table
+* [Bugfix] Fixed wrong resource labels
+
+### Version 7.0.0
+* [Bugfix/Polishing/Feature] Adapted some features to 7.0.0
+* [Bugfix/Polishing/Feature] Introduced new ships to AGR
+* [Bugfix] Rounding bug in Astro costs
+
+### Version 6.8.8
+* [Feature] Sort coordinates in Panel and Spy table by distance (in colaboration with @Horcon)
+* [Polishing] Removed Ogniter
+* [Feature] Added native support for mmorpg-stat instead
+* [Feature] Variable distance in Fleetsave routine
+* [Polishing] Explicit 0s in task/routine settings are now supported
+* [Bugfix] Fixed a bug in the background process that caused loss of data
+* [Polishing] Added tooltip with resource composition in the "total" line in the spy table (thanks @Horcon)
+* [Bugfix] Fixed a minor bug in the collect routine
+* [Misc] Donation button in the AGR menu
+
 ### Version 6.8.5.3
 * [Polishing] Hyperspace Tech support in TrashSim links
 
