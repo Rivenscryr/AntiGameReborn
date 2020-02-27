@@ -4,6 +4,44 @@ page: changelog
 layout: changelog
 title: Changelog
 ---
+### Version 7.1.0.2
+* [Bugfix] Fix fürs Erweitern der Spiotabelle beim Blättern
+
+### Version 7.1.0.1
+* [Bugfix] "Transport" Button im Konstruktionen-Panel führte zu einer Error-Seite (die Ress werden leider trotzdem nicht automatisch eingeladen)
+* [Bugfix] Einige Fixes für die Eventliste, aber immer noch buggy (Danke an @inc0 für die Mitarbeit)
+* [Bugfix] Spionieren aus der Spiotabelle sendet nun die korrekte Anzahl an Spios
+
+### Version 7.1.0
+* [Feature] Option um Schiffe in der Schiffswerft zu zentrieren und untereinander anzuzeigen
+* [Polishing] Zivile Schiffe und Militärschiffe werden im Sprungtor-Overlay visuell getrennt
+* [Bugfix] CSS Fix im Techdetails-Overlay
+* [Bugfix] Fix für die Ressanzeige in der Übersicht
+* [Bugfix] Flottenroutinen funktionieren halbwegs, bitte immer vorsichtig sein und eure Flotten zweimal checken ob auch alles geklappt hat wie es sollte; volle Funktionalität ist noch nicht wiederhergestellt!
+* [Bugfix] Koords-Box führt nicht mehr zu einem Error (Danke an @l0rd)
+* [Bugfix] Fix für das manuelle Neuladen der Eventliste
+
+### Version 7.0.0.1
+* [Bugfix] Planetenliste CSS Fix
+* [Bugfix] Falsche Links in Spiotabelle
+* [Bugfix] Falsche Rohstofflabels
+
+### Version 7.0.0
+* [Bugfix/Polishing/Feature] Anpassung einiger Features an 7.0.0
+* [Bugfix/Polishing/Feature] Neue Schiffe mit AGR bekannt gemacht
+* [Bugfix] Rundungsfehler bei Astro
+
+### Version 6.8.8
+* [Feature] Koordinaten im "Ziel"-Tab (Panel) und in der Spiotabelle können nun nach Entfernung sortiert werden (in Zusammenarbeit mit @Horcon)
+* [Polishing] Ogniter entfernt
+* [Feature] Stattdessen native Unterstützung für mmorpg-stat hinzugefügt
+* [Feature] Variable Entfernung in der Flottensaven-Routine
+* [Polishing] Unterstützung für Explizite Nullen in Task/Routine Einstellungen
+* [Bugfix] Bug im Hintergrundprozess gefixt, der zum Verlust von Daten führte
+* [Polishing] Tooltip mit Zusammensetzung der Rohstoffe in der "Total"-Zeile der Spiotabelle (Danke an @Horcon)
+* [Bugfix] Kleiner Bug in der Sammeln-Routine
+* [Misc] Spenden-Button im AGR-Menü
+
 ### Version 6.8.5.3
 * [Polishing] Hyperspacetech-Unterstützung in TrashSim-Links
 
