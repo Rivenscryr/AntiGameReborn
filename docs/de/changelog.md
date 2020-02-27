@@ -21,6 +21,9 @@ title: Changelog
 * [Bugfix] Koords-Box führt nicht mehr zu einem Error (Danke an @l0rd)
 * [Bugfix] Fix für das manuelle Neuladen der Eventliste
 
+### Version 7.0.0.2
+* [Bugfix] Dummheit.
+
 ### Version 7.0.0.1
 * [Bugfix] Planetenliste CSS Fix
 * [Bugfix] Falsche Links in Spiotabelle
