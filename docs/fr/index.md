@@ -2,7 +2,7 @@
 redirect_from: "/"
 lang: fr
 page: 
-title: Home
+title: Accueil
 ---
 
 Bienvenue sur la page d'accueil d'**AntiGameReborn**, l'extension la plus populaire pour le jeu sur navigateur d'Ogame.
