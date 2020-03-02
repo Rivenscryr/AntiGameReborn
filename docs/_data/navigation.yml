@@ -13,3 +13,10 @@ pages:
       url: docs
     - title: Changelog
       url: changelog
+  fr:
+    - title: Accueil
+      url:
+    - title: Documentation
+      url: docs
+    - title: Changelog
+      url: changelog
