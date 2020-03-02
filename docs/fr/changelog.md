@@ -10,7 +10,7 @@ title: Changelog
 * [Bugfix/Interface] Amélioration du chargement des amis/membres de l'alliance dans le partage.
 * [Fonction] Ajout du bouton pour supprimer les rapports avec une défense supérieur à une limite
 * [Fonction] Support natif de TrashSim 
-* [Interface] Le lien TrashSim préremplit vos technos, vaisseaux et les paramètres de l'univers
+* [Interface] Le lien TrashSim pré-rempli vos technos, vaisseaux et les paramètres de l'univers
 * [Bugfix] Age négatif dans le tableau d'espionnage
 * [Fonction] Le bonus sur la capacité de transport provenant de la technologie Hyperespace devrait être pris en compte correctement
 (tester et remonter les erreurs s'il vous plait)
