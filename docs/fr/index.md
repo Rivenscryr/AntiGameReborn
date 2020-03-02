@@ -5,7 +5,7 @@ page:
 title: Accueil
 ---
 
-Bienvenue sur la page d'accueil d'**AntiGameReborn**, l'extension la plus populaire pour le jeu sur navigateur d'Ogame.
+Bienvenue sur la page d'accueil d'**AntiGameReborn**, l'extension la plus populaire pour le jeu sur navigateur d'OGame.
 
 AntiGameReborn fournit de nombreuses fonctions utiles pour tous les types de jeu:
 
