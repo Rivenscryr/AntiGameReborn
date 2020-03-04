@@ -5,6 +5,62 @@ page: changelog
 layout: changelog
 title: Changelog
 ---
+### Version 7.1.0.2
+* [Bugfix] Correctif pour la table d'espionnage.
+
+### Version 7.1.0.1
+* [Bugfix] Le bouton “Transport” dans la partie Constructions générait une erreur. Les ressources ne sont toujours pas chargées automatiquement.
+* [Bugfix] Quelques correctifs pour la liste d'évènements, des bugs existent toujours cependant (merci à @inc0 pour son aide).
+* [Bugfix] Correction pour la table d'espionnage qui envoyait seulement une sonde.
+
+### Version 7.1.0
+* [Fonction] Option pour centrer les icônes du chantier spatial et les séparer horizontalement.
+* [Interface] Les vaisseaux civils et militaires sont maintenant séparés dans la page Porte de saut.
+* [Bugfix] Correctif CSS pour l'overlay des détails concernant les technologies.
+* [Bugfix] Correctif pour la vue globale / page de production
+* [Bugfix] Les routines de flotte fonctionnent à moitié, vérifiez bien chaque action que vous faites, toutes les fonctions ne sont pas encore revenues en état nominal.
+* [Bugfix] Cliquez sur une coordonnée dans la liste de coordonnées d'un joueur ne mène plus vers une page d'erreur (merci @l0rd).
+* [Bugfix] Correctif pour recharger la liste d'évènements manuellement.
+
+### Version 7.0.0.2
+* [Bugfix] Stupidité.
+
+### Version 7.0.0.1
+* [Bugfix] Correctif CSS liste des planètes.
+* [Bugfix] Correctif concernant de mauvais liens dans la table d'espionnage.
+* [Bugfix] Correctif concernant le libellé des ressources.
+
+### Version 7.0.0
+* [Bugfix/Interface/Fonction] Adaptation de certaines fonctions à la v7.0.0.
+* [Bugfix/Interface/Fonction] Ajout des nouveaux vaisseaux.
+* [Bugfix] Problème de calcul dans les coûts de la technologie Astrophysique.
+
+### Version 6.8.8
+* [Fonction] Tri par coordonnées dans le panneau et la table d'espionnage (colaboration avec @Horcon).
+* [Interface] Retrait d'Ogniter.
+* [Fonction] Ajout natif de mmorpg-stat.
+* [Fonction] Variable distance dans la routine de sauvetage de flotte.
+* [Interface] Le 0s explicite dans les tâches/routines est maintenant supporté.
+* [Bugfix] Correction d'un bug dans un process en arrière-plan qui provoquait une perte de données.
+* [Interface] Ajout d'un tooltip dans la partie "total" dans la table d'espionnage (merci @Horcon).
+* [Bugfix] Correctif d'un bug mineur dans la routine de collecte.
+* [Divers] Ajout du bouton Donation dans le menu AGR.
+
+### Version 6.8.5.3
+* [Interface] La technologie Hyperspace est maintenant supportée dans les liens TrashSim.
+
+### Version 6.8.5.2
+* [Fonction] Les sondes peuvent maintenant être sélectionnées comme vaisseau d'attaque par défaut.
+* [Fonction] La table d'espionnage supporte maintenant le pillage par sondes.
+* [Fonction] La vitesse d'attaque par défaut peut maintenant être choisie en attaquant à la sonde (merci @Horcon pour ces trois fonctions).
+* [Bugfix] Les boutons dans la partie message effacent maintenant correctement les messages.
+* [Interface] Amélioration de la fonction d'effacement des messages.
+* [Interface] La technologie Hyperespace est maintenant considérée comme une technologie utile.
+* [Bugfix] Mauvais tri des rapports avec un âge négatif.
+* [Bugfix] Correction du nombre de transporteurs nécessaires dans la partie constructions et la vue détaillées des recherches/bâtiments.
+* [Interface] Rajout de boutons au-dessus de la table d'espionnage.
+* [Bugfix] Sonder depuis la table d'espionnage fonctionne de nouveau avec Opera.
+
 ### Version 6.8.5
 * [Fonction] La table des espionnages est maintenant étendue lors de la navigation dans les pages
 * [Bugfix/Interface] Amélioration du chargement des amis/membres de l'alliance dans le partage.
