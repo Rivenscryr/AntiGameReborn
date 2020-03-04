@@ -1,5 +1,4 @@
 ---
-redirect_from: "/docs/"
 lang: fr
 page: docs
 ---
