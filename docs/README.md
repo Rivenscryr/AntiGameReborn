@@ -17,4 +17,11 @@ For installation in Opera install the addon “[Install Chrome Extensions](https
 
 ### Contribution
 
-If you would like to contribute to the development of AGR, please get in touch with me (RiV-) on [Discord](https://discord.gg/sb72AFN).
+If you want to be part of a potential **AGR team** and you
+
+* have time to commit on a project **long term**
+* are experienced with Javascript
+* are fluent in English
+* have a **penchant for perfection**
+
+you can PM me (RiV-) via [Discord](https://discord.gg/sb72AFN) (add me first) and we'll have a talk.
