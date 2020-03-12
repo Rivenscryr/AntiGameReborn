@@ -3,5 +3,5 @@ lang: de
 page: docs
 ---
 
-## Documentation
+# Documentation
 Work in progress.
