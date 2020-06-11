@@ -5,6 +5,36 @@ page: changelog
 layout: changelog
 title: Changelog
 ---
+### Version 7.1.1
+* [Bugfix] "Build with DM" / Premium button moving down
+* [Bugfix] Fleet page switch recognition (and thus Bugs resulting from this)
+* [Bugfix] Ion cannon costs
+* [Feature] Added all class bonuses that are available in OGame API
+* [Bugfix] Shifted event list if ongoing ACS attack
+* [Bugfix] Settings aren't saved if account has no techs / buildings
+* [Bugfix] Max. buildable units not shown for defenses
+* [Bugfix] Parsed events were erased on AGR refresh
+* [Misc] Getting AGR code ready for closure compiler
+* [Feature] Crawlers have certain building help features
+* [Feature] Missing crawlers until max. buildable amount is shown in Empire view
+* [Bugfix] Routines now take new ships into account
+* [Bugfix] Tasks now correctly save new ships
+* [Bugfix] x10 button is working again
+* [Bugfix] Visibility of warning triangle in planet list in case of attack
+* [Bugfix] Finish times are shown again, some CSS fixes regarding constructions
+* [AGR doing GF's job] Another fix for gameforge's crappy frontend: fixed banner moving up and down
+* [AGR doing GF's job] Because it's so much fun: fix GF's crappy footer placement
+* [Feature] Shipyard queue on overview can be collapsed in 3 states
+* [Feature/Gameforge-Fix] Removed the awesome commander feature that doesn't let you type in more units than you can build
+* [AGR doing GF's job] Fix tooltip delays (for now hardcoded 250ms delay for show and hide)
+* [Bugfix] AGR menu not opening when on Alliance page
+* [Polishing] Tooltips in planet list aren't considered as "not important" anymore
+* [Feature] Option to disable tooltips in planet list
+* [Feature] Option to show planet tooltips in galaxy view to the left of the planet instead of to the right
+* [Feature] Added Pathfinders as attack vessels and to spy table's detailed view
+* [Bugfix] Galaxy view CSS
+* [Polishing] Add thousands separator to numbers in input fields
+
 ### Version 7.1.0.2
 * [Bugfix] Fix for broken spy table
 
