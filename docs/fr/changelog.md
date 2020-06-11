@@ -4,6 +4,36 @@ page: changelog
 layout: changelog
 title: Changelog
 ---
+### Version 7.1.1
+* [Bugfix] "Construire avec AM" / Bouton premium qui descend
+* [Bugfix] Reconnaissance de changement de page de flotte (et des bugs qui vont avec)
+* [Bugfix] Coût du canon à ions
+* [Fonction] Ajout de tous les bonus de classe disponibles dans l'API OGame
+* [Bugfix] Problème d'affichage dans la liste des évènements lors d'une AG/DG
+* [Bugfix] Les paramètres ne sont pas enregistrés si le compte n'a aucune techno / aucun bâtiment
+* [Bugfix] Le nombre maximum constructible d'unités n'est pas affiché pour les défenses
+* [Bugfix] Les évènements sont effacés lors du refresh d'AGR
+* [Divers] Refonte du code d'AGR pour le closure compiler
+* [Fonction] Crawlers have certain building help Fonctions
+* [Fonction] Nombre manquant de foreuses sur chaque colo est maintenant affiché dans la vue Empire
+* [Bugfix] Les routines prennent maintenant en compte les nouveaux vaisseaux
+* [Bugfix] Les tâches prennent maintenant en compte les nouveaux vaisseaux
+* [Bugfix] Le bouton x10 est de nouveau opérationel
+* [Bugfix] Visibilité du triangle dans la liste des planètes en cas d'attaque
+* [Bugfix] Les temps de fin sont à nouveau affichés, quelques corrections CSS concernant les constructions
+* [AGR qui fait le boulot de la GF] Parce qu'on s'éclate et que c'est si marrant : correction du placement du footer
+* [AGR qui fait le boulot de la GF] Un autre fix pour l'interface moisie : fix de la bannière de pub qui se balade
+* [Fonction] La file d'attente du CS sur l'aperçu peut être affichée de 3 manières différentes
+* [Fonction/AGR qui fait le boulot de la GF] Retrait de la fonction liée au compte Commandant qui ne vous permet pas de taper plus d'unités que vous ne pouvez en construire
+* [AGR qui fait le boulot de la GF] Fix du délai pour les info-bulles. Timing défini à 250ms pour l'affichage et le désaffichage
+* [Bugfix] Le menu AGR ne s'ouvre pas lorsque l'on est sur la page Alliance
+* [Interface] Les info-bulles liés à la liste des planètes ne sont plus considérés comment "pas important"
+* [Fonction] Option pour désactiver les info-bulles sur la liste des planètes
+* [Fonction] Option pour afficher les info-bulles de la planète en vue galaxie à gauche de la planète plutôt qu'à droite
+* [Fonction] Ajout des éclaireurs comme vaisseau d'attaque
+* [Bugfix] Fix du CSS pour la vue galaxie
+* [Interface] Ajout d'un séparateur pour les milliers dans les champs de saisie
+
 ### Version 7.1.0.2
 * [Bugfix] Correctif pour la table d'espionnage.
 
