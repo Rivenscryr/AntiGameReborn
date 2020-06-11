@@ -4,6 +4,36 @@ page: changelog
 layout: changelog
 title: Changelog
 ---
+### Version 7.1.1
+* [Bugfix] "Mit DM bauen"- / Premium-Button rutschte runter
+* [Bugfix] Der Seitenwechsel beim Flottenversand wird nun korrekt erkannt
+* [Bugfix] Kosten des Ionengeschütz angepasst
+* [Feature] Alle Klassenboni implementiert, die in der OGame API verfügbar sind
+* [Bugfix] Eventliste ist nicht mehr verrückt wenn ein AKS Angriff im Gange ist
+* [Bugfix] Einstellungen werden nun auch bei neuen Accounts korrekt gespeichert
+* [Bugfix] Max. baubare Einheiten werden jetzt auch bei Def-Einheiten angezeigt
+* [Bugfix] Interner AGR-Refresh hat die ausgelesenen Events resettet
+* [Misc] Code von AGR wurde angepasst, um ihn kompatibel zu Googles Closure Compiler zu machen
+* [Feature] Crawler haben jetzt Komfortfunktionen beim Bauen
+* [Feature] Noch baubare Crawler bis zum erreichen des Caps werden jetzt in der Imperiumsansicht angezeigt
+* [Bugfix] Routinen nehmen jetzt auch MCO-Schiffe mit
+* [Bugfix] Task-Einstellungen im AGR Menü speichern nun auch MCO-Schiffe
+* [Bugfix] x10 Button funktioniert wieder
+* [Bugfix] Angriffs-Dreieck in der Planetenliste wird nicht mehr durch Monde verdeckt
+* [Bugfix] Fertigstellungszeit wird bei Bauten wieder angezeigt
+* [AGR macht die Arbeit der GF] Noch ein Fix für Gameforges Müll-Frontend: Werbebanner hüpft nicht mehr hoch und runter
+* [AGR macht die Arbeit der GF] Und weil's so schön war: Den Abstand vom Spielinhalt zum Footer erhöht
+* [Feature] Die Bauschleife der Schiffswerft in der Übersicht kann in 3 Stufen eingeklappt werden
+* [Feature/Gameforge-Fix] Das tolle Commander-Feature entfernt, weswegen man nicht mehr Einheiten eingeben konnte als man bauen kann
+* [AGR macht die Arbeit der GF] Verzögerungen der Tooltips gefixt (fürs Erste hardcoded 250ms Verzögerung)
+* [Bugfix] AGR Menü öffnet sich jetzt auch wenn man sich auf der Allianz-Seite befindet
+* [Polishing] Tooltips in der Planetenliste gelten jetzt nicht mehr als "unwichtig"
+* [Feature] Option hinzugefügt zum Verstecken der Tooltips in der Planetenliste
+* [Feature] Option hinzugefügt, um die Tooltips von Planeten (nicht Monde) in der Galaxieansicht nach links zu öffnen statt nach rechts
+* [Feature] Pathfinder als Beute-Schiff für Angriffe hinzugefügt
+* [Bugfix] Galaxie-Ansicht CSS
+* [Polishing] Tausendertrennzeichen bei der Eingabe von Zahlen
+
 ### Version 7.1.0.2
 * [Bugfix] Fix fürs Erweitern der Spiotabelle beim Blättern
 
