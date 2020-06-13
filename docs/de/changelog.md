@@ -4,6 +4,9 @@ page: changelog
 layout: changelog
 title: Changelog
 ---
+### Version 7.1.2
+* [Bugfix] Tausendertrennzeichen in Eingabefeldern wieder entfernt, da es Probleme verursachte
+
 ### Version 7.1.1
 * [Bugfix] "Mit DM bauen"- / Premium-Button rutschte runter
 * [Bugfix] Der Seitenwechsel beim Flottenversand wird nun korrekt erkannt
