@@ -5,6 +5,9 @@ page: changelog
 layout: changelog
 title: Changelog
 ---
+### Version 7.1.2
+* [Bugfix] Removed thousands separator from input fields as it was causing bugs
+
 ### Version 7.1.1
 * [Bugfix] "Build with DM" / Premium button moving down
 * [Bugfix] Fleet page switch recognition (and thus Bugs resulting from this)
