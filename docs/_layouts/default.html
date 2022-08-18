@@ -37,11 +37,13 @@
   <body>
       <div id="header">
         <nav>
-          {% if site.show_downloads %}
-            <li class="downloads"><a href="https://chrome.google.com/webstore/detail/antigamereborn/mhfbpacbhjchkjeopjfgdhckepclcfll">Chrome</a></li>
-            <li class="downloads"><a href="https://addons.mozilla.org/firefox/addon/antigamereborn/">Firefox</a></li>
-            <li class="title">DOWNLOADS</li>
-          {% endif %}
+          <ul>
+            {% if site.show_downloads %}
+              <li class="downloads"><a href="https://chrome.google.com/webstore/detail/antigamereborn/mhfbpacbhjchkjeopjfgdhckepclcfll">Chrome</a></li>
+              <li class="downloads"><a href="https://addons.mozilla.org/firefox/addon/antigamereborn/">Firefox</a></li>
+              <li class="title">DOWNLOADS</li>
+            {% endif %}
+          </ul>
         </nav>
         <div class="lang">
           <a href="/de/{{ page.page }}">DE</a>
