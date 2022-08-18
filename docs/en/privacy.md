@@ -20,7 +20,7 @@ for the development, testing, and implementation of features for AGRbot.
 
 At any time, you have the right to request to view the Data pertaining to your Discord account.
 You may submit a request through the [AntiGameReborn Discord Server](https://discord.gg/sb72AFN)
-or by DM'ing `RiV-#8165`. You have the right to request the removal of relevant Data.
+or by DM'ing RiV-#8165. You have the right to request the removal of relevant Data.
 
 If you have any questions or are concerned about what data might be being stored from your account
-contact `RiV-#8165`.
+contact RiV-#8165.
