@@ -6,10 +6,12 @@
 #header nav ul li a {
   border: 1px solid rgb(5,41,78);
   background-color: rgb(6,49,91);
+  background: linear-gradient(#114374, #06315b);
 }
 
 #header nav ul li a:hover {
   background-color: rgb(7,63,118);
+  background: linear-gradient(#0d355e, #05294e);
   border: 1px solid rgb(5,41,78);
 }
 
