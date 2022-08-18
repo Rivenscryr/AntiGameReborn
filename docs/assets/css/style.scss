@@ -3,12 +3,12 @@
 
 @import "{{ site.theme }}";
 
-#header nav li a {
+#header nav ul li a {
   border: 1px solid rgb(5,41,78);
   background-color: rgb(6,49,91);
 }
 
-#header nav li a:hover {
+#header nav ul li a:hover {
   background-color: rgb(7,63,118);
   border: 1px solid rgb(5,41,78);
 }
